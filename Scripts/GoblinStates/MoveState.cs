@@ -23,7 +23,7 @@ namespace GoblinStates {
 				player.AnimPlayer.Play("Walk");
             }
 
-            if (Input.IsActionJustPressed("jump")) {
+            if (Input.IsActionJustPressed("jump") && velocity.y == 0) {
                 velocity.y = -10 * player.JumpSpeed;
             }
 
