@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Prefabs/Goblin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/GroundBlock.tscn" type="PackedScene" id=2]
+
+[node name="Main" type="Node2D"]
+
+[node name="Goblin" parent="." instance=ExtResource( 1 )]
+position = Vector2( 460, 190 )
+speed = 400.0
+jumpSpeed = 90.0
+gravity = 30.0
+
+[node name="GroundBlock" parent="." instance=ExtResource( 2 )]
+position = Vector2( 515, 610 )
+
+[node name="GroundBlock2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 868, 384 )
+scale = Vector2( 0.3, 1.5 )
