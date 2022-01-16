@@ -1,37 +1,39 @@
 using Godot;
 
-namespace GoblinStates {
-    public class MoveState : GoblinState 
+namespace GoblinStates
+{
+    public class JumpState : GoblinState
     {
-        public MoveState(Goblin player) {
+        public JumpState(Goblin player) 
+        {
             this.player = player;
+            player.Velocity.y = -10 * player.JumpSpeed;
         }
 
         public override void _Process(float delta)
         {
-            player.Velocity.x = 0;
+            if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right")) {
+                player.Velocity.x = 0;
+            }
+
             if (Input.IsActionPressed("move_left")) {
                 player.Velocity.x = -1 * player.Speed;
                 player.TurnLeft();
-                player.AnimPlayer.Play("Walk");
-            } 
+            }
+
             if (Input.IsActionPressed("move_right")) {
                 player.Velocity.x = player.Speed;
                 player.TurnRight();
-                player.AnimPlayer.Play("Walk");
             }
 
-            if (Input.IsActionJustPressed("jump")) {
-                ExitState(new JumpState(player));
-            }
-
-            if (player.Velocity.Length() == 0) 
-                player.AnimPlayer.Play("Idle");
+            // Play jump animation
         }
 
         public override void _PhysicsProcess(float delta)
         {
-            
+            if (player.IsOnGround()) {
+                ExitState(new MoveState(player));
+            }
         }
 
         public override void ExitState(GoblinState newState)

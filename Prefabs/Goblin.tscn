@@ -41,10 +41,9 @@ extents = Vector2( 12.75, 29 )
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 453, 336 )
 scale = Vector2( 2, 2 )
+collision_layer = 2
+collision_mask = 12
 script = ExtResource( 2 )
-speed = 300.0
-jumpSpeed = 60.0
-gravity = 20.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -57,3 +56,18 @@ anims/Walk = SubResource( 1 )
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
 position = Vector2( -2.5, -1.5 )
 shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="GroundDetectRight" type="RayCast2D" parent="."]
+position = Vector2( 9, -9 )
+enabled = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 8
+
+[node name="GroundDetectLeft" type="RayCast2D" parent="."]
+position = Vector2( -14, -8.5 )
+enabled = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 8

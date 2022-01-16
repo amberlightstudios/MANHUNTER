@@ -6,10 +6,10 @@
 [node name="Main" type="Node2D"]
 
 [node name="Goblin" parent="." instance=ExtResource( 1 )]
-position = Vector2( 460, 190 )
-speed = 400.0
-jumpSpeed = 90.0
-gravity = 30.0
+position = Vector2( 459, 458 )
+Speed = 400.0
+JumpSpeed = 80.0
+Gravity = 20.0
 
 [node name="GroundBlock" parent="." instance=ExtResource( 2 )]
 position = Vector2( 515, 610 )

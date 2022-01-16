@@ -6,6 +6,8 @@
 extents = Vector2( 557.5, 91.5 )
 
 [node name="GroundBlock" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 14
 mode = 1
 gravity_scale = -128.0
 

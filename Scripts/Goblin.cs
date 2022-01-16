@@ -7,16 +7,15 @@ public class Goblin : KinematicBody2D
 	public GoblinState State;
 
 	[Export]
-	private float speed;
-	public float Speed { get => speed; }
+	public float Speed { get; private set; }
+
+	public Vector2 Velocity;
 
 	[Export]
-	private float jumpSpeed;
-	public float JumpSpeed { get => jumpSpeed; }
+	public float JumpSpeed { get; private set; }
 
 	[Export]
-	private float gravity = 1;
-	public float Gravity { get => gravity; }
+	public float Gravity { get; private set; }
 
 	private AnimationPlayer animPlayer;
 	public AnimationPlayer AnimPlayer { get => animPlayer; }
@@ -25,11 +24,16 @@ public class Goblin : KinematicBody2D
 	private CollisionShape2D walkCollisionBox;
 	public CollisionShape2D WalkCollisionBox { get => walkCollisionBox; }
 
+	private RayCast2D groundDetectLeft;
+	private RayCast2D groundDetectRight;
+
 	public override void _Ready()
 	{
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
 		sprite = GetNode<Sprite>("Sprite");
+		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
+		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 
 		State = new MoveState(this);
 	}
@@ -44,7 +48,25 @@ public class Goblin : KinematicBody2D
 		State._PhysicsProcess(delta);
 
 		// Gravity
-		State.Velocity += new Vector2(0, gravity);
-		State.Velocity = MoveAndSlide(State.Velocity);
+		Velocity.y += Gravity;
+		Velocity = MoveAndSlide(Velocity);
+	}
+
+	public void TurnLeft() 
+	{
+		sprite.Position = Vector2.Zero;
+		sprite.Scale = Vector2.One;
+	}
+
+	public void TurnRight() 
+	{
+		sprite.Position = new Vector2(-7, 0);
+		sprite.Scale = new Vector2(-1, 1);
+	}
+
+	public bool IsOnGround() 
+	{
+		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
+				&& Velocity.y >= 0;
 	}
 }
