@@ -36,7 +36,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12.75, 29 )
+extents = Vector2( 12.75, 30 )
 
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 453, 336 )
@@ -54,7 +54,7 @@ anims/Idle = SubResource( 3 )
 anims/Walk = SubResource( 1 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-position = Vector2( -2.5, -1.5 )
+position = Vector2( -2.5, -0.5 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
