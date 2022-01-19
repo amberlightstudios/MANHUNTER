@@ -39,11 +39,14 @@ tracks/0/keys = {
 extents = Vector2( 12.75, 30 )
 
 [node name="Goblin" type="KinematicBody2D"]
-position = Vector2( 453, 336 )
+position = Vector2( 459, 458 )
 scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 12
 script = ExtResource( 2 )
+Speed = 400.0
+JumpSpeed = 60.0
+Gravity = 20.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -58,7 +61,6 @@ position = Vector2( -2.5, -0.5 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
 position = Vector2( 9, -9 )
@@ -71,13 +73,3 @@ position = Vector2( -14, -8.5 )
 enabled = true
 cast_to = Vector2( 0, 40 )
 collision_mask = 8
-
-[node name="Label" type="Label" parent="."]
-margin_left = -21.0
-margin_top = -46.5
-margin_right = 23.0
-margin_bottom = -32.5
-text = "Charlie"
-__meta__ = {
-"_edit_use_anchors_": false
-}

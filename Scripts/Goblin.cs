@@ -41,42 +41,47 @@ public class Goblin : KinematicBody2D
 		sprite = GetNode<Sprite>("Sprite");
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
+		PuppetPosition = Position;
 		State = new MoveState(this);
 		
+	}
+	
+	[Remote]
+	public void _UpdateState(Vector2 pos, Vector2 vel) {
+		GD.Print($"UPdating Client To Be ${pos}, ${vel}");
+		PuppetPosition = pos;
+		PuppetVelocity = vel;
 	}
 
 	public override void _Process(float delta)
 	{
-		var isMultiPlayer = GetTree().IsNetworkServer();
-		if (isMultiPlayer) {
-			if (IsNetworkMaster()) {
-				GD.Print("Master");
-				State._Process(delta);
-				Rset(nameof(PuppetPosition), Position);
-				Rset(nameof(PuppetVelocity), Velocity);
-			}	else {
-				GD.Print("Client");
-				Position = PuppetPosition;
-				Velocity = PuppetVelocity;
-			}
-		} else {
-			State._Process(delta);	
-		}
-		
 
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		State._PhysicsProcess(delta);
-
-		// Gravity
+		var isMultiPlayer = GetTree().IsNetworkServer();
+		if (isMultiPlayer) {
+			if (IsNetworkMaster()) {
+			State._PhysicsProcess(delta);
+			Rset(nameof(PuppetPosition), Position);			
+			Rset(nameof(PuppetVelocity), Velocity);
+			// Rpc("_UpdateState", PuppetPosition, PuppetVelocity);
+			}	
+			else {
+				Position = PuppetPosition;
+				Velocity = PuppetVelocity;
+			}
+			
+		} else {
+			State._PhysicsProcess(delta);
+		}
+		
 		Velocity.y += Gravity;
 		Velocity = MoveAndSlide(Velocity);
-		
-		if (!IsNetworkMaster()) {
+
+		if (isMultiPlayer && !IsNetworkMaster())
 			PuppetPosition = Position;
-		}
 	}
 
 	public void TurnLeft() 
@@ -99,11 +104,11 @@ public class Goblin : KinematicBody2D
 	
 	public void SetPlayerName(string name)
 	{
-		NameLabel = (Label)GetNode("Label");
+		//NameLabel = (Label)GetNode("Label");
 
 		PuppetPosition = Position;
 		PuppetVelocity = Velocity;
 
-		NameLabel.Text = name;
+		//NameLabel.Text = name;
 	}
 }

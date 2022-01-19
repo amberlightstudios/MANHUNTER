@@ -9,6 +9,11 @@ namespace GoblinStates {
 
 		public override void _Process(float delta)
 		{
+
+		}
+
+		public override void _PhysicsProcess(float delta)
+		{
 			player.Velocity.x = 0;
 			if (Input.IsActionPressed("move_left")) {
 				player.Velocity.x = -1 * player.Speed;
@@ -27,11 +32,6 @@ namespace GoblinStates {
 
 			if (player.Velocity.Length() == 0) 
 				player.AnimPlayer.Play("Idle");
-		}
-
-		public override void _PhysicsProcess(float delta)
-		{
-
 		}
 
 		public override void ExitState(GoblinState newState)
