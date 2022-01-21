@@ -60,7 +60,7 @@ public class Goblin : KinematicBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		var isMultiPlayer = GetTree().IsNetworkServer();
+		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
 			State._PhysicsProcess(delta);
