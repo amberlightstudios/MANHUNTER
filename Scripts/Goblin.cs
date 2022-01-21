@@ -44,7 +44,6 @@ public class Goblin : KinematicBody2D
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 		PuppetPosition = Position;
 		State = new MoveState(this);
-		
 	}
 	
 	[Remote]

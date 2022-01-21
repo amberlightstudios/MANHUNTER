@@ -25,6 +25,7 @@ public class Main : Node2D
 		GetTree().Connect("server_disconnected", this, nameof(ServerDisconnected));
 
 		HostButton = (Button)GetNode("Network/VBoxContainer/HostButton");
+		GD.Print(HostButton);
 		HostButton.Connect("pressed", this, nameof(HostGame));
 
 		JoinButton = (Button)GetNode("Network/VBoxContainer/JoinButton");
@@ -49,7 +50,7 @@ public class Main : Node2D
 		GD.Print("You are now hosting.");
 
 		SetInGame();
-		// StartGame();
+		StartGame();
 	}
 
 	public void JoinGame()
@@ -89,7 +90,7 @@ public class Main : Node2D
 	{
 		PlayerName = NameText.Text;
 
-		GD.Print($"tell other player my name is {PlayerName}");
+		GD.Print($"tell other player my name is {PlayerName} and my id is {id}");
 		// tell the player that just connected who we are by sending an rpc back to them with your name.
 		RpcId(id, nameof(RegisterPlayer), PlayerName);
 	}
@@ -107,7 +108,7 @@ public class Main : Node2D
 		GD.Print("Successfully connected to the server");
 
 		SetInGame();
-		// StartGame();
+		StartGame();
 	}
 
 	private void ConnectionFailed()
@@ -131,8 +132,9 @@ public class Main : Node2D
 	private void RegisterPlayer(string playerName)
 	{
 		var id = GetTree().GetRpcSenderId();
-		var ownId = GetTree().GetNetworkUniqueId();
+
 		Players.Add(id, playerName);
+
 		GD.Print($"{playerName} added with ID {id}");
 
 		// a player has been added spawn in the right location
@@ -148,15 +150,18 @@ public class Main : Node2D
 
 	private void SpawnPlayer(int id, string playerName)
 	{
-		GD.Print($"Own ID is: ${GetTree().GetNetworkUniqueId()}");
 		// load the players
-		GD.Print($"SPAWNING PLAYER WITH ID {id}");
 		var playerScene = (PackedScene)ResourceLoader.Load("res://Prefabs/Goblin.tscn");
+
 		var playerNode = (Goblin)playerScene.Instance();
+		playerNode.Name = id.ToString();
 		playerNode.SetNetworkMaster(id);
-		playerNode.SetPlayerId(id.ToString());
-		// AddChild(playerNode);
-		GetNode("/root/Main").AddChild(playerNode);
+
+		// playerNode.Position = new Vector2(500, 250);
+
+		// playerNode.SetPlayerName(GetTree().GetNetworkUniqueId() == id ? PlayerName : playerName);
+
+		AddChild(playerNode);
 	}
 
 	[Remote]
