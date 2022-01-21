@@ -19,5 +19,10 @@ public class GameManager : Node2D
 		if (player.Position.y > screenSize.y + 50) {
 			GetTree().ReloadCurrentScene();
 		}
+
+		if (Input.IsActionPressed("toggle_fullscreen")) {
+			OS.WindowMaximized = true;
+			OS.WindowFullscreen = !OS.WindowFullscreen;
+		}
 	}
 }
