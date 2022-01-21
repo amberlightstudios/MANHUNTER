@@ -148,15 +148,13 @@ public class Main : Node2D
 
 	private void SpawnPlayer(int id, string playerName)
 	{
+		GD.Print($"Own ID is: ${GetTree().GetNetworkUniqueId()}");
 		// load the players
 		GD.Print($"SPAWNING PLAYER WITH ID {id}");
 		var playerScene = (PackedScene)ResourceLoader.Load("res://Prefabs/Goblin.tscn");
-
 		var playerNode = (Goblin)playerScene.Instance();
-		playerNode.Name = id.ToString();
 		playerNode.SetNetworkMaster(id);
-
-		playerNode.SetPlayerName(GetTree().GetNetworkUniqueId() == id ? PlayerName : playerName);
+		playerNode.SetPlayerId(id.ToString());
 		// AddChild(playerNode);
 		GetNode("/root/Main").AddChild(playerNode);
 	}

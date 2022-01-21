@@ -5,6 +5,7 @@ using GoblinStates;
 public class Goblin : KinematicBody2D
 {
 	public GoblinState State;
+	public string Id;
 
 	[Export]
 	public float Speed { get; private set; }
@@ -63,16 +64,15 @@ public class Goblin : KinematicBody2D
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-			State._PhysicsProcess(delta);
-			Rset(nameof(PuppetPosition), Position);			
-			Rset(nameof(PuppetVelocity), Velocity);
-			// Rpc("_UpdateState", PuppetPosition, PuppetVelocity);
+				State._PhysicsProcess(delta);
+				Rset(nameof(PuppetPosition), Position);			
+				Rset(nameof(PuppetVelocity), Velocity);
+				// Rpc("_UpdateState", PuppetPosition, PuppetVelocity);
 			}	
 			else {
 				Position = PuppetPosition;
 				Velocity = PuppetVelocity;
 			}
-			
 		} else {
 			State._PhysicsProcess(delta);
 		}
@@ -102,13 +102,9 @@ public class Goblin : KinematicBody2D
 				&& Velocity.y >= 0;
 	}
 	
-	public void SetPlayerName(string name)
+	public void SetPlayerId(string id)
 	{
-		//NameLabel = (Label)GetNode("Label");
-
+		Id = id;
 		PuppetPosition = Position;
-		PuppetVelocity = Velocity;
-
-		//NameLabel.Text = name;
-	}
+		PuppetVelocity = Velocity;	}
 }
