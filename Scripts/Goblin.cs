@@ -5,25 +5,32 @@ using GoblinStates;
 public class Goblin : KinematicBody2D
 {
 	public GoblinState State;
-	public string Id;
+
+	[Export]
+	public int Health { get; private set; }
 
 	[Export]
 	public float Speed { get; private set; }
 
 	public Vector2 Velocity;
+	
+	[Puppet]
+	public Vector2 PuppetPosition { get; set; }
+	[Puppet]
+	public Vector2 PuppetVelocity { get; set; }
 
 	[Export]
 	public float JumpSpeed { get; private set; }
 
 	[Export]
 	public float Gravity { get; private set; }
-	
-	private Label NameLabel { get; set; }
 
-	[Puppet]
-	public Vector2 PuppetPosition { get; set; }
-	[Puppet]
-	public Vector2 PuppetVelocity { get; set; }
+	[Export]
+	private float throwAngle = 0f;
+
+	// faceDirection == -1 -> Player is facing left.. 
+	// faceDirection == 1 -> Player is facing right. 
+	private int faceDirection = -1;
 
 	private AnimationPlayer animPlayer;
 	public AnimationPlayer AnimPlayer { get => animPlayer; }
@@ -34,7 +41,8 @@ public class Goblin : KinematicBody2D
 
 	private RayCast2D groundDetectLeft;
 	private RayCast2D groundDetectRight;
-	
+	private Vector2 defaultSpriteScale;
+
 	public override void _Ready()
 	{
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -42,28 +50,17 @@ public class Goblin : KinematicBody2D
 		sprite = GetNode<Sprite>("Sprite");
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
-		PuppetPosition = Position;
+		defaultSpriteScale = sprite.Scale;
+
 		State = new MoveState(this);
-	}
-	
-	[Remote]
-	public void _UpdateState(Vector2 pos, Vector2 vel) {
-		GD.Print($"UPdating Client To Be ${pos}, ${vel}");
-		PuppetPosition = pos;
-		PuppetVelocity = vel;
 	}
 
 	public override void _Process(float delta)
 	{
-
-	}
-
-	public override void _PhysicsProcess(float delta)
-	{
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				State._PhysicsProcess(delta);
+				State._Process(delta);
 				Rset(nameof(PuppetPosition), Position);			
 				Rset(nameof(PuppetVelocity), Velocity);
 				// Rpc("_UpdateState", PuppetPosition, PuppetVelocity);
@@ -73,11 +70,39 @@ public class Goblin : KinematicBody2D
 				Velocity = PuppetVelocity;
 			}
 		} else {
-			State._PhysicsProcess(delta);
+			State._Process(delta);
 		}
 		
+
+		if (isMultiPlayer && !IsNetworkMaster())
+			PuppetPosition = Position;
+	}
+
+	public override void _PhysicsProcess(float delta)
+	{
+		var isMultiPlayer = GetTree().NetworkPeer != null;
+		if (isMultiPlayer) {
+			if (IsNetworkMaster()) {
+				State._PhysicsProcess(delta);
+				// Gravity
+				Velocity.y += Gravity;
+				Velocity = MoveAndSlide(Velocity);
+				Rset(nameof(PuppetPosition), Position);			
+				Rset(nameof(PuppetVelocity), Velocity);
+				// Rpc("_UpdateState", PuppetPosition, PuppetVelocity);
+			}	
+			else {
+				Position = PuppetPosition;
+				Velocity = PuppetVelocity;
+			}
+		} else {
+		State._PhysicsProcess(delta);
+
+		// Gravity
 		Velocity.y += Gravity;
 		Velocity = MoveAndSlide(Velocity);
+		}
+		
 
 		if (isMultiPlayer && !IsNetworkMaster())
 			PuppetPosition = Position;
@@ -86,13 +111,15 @@ public class Goblin : KinematicBody2D
 	public void TurnLeft() 
 	{
 		sprite.Position = Vector2.Zero;
-		sprite.Scale = Vector2.One;
+		sprite.Scale = defaultSpriteScale;
+		faceDirection = -1;
 	}
 
 	public void TurnRight() 
 	{
-		sprite.Position = new Vector2(-7, 0);
-		sprite.Scale = new Vector2(-1, 1);
+		sprite.Position = new Vector2(-6, 0);
+		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
+		faceDirection = 1;
 	}
 
 	public bool IsOnGround() 
@@ -100,10 +127,4 @@ public class Goblin : KinematicBody2D
 		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
 				&& Velocity.y >= 0;
 	}
-	
-	public void SetPlayerId(string id)
-	{
-		Id = id;
-		PuppetPosition = Position;
-		PuppetVelocity = Velocity;	}
 }

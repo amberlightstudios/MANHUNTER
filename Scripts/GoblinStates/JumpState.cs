@@ -12,18 +12,6 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
-
-			
-
-			// Play jump animation
-		}
-
-		public override void _PhysicsProcess(float delta)
-		{
-			if (player.IsOnGround()) {
-				ExitState(new MoveState(player));
-			}
-			
 			if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right")) {
 				player.Velocity.x = 0;
 			}
@@ -36,6 +24,16 @@ namespace GoblinStates
 			if (Input.IsActionPressed("move_right")) {
 				player.Velocity.x = player.Speed;
 				player.TurnRight();
+			}
+
+			// Play jump animation
+			player.AnimPlayer.Play("jump");
+		}
+
+		public override void _PhysicsProcess(float delta)
+		{
+			if (player.IsOnGround()) {
+				ExitState(new MoveState(player));
 			}
 		}
 
