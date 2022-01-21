@@ -27,6 +27,7 @@ namespace GoblinStates
             }
 
             // Play jump animation
+            player.AnimPlayer.Play("jump");
         }
 
         public override void _PhysicsProcess(float delta)

@@ -143,7 +143,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12.75, 30 )
+extents = Vector2( 11, 20.75 )
 
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 453, 336 )
@@ -153,6 +153,7 @@ collision_mask = 12
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.18, 0.18 )
 texture = ExtResource( 1 )
 hframes = 50
 frame = 4
@@ -168,17 +169,17 @@ anims/jump = SubResource( 8 )
 anims/punch = SubResource( 9 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-position = Vector2( -2.5, -0.5 )
+position = Vector2( -2.5, 1.75 )
 shape = SubResource( 2 )
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
 position = Vector2( 9, -9 )
 enabled = true
-cast_to = Vector2( 0, 40 )
+cast_to = Vector2( 0, 35 )
 collision_mask = 8
 
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
 position = Vector2( -14, -8.5 )
 enabled = true
-cast_to = Vector2( 0, 40 )
+cast_to = Vector2( 0, 35 )
 collision_mask = 8

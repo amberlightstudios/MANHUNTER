@@ -36,6 +36,7 @@ public class Goblin : KinematicBody2D
 
 	private RayCast2D groundDetectLeft;
 	private RayCast2D groundDetectRight;
+	private Vector2 defaultSpriteScale;
 
 	public override void _Ready()
 	{
@@ -44,6 +45,7 @@ public class Goblin : KinematicBody2D
 		sprite = GetNode<Sprite>("Sprite");
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
+		defaultSpriteScale = sprite.Scale;
 
 		State = new MoveState(this);
 	}
@@ -65,14 +67,14 @@ public class Goblin : KinematicBody2D
 	public void TurnLeft() 
 	{
 		sprite.Position = Vector2.Zero;
-		sprite.Scale = Vector2.One;
+		sprite.Scale = defaultSpriteScale;
 		faceDirection = -1;
 	}
 
 	public void TurnRight() 
 	{
-		sprite.Position = new Vector2(-7, 0);
-		sprite.Scale = new Vector2(-1, 1);
+		sprite.Position = new Vector2(-6, 0);
+		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
 		faceDirection = 1;
 	}
 
