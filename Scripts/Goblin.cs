@@ -7,6 +7,9 @@ public class Goblin : KinematicBody2D
 	public GoblinState State;
 
 	[Export]
+	public int Health { get; private set; }
+
+	[Export]
 	public float Speed { get; private set; }
 
 	public Vector2 Velocity;
@@ -16,6 +19,13 @@ public class Goblin : KinematicBody2D
 
 	[Export]
 	public float Gravity { get; private set; }
+
+	[Export]
+	private float throwAngle = 0f;
+
+	// faceDirection == -1 -> Player is facing left.. 
+	// faceDirection == 1 -> Player is facing right. 
+	private int faceDirection = -1;
 
 	private AnimationPlayer animPlayer;
 	public AnimationPlayer AnimPlayer { get => animPlayer; }
@@ -56,12 +66,14 @@ public class Goblin : KinematicBody2D
 	{
 		sprite.Position = Vector2.Zero;
 		sprite.Scale = Vector2.One;
+		faceDirection = -1;
 	}
 
 	public void TurnRight() 
 	{
 		sprite.Position = new Vector2(-7, 0);
 		sprite.Scale = new Vector2(-1, 1);
+		faceDirection = 1;
 	}
 
 	public bool IsOnGround() 
