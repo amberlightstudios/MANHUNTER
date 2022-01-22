@@ -4,8 +4,6 @@ namespace GoblinStates
 {
     public class JumpState : GoblinState
     {
-        public bool IsHoldingEnemy = false;
-
         public JumpState(Goblin player) 
         {
             this.player = player;
@@ -29,7 +27,9 @@ namespace GoblinStates
             }
 
             if (Input.IsActionJustPressed("Grab") && IsHoldingEnemy) {
-                
+                player.ThrowEnemy(HeldEnemy);
+				IsHoldingEnemy = false;
+                HeldEnemy = null;
             }
 
             // Play jump animation
@@ -39,8 +39,17 @@ namespace GoblinStates
         public override void _PhysicsProcess(float delta)
         {
             if (player.IsOnGround()) {
-                ExitState(new MoveState(player));
+                MoveState newState = new MoveState(player);
+                newState.IsHoldingEnemy = IsHoldingEnemy;
+                newState.HeldEnemy = HeldEnemy;
+                ExitState(newState);
+                return;
             }
+
+            if (IsHoldingEnemy) {
+				HeldEnemy.UpdatePosition(player.ThrowPoint, 
+										player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
+			}
         }
 
         public override void ExitState(GoblinState newState)

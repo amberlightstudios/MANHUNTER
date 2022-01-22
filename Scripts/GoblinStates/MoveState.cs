@@ -3,17 +3,8 @@ using Godot;
 namespace GoblinStates {
 	public class MoveState : GoblinState 
 	{
-		public bool IsHoldingEnemy = false;
-		private Enemy heldEnemy;
-
 		public MoveState(Goblin player) {
 			this.player = player;
-		}
-
-		public MoveState(Goblin player, Enemy enemy) {
-			this.player = player;
-			IsHoldingEnemy = true;
-			heldEnemy = enemy;
 		}
 
 		public override void _Process(float delta)
@@ -33,6 +24,7 @@ namespace GoblinStates {
 			if (Input.IsActionJustPressed("jump")) {
 				JumpState newState = new JumpState(player);
 				newState.IsHoldingEnemy = IsHoldingEnemy;
+				newState.HeldEnemy = HeldEnemy;
 				ExitState(newState);
 			}
 
@@ -40,8 +32,9 @@ namespace GoblinStates {
 				if (!IsHoldingEnemy) {
 					ExitState(new ThrowState(player));
 				} else {
-					player.ThrowEnemy(heldEnemy);
+					player.ThrowEnemy(HeldEnemy);
 					IsHoldingEnemy = false;
+					HeldEnemy = null;
 				}
 			} 
 
@@ -52,7 +45,7 @@ namespace GoblinStates {
 		public override void _PhysicsProcess(float delta)
 		{
 			if (IsHoldingEnemy) {
-				heldEnemy.UpdatePosition(player.ThrowPoint, 
+				HeldEnemy.UpdatePosition(player.ThrowPoint, 
 										player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
 			}
 		}

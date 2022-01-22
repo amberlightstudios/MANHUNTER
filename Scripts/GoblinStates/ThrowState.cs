@@ -3,7 +3,7 @@ using Godot;
 namespace GoblinStates
 {
 	public class ThrowState : GoblinState
-	{
+	{        
 		public ThrowState(Goblin player) {
 			this.player = player;
 		}
@@ -15,11 +15,11 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			Enemy enemyGrabbed = player.GrabEnemy();
-			if (enemyGrabbed != null) {
-				enemyGrabbed.IsGrabbed = true;
-				enemyGrabbed.Position = player.ThrowPoint;
-				ExitState(new MoveState(player, enemyGrabbed));
+			HeldEnemy = player.GrabEnemy();
+			if (HeldEnemy != null) {
+				HeldEnemy.IsGrabbed = true;
+				HeldEnemy.Position = player.ThrowPoint;
+				ExitState(new MoveState(player));
 			} else {
 				ExitState(new MoveState(player));
 			}
@@ -27,6 +27,12 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
+			if (HeldEnemy != null) {
+				newState.IsHoldingEnemy = true;                
+			} else {
+				newState.IsHoldingEnemy = false;
+			}
+			newState.HeldEnemy = HeldEnemy;
 			player.State = newState;
 		}
 	}
