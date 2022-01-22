@@ -27,7 +27,7 @@ namespace GoblinStates
             }
 
             if (Input.IsActionJustPressed("Grab") && IsHoldingEnemy) {
-                player.ThrowEnemy(HeldEnemy);
+                player.ThrowDownEnemy(HeldEnemy);
 				IsHoldingEnemy = false;
                 HeldEnemy = null;
             }

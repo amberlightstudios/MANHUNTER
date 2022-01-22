@@ -11,6 +11,7 @@ public class Enemy : KinematicBody2D
 	
 	public bool IsGrabbed = false;
 	public bool IsThrown = false;
+	public bool IsThrownDown = false;
 
 	public override void _Ready()
 	{

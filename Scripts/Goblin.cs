@@ -22,6 +22,8 @@ public class Goblin : KinematicBody2D
 
 	[Export]
 	private Vector2 throwVelocity;
+	[Export]
+	private float throwDownSpeed;
 
 	// faceDirection == -1 -> Player is facing left.. 
 	// faceDirection == 1 -> Player is facing right. 
@@ -106,5 +108,13 @@ public class Goblin : KinematicBody2D
 		enemy.IsGrabbed = false;
 		enemy.IsThrown = true;
 		enemy.Velocity = throwVelocity + Velocity;
+	}
+
+	public void ThrowDownEnemy(Enemy enemy)
+	{
+		enemy.IsGrabbed = false;
+		enemy.IsThrown = false;
+		enemy.IsThrownDown = true;
+		enemy.Velocity = new Vector2(Velocity.x * 0.2f, throwDownSpeed);
 	}
 }
