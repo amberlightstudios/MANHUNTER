@@ -151,12 +151,27 @@ scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 12
 script = ExtResource( 2 )
+Speed = 300.0
+JumpSpeed = 60.0
+Gravity = 20.0
+throwVelocity = Vector2( 400, -70 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.18, 0.18 )
 texture = ExtResource( 1 )
 hframes = 50
 frame = 4
+
+[node name="ThrowDetect" type="RayCast2D" parent="Sprite"]
+position = Vector2( 0, 27.7778 )
+scale = Vector2( 5.55556, 5.55556 )
+enabled = true
+cast_to = Vector2( -47, 0 )
+collision_mask = 4
+
+[node name="ThrowPoint" type="Node2D" parent="Sprite"]
+position = Vector2( -116.666, -375 )
+scale = Vector2( 5.556, 5.556 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 3 )

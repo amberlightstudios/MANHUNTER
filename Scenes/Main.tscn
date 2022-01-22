@@ -13,9 +13,6 @@
 [node name="Goblin" parent="." instance=ExtResource( 1 )]
 position = Vector2( 462, 289 )
 collision_mask = 8
-Speed = 300.0
-JumpSpeed = 60.0
-Gravity = 20.0
 
 [node name="Camera2D" type="Camera2D" parent="Goblin"]
 current = true

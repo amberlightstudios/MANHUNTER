@@ -1,18 +1,13 @@
 using Godot;
 using System;
 
-public class Baby : KinematicBody2D
+public class Baby : Enemy
 {
-	[Export]
-	private int health;
-
 	[Export]
 	private float speed;
 
 	[Export]
 	public float Gravity { get; private set; }
-
-	private Vector2 velocity = new Vector2(0, 0.1f);
 
 	private RayCast2D edgeDetectLeft, edgeDetectRight;
 	private Sprite sprite;
@@ -33,12 +28,23 @@ public class Baby : KinematicBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
+		if (IsGrabbed) 
+			return;
+
 		if (velocity.y != 0) {
-			velocity.y += Gravity;
+			if (IsThrown) {
+				velocity.y += Gravity * 0.4f;
+			} else {
+				velocity.y += Gravity;
+			}
 			velocity = MoveAndSlide(velocity);
 			return;
 		}
-			
+
+		// What happens when the enemy is being thrown and just landed. 
+		if (IsThrown) {
+			IsThrown = false;
+		}
 
 		if (!edgeDetectLeft.IsColliding() && speed < 0) {
 			speed *= -1;

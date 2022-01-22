@@ -21,11 +21,11 @@ public class Goblin : KinematicBody2D
 	public float Gravity { get; private set; }
 
 	[Export]
-	private float throwAngle = 0f;
+	private Vector2 throwVelocity;
 
 	// faceDirection == -1 -> Player is facing left.. 
 	// faceDirection == 1 -> Player is facing right. 
-	private int faceDirection = -1;
+	public int FaceDirection { get; private set; }
 
 	private AnimationPlayer animPlayer;
 	public AnimationPlayer AnimPlayer { get => animPlayer; }
@@ -36,6 +36,15 @@ public class Goblin : KinematicBody2D
 
 	private RayCast2D groundDetectLeft;
 	private RayCast2D groundDetectRight;
+	private RayCast2D throwDetect;
+	public Vector2 ThrowPoint { 
+		get => (GetNode<Node2D>("Sprite/ThrowPoint").Position+ sprite.Position) * sprite.Scale + Position;
+		private set => ThrowPoint = value; }
+	public Vector2 ThrowPointScale {
+		get => GetNode<Node2D>("Sprite/ThrowPoint").Scale * sprite.Scale * Scale;
+		private set => ThrowPointScale = value;
+	}
+
 	private Vector2 defaultSpriteScale;
 
 	public override void _Ready()
@@ -45,6 +54,7 @@ public class Goblin : KinematicBody2D
 		sprite = GetNode<Sprite>("Sprite");
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
+		throwDetect = GetNode<RayCast2D>("Sprite/ThrowDetect");
 		defaultSpriteScale = sprite.Scale;
 
 		State = new MoveState(this);
@@ -68,19 +78,33 @@ public class Goblin : KinematicBody2D
 	{
 		sprite.Position = Vector2.Zero;
 		sprite.Scale = defaultSpriteScale;
-		faceDirection = -1;
+		FaceDirection = -1;
+		throwVelocity.x = Math.Abs(throwVelocity.x) * -1;
 	}
 
 	public void TurnRight() 
 	{
 		sprite.Position = new Vector2(-6, 0);
 		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
-		faceDirection = 1;
+		FaceDirection = 1;
+		throwVelocity.x = Math.Abs(throwVelocity.x);
 	}
 
 	public bool IsOnGround() 
 	{
 		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
 				&& Velocity.y >= 0;
+	}
+
+	public Enemy GrabEnemy()
+	{
+		return throwDetect.GetCollider() as Enemy;
+	}
+
+	public void ThrowEnemy(Enemy enemy) 
+	{
+		enemy.IsGrabbed = false;
+		enemy.IsThrown = true;
+		enemy.Velocity = throwVelocity + Velocity;
 	}
 }

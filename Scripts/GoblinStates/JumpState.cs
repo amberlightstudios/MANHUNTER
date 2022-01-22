@@ -4,6 +4,8 @@ namespace GoblinStates
 {
     public class JumpState : GoblinState
     {
+        public bool IsHoldingEnemy = false;
+
         public JumpState(Goblin player) 
         {
             this.player = player;
@@ -24,6 +26,10 @@ namespace GoblinStates
             if (Input.IsActionPressed("move_right")) {
                 player.Velocity.x = player.Speed;
                 player.TurnRight();
+            }
+
+            if (Input.IsActionJustPressed("Grab") && IsHoldingEnemy) {
+                
             }
 
             // Play jump animation
