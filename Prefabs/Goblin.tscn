@@ -155,7 +155,7 @@ Speed = 300.0
 JumpSpeed = 60.0
 Gravity = 20.0
 throwVelocity = Vector2( 400, -130 )
-throwDownSpeed = 30.0
+throwDownSpeed = 150.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.18, 0.18 )
