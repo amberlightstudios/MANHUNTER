@@ -25,7 +25,6 @@ public class Main : Node2D
 		GetTree().Connect("server_disconnected", this, nameof(ServerDisconnected));
 
 		HostButton = (Button)GetNode("Network/VBoxContainer/HostButton");
-		GD.Print(HostButton);
 		HostButton.Connect("pressed", this, nameof(HostGame));
 
 		JoinButton = (Button)GetNode("Network/VBoxContainer/JoinButton");
@@ -51,6 +50,12 @@ public class Main : Node2D
 
 		SetInGame();
 		StartGame();
+
+		// Update the camera
+		Cam cam = GetNodeOrNull<Cam>("Cam");
+		if (cam != null) {
+			cam.Player = GetNodeOrNull<Goblin>(GetTree().GetNetworkUniqueId().ToString());
+		}
 	}
 
 	public void JoinGame()

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Cam.cs" type="Script" id=1]
+
+[node name="Cam" type="Camera2D"]
+position = Vector2( 603, 371 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 720
+script = ExtResource( 1 )
