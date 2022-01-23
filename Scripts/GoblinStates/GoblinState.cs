@@ -4,6 +4,8 @@ namespace GoblinStates {
 	public abstract class GoblinState
 	{
 		protected Goblin player;
+		public bool IsHoldingEnemy = false;
+		public Enemy HeldEnemy = null;
 		public abstract void _Process(float delta);
 		public abstract void _PhysicsProcess(float delta);
 		public abstract void ExitState(GoblinState newState);

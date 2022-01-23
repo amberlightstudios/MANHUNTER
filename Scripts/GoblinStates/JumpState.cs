@@ -26,6 +26,12 @@ namespace GoblinStates
 				player.TurnRight();
 			}
 
+			if (Input.IsActionJustPressed("Grab") && IsHoldingEnemy) {
+				player.ThrowDownEnemy(HeldEnemy);
+				IsHoldingEnemy = false;
+				HeldEnemy = null;
+			}
+
 			// Play jump animation
 			player.AnimPlayer.Play("jump");
 		}
@@ -33,7 +39,16 @@ namespace GoblinStates
 		public override void _PhysicsProcess(float delta)
 		{
 			if (player.IsOnGround()) {
-				ExitState(new MoveState(player));
+				MoveState newState = new MoveState(player);
+				newState.IsHoldingEnemy = IsHoldingEnemy;
+				newState.HeldEnemy = HeldEnemy;
+				ExitState(newState);
+				return;
+			}
+
+			if (IsHoldingEnemy) {
+				HeldEnemy.UpdatePosition(player.ThrowPoint, 
+										player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
 			}
 		}
 
