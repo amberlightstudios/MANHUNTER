@@ -20,6 +20,8 @@ public class Goblin : KinematicBody2D
 	public Vector2 PuppetVelocity { get; set; }
 	[Puppet]
 	public int PuppetFaceDirection { get; set; }
+	[Puppet]
+	public String PuppetAnimation { get; set; }
 
 	[Export]
 	public float JumpSpeed { get; private set; }
@@ -102,30 +104,41 @@ public class Goblin : KinematicBody2D
 			}	
 			else {
 				ReceiveState();
+				PuppetPosition = Position;
 			}
 		} else {
-		State._PhysicsProcess(delta);
+			State._PhysicsProcess(delta);
 
-		// Gravity
-		Velocity.y += Gravity;
-		Velocity = MoveAndSlide(Velocity);
+			// Gravity
+			Velocity.y += Gravity;
+			Velocity = MoveAndSlide(Velocity);
 		}
 		
 
-		if (isMultiPlayer && !IsNetworkMaster())
-			PuppetPosition = Position;
+		// if (isMultiPlayer && !IsNetworkMaster())
+		// 	PuppetPosition = Position;
 	}
 	
 	public void BroadcastState() {
 		Rset(nameof(PuppetPosition), Position);			
 		Rset(nameof(PuppetVelocity), Velocity);
-		Rset(nameof(PuppetFaceDirection), FaceDirection);		
+		Rset(nameof(PuppetFaceDirection), FaceDirection);
+		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);	
 	}
 	
 	public void ReceiveState() {
 		Position = PuppetPosition;
 		Velocity = PuppetVelocity;
-		FaceDirection = PuppetFaceDirection;
+		if (FaceDirection == -1 && PuppetFaceDirection == 1) {
+			TurnRight();
+		} else if (FaceDirection != PuppetFaceDirection) {
+			TurnLeft();
+		}  
+		if (PuppetAnimation != null) {
+			animPlayer.Play(PuppetAnimation);
+		} else {
+			animPlayer.Play("Idle");
+		}
 	}
 
 	public void TurnLeft() 
