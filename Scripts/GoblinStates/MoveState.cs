@@ -32,7 +32,11 @@ namespace GoblinStates {
 				if (!IsHoldingEnemy) {
 					ExitState(new ThrowState(player));
 				} else {
-					player.ThrowEnemy(HeldEnemy);
+					if (Input.IsActionPressed("move_down")) {
+						player.ThrowDownEnemy(HeldEnemy);
+					} else {
+						player.ThrowEnemy(HeldEnemy);
+					}
 					IsHoldingEnemy = false;
 					HeldEnemy = null;
 				}
