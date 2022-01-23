@@ -154,8 +154,8 @@ script = ExtResource( 2 )
 Speed = 300.0
 JumpSpeed = 60.0
 Gravity = 20.0
-throwVelocity = Vector2( 400, -130 )
-throwDownSpeed = 150.0
+throwVelocity = Vector2( 300, -130 )
+throwDownSpeed = 200.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.18, 0.18 )
@@ -171,7 +171,7 @@ cast_to = Vector2( -47, 0 )
 collision_mask = 4
 
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
-position = Vector2( -116.666, -375 )
+position = Vector2( -283.333, -377.778 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

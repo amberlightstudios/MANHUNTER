@@ -167,6 +167,6 @@ public class Goblin : KinematicBody2D
 		enemy.IsGrabbed = false;
 		enemy.IsThrown = false;
 		enemy.IsThrownDown = true;
-		enemy.Velocity = new Vector2(Velocity.x * 0.2f, throwDownSpeed);
+		enemy.Velocity = new Vector2(Velocity.x * 0.5f, throwDownSpeed);
 	}
 }
