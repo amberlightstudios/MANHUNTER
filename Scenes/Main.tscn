@@ -28,4 +28,3 @@ tile_data = PoolIntArray( 983090, 0, 0, 983091, 0, 1, 983092, 0, 3, 1048626, 0, 
 [node name="Network" parent="." instance=ExtResource( 2 )]
 
 [node name="Cam" parent="." instance=ExtResource( 9 )]
-zoom = Vector2( 1, 1 )

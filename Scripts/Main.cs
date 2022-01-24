@@ -50,12 +50,6 @@ public class Main : Node2D
 
 		SetInGame();
 		StartGame();
-
-		// Update the camera
-		Cam cam = GetNodeOrNull<Cam>("Cam");
-		if (cam != null) {
-			cam.Player = GetNodeOrNull<Goblin>(GetTree().GetNetworkUniqueId().ToString());
-		}
 	}
 
 	public void JoinGame()
@@ -152,6 +146,11 @@ public class Main : Node2D
 	{
 		// spawn yourself
 		SpawnPlayer(GetTree().GetNetworkUniqueId(), PlayerName);
+		// Update the camera
+		Cam cam = GetNodeOrNull<Cam>("Cam");
+		if (cam != null) {
+			cam.Player = GetNodeOrNull<Goblin>(GetTree().GetNetworkUniqueId().ToString());
+		}
 	}
 
 	private Goblin SpawnPlayer(int id, string playerName)
