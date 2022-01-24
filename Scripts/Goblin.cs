@@ -163,6 +163,11 @@ public class Goblin : KinematicBody2D
 				&& Velocity.y >= 0;
 	}
 
+	public void SetColor(Color color) 
+	{
+		sprite.Modulate = color;
+	}
+
 	public Enemy GrabEnemy()
 	{
 		return throwDetect.GetCollider() as Enemy;

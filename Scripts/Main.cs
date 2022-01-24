@@ -143,7 +143,8 @@ public class Main : Node2D
 		GD.Print($"{playerName} added with ID {id}");
 
 		// a player has been added spawn in the right location
-		SpawnPlayer(id, playerName);
+		Goblin peerPlayer = SpawnPlayer(id, playerName);
+		peerPlayer.SetColor(new Color(1, 0.39f, 0.28f, 1));
 	}
 
 	[Remote]
@@ -153,12 +154,12 @@ public class Main : Node2D
 		SpawnPlayer(GetTree().GetNetworkUniqueId(), PlayerName);
 	}
 
-	private void SpawnPlayer(int id, string playerName)
+	private Goblin SpawnPlayer(int id, string playerName)
 	{
 		// load the players
 		var playerScene = (PackedScene)ResourceLoader.Load("res://Prefabs/Goblin.tscn");
 
-		var playerNode = (Goblin)playerScene.Instance();
+		Goblin playerNode = playerScene.Instance<Goblin>();
 		playerNode.Name = id.ToString();
 		playerNode.SetNetworkMaster(id);
 
@@ -167,6 +168,8 @@ public class Main : Node2D
 		// playerNode.SetPlayerName(GetTree().GetNetworkUniqueId() == id ? PlayerName : playerName);
 
 		AddChild(playerNode);
+
+		return playerNode;
 	}
 
 	[Remote]
