@@ -1,11 +1,8 @@
 using Godot;
 using System;
 
-public class Enemy : KinematicBody2D
+public class Enemy : Character
 {
-	[Export]
-	protected int health;
-
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
 	

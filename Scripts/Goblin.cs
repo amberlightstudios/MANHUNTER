@@ -2,12 +2,9 @@ using Godot;
 using System;
 using GoblinStates;
 
-public class Goblin : KinematicBody2D
+public class Goblin : Character
 {
 	public GoblinState State;
-
-	[Export]
-	public int Health { get; private set; }
 
 	[Export]
 	public float Speed { get; private set; }
@@ -29,6 +26,12 @@ public class Goblin : KinematicBody2D
 	[Export]
 	public float Gravity { get; private set; }
 
+	// This is for throwing bombs. 
+	[Export]
+	private Vector2 throwDirection;
+	[Export]
+	private float maxThrowForce = 3000f;
+	// This is for throwing enemies. (Temporary disable)
 	[Export]
 	private Vector2 throwVelocity;
 	[Export]
@@ -49,7 +52,7 @@ public class Goblin : KinematicBody2D
 	private RayCast2D groundDetectRight;
 	private RayCast2D throwDetect;
 	public Vector2 ThrowPoint { 
-		get => (GetNode<Node2D>("Sprite/ThrowPoint").Position+ sprite.Position) * sprite.Scale + Position;
+		get => (GetNode<Node2D>("Sprite/ThrowPoint").Position) * sprite.Scale + sprite.Position + Position;
 		private set => ThrowPoint = value; }
 	public Vector2 ThrowPointScale {
 		get => GetNode<Node2D>("Sprite/ThrowPoint").Scale * sprite.Scale * Scale;
@@ -186,5 +189,26 @@ public class Goblin : KinematicBody2D
 		enemy.IsThrown = false;
 		enemy.IsThrownDown = true;
 		enemy.Velocity = new Vector2(Velocity.x * 0.5f, throwDownSpeed);
+	}
+
+	public Bomb CreateBomb(String name) 
+	{
+		PackedScene bombLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bomb.tscn");
+		Bomb bomb = bombLoader.Instance<Bomb>();
+		bomb.Name = name;
+		GetNode<Node2D>("/root/Testing").AddChild(bomb);
+		bomb.Position = ThrowPoint;
+		return bomb;
+	}
+
+	public void ThrowBomb() {
+		if (State.Bomb == null) 
+			return;
+
+		GD.Print(State.ThrowForceMultiplier);
+		// State.throwForceMultiplier * throwDirection * FaceDirection * maxThrowForce
+		State.Bomb.ApplyCentralImpulse(maxThrowForce * throwDirection * FaceDirection * State.ThrowForceMultiplier);
+		State.Bomb = null;
+		State.ThrowForceMultiplier = 0;
 	}
 }

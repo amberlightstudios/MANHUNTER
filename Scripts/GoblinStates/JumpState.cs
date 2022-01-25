@@ -26,10 +26,23 @@ namespace GoblinStates
 				player.TurnRight();
 			}
 
-			if (Input.IsActionJustPressed("Grab") && IsHoldingEnemy) {
-				player.ThrowDownEnemy(HeldEnemy);
-				IsHoldingEnemy = false;
-				HeldEnemy = null;
+			// if (Input.IsActionJustPressed("Grab") && IsHoldingEnemy) {
+			// 	player.ThrowDownEnemy(HeldEnemy);
+			// 	IsHoldingEnemy = false;
+			// 	HeldEnemy = null;
+			// }
+
+            if (Input.IsActionJustPressed("Grab")) {
+                Bomb = player.CreateBomb("Bomb");
+				ThrowForceMultiplier += 0.1f;
+            } else if (Input.IsActionJustReleased("Grab")) {
+                player.ThrowBomb();
+            } else if (Input.IsActionPressed("Grab")) {
+				ThrowForceMultiplier += 0.1f;
+				if (ThrowForceMultiplier >= 1) {
+					ThrowForceMultiplier = 1f;
+					player.ThrowBomb();
+				}
 			}
 
 			// Play jump animation
@@ -49,6 +62,10 @@ namespace GoblinStates
 			if (IsHoldingEnemy) {
 				HeldEnemy.UpdatePosition(player.ThrowPoint, 
 										player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
+			}
+
+            if (Bomb != null) {
+				Bomb.Position = player.ThrowPoint;
 			}
 		}
 

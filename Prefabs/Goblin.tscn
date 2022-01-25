@@ -143,7 +143,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 11, 20.75 )
+extents = Vector2( 8, 20.75 )
 
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
@@ -151,9 +151,12 @@ scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 8
 script = ExtResource( 2 )
-Speed = 300.0
-JumpSpeed = 60.0
+health = 10
+Speed = 150.0
+JumpSpeed = 80.0
 Gravity = 20.0
+throwDirection = Vector2( 1, 0 )
+maxThrowForce = 1000.0
 throwVelocity = Vector2( 300, -130 )
 throwDownSpeed = 200.0
 
@@ -171,7 +174,7 @@ cast_to = Vector2( -47, 0 )
 collision_mask = 4
 
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
-position = Vector2( -283.333, -377.778 )
+position = Vector2( -161.111, 13.889 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -185,17 +188,17 @@ anims/jump = SubResource( 8 )
 anims/punch = SubResource( 9 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-position = Vector2( -2.5, 1.75 )
+position = Vector2( -2, 1.75 )
 shape = SubResource( 2 )
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
-position = Vector2( 9, -9 )
+position = Vector2( 4.5, -9 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 collision_mask = 8
 
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
-position = Vector2( -14, -8.5 )
+position = Vector2( -8, -8.5 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 collision_mask = 8
