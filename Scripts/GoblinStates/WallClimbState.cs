@@ -24,7 +24,7 @@ namespace GoblinStates
                 }
             }
 
-            if (!player.WallDetectFoot.IsColliding()) {
+            if (!player.WallDetectFoot.IsColliding() && !player.CanWallClimb()) {
                 ExitState(new JumpState(player, true));
             }
 
