@@ -154,7 +154,8 @@ collision_mask = 8
 script = ExtResource( 2 )
 health = 10
 Speed = 300.0
-JumpSpeed = 80.0
+JumpSpeed = 60.0
+WallClimbSpeed = 300.0
 Gravity = 20.0
 throwDirection = Vector2( 1, 0 )
 maxThrowForce = 1000.0
@@ -191,6 +192,18 @@ anims/punch = SubResource( 9 )
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
 position = Vector2( -2, 1.75 )
 shape = SubResource( 2 )
+
+[node name="WallDetect" type="RayCast2D" parent="WalkCollsionBox"]
+position = Vector2( 0, -19.75 )
+enabled = true
+cast_to = Vector2( -13, 0 )
+collision_mask = 8
+
+[node name="WallDetectFoot" type="RayCast2D" parent="WalkCollsionBox"]
+position = Vector2( 0, 15 )
+enabled = true
+cast_to = Vector2( -13, 0 )
+collision_mask = 8
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
 position = Vector2( 4.5, -9 )

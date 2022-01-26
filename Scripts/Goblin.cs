@@ -22,6 +22,8 @@ public class Goblin : Character
 
 	[Export]
 	public float JumpSpeed { get; private set; }
+	[Export]
+	public float WallClimbSpeed { get; private set; }
 
 	[Export]
 	public float Gravity { get; private set; }
@@ -58,6 +60,8 @@ public class Goblin : Character
 		get => GetNode<Node2D>("Sprite/ThrowPoint").Scale * sprite.Scale * Scale;
 		private set => ThrowPointScale = value;
 	}
+	private RayCast2D wallDetect;
+	public RayCast2D WallDetectFoot { get; private set; }
 
 	private Area2D meleeArea;
 	public int MeleeDmg = 1;
@@ -71,6 +75,8 @@ public class Goblin : Character
 		sprite = GetNode<Sprite>("Sprite");
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
+		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
+		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
 		throwDetect = GetNode<RayCast2D>("Sprite/ThrowDetect");
 		meleeArea = GetNode<Area2D>("MeleeArea");
 		defaultSpriteScale = sprite.Scale;
@@ -175,20 +181,41 @@ public class Goblin : Character
 		sprite.Scale = defaultSpriteScale;
 		FaceDirection = -1;
 		throwVelocity.x = Math.Abs(throwVelocity.x) * -1;
+		wallDetect.Scale = Vector2.One;
+		WallDetectFoot.Scale = Vector2.One;
 	}
 
 	public void TurnRight() 
 	{
-		sprite.Position = new Vector2(-6, 0);
+		sprite.Position = new Vector2(-4.5f, 0);
 		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
 		FaceDirection = 1;
 		throwVelocity.x = Math.Abs(throwVelocity.x);
+		wallDetect.Scale = new Vector2(-1, 1);
+		WallDetectFoot.Scale = new Vector2(-1, 1);
 	}
 
 	public bool IsOnGround() 
 	{
 		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
 				&& Velocity.y >= 0;
+	}
+
+	public bool CanWallClimb() 
+	{
+		return wallDetect.IsColliding();
+	}
+
+	private float normalGravity;
+	public void SetZeroGravity() 
+	{
+		normalGravity = Gravity;
+		Gravity = 0f;
+	}
+
+	public void ReturnNormalGravity() 
+	{
+		Gravity = normalGravity;
 	}
 
 	public void SetColor(Color color) 
