@@ -45,6 +45,10 @@ namespace GoblinStates
 				}
 			}
 
+            if (Input.IsActionJustPressed("Attack")) {
+				ExitState(new AttackState(player, this));
+			}
+
 			// Play jump animation
 			player.AnimPlayer.Play("jump");
 		}

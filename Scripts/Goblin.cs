@@ -59,6 +59,9 @@ public class Goblin : Character
 		private set => ThrowPointScale = value;
 	}
 
+	private Area2D meleeArea;
+	public int MeleeDmg = 1;
+
 	private Vector2 defaultSpriteScale;
 
 	public override void _Ready()
@@ -69,6 +72,7 @@ public class Goblin : Character
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 		throwDetect = GetNode<RayCast2D>("Sprite/ThrowDetect");
+		meleeArea = GetNode<Area2D>("MeleeArea");
 		defaultSpriteScale = sprite.Scale;
 
 		State = new MoveState(this);
@@ -76,11 +80,7 @@ public class Goblin : Character
 
 	public override void _Process(float delta)
 	{
-		if (animPlayer.CurrentAnimation == "damage") {
-			Velocity = Vector2.Zero;
-			return;
-		}
-
+		// Networking part
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
@@ -104,8 +104,15 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
+				if (animPlayer.CurrentAnimation == "damage") {
+					Velocity = Vector2.Zero;
+					BroadcastState();
+					return;
+				}
+
 				State._PhysicsProcess(delta);
 				BroadcastState();
+
 				// Gravity
 				Velocity.y += Gravity;
 				Velocity = MoveAndSlide(Velocity);
@@ -114,17 +121,20 @@ public class Goblin : Character
 				ReceiveState();
 				PuppetPosition = Position;
 			}
-		} else {
-			State._PhysicsProcess(delta);
+		}
+		// Single player mode.  
+		else {
+			if (animPlayer.CurrentAnimation == "damage") {
+				Velocity = Vector2.Zero;
+				return;
+			}
 
+			State._PhysicsProcess(delta);
+			
 			// Gravity
 			Velocity.y += Gravity;
 			Velocity = MoveAndSlide(Velocity);
 		}
-		
-
-		// if (isMultiPlayer && !IsNetworkMaster())
-		// 	PuppetPosition = Position;
 	}
 
 	public override void TakeDamage(int dmg) 
@@ -135,14 +145,16 @@ public class Goblin : Character
 		animPlayer.Play("damage");
 	}
 	
-	public void BroadcastState() {
+	public void BroadcastState() 
+	{
 		Rset(nameof(PuppetPosition), Position);			
 		Rset(nameof(PuppetVelocity), Velocity);
 		Rset(nameof(PuppetFaceDirection), FaceDirection);
 		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);	
 	}
 	
-	public void ReceiveState() {
+	public void ReceiveState() 
+	{
 		Position = PuppetPosition;
 		Velocity = PuppetVelocity;
 		if (FaceDirection == -1 && PuppetFaceDirection == 1) {
@@ -214,12 +226,22 @@ public class Goblin : Character
 		return bomb;
 	}
 
-	public void ThrowBomb() {
+	public void ThrowBomb() 
+	{
 		if (State.Bomb == null) 
 			return;
 
 		State.Bomb.ApplyCentralImpulse(maxThrowForce * throwDirection * FaceDirection * State.ThrowForceMultiplier);
 		State.Bomb = null;
 		State.ThrowForceMultiplier = 0;
+	}
+
+	public void AttackEnemy() 
+	{
+		animPlayer.Play("punch");
+		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
+		foreach (Enemy enemy in enemiesInRange) {
+			enemy.TakeDamage(MeleeDmg);
+		}
 	}
 }

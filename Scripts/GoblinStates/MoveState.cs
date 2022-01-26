@@ -54,6 +54,10 @@ namespace GoblinStates {
 				}
 			}
 
+			if (Input.IsActionJustPressed("Attack")) {
+				ExitState(new AttackState(player, this));
+			}
+
 			if (player.Velocity.Length() == 0) 
 				player.AnimPlayer.Play("Idle");
 		}
