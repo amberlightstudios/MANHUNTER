@@ -5,7 +5,7 @@ public class Character : KinematicBody2D
     [Export]
 	protected int health;
 
-    public void TakeDamage(int dmg) 
+    public virtual void TakeDamage(int dmg) 
     {
         health -= dmg;
     }

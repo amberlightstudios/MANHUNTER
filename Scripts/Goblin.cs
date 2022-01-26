@@ -76,6 +76,11 @@ public class Goblin : Character
 
 	public override void _Process(float delta)
 	{
+		if (animPlayer.CurrentAnimation == "damage") {
+			Velocity = Vector2.Zero;
+			return;
+		}
+
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
@@ -120,6 +125,14 @@ public class Goblin : Character
 
 		// if (isMultiPlayer && !IsNetworkMaster())
 		// 	PuppetPosition = Position;
+	}
+
+	public override void TakeDamage(int dmg) 
+	{   
+		if (animPlayer.CurrentAnimation == "damage")
+			return;
+		base.TakeDamage(dmg);
+		animPlayer.Play("damage");
 	}
 	
 	public void BroadcastState() {
@@ -196,7 +209,7 @@ public class Goblin : Character
 		PackedScene bombLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bomb.tscn");
 		Bomb bomb = bombLoader.Instance<Bomb>();
 		bomb.Name = name;
-		GetNode<Node2D>("/root/Testing").AddChild(bomb);
+		GetParent().AddChild(bomb);
 		bomb.Position = ThrowPoint;
 		return bomb;
 	}
@@ -205,8 +218,6 @@ public class Goblin : Character
 		if (State.Bomb == null) 
 			return;
 
-		GD.Print(State.ThrowForceMultiplier);
-		// State.throwForceMultiplier * throwDirection * FaceDirection * maxThrowForce
 		State.Bomb.ApplyCentralImpulse(maxThrowForce * throwDirection * FaceDirection * State.ThrowForceMultiplier);
 		State.Bomb = null;
 		State.ThrowForceMultiplier = 0;
