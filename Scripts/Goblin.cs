@@ -34,6 +34,10 @@ public class Goblin : Character
 	private Vector2 throwDirection;
 	[Export]
 	private float maxThrowForce = 3000f;
+	[Export]
+	public float LowThrowMultiplier = 0.5f;
+	[Export]
+	public float AdditionalThrowMultiplier = 0.1f;
 	// This is for throwing enemies. (Temporary disable)
 	[Export]
 	private Vector2 throwVelocity;

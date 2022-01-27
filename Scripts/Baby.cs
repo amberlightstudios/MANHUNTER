@@ -56,6 +56,9 @@ public class Baby : Enemy
 		// 	IsThrown = false;
 		// }
 
+		if (isTakingDamage)
+			return;
+
 		State._PhysicsProcess(delta);
 
 		if ((!edgeDetectLeft.IsColliding() || wallDetect.IsColliding()) && velocity.x < 0) {

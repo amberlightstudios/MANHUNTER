@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public class Enemy : Character
 {
@@ -9,6 +10,8 @@ public class Enemy : Character
 	public bool IsGrabbed = false;
 	public bool IsThrown = false;
 	public bool IsThrownDown = false;
+
+	protected bool isTakingDamage = false;
 
 	public override void _Ready()
 	{
@@ -34,8 +37,10 @@ public class Enemy : Character
 	public override void TakeDamage(int dmg)
 	{
 		base.TakeDamage(dmg);
+		isTakingDamage = true;
 		if (health <= 0) {
 			GD.Print("Im dead");
 		}
+		Task.Delay(1000).ContinueWith(t => isTakingDamage = false);
 	}
 }

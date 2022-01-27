@@ -18,7 +18,7 @@ namespace BabyStates
             
         }
 
-        private float timer = 3f;
+        private float timer = 1.5f;
         public override void _PhysicsProcess(float delta)
         {
             if (!baby.PlayerDetect.IsColliding()) {
@@ -26,8 +26,8 @@ namespace BabyStates
                 if (timer <= 0) {
                     ExitState(new MoveState(baby));
                 }
-            } else if (timer < 3f) {
-                timer = 3f;
+            } else if (timer < 1.5f) {
+                timer = 1.5f;
             }
 
             baby.Velocity = new Vector2(baby.Speed * baby.ChaseMultiplier, baby.Velocity.y);

@@ -9,7 +9,7 @@ public class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// player = GetNode<Goblin>("../Goblin");
+		player = GetNode<Goblin>("../Goblin");
 		screenSize = GetViewport().GetVisibleRect().Size;
 	}
 
@@ -17,6 +17,10 @@ public class GameManager : Node2D
 	public override void _Process(float delta)
 	{
 		if (player != null && player.Position.y > screenSize.y + 50) {
+			GetTree().ReloadCurrentScene();
+		}
+
+		if (Input.IsActionJustPressed("restart_game")) {
 			GetTree().ReloadCurrentScene();
 		}
 

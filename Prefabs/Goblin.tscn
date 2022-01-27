@@ -162,7 +162,8 @@ JumpSpeed = 60.0
 WallClimbSpeed = 300.0
 Gravity = 20.0
 throwDirection = Vector2( 1, 0 )
-maxThrowForce = 500.0
+maxThrowForce = 600.0
+LowThrowMultiplier = 0.4
 throwVelocity = Vector2( 300, -130 )
 throwDownSpeed = 200.0
 
