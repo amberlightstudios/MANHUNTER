@@ -5,6 +5,7 @@ using GoblinStates;
 public class Goblin : Character
 {
 	public GoblinState State;
+	public static Type PlayerType = new Goblin().GetType();
 
 	[Export]
 	public float Speed { get; private set; }
@@ -49,6 +50,7 @@ public class Goblin : Character
 	public Sprite PlayerSprite { get => sprite; }
 	private CollisionShape2D walkCollisionBox;
 	public CollisionShape2D WalkCollisionBox { get => walkCollisionBox; }
+	private Area2D enemyHitBox;
 
 	private RayCast2D groundDetectLeft;
 	private RayCast2D groundDetectRight;
@@ -72,6 +74,7 @@ public class Goblin : Character
 	{
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
+		enemyHitBox = GetNode<Area2D>("EnemyHitBox");
 		sprite = GetNode<Sprite>("Sprite");
 		groundDetectLeft = GetNode<RayCast2D>("GroundDetectLeft");
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
@@ -90,13 +93,18 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				State._Process(delta);
+				if (animPlayer.CurrentAnimation != "damage")
+					State._Process(delta);
 				BroadcastState();
 			}	
 			else {
 				ReceiveState();
 			}
 		} else {
+			if (animPlayer.CurrentAnimation == "damage") {
+				return;
+			}
+
 			State._Process(delta);
 		}
 		

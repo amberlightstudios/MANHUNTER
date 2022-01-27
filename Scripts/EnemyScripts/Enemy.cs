@@ -30,4 +30,12 @@ public class Enemy : Character
 		Position = pos;
 		Scale *= scaleMultiplier;
 	}
+
+	public override void TakeDamage(int dmg)
+	{
+		base.TakeDamage(dmg);
+		if (health <= 0) {
+			GD.Print("Im dead");
+		}
+	}
 }

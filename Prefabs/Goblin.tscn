@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/goblin01-Sheet-main-2.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Goblin.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
 
 [sub_resource type="Animation" id=3]
 resource_name = "Idle"
@@ -146,6 +147,9 @@ extents = Vector2( 8, 20.75 )
 [sub_resource type="CircleShape2D" id=10]
 radius = 14.0
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 8, 20.75 )
+
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
 scale = Vector2( 2, 2 )
@@ -158,7 +162,7 @@ JumpSpeed = 60.0
 WallClimbSpeed = 300.0
 Gravity = 20.0
 throwDirection = Vector2( 1, 0 )
-maxThrowForce = 1000.0
+maxThrowForce = 500.0
 throwVelocity = Vector2( 300, -130 )
 throwDownSpeed = 200.0
 
@@ -224,3 +228,12 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
 position = Vector2( -6, 8 )
 shape = SubResource( 10 )
+
+[node name="EnemyHitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 4
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
+position = Vector2( -2, 1.75 )
+shape = SubResource( 11 )

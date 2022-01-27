@@ -19,8 +19,8 @@ collision_mask = 8
 mass = 1.5
 gravity_scale = 5.0
 script = ExtResource( 2 )
-explodeTimer = 3.0
-explodeForce = 500.0
+explodeTimer = 1.2
+explodeForce = 1500.0
 damage = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

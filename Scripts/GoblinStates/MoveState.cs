@@ -43,11 +43,11 @@ namespace GoblinStates {
 				// 	HeldEnemy = null;
 				// }
 				Bomb = player.CreateBomb("Bomb");
-				ThrowForceMultiplier += 0.2f;
+				ThrowForceMultiplier += 0.1f;
 			} else if (Input.IsActionJustReleased("Grab")) {
 				player.ThrowBomb();
 			} else if (Input.IsActionPressed("Grab")) {
-				ThrowForceMultiplier += 0.1f;
+				ThrowForceMultiplier += 0.2f;
 				if (ThrowForceMultiplier >= 1) {
 					ThrowForceMultiplier = 1f;
 					player.ThrowBomb();
