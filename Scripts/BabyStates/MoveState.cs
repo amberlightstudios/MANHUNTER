@@ -22,6 +22,10 @@ namespace BabyStates
             if (baby.PlayerDetect.IsColliding()
             && Goblin.PlayerType.Equals(baby.PlayerDetect.GetCollider().GetType()) 
             || IsChasing) {
+                if (!IsChasing) {
+                    baby.Player = (Goblin) baby.PlayerDetect.GetCollider();
+                }
+
                 // If player is within range, then jumps him. 
                 if (baby.PlayerInAttackRange()) {
                     ExitState(new AttackState(baby));

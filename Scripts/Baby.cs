@@ -17,6 +17,7 @@ public class Baby : Enemy
 	private Sprite sprite;
 	private GameManager gamemanager;
 	public RayCast2D PlayerDetect { get; private set; }
+	public Goblin Player;
 
 	public BabyState State;
 
@@ -106,12 +107,12 @@ public class Baby : Enemy
 
 	public bool PlayerInAttackRange() 
 	{
-		return gamemanager.Player.Position.x - Position.x < attackRange;
+		return Player.Position.x - Position.x < attackRange;
 	}
 
 	public float GetAttackDist() 
 	{
-		return gamemanager.Player.Position.x - Position.x;
+		return Player.Position.x - Position.x;
 	}
 
 	public override void _Draw()
