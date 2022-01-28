@@ -16,13 +16,13 @@ script = ExtResource( 1 )
 layer = -128
 
 [node name="Sky" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( 629, 362 )
+position = Vector2( 629, 360 )
 scale = Vector2( 2, 2 )
 z_index = -100
 texture = ExtResource( 2 )
 
 [node name="BGClouds" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( 641, 191 )
+position = Vector2( 640, 190 )
 scale = Vector2( 2.5, 3 )
 z_index = -100
 texture = ExtResource( 3 )
