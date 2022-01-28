@@ -7,13 +7,15 @@ public class Baby : Enemy
 	[Export]
 	public float Speed { get; private set; }
 	[Export]
-	public float ChaseMultiplier { get; private set; }
-
+	public float JumpSpeed { get; private set; }
 	[Export]
 	public float Gravity { get; private set; }
+	[Export]
+	public float attackRange { get; private set; }
 
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
 	private Sprite sprite;
+	private GameManager gamemanager;
 	public RayCast2D PlayerDetect { get; private set; }
 
 	public BabyState State;
@@ -26,6 +28,7 @@ public class Baby : Enemy
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		PlayerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
 		sprite = GetNode<Sprite>("Sprite");
+		gamemanager = GetParent().GetNode<GameManager>("GameManager");
 
 		State = new MoveState(this);
 	}
@@ -33,7 +36,8 @@ public class Baby : Enemy
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
 	{
-		
+		// For debug drawing in _Draw
+		Update();
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -61,14 +65,22 @@ public class Baby : Enemy
 
 		State._PhysicsProcess(delta);
 
+		velocity.y += Gravity;
+		MoveAndSlide(velocity);
+	}
+
+	public bool OnGround() 
+	{
+		return edgeDetectLeft.IsColliding() || edgeDetectRight.IsColliding();
+	}
+
+	public void CheckEdge() 
+	{
 		if ((!edgeDetectLeft.IsColliding() || wallDetect.IsColliding()) && velocity.x < 0) {
 			TurnRight();
 		} else if ((!edgeDetectRight.IsColliding() || wallDetect.IsColliding()) && velocity.x > 0) {
 			TurnLeft();
 		}
-
-		velocity.y += Gravity;
-		MoveAndSlide(velocity);
 	}
 
 	private void TurnLeft() 
@@ -76,6 +88,8 @@ public class Baby : Enemy
 		velocity.x = Math.Abs(velocity.x) * -1;
 		Speed = Math.Abs(Speed) * -1;
 		sprite.Scale = new Vector2(-1, 1);
+		GD.Print(State);
+		((MoveState) State).IsChasing = false;
 	}
 
 	private void TurnRight() 
@@ -83,5 +97,21 @@ public class Baby : Enemy
 		velocity.x = Math.Abs(velocity.x);
 		Speed = Math.Abs(Speed);
 		sprite.Scale = Vector2.One;
+		((MoveState) State).IsChasing = false;
+	}
+
+	public bool PlayerInAttackRange() 
+	{
+		return gamemanager.Player.Position.x - Position.x < attackRange;
+	}
+
+	public float GetAttackDist() 
+	{
+		return gamemanager.Player.Position.x - Position.x;
+	}
+
+	public override void _Draw()
+	{
+		DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
 	}
 }

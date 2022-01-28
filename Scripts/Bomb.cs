@@ -61,6 +61,7 @@ public class Bomb : RigidBody2D
 		// Send an impulse to the bombs within the explosion radius
 		Godot.Collections.Array neighborBombs = neighborBombsDetect.GetOverlappingBodies();
 		foreach (Bomb b in neighborBombs) {
+			b.isSticky = false;
 			b.ApplyCentralImpulse(explodeForce * (b.Position - Position).Normalized());
 		}
 

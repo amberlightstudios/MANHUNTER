@@ -3,20 +3,20 @@ using System;
 
 public class GameManager : Node2D
 {
-	private Goblin player;
+	public Goblin Player { get; private set; }
 	private Vector2 screenSize;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = GetNode<Goblin>("../Goblin");
+		Player = GetNode<Goblin>("../Goblin");
 		screenSize = GetViewport().GetVisibleRect().Size;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
 	{
-		if (player != null && player.Position.y > screenSize.y + 50) {
+		if (Player != null && Player.Position.y > screenSize.y + 50) {
 			GetTree().ReloadCurrentScene();
 		}
 

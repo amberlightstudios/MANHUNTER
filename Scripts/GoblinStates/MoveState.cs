@@ -71,10 +71,10 @@ namespace GoblinStates {
 
 		public override void _PhysicsProcess(float delta)
 		{
-			if (IsHoldingEnemy) {
-				HeldEnemy.UpdatePosition(player.ThrowPoint, 
-										player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
-			}
+			// if (IsHoldingEnemy) {
+			// 	HeldEnemy.UpdatePosition(player.ThrowPoint, 
+			// 							player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
+			// }
 
 			if (Bomb != null) {
 				Bomb.Position = player.ThrowPoint;

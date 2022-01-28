@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using GoblinStates;
+using System.Threading.Tasks;
+
 
 public class Goblin : Character
 {
@@ -43,6 +45,9 @@ public class Goblin : Character
 	private Vector2 throwVelocity;
 	[Export]
 	private float throwDownSpeed;
+	[Export]
+	private int invincibleTime = 1300;
+	private bool isInvincible = false;
 
 	// faceDirection == -1 -> Player is facing left.. 
 	// faceDirection == 1 -> Player is facing right. 
@@ -157,10 +162,12 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (animPlayer.CurrentAnimation == "damage")
+		if (animPlayer.CurrentAnimation == "damage" || isInvincible)
 			return;
 		base.TakeDamage(dmg);
 		animPlayer.Play("damage");
+		isInvincible = true;
+		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
 	
 	public void BroadcastState() 

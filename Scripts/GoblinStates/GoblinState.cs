@@ -4,8 +4,8 @@ namespace GoblinStates {
 	public abstract class GoblinState
 	{
 		protected Goblin player;
-		public bool IsHoldingEnemy = false;
-		public Enemy HeldEnemy = null;
+		// public bool IsHoldingEnemy = false;
+		// public Enemy HeldEnemy = null;
 
         public Bomb Bomb = null;
         public float ThrowForceMultiplier = 0;
