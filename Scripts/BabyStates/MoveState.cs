@@ -19,11 +19,17 @@ namespace BabyStates
 
         public override void _PhysicsProcess(float delta)
         {
-            if (baby.PlayerDetect.IsColliding()
-            && Goblin.PlayerType.Equals(baby.PlayerDetect.GetCollider().GetType()) 
+            if ((baby.PlayerDetect.IsColliding()
+            && Goblin.PlayerType.Equals(baby.PlayerDetect.GetCollider().GetType())) 
+            || (baby.PlayerDetectBack.IsColliding() 
+            && Goblin.PlayerType.Equals(baby.PlayerDetectBack.GetCollider().GetType())) 
             || IsChasing) {
                 if (!IsChasing) {
-                    baby.Player = (Goblin) baby.PlayerDetect.GetCollider();
+                    if (baby.PlayerDetect.IsColliding()) {
+                        baby.Player = (Goblin) baby.PlayerDetect.GetCollider();
+                    } else {
+                        baby.Player = (Goblin) baby.PlayerDetectBack.GetCollider();
+                    }
                 }
 
                 // If player is within range, then jumps him. 
@@ -33,7 +39,7 @@ namespace BabyStates
                 }
 
                 IsChasing = true;
-                baby.Velocity = new Vector2(baby.Speed, baby.Velocity.y);
+                baby.Velocity = new Vector2(baby.Speed * Math.Sign(baby.GetAttackDist()), baby.Velocity.y);
                 baby.CheckEdge();
             } else {
                 IsChasing = false;

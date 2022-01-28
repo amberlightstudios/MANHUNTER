@@ -17,6 +17,7 @@ public class Baby : Enemy
 	private Sprite sprite;
 	private GameManager gamemanager;
 	public RayCast2D PlayerDetect { get; private set; }
+	public RayCast2D PlayerDetectBack{ get; private set; }
 	public Goblin Player;
 
 	public BabyState State;
@@ -28,6 +29,7 @@ public class Baby : Enemy
 		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		PlayerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
+		PlayerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
 		sprite = GetNode<Sprite>("Sprite");
 		gamemanager = GetParent().GetNode<GameManager>("GameManager");
 
@@ -107,7 +109,7 @@ public class Baby : Enemy
 
 	public bool PlayerInAttackRange() 
 	{
-		return Player.Position.x - Position.x < attackRange;
+		return Math.Abs(Player.Position.x - Position.x) < attackRange;
 	}
 
 	public float GetAttackDist() 
@@ -118,5 +120,6 @@ public class Baby : Enemy
 	public override void _Draw()
 	{
 		DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
+		DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
 	}
 }
