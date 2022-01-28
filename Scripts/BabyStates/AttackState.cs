@@ -17,7 +17,7 @@ namespace BabyStates
 
         public override void _PhysicsProcess(float delta)
         {
-            if (baby.OnGround()) {
+            if (baby.OnGround() && baby.Velocity.y >= 0) {
                 ExitState(new MoveState(baby));
             }   
         }

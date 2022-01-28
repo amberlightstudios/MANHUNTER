@@ -76,6 +76,11 @@ public class Baby : Enemy
 
 	public void CheckEdge() 
 	{
+		// if the enemy is actually falling down, then we do nothing. 
+		if (!(edgeDetectLeft.IsColliding() || edgeDetectRight.IsColliding())) {
+			return;
+		}
+
 		if ((!edgeDetectLeft.IsColliding() || wallDetect.IsColliding()) && velocity.x < 0) {
 			TurnRight();
 		} else if ((!edgeDetectRight.IsColliding() || wallDetect.IsColliding()) && velocity.x > 0) {
@@ -88,7 +93,6 @@ public class Baby : Enemy
 		velocity.x = Math.Abs(velocity.x) * -1;
 		Speed = Math.Abs(Speed) * -1;
 		sprite.Scale = new Vector2(-1, 1);
-		GD.Print(State);
 		((MoveState) State).IsChasing = false;
 	}
 
