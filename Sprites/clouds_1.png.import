@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg-layers.png-c2c304f17debde8e38b21036605d0a4a.stex"
+path="res://.import/clouds_1.png-90c9c442c15836306244cb9237320d4d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/bg-layers.png"
-dest_files=[ "res://.import/bg-layers.png-c2c304f17debde8e38b21036605d0a4a.stex" ]
+source_file="res://Sprites/clouds_1.png"
+dest_files=[ "res://.import/clouds_1.png-90c9c442c15836306244cb9237320d4d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
