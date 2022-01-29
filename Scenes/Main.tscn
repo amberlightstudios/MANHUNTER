@@ -6,7 +6,7 @@
 [ext_resource path="res://Prefabs/Baby.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/GameManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sprites/Tiles/GroundTiles.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Environment/hay.png" type="Texture" id=7]
+[ext_resource path="res://Prefabs/Hay.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Tiles/GroundTiles.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sprites/Environment/rocks.png" type="Texture" id=10]
@@ -116,12 +116,10 @@ tile_data = PoolIntArray( 1048614, 0, 0, 1048615, 0, 1, 1048616, 0, 2, 1048617, 
 
 [node name="Level Stuff" type="Node2D" parent="."]
 
-[node name="Hay" type="Sprite" parent="Level Stuff"]
-position = Vector2( 455, 524 )
-scale = Vector2( 1.6, 1.6 )
-texture = ExtResource( 7 )
-
 [node name="Rocks" type="Sprite" parent="Level Stuff"]
 position = Vector2( 711, 531 )
 scale = Vector2( 1.6, 1.6 )
 texture = ExtResource( 10 )
+
+[node name="Hay" parent="." instance=ExtResource( 7 )]
+position = Vector2( 992, 492 )
