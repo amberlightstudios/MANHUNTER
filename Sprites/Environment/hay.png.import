@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/clouds_2.png-787274f63ce9b76f8fb04dad3731c87a.stex"
+path="res://.import/hay.png-84b4d607cf51b9dbab9ae837a82c0a9c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/clouds_2.png"
-dest_files=[ "res://.import/clouds_2.png-787274f63ce9b76f8fb04dad3731c87a.stex" ]
+source_file="res://Sprites/Environment/hay.png"
+dest_files=[ "res://.import/hay.png-84b4d607cf51b9dbab9ae837a82c0a9c.stex" ]
 
 [params]
 

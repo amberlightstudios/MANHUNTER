@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg-layers3.png-477aa09789c0b3ca3fc9fb2f908e470c.stex"
+path="res://.import/rocks_drop.png-2fc21fe1e50d00df9efe3994b582c851.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/bg-layers3.png"
-dest_files=[ "res://.import/bg-layers3.png-477aa09789c0b3ca3fc9fb2f908e470c.stex" ]
+source_file="res://Sprites/Items/rocks_drop.png"
+dest_files=[ "res://.import/rocks_drop.png-2fc21fe1e50d00df9efe3994b582c851.stex" ]
 
 [params]
 
