@@ -93,6 +93,9 @@ public class Baby : Enemy
 
 	private void TurnLeft() 
 	{
+		if (Player.Position.y < Position.y) 
+			return;
+
 		velocity.x = Math.Abs(velocity.x) * -1;
 		Speed = Math.Abs(Speed) * -1;
 		sprite.Scale = new Vector2(-1, 1);
@@ -101,6 +104,9 @@ public class Baby : Enemy
 
 	private void TurnRight() 
 	{
+		if (Player.Position.y < Position.y) 
+			return;
+
 		velocity.x = Math.Abs(velocity.x);
 		Speed = Math.Abs(Speed);
 		sprite.Scale = Vector2.One;

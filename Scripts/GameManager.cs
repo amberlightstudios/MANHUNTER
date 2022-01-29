@@ -9,7 +9,7 @@ public class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Player = GetNode<Goblin>("../Goblin");
+		Player = GetNodeOrNull<Goblin>("../Goblin");
 		screenSize = GetViewport().GetVisibleRect().Size;
 	}
 
