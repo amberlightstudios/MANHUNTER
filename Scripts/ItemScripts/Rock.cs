@@ -8,8 +8,7 @@ public class Rock : Area2D
 	[Export]
 	private int lifespan = 5000;    // in miliseconds
 
-	public int direction = -1;   // direction value can only be 1 or -1. 
-	public bool isThrown = false;
+	public int Direction = -1;   // direction value can only be 1 or -1. 
 
 	public override void _Ready()
 	{
@@ -18,9 +17,10 @@ public class Rock : Area2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		if (isThrown) {
-			Position += new Vector2(direction * speed, 0);
-		}
-		Task.Delay(lifespan).ContinueWith(t => GetParent().RemoveChild(this));
+		Position += new Vector2(Direction * speed, 0);
+		
+		Task.Delay(lifespan).ContinueWith(t => {
+			GetParent().RemoveChild(this);
+		});
 	}
 }

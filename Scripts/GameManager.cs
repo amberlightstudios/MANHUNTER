@@ -11,6 +11,9 @@ public class GameManager : Node2D
 	{
 		Player = GetNodeOrNull<Goblin>("../Goblin");
 		screenSize = GetViewport().GetVisibleRect().Size;
+
+		OS.WindowMaximized = true;
+		OS.WindowFullscreen = !OS.WindowFullscreen;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,8 +28,12 @@ public class GameManager : Node2D
 		}
 
 		if (Input.IsActionPressed("toggle_fullscreen")) {
-			OS.WindowMaximized = true;
+			OS.WindowMaximized = !OS.WindowMaximized;
 			OS.WindowFullscreen = !OS.WindowFullscreen;
+		}
+
+		if (Input.IsActionJustPressed("quit_game")) {
+			GetTree().Quit();
 		}
 	}
 }

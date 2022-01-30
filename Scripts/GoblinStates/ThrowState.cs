@@ -1,39 +1,42 @@
-// using Godot;
+using Godot;
 
-// namespace GoblinStates
-// {
-// 	public class ThrowState : GoblinState
-// 	{        
-// 		public ThrowState(Goblin player) {
-// 			this.player = player;
-// 		}
+namespace GoblinStates
+{
+	public class ThrowState : GoblinState
+	{
+		private GoblinState previousState;
+		private float timer = 0;
 
-// 		public override void _Process(float delta)
-// 		{
+		public ThrowState(Goblin player, GoblinState previousState) {
+			this.player = player;
+			this.previousState = previousState;
+			player.Velocity = Vector2.Zero;
+			player.SetZeroGravity();
+			player.Throw();
+		}
 
-// 		}
+		public override void _Process(float delta)
+		{
+			timer += delta;
 
-// 		public override void _PhysicsProcess(float delta)
-// 		{
-// 			HeldEnemy = player.GrabEnemy();
-// 			if (HeldEnemy != null) {
-// 				HeldEnemy.IsGrabbed = true;
-// 				HeldEnemy.Position = player.ThrowPoint;
-// 				ExitState(new MoveState(player));
-// 			} else {
-// 				ExitState(new MoveState(player));
-// 			}
-// 		}
+			if (timer > 0.6f) {
+				ExitState(null);
+				return;
+			} 
 
-// 		public override void ExitState(GoblinState newState)
-// 		{
-// 			if (HeldEnemy != null) {
-// 				newState.IsHoldingEnemy = true;                
-// 			} else {
-// 				newState.IsHoldingEnemy = false;
-// 			}
-// 			newState.HeldEnemy = HeldEnemy;
-// 			player.State = newState;
-// 		}
-// 	}
-// }
+			player.AnimPlayer.Play("Throw");
+		}
+
+		public override void _PhysicsProcess(float delta)
+		{
+			
+		}
+
+		public override void ExitState(GoblinState newState)
+		{
+			player.EndThrow();
+			player.ReturnNormalGravity();
+			player.State = previousState;
+		}
+	}
+}

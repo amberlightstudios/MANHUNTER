@@ -130,20 +130,13 @@ throwDownSpeed = 200.0
 texture = SubResource( 19 )
 hframes = 6
 vframes = 5
-frame = 11
+frame = 22
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvZ29ibGluMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD0Kb19uYW1lfD0Kb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
 
-[node name="ThrowDetect" type="RayCast2D" parent="Sprite"]
-position = Vector2( 0, 34.5278 )
-scale = Vector2( 5.55556, 5.55556 )
-enabled = true
-cast_to = Vector2( -47, 0 )
-collision_mask = 4
-
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
-position = Vector2( -161.111, 20.639 )
+position = Vector2( -24, 3 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -156,6 +149,7 @@ anims/jump = SubResource( 17 )
 anims/walk = SubResource( 18 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -3.5, 1.5 )
 shape = SubResource( 2 )
 
@@ -172,18 +166,21 @@ cast_to = Vector2( -13, 0 )
 collision_mask = 8
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( 6, -9 )
 enabled = true
 cast_to = Vector2( 0, 42 )
 collision_mask = 8
 
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( -13, -9 )
 enabled = true
 cast_to = Vector2( 0, 42 )
 collision_mask = 8
 
 [node name="MeleeArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 4
 
@@ -192,6 +189,7 @@ position = Vector2( -6, 8 )
 shape = SubResource( 10 )
 
 [node name="EnemyHitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 4
 script = ExtResource( 3 )

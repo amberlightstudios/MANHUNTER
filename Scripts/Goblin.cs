@@ -63,7 +63,6 @@ public class Goblin : Character
 
 	private RayCast2D groundDetectLeft;
 	private RayCast2D groundDetectRight;
-	private RayCast2D throwDetect;
 	public Vector2 ThrowPoint { 
 		get => (GetNode<Node2D>("Sprite/ThrowPoint").Position) * sprite.Scale + sprite.Position + Position;
 		private set => ThrowPoint = value; }
@@ -71,6 +70,7 @@ public class Goblin : Character
 		get => GetNode<Node2D>("Sprite/ThrowPoint").Scale * sprite.Scale * Scale;
 		private set => ThrowPointScale = value;
 	}
+	private string throwObjectPath = "res://Prefabs/Items/Rock.tscn";
 	private RayCast2D wallDetect;
 	public RayCast2D WallDetectFoot { get; private set; }
 
@@ -89,9 +89,9 @@ public class Goblin : Character
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
-		throwDetect = GetNode<RayCast2D>("Sprite/ThrowDetect");
 		meleeArea = GetNode<Area2D>("MeleeArea");
 		defaultSpriteScale = sprite.Scale;
+		FaceDirection = -1;
 
 		State = new MoveState(this);
 	}
@@ -169,6 +169,24 @@ public class Goblin : Character
 		isInvincible = true;
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
+
+	public void Throw() 
+	{
+		if (animPlayer.CurrentAnimation == "Throw")
+			return;
+		
+		animPlayer.Play("Throw");
+	}
+
+	// When the throw animation ends and the player throws out the rock (or other objects). 
+	public void EndThrow() 
+	{
+		PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
+		Rock rock = throwLoader.Instance<Rock>();
+		rock.Direction = FaceDirection;
+		GetParent().AddChild(rock);
+		rock.Position = ThrowPoint;
+	}
 	
 	public void BroadcastState() 
 	{
@@ -242,11 +260,6 @@ public class Goblin : Character
 		sprite.Modulate = color;
 	}
 
-	public Enemy GrabEnemy()
-	{
-		return throwDetect.GetCollider() as Enemy;
-	}
-
 	public void ThrowEnemy(Enemy enemy) 
 	{
 		enemy.IsGrabbed = false;
@@ -262,25 +275,17 @@ public class Goblin : Character
 		enemy.Velocity = new Vector2(Velocity.x * 0.5f, throwDownSpeed);
 	}
 
-	public Bomb CreateBomb(String name) 
-	{
-		PackedScene bombLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bomb.tscn");
-		Bomb bomb = bombLoader.Instance<Bomb>();
-		bomb.Name = name;
-		GetParent().AddChild(bomb);
-		bomb.Position = ThrowPoint;
-		return bomb;
-	}
+	// public Bomb CreateBomb(String name) 
+	// {
+		// PackedScene bombLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bomb.tscn");
+		// Bomb bomb = bombLoader.Instance<Bomb>();
+		// bomb.Name = name;
+		// GetParent().AddChild(bomb);
+		// bomb.Position = ThrowPoint;
+	// 	return bomb;
+	// }
 
-	public void ThrowBomb() 
-	{
-		if (State.Bomb == null) 
-			return;
-
-		State.Bomb.ApplyCentralImpulse(maxThrowForce * throwDirection * FaceDirection * State.ThrowForceMultiplier);
-		State.Bomb = null;
-		State.ThrowForceMultiplier = 0;
-	}
+	
 
 	public void AttackEnemy() 
 	{

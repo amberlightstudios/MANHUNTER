@@ -23,35 +23,11 @@ namespace GoblinStates {
 
 			if (Input.IsActionJustPressed("jump") && player.IsOnGround()) {
 				JumpState newState = new JumpState(player);
-				// newState.IsHoldingEnemy = IsHoldingEnemy;
-				// newState.HeldEnemy = HeldEnemy;
-				newState.Bomb = Bomb;
-				newState.ThrowForceMultiplier = ThrowForceMultiplier;
 				ExitState(newState);
 			}
 
-			if (Input.IsActionJustPressed("Grab")) {
-				// if (!IsHoldingEnemy) {
-				// 	ExitState(new ThrowState(player));
-				// } else {
-				// 	if (Input.IsActionPressed("move_down")) {
-				// 		player.ThrowDownEnemy(HeldEnemy);
-				// 	} else {
-				// 		player.ThrowEnemy(HeldEnemy);
-				// 	}
-				// 	IsHoldingEnemy = false;
-				// 	HeldEnemy = null;
-				// }
-				Bomb = player.CreateBomb("Bomb");
-				ThrowForceMultiplier = player.LowThrowMultiplier;
-			} else if (Input.IsActionJustReleased("Grab")) {
-				player.ThrowBomb();
-			} else if (Input.IsActionPressed("Grab")) {
-				ThrowForceMultiplier += player.AdditionalThrowMultiplier;
-				if (ThrowForceMultiplier >= 1) {
-					ThrowForceMultiplier = 1f;
-					player.ThrowBomb();
-				}
+			if (Input.IsActionJustPressed("Throw")) {
+				ExitState(new ThrowState(player, this));
 			}
 
 			if (Input.IsActionJustPressed("Attack")) {
@@ -71,14 +47,7 @@ namespace GoblinStates {
 
 		public override void _PhysicsProcess(float delta)
 		{
-			// if (IsHoldingEnemy) {
-			// 	HeldEnemy.UpdatePosition(player.ThrowPoint, 
-			// 							player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
-			// }
 
-			if (Bomb != null) {
-				Bomb.Position = player.ThrowPoint;
-			}
 		}
 
 		public override void ExitState(GoblinState newState)

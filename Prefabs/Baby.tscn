@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Baby.cs" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 30 )
+extents = Vector2( 18, 25 )
 
 [node name="Baby" type="KinematicBody2D"]
 collision_layer = 4
@@ -12,11 +12,12 @@ collision_mask = 8
 script = ExtResource( 2 )
 health = 2
 Speed = 200.0
-JumpSpeed = 60.0
+JumpSpeed = 50.0
 Gravity = 20.0
-attackRange = 200.0
+attackRange = 150.0
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.6, 0.8 )
 texture = ExtResource( 1 )
 
 [node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
@@ -40,23 +41,23 @@ collision_mask = 8
 shape = SubResource( 1 )
 
 [node name="EdgeDetectRight" type="RayCast2D" parent="."]
-position = Vector2( 40, 0 )
+position = Vector2( 22, 0 )
 enabled = true
-cast_to = Vector2( 0, 40 )
+cast_to = Vector2( 0, 30 )
 collision_mask = 8
 
 [node name="EdgeDetectLeft" type="RayCast2D" parent="."]
-position = Vector2( -40, 0 )
+position = Vector2( -22, 0 )
 enabled = true
-cast_to = Vector2( 0, 40 )
+cast_to = Vector2( 0, 30 )
 collision_mask = 8
 
 [node name="TopDetect" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, -35 )
+cast_to = Vector2( 0, -30 )
 collision_mask = 8
 
 [node name="GroundDetect" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 0, 30 )
 collision_mask = 8
