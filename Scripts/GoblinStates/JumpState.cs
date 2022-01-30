@@ -44,12 +44,12 @@ namespace GoblinStates
 				}
 			}
 
-            if (Input.IsActionJustPressed("Throw")) {
-                ExitState(new ThrowState(player, new JumpState(player, true), 1.2f));
+			if (Input.IsActionJustPressed("Throw")) {
+				ExitState(new ThrowState(player, new JumpState(player, true), 1.2f));
 			}
 
 			// Play jump animation
-			player.AnimPlayer.Play("jump");
+			player.AnimPlayer.Play("Jump");
 		}
 
 		public override void _PhysicsProcess(float delta)

@@ -13,15 +13,15 @@ namespace GoblinStates {
 			if (Input.IsActionPressed("move_left")) {
 				player.Velocity.x = -1 * player.Speed;
 				player.TurnLeft();
-				player.AnimPlayer.Play("walk");
+				player.AnimPlayer.Play("Walk");
 			} 
 			if (Input.IsActionPressed("move_right")) {
 				player.Velocity.x = player.Speed;
 				player.TurnRight();
-				player.AnimPlayer.Play("walk");
+				player.AnimPlayer.Play("Walk");
 			}
 
-			if (Input.IsActionJustPressed("jump") && player.IsOnGround()) {
+			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
 				JumpState newState = new JumpState(player);
 				ExitState(newState);
 			}
