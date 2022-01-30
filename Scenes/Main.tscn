@@ -110,7 +110,7 @@ show_collision = true
 collision_layer = 8
 collision_mask = 14
 format = 1
-tile_data = PoolIntArray( 786451, 0, 0, 786452, 0, 3, 917519, 0, 0, 917520, 0, 3, 1048587, 0, 0, 1048588, 0, 3 )
+tile_data = PoolIntArray( 720919, 0, 0, 720920, 0, 3, 786449, 0, 0, 786450, 0, 3, 917515, 0, 0, 917516, 0, 3 )
 
 [node name="MainTileMap" parent="." instance=ExtResource( 8 )]
 position = Vector2( -31, 0 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goblin01-Sheet.png-3b55e9bca1c67d00ba87766af2e58075.stex"
+path="res://.import/goblin01.png-1b0b4aa1ef3f59b252f773962f371531.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/goblin01-Sheet.png"
-dest_files=[ "res://.import/goblin01-Sheet.png-3b55e9bca1c67d00ba87766af2e58075.stex" ]
+source_file="res://Output/goblin01.png"
+dest_files=[ "res://.import/goblin01.png-1b0b4aa1ef3f59b252f773962f371531.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
