@@ -10,12 +10,12 @@ namespace GoblinStates
 			player.Velocity.y = -10 * player.JumpSpeed;
 		}
 
-        public JumpState(Goblin player, bool isFallingDown) 
-        {
-            this.player = player;
-            if (!isFallingDown)
-                player.Velocity.y = -10 * player.JumpSpeed;
-        }
+		public JumpState(Goblin player, bool isFallingDown) 
+		{
+			this.player = player;
+			if (!isFallingDown)
+				player.Velocity.y = -10 * player.JumpSpeed;
+		}
 
 		public override void _Process(float delta)
 		{
@@ -39,12 +39,12 @@ namespace GoblinStates
 			// 	HeldEnemy = null;
 			// }
 
-            if (Input.IsActionJustPressed("Grab")) {
-                Bomb = player.CreateBomb("Bomb");
+			if (Input.IsActionJustPressed("Grab")) {
+				Bomb = player.CreateBomb("Bomb");
 				ThrowForceMultiplier = player.LowThrowMultiplier;
-            } else if (Input.IsActionJustReleased("Grab")) {
-                player.ThrowBomb();
-            } else if (Input.IsActionPressed("Grab")) {
+			} else if (Input.IsActionJustReleased("Grab")) {
+				player.ThrowBomb();
+			} else if (Input.IsActionPressed("Grab")) {
 				ThrowForceMultiplier += player.AdditionalThrowMultiplier;
 				if (ThrowForceMultiplier >= 1) {
 					ThrowForceMultiplier = 1f;
@@ -52,11 +52,11 @@ namespace GoblinStates
 				}
 			}
 
-            if (Input.IsActionJustPressed("Attack")) {
+			if (Input.IsActionJustPressed("Attack")) {
 				ExitState(new AttackState(player, this));
 			}
 
-            if (Input.IsActionPressed("wall_climb") && Input.IsActionPressed("move_up")) {
+			if (Input.IsActionPressed("wall_climb") && Input.IsActionPressed("move_up")) {
 				bool isWallClimbing = player.CanWallClimb();
 				if (isWallClimbing) {
 					ExitState(new WallClimbState(player));
@@ -82,7 +82,7 @@ namespace GoblinStates
 			// 							player.FaceDirection == 1 ? Vector2.One : new Vector2(-1, 1));
 			// }
 
-            if (Bomb != null) {
+			if (Bomb != null) {
 				Bomb.Position = player.ThrowPoint;
 			}
 		}

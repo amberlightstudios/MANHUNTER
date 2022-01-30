@@ -7,8 +7,8 @@ namespace GoblinStates {
 		// public bool IsHoldingEnemy = false;
 		// public Enemy HeldEnemy = null;
 
-        public Bomb Bomb = null;
-        public float ThrowForceMultiplier = 0;
+		public Bomb Bomb = null;
+		public float ThrowForceMultiplier = 0;
 
 		public abstract void _Process(float delta);
 		public abstract void _PhysicsProcess(float delta);

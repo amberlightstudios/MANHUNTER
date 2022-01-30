@@ -102,7 +102,7 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation != "damage")
+				if (animPlayer.CurrentAnimation != "Damage")
 					State._Process(delta);
 				BroadcastState();
 			}	
@@ -110,7 +110,7 @@ public class Goblin : Character
 				ReceiveState();
 			}
 		} else {
-			if (animPlayer.CurrentAnimation == "damage") {
+			if (animPlayer.CurrentAnimation == "Damage") {
 				return;
 			}
 
@@ -127,7 +127,7 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation == "damage") {
+				if (animPlayer.CurrentAnimation == "Damage") {
 					Velocity = Vector2.Zero;
 					BroadcastState();
 					return;
@@ -147,7 +147,7 @@ public class Goblin : Character
 		}
 		// Single player mode.  
 		else {
-			if (animPlayer.CurrentAnimation == "damage") {
+			if (animPlayer.CurrentAnimation == "Damage") {
 				Velocity = Vector2.Zero;
 				return;
 			}
@@ -162,10 +162,10 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (animPlayer.CurrentAnimation == "damage" || isInvincible)
+		if (animPlayer.CurrentAnimation == "Damage" || isInvincible)
 			return;
 		base.TakeDamage(dmg);
-		animPlayer.Play("damage");
+		animPlayer.Play("Damage");
 		isInvincible = true;
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}

@@ -6,6 +6,22 @@
 [sub_resource type="StreamTexture" id=19]
 load_path = "res://.import/goblin01.png-ccb665e924bab111333faf91eb57a107.stex"
 
+[sub_resource type="Animation" id=20]
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 1.0, 0.0, 2.0, 3.0, 2.0 ]
+}
+
 [sub_resource type="Animation" id=13]
 length = 0.6
 loop = true
@@ -54,22 +70,6 @@ tracks/0/keys = {
 "values": [ 1.0, 4.0, 5.0, 6.0, 7.0, 8.0 ]
 }
 
-[sub_resource type="Animation" id=16]
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0.0, 1.0, 0.0, 2.0, 3.0, 2.0 ]
-}
-
 [sub_resource type="Animation" id=17]
 length = 0.5
 loop = true
@@ -103,13 +103,13 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 20.75 )
+extents = Vector2( 11.5, 29.5 )
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 14.0
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 8, 20.75 )
+extents = Vector2( 8.5, 27.1827 )
 
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
@@ -130,7 +130,7 @@ throwDownSpeed = 200.0
 texture = SubResource( 19 )
 hframes = 6
 vframes = 5
-frame = 22
+frame = 11
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvZ29ibGluMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD0Kb19uYW1lfD0Kb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -147,15 +147,16 @@ position = Vector2( -161.111, 20.639 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+anims/Idle = SubResource( 20 )
 anims/Throw = SubResource( 13 )
 anims/attacked = SubResource( 14 )
 anims/down = SubResource( 15 )
-anims/idle = SubResource( 16 )
 anims/jump = SubResource( 17 )
 anims/walk = SubResource( 18 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-position = Vector2( -2, 1.75 )
+position = Vector2( -3.5, 1.5 )
 shape = SubResource( 2 )
 
 [node name="WallDetect" type="RayCast2D" parent="WalkCollsionBox"]
@@ -171,15 +172,15 @@ cast_to = Vector2( -13, 0 )
 collision_mask = 8
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
-position = Vector2( 4.5, -9 )
+position = Vector2( 6, -9 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 0, 42 )
 collision_mask = 8
 
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
-position = Vector2( -8, -8.5 )
+position = Vector2( -13, -9 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 0, 42 )
 collision_mask = 8
 
 [node name="MeleeArea" type="Area2D" parent="."]
@@ -196,5 +197,5 @@ collision_mask = 4
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
-position = Vector2( 0.769226, -4.61536 )
+position = Vector2( -3.5, 1.81732 )
 shape = SubResource( 11 )
