@@ -14,6 +14,7 @@ public class Baby : Enemy
 	public float attackRange { get; private set; }
 
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
+	public RayCast2D TopDetect;
 	private Sprite sprite;
 	private GameManager gamemanager;
 	public RayCast2D PlayerDetect { get; private set; }
@@ -27,6 +28,7 @@ public class Baby : Enemy
 	{
 		edgeDetectLeft = GetNode<RayCast2D>("EdgeDetectLeft");
 		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
+		TopDetect = GetNode<RayCast2D>("TopDetect");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		PlayerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
 		PlayerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
@@ -74,7 +76,7 @@ public class Baby : Enemy
 
 	public bool OnGround() 
 	{
-		return edgeDetectLeft.IsColliding() || edgeDetectRight.IsColliding();
+		return GetNode<RayCast2D>("GroundDetect").IsColliding();
 	}
 
 	public void CheckEdge() 

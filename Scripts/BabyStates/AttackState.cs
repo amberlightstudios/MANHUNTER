@@ -20,6 +20,10 @@ namespace BabyStates
             if (baby.OnGround() && baby.Velocity.y >= 0) {
                 ExitState(new MoveState(baby));
             }   
+            
+            if (baby.TopDetect.IsColliding() && baby.Velocity.y < 0) {
+                baby.Velocity = new Vector2(baby.Velocity.x, 0);
+            }
         }
     }
 }
