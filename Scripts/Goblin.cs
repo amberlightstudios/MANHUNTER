@@ -170,12 +170,12 @@ public class Goblin : Character
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
 
-	public void Throw() 
+	public void Throw(float throwAnimationSpeed) 
 	{
 		if (animPlayer.CurrentAnimation == "Throw")
 			return;
 		
-		animPlayer.Play("Throw");
+		animPlayer.Play("Throw", customSpeed: throwAnimationSpeed);
 	}
 
 	// When the throw animation ends and the player throws out the rock (or other objects). 
