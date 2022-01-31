@@ -289,7 +289,7 @@ public class Goblin : Character
 
 	public void AttackEnemy() 
 	{
-		animPlayer.Play("punch");
+		animPlayer.Play("Melee1");
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			enemy.TakeDamage(MeleeDmg);
