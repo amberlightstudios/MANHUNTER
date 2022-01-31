@@ -6,7 +6,7 @@ namespace GoblinStates
 	public class AttackState : GoblinState
 	{
 		private GoblinState previousState;
-		private float timer;
+		private float timer = 0;
 		private float animLength;
 
 		public AttackState(Goblin player, GoblinState previousState) 
@@ -25,8 +25,9 @@ namespace GoblinStates
 		{
 			timer += delta;
 
-			if (timer > animLength) {
+			if (timer > 0.475f) {
 				ExitState(previousState);
+				return;
 			}
 
 			player.AnimPlayer.Play("Melee1");
