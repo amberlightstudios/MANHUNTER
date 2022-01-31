@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Network.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://Prefabs/Environment/GroundTiles.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Prefabs/Environment/Rocks.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Prefabs/Goblin.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -124,6 +123,3 @@ z_index = 100
 [node name="Rocks" parent="EnvItems" instance=ExtResource( 10 )]
 position = Vector2( 596, 576 )
 scale = Vector2( 1, 1 )
-
-[node name="Goblin" parent="." instance=ExtResource( 11 )]
-position = Vector2( 808, 569 )

@@ -12,7 +12,11 @@ public class Baby : Enemy
 	public float Gravity { get; private set; }
 	[Export]
 	public float attackRange { get; private set; }
-
+	[Puppet]
+	public Vector2 BabyPuppetPosition { get; set; }
+	[Puppet]
+	public Vector2 BabyPuppetVelocity { get; set; }
+	
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
 	public RayCast2D TopDetect;
 	private Sprite sprite;
@@ -34,7 +38,6 @@ public class Baby : Enemy
 		PlayerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
 		sprite = GetNode<Sprite>("Sprite");
 		gamemanager = GetParent().GetNode<GameManager>("GameManager");
-
 		State = new MoveState(this);
 	}
 
@@ -64,9 +67,24 @@ public class Baby : Enemy
 		// if (IsThrown) {
 		// 	IsThrown = false;
 		// }
-
+				// Networking part
+		var isMultiPlayer = GetTree().NetworkPeer != null;
+		if (isMultiPlayer) {
+			if (GetTree().IsNetworkServer()) {
+				updateBaby(delta);
+				BroadcastState();
+			}	
+			else {
+				ReceiveState();
+			}
+		} else {
+			updateBaby(delta);
+		}
+	}
+	
+	private void updateBaby(float delta) {
 		if (isTakingDamage)
-			return;
+			return;	
 
 		State._PhysicsProcess(delta);
 
@@ -74,6 +92,18 @@ public class Baby : Enemy
 		MoveAndSlide(velocity);
 	}
 
+	public void BroadcastState() 
+	{
+		Rset(nameof(BabyPuppetPosition), Position);			
+		Rset(nameof(BabyPuppetVelocity), Velocity);
+	}
+	
+	public void ReceiveState() 
+	{
+		Position = BabyPuppetPosition;
+		Velocity = BabyPuppetVelocity;
+	}
+	
 	public bool OnGround() 
 	{
 		return GetNode<RayCast2D>("GroundDetect").IsColliding();

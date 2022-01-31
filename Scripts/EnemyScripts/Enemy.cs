@@ -6,7 +6,6 @@ public class Enemy : Character
 {
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
-	
 	public bool IsGrabbed = false;
 	public bool IsThrown = false;
 	public bool IsThrownDown = false;
@@ -17,7 +16,7 @@ public class Enemy : Character
 	{
 		
 	}
-
+	
 	public override void _Process(float delta)
 	{
 		
