@@ -13,7 +13,7 @@ namespace GoblinStates
 			this.player = player;
 			this.previousState = previousState;
 			player.Velocity = Vector2.Zero;
-			player.SetZeroGravity();
+			// player.SetZeroGravity();
 			player.Throw();
 			animLength = player.AnimPlayer.CurrentAnimationLength;
 		}
@@ -42,7 +42,7 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
-			player.ReturnNormalGravity();
+			// player.ReturnNormalGravity();
 			player.State = previousState;
 		}
 	}
