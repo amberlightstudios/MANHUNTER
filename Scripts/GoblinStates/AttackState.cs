@@ -45,7 +45,7 @@ namespace GoblinStates
 				return;
             }
 
-            if (timer > 0.1f && !haveAttacked) {
+            if (timer > 0.2f && !haveAttacked) {
                 player.AttackEnemy();
                 haveAttacked = true;
             }

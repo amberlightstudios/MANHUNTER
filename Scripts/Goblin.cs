@@ -291,7 +291,7 @@ public class Goblin : Character
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
-			enemy.TakeDamage(MeleeDmg, (enemyPosition - Position).Normalized() * 10f);
+			enemy.TakeDamage(MeleeDmg, new Vector2(FaceDirection * 30f, 0));
 		}
 	}
 }
