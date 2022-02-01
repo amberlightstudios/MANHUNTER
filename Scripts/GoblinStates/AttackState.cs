@@ -45,6 +45,12 @@ namespace GoblinStates
 				return;
             }
 
+            if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
+				JumpState newState = new JumpState(player);
+				ExitState(newState);
+                return;
+			}
+
             if (timer > 0.2f && !haveAttacked) {
                 player.AttackEnemy();
                 haveAttacked = true;

@@ -28,8 +28,7 @@ public class Goblin : Character
 	[Export]
 	public float WallClimbSpeed { get; private set; }
 
-	[Export]
-	public float Gravity { get; private set; }
+	
 
 	// This is for throwing bombs. 
 	[Export]
@@ -165,10 +164,17 @@ public class Goblin : Character
 		if (animPlayer.CurrentAnimation == "Attacked" || isInvincible)
 			return;
 		base.TakeDamage(dmg);
+
+		if (health <= 0) {
+			State = new DeadState(this);
+		}
+
 		animPlayer.Play("Attacked");
 		isInvincible = true;
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
+
+	public void RestartGame() { GetTree().ReloadCurrentScene(); }
 
 	public void Throw() 
 	{

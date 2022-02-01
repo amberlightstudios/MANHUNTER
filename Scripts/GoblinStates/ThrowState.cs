@@ -27,6 +27,12 @@ namespace GoblinStates
 				return;
 			} 
 
+			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
+				JumpState newState = new JumpState(player);
+				ExitState(newState);
+				return;
+			}
+
 			if (timer > animLength - 0.15f && !rockGenerated) {
 				player.GenerateRock();
 				rockGenerated = true;

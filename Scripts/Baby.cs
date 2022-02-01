@@ -9,8 +9,6 @@ public class Baby : Enemy
 	[Export]
 	public float JumpSpeed { get; private set; }
 	[Export]
-	public float Gravity { get; private set; }
-	[Export]
 	public float attackRange { get; private set; }
 
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
