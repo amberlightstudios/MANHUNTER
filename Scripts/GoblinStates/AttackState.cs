@@ -8,6 +8,7 @@ namespace GoblinStates
 		private GoblinState previousState;
 		private float timer = 0;
 		private float animLength;
+        private bool haveAttacked = false;
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
@@ -15,9 +16,6 @@ namespace GoblinStates
 			player.Velocity = Vector2.Zero;
 			player.AnimPlayer.Play("Melee1");
 			animLength = player.AnimPlayer.CurrentAnimationLength;
-            GD.Print(animLength);
-			
-			player.AttackEnemy();
 
 			this.previousState = previousState;
 		}
@@ -30,6 +28,11 @@ namespace GoblinStates
 				ExitState(previousState);
 				return;
 			}
+
+            if (timer > 0.1f && !haveAttacked) {
+                player.AttackEnemy();
+                haveAttacked = true;
+            }
 
 			player.AnimPlayer.Play("Melee1");
 		}

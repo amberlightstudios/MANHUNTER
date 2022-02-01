@@ -6,6 +6,9 @@
 [sub_resource type="StreamTexture" id=27]
 load_path = "res://.import/goblin01.png-ccb665e924bab111333faf91eb57a107.stex"
 
+[sub_resource type="RectangleShape2D" id=30]
+extents = Vector2( 39.9996, 31.4997 )
+
 [sub_resource type="Animation" id=22]
 length = 0.84
 tracks/0/type = "value"
@@ -116,9 +119,6 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 11.5, 29 )
 
-[sub_resource type="CircleShape2D" id=10]
-radius = 14.0
-
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 8.5, 27.1827 )
 
@@ -141,7 +141,7 @@ throwDownSpeed = 200.0
 texture = SubResource( 27 )
 hframes = 6
 vframes = 5
-frame = 22
+frame = 26
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvZ29ibGluMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD0Kb19uYW1lfD0Kb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -149,6 +149,15 @@ __meta__ = {
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
 position = Vector2( -24, 6 )
 scale = Vector2( 5.556, 5.556 )
+
+[node name="MeleeArea" type="Area2D" parent="Sprite"]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
+position = Vector2( -38.496, 4.93863 )
+rotation = -1.57503
+shape = SubResource( 30 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
@@ -190,15 +199,6 @@ position = Vector2( -13, -9 )
 enabled = true
 cast_to = Vector2( 0, 42 )
 collision_mask = 8
-
-[node name="MeleeArea" type="Area2D" parent="."]
-visible = false
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
-position = Vector2( -6, 8 )
-shape = SubResource( 10 )
 
 [node name="EnemyHitBox" type="Area2D" parent="."]
 visible = false

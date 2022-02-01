@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class StaticShooter : RigidBody2D
+public class StaticShooter : Enemy
 {
 	private Area2D shootRange;
 

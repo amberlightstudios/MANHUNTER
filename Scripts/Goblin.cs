@@ -89,7 +89,7 @@ public class Goblin : Character
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
-		meleeArea = GetNode<Area2D>("MeleeArea");
+		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
 
@@ -102,7 +102,7 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation != "Damage")
+				if (animPlayer.CurrentAnimation != "Attacked")
 					State._Process(delta);
 				BroadcastState();
 			}	
@@ -110,7 +110,7 @@ public class Goblin : Character
 				ReceiveState();
 			}
 		} else {
-			if (animPlayer.CurrentAnimation == "Damage") {
+			if (animPlayer.CurrentAnimation == "Attacked") {
 				return;
 			}
 
@@ -127,7 +127,7 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation == "Damage") {
+				if (animPlayer.CurrentAnimation == "Attacked") {
 					Velocity = Vector2.Zero;
 					BroadcastState();
 					return;
@@ -147,7 +147,7 @@ public class Goblin : Character
 		}
 		// Single player mode.  
 		else {
-			if (animPlayer.CurrentAnimation == "Damage") {
+			if (animPlayer.CurrentAnimation == "Attacked") {
 				Velocity = Vector2.Zero;
 				return;
 			}
@@ -162,10 +162,10 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (animPlayer.CurrentAnimation == "Damage" || isInvincible)
+		if (animPlayer.CurrentAnimation == "Attacked" || isInvincible)
 			return;
 		base.TakeDamage(dmg);
-		animPlayer.Play("Damage");
+		animPlayer.Play("Attacked");
 		isInvincible = true;
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
@@ -224,7 +224,6 @@ public class Goblin : Character
 
 	public void TurnRight() 
 	{
-		sprite.Position = new Vector2(-4.5f, 0);
 		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
 		FaceDirection = 1;
 		throwVelocity.x = Math.Abs(throwVelocity.x);
@@ -289,10 +288,10 @@ public class Goblin : Character
 
 	public void AttackEnemy() 
 	{
-		animPlayer.Play("Melee1");
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
-			enemy.TakeDamage(MeleeDmg);
+			Vector2 enemyPosition = enemy.Position;
+			enemy.TakeDamage(MeleeDmg, (enemyPosition - Position).Normalized() * 10f);
 		}
 	}
 }
