@@ -9,6 +9,7 @@ namespace GoblinStates
 		private float timer = 0;
 		private float animLength;
         private bool haveAttacked = false;
+        private int previousFaceDirection;
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
@@ -16,6 +17,7 @@ namespace GoblinStates
 			player.Velocity = Vector2.Zero;
 			player.AnimPlayer.Play("Melee1");
 			animLength = player.AnimPlayer.CurrentAnimationLength;
+            previousFaceDirection = player.FaceDirection;
 
 			this.previousState = previousState;
 		}
@@ -28,6 +30,20 @@ namespace GoblinStates
 				ExitState(previousState);
 				return;
 			}
+
+            player.Velocity.x = 0;
+            if (Input.IsActionPressed("move_left")) {
+				player.Velocity.x = -1 * player.Speed;
+				player.TurnLeft();
+            } 
+            if (Input.IsActionPressed("move_right")) {
+				player.Velocity.x = player.Speed;
+				player.TurnRight();
+            }
+            if (player.FaceDirection != previousFaceDirection) {
+                ExitState(previousState);
+				return;
+            }
 
             if (timer > 0.1f && !haveAttacked) {
                 player.AttackEnemy();

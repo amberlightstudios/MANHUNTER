@@ -7,7 +7,7 @@
 load_path = "res://.import/goblin01.png-ccb665e924bab111333faf91eb57a107.stex"
 
 [sub_resource type="RectangleShape2D" id=30]
-extents = Vector2( 39.9996, 31.4997 )
+extents = Vector2( 33.0039, 31.4997 )
 
 [sub_resource type="Animation" id=22]
 length = 0.84
@@ -155,7 +155,7 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -38.496, 4.93863 )
+position = Vector2( -38.4873, 6.99783 )
 rotation = -1.57503
 shape = SubResource( 30 )
 
