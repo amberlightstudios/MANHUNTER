@@ -37,7 +37,7 @@ namespace GoblinStates
 				ExitState(new AttackState(player, this));
 			}
 
-			if (Input.IsActionPressed("wall_climb") && Input.IsActionPressed("move_up")) {
+			if (Input.IsActionPressed("wall_climb")) {
 				bool isWallClimbing = player.CanWallClimb();
 				if (isWallClimbing) {
 					ExitState(new WallClimbState(player));

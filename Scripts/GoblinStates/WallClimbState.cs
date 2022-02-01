@@ -15,6 +15,10 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
+            if (!Input.IsActionPressed("wall_climb")) {
+                ExitState(new JumpState(player, true));
+            }
+
 			if ((player.FaceDirection == 1 && Input.IsActionPressed("move_left"))
 			|| (player.FaceDirection == -1 && Input.IsActionPressed("move_right"))) {
 				if (player.IsOnGround()) {
@@ -44,7 +48,7 @@ namespace GoblinStates
 			} else if (isMovingDown) {
 				player.Velocity = new Vector2(0, player.WallClimbSpeed);
 			} else {
-				player.Velocity = Vector2.Zero;
+				player.Velocity = new Vector2(0, player.WallClimbSpeed * 0.2f);
 			}
 		}
 
