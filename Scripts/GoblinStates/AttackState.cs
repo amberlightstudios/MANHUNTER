@@ -14,7 +14,8 @@ namespace GoblinStates
 			this.player = player;
 			player.Velocity = Vector2.Zero;
 			player.AnimPlayer.Play("Melee1");
-			animLength = player.AnimPlayer.CurrentAnimation.Length;
+			animLength = player.AnimPlayer.CurrentAnimationLength;
+            GD.Print(animLength);
 			
 			player.AttackEnemy();
 
@@ -25,7 +26,7 @@ namespace GoblinStates
 		{
 			timer += delta;
 
-			if (timer > 0.475f) {
+			if (timer > animLength) {
 				ExitState(previousState);
 				return;
 			}

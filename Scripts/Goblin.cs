@@ -170,16 +170,16 @@ public class Goblin : Character
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
 
-	public void Throw(float throwAnimationSpeed) 
+	public void Throw() 
 	{
 		if (animPlayer.CurrentAnimation == "Throw")
 			return;
 		
-		animPlayer.Play("Throw", customSpeed: throwAnimationSpeed);
+		animPlayer.Play("Throw");
 	}
 
 	// When the throw animation ends and the player throws out the rock (or other objects). 
-	public void EndThrow() 
+	public void GenerateRock() 
 	{
 		PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
 		Rock rock = throwLoader.Instance<Rock>();

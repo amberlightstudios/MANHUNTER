@@ -2,9 +2,9 @@ using Godot;
 
 namespace BabyStates
 {
-    public class AttackState : BabyState 
+    public class JumpState : BabyState 
     {
-        public AttackState(Baby baby) 
+        public JumpState(Baby baby) 
         {
             this.baby = baby;
             baby.Velocity = new Vector2(baby.GetAttackDist(), -10 * baby.JumpSpeed);

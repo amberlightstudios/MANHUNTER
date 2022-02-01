@@ -45,7 +45,7 @@ namespace GoblinStates
 			}
 
 			if (Input.IsActionJustPressed("Throw")) {
-				ExitState(new ThrowState(player, new JumpState(player, true), 1.2f));
+				ExitState(new ThrowState(player, new JumpState(player, true)));
 			}
 
 			// Play jump animation

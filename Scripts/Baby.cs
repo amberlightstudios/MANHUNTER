@@ -47,24 +47,6 @@ public class Baby : Enemy
 
 	public override void _PhysicsProcess(float delta)
 	{
-		// if (IsGrabbed) 
-		// 	return;
-
-		// if (velocity.y != 0) {
-		// 	// if (IsThrown) {
-		// 	// 	velocity.y += Gravity * 0.4f;
-		// 	// } else {
-		// 	velocity.y += Gravity;
-		// 	// }
-		// 	velocity = MoveAndSlide(velocity);
-		// 	return;
-		// }
-
-		// // What happens when the enemy is being thrown and just landed. 
-		// if (IsThrown) {
-		// 	IsThrown = false;
-		// }
-
 		if (isTakingDamage)
 			return;
 
@@ -100,8 +82,8 @@ public class Baby : Enemy
 
 		velocity.x = Math.Abs(velocity.x) * -1;
 		Speed = Math.Abs(Speed) * -1;
-		sprite.Scale = new Vector2(-1, 1);
-		((MoveState) State).IsChasing = false;
+		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
+		State = new JumpState(this);
 	}
 
 	private void TurnRight() 
@@ -111,8 +93,8 @@ public class Baby : Enemy
 
 		velocity.x = Math.Abs(velocity.x);
 		Speed = Math.Abs(Speed);
-		sprite.Scale = Vector2.One;
-		((MoveState) State).IsChasing = false;
+		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
+		State = new JumpState(this);
 	}
 
 	public bool PlayerInAttackRange() 

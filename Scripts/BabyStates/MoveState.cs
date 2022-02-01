@@ -34,13 +34,13 @@ namespace BabyStates
 
                 // If player is within range, then jumps him. 
                 if (baby.PlayerInAttackRange()) {
-                    ExitState(new AttackState(baby));
+                    ExitState(new JumpState(baby));
                     return;
                 }
 
                 IsChasing = true;
                 baby.Velocity = new Vector2(baby.Speed * Math.Sign(baby.GetAttackDist()), baby.Velocity.y);
-                baby.CheckEdge();
+                // baby.CheckEdge();
             } else {
                 IsChasing = false;
                 baby.Velocity = Vector2.Zero;

@@ -6,27 +6,33 @@ namespace GoblinStates
 	{
 		private GoblinState previousState;
 		private float timer = 0;
-		private float throwAnimationSpeed;
+		private float animLength;
+		private bool rockGenerated = false;
 
-		public ThrowState(Goblin player, GoblinState previousState, float throwAnimationSpeed) {
+		public ThrowState(Goblin player, GoblinState previousState) {
 			this.player = player;
 			this.previousState = previousState;
-			this.throwAnimationSpeed = throwAnimationSpeed;
 			player.Velocity = Vector2.Zero;
 			player.SetZeroGravity();
-			player.Throw(throwAnimationSpeed);
+			player.Throw();
+			animLength = player.AnimPlayer.CurrentAnimationLength;
 		}
 
 		public override void _Process(float delta)
 		{
 			timer += delta;
 
-			if (timer > 0.6f/throwAnimationSpeed) {
+			if (timer > animLength) {
 				ExitState(null);
 				return;
 			} 
 
-			player.AnimPlayer.Play("Throw", customSpeed: throwAnimationSpeed);
+			if (timer > animLength - 0.15f && !rockGenerated) {
+				player.GenerateRock();
+				rockGenerated = true;
+			}
+
+			player.AnimPlayer.Play("Throw");
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -36,7 +42,6 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
-			player.EndThrow();
 			player.ReturnNormalGravity();
 			player.State = previousState;
 		}

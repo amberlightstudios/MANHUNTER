@@ -27,7 +27,7 @@ namespace GoblinStates {
 			}
 
 			if (Input.IsActionJustPressed("Throw")) {
-				ExitState(new ThrowState(player, this, 1.2f));
+				ExitState(new ThrowState(player, this));
 			}
 
 			if (Input.IsActionJustPressed("Attack")) {
