@@ -301,9 +301,15 @@ public class Goblin : Character
 	// }
 
 	
+	[Remote]
+	public void SyncAttack()
+	{
+		AttackEnemy();
+	}
 
 	public void AttackEnemy() 
 	{
+		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncAttack));
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
