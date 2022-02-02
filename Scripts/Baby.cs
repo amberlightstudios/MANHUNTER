@@ -48,24 +48,7 @@ public class Baby : Enemy
 
 	public override void _PhysicsProcess(float delta)
 	{
-		// if (IsGrabbed) 
-		// 	return;
-
-		// if (velocity.y != 0) {
-		// 	// if (IsThrown) {
-		// 	// 	velocity.y += Gravity * 0.4f;
-		// 	// } else {
-		// 	velocity.y += Gravity;
-		// 	// }
-		// 	velocity = MoveAndSlide(velocity);
-		// 	return;
-		// }
-
-		// // What happens when the enemy is being thrown and just landed. 
-		// if (IsThrown) {
-		// 	IsThrown = false;
-		// }
-				// Networking part
+		// Networking part
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (GetTree().IsNetworkServer()) {

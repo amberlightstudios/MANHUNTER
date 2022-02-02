@@ -32,19 +32,19 @@ namespace BabyStates
 					}
 				}
 
-                // If player is within range, then jumps him. 
-                if (baby.PlayerInAttackRange()) {
-                    ExitState(new JumpState(baby));
-                    return;
-                }
+				// If player is within range, then jumps him. 
+				if (baby.PlayerInAttackRange()) {
+					ExitState(new JumpState(baby));
+					return;
+				}
 
-                IsChasing = true;
-                baby.Velocity = new Vector2(baby.Speed * Math.Sign(baby.GetAttackDist()), baby.Velocity.y);
-                // baby.CheckEdge();
-            } else {
-                IsChasing = false;
-                baby.Velocity = Vector2.Zero;
-            }
-        }
-    }
+				IsChasing = true;
+				baby.Velocity = new Vector2(baby.Speed * Math.Sign(baby.GetAttackDist()), baby.Velocity.y);
+				// baby.CheckEdge();
+			} else {
+				IsChasing = false;
+				baby.Velocity = Vector2.Zero;
+			}
+		}
+	}
 }
