@@ -11,9 +11,11 @@ public class Goblin : Character
 
 	[Export]
 	public float Speed { get; private set; }
-
 	public Vector2 Velocity;
 	
+	[Export]
+	private int meleeDamage = 2;
+
 	[Puppet]
 	public Vector2 PuppetPosition { get; set; }
 	[Puppet]
@@ -28,10 +30,12 @@ public class Goblin : Character
 	[Export]
 	public float WallClimbSpeed { get; private set; }
 
-	[Export]
-	public float Gravity { get; private set; }
+	
 
-	// This is for throwing bombs. 
+	// This is for throwing.
+	[Export]
+	private int rocksCount = 4; 
+	public int RocksCount { get => rocksCount; private set => rocksCount = value; }
 	[Export]
 	private Vector2 throwDirection;
 	[Export]
@@ -75,7 +79,6 @@ public class Goblin : Character
 	public RayCast2D WallDetectFoot { get; private set; }
 
 	private Area2D meleeArea;
-	public int MeleeDmg = 1;
 
 	private Vector2 defaultSpriteScale;
 
@@ -89,7 +92,7 @@ public class Goblin : Character
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
-		meleeArea = GetNode<Area2D>("MeleeArea");
+		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
 
@@ -102,7 +105,7 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation != "Damage")
+				if (animPlayer.CurrentAnimation != "Attacked")
 					State._Process(delta);
 				BroadcastState();
 			}	
@@ -110,7 +113,7 @@ public class Goblin : Character
 				ReceiveState();
 			}
 		} else {
-			if (animPlayer.CurrentAnimation == "Damage") {
+			if (animPlayer.CurrentAnimation == "Attacked") {
 				return;
 			}
 
@@ -127,7 +130,7 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation == "Damage") {
+				if (animPlayer.CurrentAnimation == "Attacked") {
 					Velocity = Vector2.Zero;
 					BroadcastState();
 					return;
@@ -147,7 +150,7 @@ public class Goblin : Character
 		}
 		// Single player mode.  
 		else {
-			if (animPlayer.CurrentAnimation == "Damage") {
+			if (animPlayer.CurrentAnimation == "Attacked") {
 				Velocity = Vector2.Zero;
 				return;
 			}
@@ -162,30 +165,43 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (animPlayer.CurrentAnimation == "Damage" || isInvincible)
+		if (animPlayer.CurrentAnimation == "Attacked" || isInvincible)
 			return;
 		base.TakeDamage(dmg);
-		animPlayer.Play("Damage");
+
+		if (health <= 0) {
+			State = new DeadState(this);
+		}
+
+		animPlayer.Play("Attacked");
 		isInvincible = true;
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
 
-	public void Throw(float throwAnimationSpeed) 
+	public void RestartGame() { GetTree().ReloadCurrentScene(); }
+
+	public void Throw() 
 	{
 		if (animPlayer.CurrentAnimation == "Throw")
 			return;
+
+		if (rocksCount <= 0) {
+			State.ExitState(null);
+			return;
+		}
 		
-		animPlayer.Play("Throw", customSpeed: throwAnimationSpeed);
+		animPlayer.Play("Throw");
 	}
 
 	// When the throw animation ends and the player throws out the rock (or other objects). 
-	public void EndThrow() 
+	public void GenerateRock() 
 	{
 		PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
 		Rock rock = throwLoader.Instance<Rock>();
 		rock.Direction = FaceDirection;
 		GetParent().AddChild(rock);
 		rock.Position = ThrowPoint;
+		rocksCount -= 1;
 	}
 	
 	public void BroadcastState() 
@@ -224,7 +240,6 @@ public class Goblin : Character
 
 	public void TurnRight() 
 	{
-		sprite.Position = new Vector2(-4.5f, 0);
 		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
 		FaceDirection = 1;
 		throwVelocity.x = Math.Abs(throwVelocity.x);
@@ -289,10 +304,10 @@ public class Goblin : Character
 
 	public void AttackEnemy() 
 	{
-		animPlayer.Play("punch");
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
-			enemy.TakeDamage(MeleeDmg);
+			Vector2 enemyPosition = enemy.Position;
+			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
 	}
 }

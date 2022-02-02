@@ -2,13 +2,13 @@ using Godot;
 
 namespace BabyStates
 {
-	public class AttackState : BabyState 
-	{
-		public AttackState(Baby baby) 
-		{
-			this.baby = baby;
-			baby.Velocity = new Vector2(baby.GetAttackDist(), -10 * baby.JumpSpeed);
-		}
+    public class JumpState : BabyState 
+    {
+        public JumpState(Baby baby) 
+        {
+            this.baby = baby;
+            baby.Velocity = new Vector2(baby.GetAttackDist(), -10 * baby.JumpSpeed);
+        }
 
 		public override void _Process(float delta)
 		{

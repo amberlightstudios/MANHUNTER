@@ -20,11 +20,12 @@ public class Enemy : Character
 	public override void _Process(float delta)
 	{
 		
-	}
+	}   
 
 	public override void _PhysicsProcess(float delta)
 	{
-
+		velocity.y += Gravity;
+		MoveAndSlide(velocity);
 	}
 
 	public void UpdatePosition(Vector2 pos, Vector2 scaleMultiplier) 
@@ -38,8 +39,14 @@ public class Enemy : Character
 		base.TakeDamage(dmg);
 		isTakingDamage = true;
 		if (health <= 0) {
-			GD.Print("Im dead");
+			GetParent().RemoveChild(this);
 		}
 		Task.Delay(1000).ContinueWith(t => isTakingDamage = false);
+	}
+
+	public virtual void TakeDamage(int dmg, Vector2 knockbackDist) 
+	{
+		TakeDamage(dmg);
+		Position += knockbackDist;
 	}
 }

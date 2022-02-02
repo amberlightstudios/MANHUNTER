@@ -22,23 +22,17 @@ namespace GoblinStates {
 			}
 
 			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
-				JumpState newState = new JumpState(player);
-				ExitState(newState);
+				ExitState(new JumpState(player));
+			} else if (!player.IsOnGround()) {
+				ExitState(new JumpState(player, true));
 			}
 
-			if (Input.IsActionJustPressed("Throw")) {
-				ExitState(new ThrowState(player, this, 1.2f));
+			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
+				ExitState(new ThrowState(player, this));
 			}
 
 			if (Input.IsActionJustPressed("Attack")) {
 				ExitState(new AttackState(player, this));
-			}
-
-			if (Input.IsActionPressed("wall_climb") && Input.IsActionPressed("move_up")) {
-				bool isWallClimbing = player.CanWallClimb();
-				if (isWallClimbing) {
-					ExitState(new WallClimbState(player));
-				}
 			}
 
 			if (player.Velocity.Length() == 0) 

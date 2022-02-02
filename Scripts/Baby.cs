@@ -9,8 +9,6 @@ public class Baby : Enemy
 	[Export]
 	public float JumpSpeed { get; private set; }
 	[Export]
-	public float Gravity { get; private set; }
-	[Export]
 	public float attackRange { get; private set; }
 	[Puppet]
 	public Vector2 BabyPuppetPosition { get; set; }
@@ -130,8 +128,8 @@ public class Baby : Enemy
 
 		velocity.x = Math.Abs(velocity.x) * -1;
 		Speed = Math.Abs(Speed) * -1;
-		sprite.Scale = new Vector2(-1, 1);
-		((MoveState) State).IsChasing = false;
+		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
+		State = new JumpState(this);
 	}
 
 	private void TurnRight() 
@@ -141,8 +139,8 @@ public class Baby : Enemy
 
 		velocity.x = Math.Abs(velocity.x);
 		Speed = Math.Abs(Speed);
-		sprite.Scale = Vector2.One;
-		((MoveState) State).IsChasing = false;
+		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
+		State = new JumpState(this);
 	}
 
 	public bool PlayerInAttackRange() 
@@ -157,7 +155,7 @@ public class Baby : Enemy
 
 	public override void _Draw()
 	{
-		DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
-		DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
+		// DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
+		// DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
 	}
 }

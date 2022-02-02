@@ -37,15 +37,15 @@ namespace GoblinStates
 				ExitState(new AttackState(player, this));
 			}
 
-			if (Input.IsActionPressed("wall_climb") && Input.IsActionPressed("move_up")) {
+			if (Input.IsActionPressed("wall_climb")) {
 				bool isWallClimbing = player.CanWallClimb();
 				if (isWallClimbing) {
 					ExitState(new WallClimbState(player));
 				}
 			}
 
-			if (Input.IsActionJustPressed("Throw")) {
-				ExitState(new ThrowState(player, new JumpState(player, true), 1.2f));
+			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
+				ExitState(new ThrowState(player, new JumpState(player, true)));
 			}
 
 			// Play jump animation
