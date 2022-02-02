@@ -44,7 +44,7 @@ namespace GoblinStates
 				}
 			}
 
-			if (Input.IsActionJustPressed("Throw")) {
+			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
 				ExitState(new ThrowState(player, new JumpState(player, true)));
 			}
 

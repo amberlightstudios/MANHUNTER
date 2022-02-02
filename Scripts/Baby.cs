@@ -107,7 +107,7 @@ public class Baby : Enemy
 
 	public override void _Draw()
 	{
-		DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
-		DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
+		// DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
+		// DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
 	}
 }

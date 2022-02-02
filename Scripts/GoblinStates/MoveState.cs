@@ -22,11 +22,12 @@ namespace GoblinStates {
 			}
 
 			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
-				JumpState newState = new JumpState(player);
-				ExitState(newState);
+				ExitState(new JumpState(player));
+			} else if (!player.IsOnGround()) {
+				ExitState(new JumpState(player, true));
 			}
 
-			if (Input.IsActionJustPressed("Throw")) {
+			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
 				ExitState(new ThrowState(player, this));
 			}
 

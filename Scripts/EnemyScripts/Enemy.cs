@@ -45,7 +45,7 @@ public class Enemy : Character
 		Task.Delay(1000).ContinueWith(t => isTakingDamage = false);
 	}
 
-	public void TakeDamage(int dmg, Vector2 knockbackDist) 
+	public virtual void TakeDamage(int dmg, Vector2 knockbackDist) 
 	{
 		TakeDamage(dmg);
 		Position += knockbackDist;

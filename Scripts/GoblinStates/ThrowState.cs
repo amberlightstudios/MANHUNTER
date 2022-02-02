@@ -12,9 +12,9 @@ namespace GoblinStates
 		public ThrowState(Goblin player, GoblinState previousState) {
 			this.player = player;
 			this.previousState = previousState;
+			player.Throw();
 			player.Velocity = Vector2.Zero;
 			// player.SetZeroGravity();
-			player.Throw();
 			animLength = player.AnimPlayer.CurrentAnimationLength;
 		}
 

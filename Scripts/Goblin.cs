@@ -11,9 +11,11 @@ public class Goblin : Character
 
 	[Export]
 	public float Speed { get; private set; }
-
 	public Vector2 Velocity;
 	
+	[Export]
+	private int meleeDamage = 2;
+
 	[Puppet]
 	public Vector2 PuppetPosition { get; set; }
 	[Puppet]
@@ -30,7 +32,10 @@ public class Goblin : Character
 
 	
 
-	// This is for throwing bombs. 
+	// This is for throwing.
+	[Export]
+	private int rocksCount = 4; 
+	public int RocksCount { get => rocksCount; private set => rocksCount = value; }
 	[Export]
 	private Vector2 throwDirection;
 	[Export]
@@ -74,7 +79,6 @@ public class Goblin : Character
 	public RayCast2D WallDetectFoot { get; private set; }
 
 	private Area2D meleeArea;
-	public int MeleeDmg = 1;
 
 	private Vector2 defaultSpriteScale;
 
@@ -180,6 +184,11 @@ public class Goblin : Character
 	{
 		if (animPlayer.CurrentAnimation == "Throw")
 			return;
+
+		if (rocksCount <= 0) {
+			State.ExitState(null);
+			return;
+		}
 		
 		animPlayer.Play("Throw");
 	}
@@ -192,6 +201,7 @@ public class Goblin : Character
 		rock.Direction = FaceDirection;
 		GetParent().AddChild(rock);
 		rock.Position = ThrowPoint;
+		rocksCount -= 1;
 	}
 	
 	public void BroadcastState() 
@@ -297,7 +307,7 @@ public class Goblin : Character
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
-			enemy.TakeDamage(MeleeDmg, new Vector2(FaceDirection * 30f, 0));
+			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
 	}
 }
