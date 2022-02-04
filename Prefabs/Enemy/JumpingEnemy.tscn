@@ -1,0 +1,136 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/EnemyScripts/Baby.cs" type="Script" id=2]
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/human01.png-066f75c2360ed37381396cb0d853b396.stex"
+
+[sub_resource type="Animation" id=3]
+length = 0.56
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.14, 0.28, 0.42 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7.0, 8.0, 0.0, 8.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 1.44
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08, 1.26 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 1.0, 0.0, 1.0, 2.0, 1.0, 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3.0, 4.0, 3.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.64
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 3.0, 4.0, 3.0, 0.0, 5.0, 6.0, 5.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 18, 25 )
+
+[node name="Jumper" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.6, 0.8 )
+texture = SubResource( 2 )
+hframes = 3
+vframes = 3
+frame = 1
+__meta__ = {
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvaHVtYW4wMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9VHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PWh1bWFuMDEucG5nCm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
+}
+
+[node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
+position = Vector2( 0, -20 )
+enabled = true
+cast_to = Vector2( 1000, 0 )
+collision_mask = 2
+
+[node name="PlayerDetectBack" type="RayCast2D" parent="Sprite"]
+position = Vector2( 0, -20 )
+enabled = true
+cast_to = Vector2( -680, 0 )
+collision_mask = 2
+
+[node name="WallDetect" type="RayCast2D" parent="Sprite"]
+enabled = true
+cast_to = Vector2( 40, 0 )
+collision_mask = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attacked = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+anims/Jump = SubResource( 5 )
+anims/Walk = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="EdgeDetectRight" type="RayCast2D" parent="."]
+position = Vector2( 22, 0 )
+enabled = true
+cast_to = Vector2( 0, 30 )
+collision_mask = 8
+
+[node name="EdgeDetectLeft" type="RayCast2D" parent="."]
+position = Vector2( -22, 0 )
+enabled = true
+cast_to = Vector2( 0, 30 )
+collision_mask = 8
+
+[node name="TopDetect" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, -30 )
+collision_mask = 8
+
+[node name="GroundDetect" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 30 )
+collision_mask = 8
