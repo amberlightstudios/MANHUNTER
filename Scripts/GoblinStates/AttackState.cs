@@ -35,11 +35,11 @@ namespace GoblinStates
 
 			player.Velocity.x = 0;
 			if (Input.IsActionPressed("move_left")) {
-				player.Velocity.x = -1 * player.Speed;
+				player.Velocity.x = -1 * speed;
 				player.TurnLeft();
 			} 
 			if (Input.IsActionPressed("move_right")) {
-				player.Velocity.x = player.Speed;
+				player.Velocity.x = speed;
 				player.TurnRight();
 			}
 			if (player.FaceDirection != previousFaceDirection) {
