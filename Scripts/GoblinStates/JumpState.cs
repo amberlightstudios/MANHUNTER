@@ -49,7 +49,7 @@ namespace GoblinStates
 			}
 
 			// Play jump animation
-			player.AnimPlayer.Play("Jump");
+			player.PlayAnimation("Jump");
 		}
 
 		public override void _PhysicsProcess(float delta)

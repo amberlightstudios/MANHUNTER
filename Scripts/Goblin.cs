@@ -52,6 +52,7 @@ public class Goblin : Character
 	[Export]
 	private int invincibleTime = 1300;
 	private bool isInvincible = false;
+	private bool stunAfterHit = false;
 
 	// faceDirection == -1 -> Player is facing left.. 
 	// faceDirection == 1 -> Player is facing right. 
@@ -104,19 +105,14 @@ public class Goblin : Character
 		// Networking part
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
-			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation != "Attacked")
-					State._Process(delta);
+			if (IsNetworkMaster()) { 
+				State._Process(delta);
 				BroadcastState();
 			}	
 			else {
 				ReceiveState();
 			}
 		} else {
-			if (animPlayer.CurrentAnimation == "Attacked") {
-				return;
-			}
-
 			State._Process(delta);
 		}
 		
@@ -145,7 +141,7 @@ public class Goblin : Character
 	
 	private void UpdateGoblin(float delta)
 	{
-		if (animPlayer.CurrentAnimation == "Attacked") {
+		if (stunAfterHit) {
 			Velocity = Vector2.Zero;
 		} else {
 			State._PhysicsProcess(delta);
@@ -158,7 +154,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (animPlayer.CurrentAnimation == "Attacked" || isInvincible)
+		if (isInvincible)
 			return;
 		base.TakeDamage(dmg);
 
@@ -167,7 +163,9 @@ public class Goblin : Character
 		}
 
 		animPlayer.Play("Attacked");
+		stunAfterHit = true;
 		isInvincible = true;
+		Task.Delay(200).ContinueWith(t => stunAfterHit = false);
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
 
@@ -315,5 +313,10 @@ public class Goblin : Character
 			Vector2 enemyPosition = enemy.Position;
 			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
+	}
+
+	public void PlayAnimation(String name) 
+	{
+		animPlayer.Play(name);
 	}
 }

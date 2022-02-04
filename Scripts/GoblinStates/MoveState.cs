@@ -13,12 +13,12 @@ namespace GoblinStates {
 			if (Input.IsActionPressed("move_left")) {
 				player.Velocity.x = -1 * player.Speed;
 				player.TurnLeft();
-				player.AnimPlayer.Play("Walk");
+				player.PlayAnimation("Walk");
 			} 
 			if (Input.IsActionPressed("move_right")) {
 				player.Velocity.x = player.Speed;
 				player.TurnRight();
-				player.AnimPlayer.Play("Walk");
+				player.PlayAnimation("Walk");
 			}
 
 			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
@@ -36,7 +36,7 @@ namespace GoblinStates {
 			}
 
 			if (player.Velocity.Length() == 0) 
-				player.AnimPlayer.Play("Idle");
+				player.PlayAnimation("Idle");
 		}
 
 		public override void _PhysicsProcess(float delta)

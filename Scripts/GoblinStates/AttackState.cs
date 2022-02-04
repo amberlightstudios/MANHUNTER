@@ -15,7 +15,7 @@ namespace GoblinStates
 		{
 			this.player = player;
 			player.Velocity = Vector2.Zero;
-			player.AnimPlayer.Play("Melee1");
+			player.PlayAnimation("Melee1");
 			animLength = player.AnimPlayer.CurrentAnimationLength;
 			previousFaceDirection = player.FaceDirection;
 
@@ -56,7 +56,7 @@ namespace GoblinStates
 				haveAttacked = true;
 			}
 
-			player.AnimPlayer.Play("Melee1");
+			player.PlayAnimation("Melee1");
 		}
 
 		public override void _PhysicsProcess(float delta)
