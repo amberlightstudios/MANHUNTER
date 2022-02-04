@@ -15,9 +15,9 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
-            if (!Input.IsActionPressed("wall_climb")) {
-                ExitState(new JumpState(player, true));
-            }
+			if (!Input.IsActionPressed("wall_climb")) {
+				ExitState(new JumpState(player, true));
+			}
 
 			if ((player.FaceDirection == 1 && Input.IsActionPressed("move_left"))
 			|| (player.FaceDirection == -1 && Input.IsActionPressed("move_right"))) {

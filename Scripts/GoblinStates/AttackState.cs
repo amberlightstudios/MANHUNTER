@@ -8,8 +8,8 @@ namespace GoblinStates
 		private GoblinState previousState;
 		private float timer = 0;
 		private float animLength;
-        private bool haveAttacked = false;
-        private int previousFaceDirection;
+		private bool haveAttacked = false;
+		private int previousFaceDirection;
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
@@ -17,7 +17,7 @@ namespace GoblinStates
 			player.Velocity = Vector2.Zero;
 			player.AnimPlayer.Play("Melee1");
 			animLength = player.AnimPlayer.CurrentAnimationLength;
-            previousFaceDirection = player.FaceDirection;
+			previousFaceDirection = player.FaceDirection;
 
 			this.previousState = previousState;
 		}
@@ -31,30 +31,30 @@ namespace GoblinStates
 				return;
 			}
 
-            player.Velocity.x = 0;
-            if (Input.IsActionPressed("move_left")) {
+			player.Velocity.x = 0;
+			if (Input.IsActionPressed("move_left")) {
 				player.Velocity.x = -1 * player.Speed;
 				player.TurnLeft();
-            } 
-            if (Input.IsActionPressed("move_right")) {
+			} 
+			if (Input.IsActionPressed("move_right")) {
 				player.Velocity.x = player.Speed;
 				player.TurnRight();
-            }
-            if (player.FaceDirection != previousFaceDirection) {
-                ExitState(previousState);
+			}
+			if (player.FaceDirection != previousFaceDirection) {
+				ExitState(previousState);
 				return;
-            }
-
-            if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
-				JumpState newState = new JumpState(player);
-				ExitState(newState);
-                return;
 			}
 
-            if (timer > 0.2f && !haveAttacked) {
-                player.AttackEnemy();
-                haveAttacked = true;
-            }
+			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
+				JumpState newState = new JumpState(player);
+				ExitState(newState);
+				return;
+			}
+
+			if (timer > 0.2f && !haveAttacked) {
+				player.AttackEnemy();
+				haveAttacked = true;
+			}
 
 			player.AnimPlayer.Play("Melee1");
 		}

@@ -130,37 +130,30 @@ public class Goblin : Character
 		var isMultiPlayer = GetTree().NetworkPeer != null;
 		if (isMultiPlayer) {
 			if (IsNetworkMaster()) {
-				if (animPlayer.CurrentAnimation == "Attacked") {
-					Velocity = Vector2.Zero;
-					BroadcastState();
-					return;
-				}
-
-				State._PhysicsProcess(delta);
+				UpdateGoblin(delta);
 				BroadcastState();
-
-				// Gravity
-				Velocity.y += Gravity;
-				Velocity = MoveAndSlide(Velocity);
 			}	
 			else {
 				ReceiveState();
-				PuppetPosition = Position;
 			}
 		}
 		// Single player mode.  
 		else {
-			if (animPlayer.CurrentAnimation == "Attacked") {
-				Velocity = Vector2.Zero;
-				return;
-			}
-
+			UpdateGoblin(delta);
+		}
+	}
+	
+	private void UpdateGoblin(float delta)
+	{
+		if (animPlayer.CurrentAnimation == "Attacked") {
+			Velocity = Vector2.Zero;
+		} else {
 			State._PhysicsProcess(delta);
-			
 			// Gravity
 			Velocity.y += Gravity;
 			Velocity = MoveAndSlide(Velocity);
 		}
+
 	}
 
 	public override void TakeDamage(int dmg) 
@@ -196,12 +189,19 @@ public class Goblin : Character
 	// When the throw animation ends and the player throws out the rock (or other objects). 
 	public void GenerateRock() 
 	{
+		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncGenerateRock));
 		PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
 		Rock rock = throwLoader.Instance<Rock>();
 		rock.Direction = FaceDirection;
 		GetParent().AddChild(rock);
 		rock.Position = ThrowPoint;
 		rocksCount -= 1;
+	}
+	
+	[Remote]
+	public void SyncGenerateRock()
+	{
+		GenerateRock();
 	}
 	
 	public void BroadcastState() 
@@ -301,9 +301,15 @@ public class Goblin : Character
 	// }
 
 	
+	[Remote]
+	public void SyncAttack()
+	{
+		AttackEnemy();
+	}
 
 	public void AttackEnemy() 
 	{
+		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncAttack));
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
