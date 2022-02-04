@@ -29,6 +29,8 @@ public class Goblin : Character
 	public float JumpSpeed { get; private set; }
 	[Export]
 	public float WallClimbSpeed { get; private set; }
+	[Export]
+	public float AttackSpeedMultiplier = 1;
 
 	
 
