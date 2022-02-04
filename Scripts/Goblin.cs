@@ -30,7 +30,7 @@ public class Goblin : Character
 	[Export]
 	public float WallClimbSpeed { get; private set; }
 	[Export]
-	public float AttackSpeedMultiplier = 1;
+	public float AttakDeceleration = 0.5f;
 
 	
 

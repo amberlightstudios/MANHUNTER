@@ -10,6 +10,7 @@ namespace GoblinStates
 		private float animLength;
 		private bool haveAttacked = false;
 		private int previousFaceDirection;
+		private float speed;
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
@@ -18,6 +19,7 @@ namespace GoblinStates
 			player.PlayAnimation("Melee1");
 			animLength = player.AnimPlayer.CurrentAnimationLength;
 			previousFaceDirection = player.FaceDirection;
+			speed = player.Speed;
 
 			this.previousState = previousState;
 		}
@@ -33,11 +35,11 @@ namespace GoblinStates
 
 			player.Velocity.x = 0;
 			if (Input.IsActionPressed("move_left")) {
-				player.Velocity.x = -1 * player.AttackSpeedMultiplier * player.Speed;
+				player.Velocity.x = -1 * player.Speed;
 				player.TurnLeft();
 			} 
 			if (Input.IsActionPressed("move_right")) {
-				player.Velocity.x = player.AttackSpeedMultiplier * player.Speed;
+				player.Velocity.x = player.Speed;
 				player.TurnRight();
 			}
 			if (player.FaceDirection != previousFaceDirection) {
@@ -61,7 +63,7 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			
+			speed -= player.AttakDeceleration;
 		}
 
 		public override void ExitState(GoblinState newState)
