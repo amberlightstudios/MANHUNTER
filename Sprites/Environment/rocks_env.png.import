@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rocks.png-98cf048f1a7dc1a31d677f523e280714.stex"
+path="res://.import/rocks_env.png-a70375968a724a02f776f52bc9857478.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Environment/rocks.png"
-dest_files=[ "res://.import/rocks.png-98cf048f1a7dc1a31d677f523e280714.stex" ]
+source_file="res://Sprites/Environment/rocks_env.png"
+dest_files=[ "res://.import/rocks_env.png-a70375968a724a02f776f52bc9857478.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

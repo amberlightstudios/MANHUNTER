@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Network.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/Tiles/GroundTiles.png" type="Texture" id=6]
 [ext_resource path="res://Prefabs/Environment/Hay.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Environment/GroundTiles.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Prefabs/Environment/Rocks.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=11]
 
@@ -85,6 +86,8 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
+[node name="Cam" parent="." instance=ExtResource( 9 )]
+
 [node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
 layer = -10
 
@@ -106,10 +109,10 @@ position = Vector2( 219, 366 )
 position = Vector2( 923, 206 )
 
 [node name="StaticShooter5" parent="." instance=ExtResource( 11 )]
-position = Vector2( 215, 206 )
+position = Vector2( 537, 48 )
 
 [node name="StaticShooter6" parent="." instance=ExtResource( 11 )]
-position = Vector2( 602, 55 )
+position = Vector2( 192, 208 )
 
 [node name="Dummy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 873, 368 )
@@ -148,6 +151,5 @@ position = Vector2( 95, 73 )
 position = Vector2( 750, 560 )
 z_index = 100
 
-[node name="Rocks" parent="EnvItems" instance=ExtResource( 10 )]
-position = Vector2( 596, 576 )
-scale = Vector2( 1, 1 )
+[node name="Rocks2" parent="EnvItems" instance=ExtResource( 10 )]
+position = Vector2( 508, 578 )
