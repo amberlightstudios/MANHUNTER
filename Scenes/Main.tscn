@@ -96,7 +96,7 @@ layer = -10
 [node name="GameManager" parent="." instance=ExtResource( 5 )]
 
 [node name="Network" parent="." instance=ExtResource( 2 )]
-position = Vector2( 95, 73 )
+position = Vector2( 5, 6 )
 
 [node name="Enemies" type="Node2D" parent="."]
 

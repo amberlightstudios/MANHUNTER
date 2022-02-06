@@ -19,7 +19,7 @@ margin_top = 24.0
 margin_right = 100.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 0, 20 )
-text = "Charlie"
+text = "Player"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -35,7 +35,7 @@ margin_top = 72.0
 margin_right = 100.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 20 )
-text = "localhost"
+text = "Type IP"
 __meta__ = {
 "_edit_use_anchors_": false
 }
