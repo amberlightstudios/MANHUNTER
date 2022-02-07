@@ -15,7 +15,6 @@ public class Baby : Enemy
 	[Puppet]
 	public Vector2 BabyPuppetVelocity { get; set; }
 	
-	private AnimationPlayer animPlayer;
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
 	public RayCast2D TopDetect;
 	private Sprite sprite;
@@ -142,10 +141,5 @@ public class Baby : Enemy
 	{
 		// DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
 		// DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
-	}
-
-	public void PlayAnimation(string name) 
-	{
-		animPlayer.Play(name);
 	}
 }

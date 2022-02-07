@@ -12,6 +12,8 @@ public class Enemy : Character
 
 	protected bool isTakingDamage = false;
 
+    protected AnimationPlayer animPlayer;
+
 	public override void _Ready()
 	{
 		
@@ -48,5 +50,10 @@ public class Enemy : Character
 	{
 		TakeDamage(dmg);
 		Position += knockbackDist;
+	}
+
+    public virtual void PlayAnimation(string name) 
+	{
+		animPlayer.Play(name);
 	}
 }

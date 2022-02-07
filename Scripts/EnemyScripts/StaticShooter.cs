@@ -13,7 +13,6 @@ public class StaticShooter : Enemy
 	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
-	private AnimationPlayer animPlayer;
 
 	public override void _Ready() 
 	{
@@ -44,14 +43,14 @@ public class StaticShooter : Enemy
 					GetParent().AddChild(bullet);
 					timer = 0;
 					sprite.Scale = new Vector2(Math.Sign(bullet.Direction.x) * -1, 1);
-					animPlayer.Play("Shoot");
+					PlayAnimation("Shoot");
 					break;
 				}
 			} 
 		}
 
 		if (!animPlayer.IsPlaying()) {
-			animPlayer.Play("Idle");
+			PlayAnimation("Idle");
 		}
 	}
 
