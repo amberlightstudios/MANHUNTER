@@ -29,8 +29,8 @@ public class Baby : Enemy
 	public override void _Ready()
 	{
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		edgeDetectLeft = GetNode<RayCast2D>("EdgeDetectLeft");
-		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
+		edgeDetectLeft = GetNode<RayCast2D>("Sprite/EdgeDetectLeft");
+		edgeDetectRight = GetNode<RayCast2D>("Sprite/EdgeDetectRight");
 		TopDetect = GetNode<RayCast2D>("TopDetect");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		PlayerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
@@ -45,6 +45,7 @@ public class Baby : Enemy
 	{
 		// For debug drawing in _Draw
 		Update();
+		State._Process(delta);
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -105,26 +106,14 @@ public class Baby : Enemy
 		}
 	}
 
-	private void TurnLeft() 
+	public void TurnLeft() 
 	{
-		if (Player.Position.y < Position.y) 
-			return;
-
-		velocity.x = Math.Abs(velocity.x) * -1;
-		Speed = Math.Abs(Speed) * -1;
-		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
-		State = new JumpState(this);
+		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
 	}
 
-	private void TurnRight() 
+	public void TurnRight() 
 	{
-		if (Player.Position.y < Position.y) 
-			return;
-
-		velocity.x = Math.Abs(velocity.x);
-		Speed = Math.Abs(Speed);
-		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
-		State = new JumpState(this);
+		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
 	}
 
 	public bool PlayerInAttackRange() 

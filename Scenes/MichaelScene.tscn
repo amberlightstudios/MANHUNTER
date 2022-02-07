@@ -5,7 +5,7 @@
 [ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=5]
-[ext_resource path="res://Prefabs/Baby.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/Enemy/JumpingEnemy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Prefabs/Environment/GroundTiles.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/GameManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Network.tscn" type="PackedScene" id=9]
@@ -37,17 +37,17 @@ position = Vector2( 169, 92 )
 [node name="StaticShooter3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1385, 95 )
 
-[node name="Baby" parent="." instance=ExtResource( 6 )]
-position = Vector2( 373, 582 )
+[node name="Jumper" parent="." instance=ExtResource( 6 )]
+position = Vector2( 374, 567 )
 
-[node name="Baby2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1157, 572 )
+[node name="Jumper2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1158, 572 )
 
-[node name="Baby4" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1256, 189 )
+[node name="Jumper4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1260, 180 )
 
-[node name="Baby3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 366, 200 )
+[node name="Jumper3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 372, 196 )
 
 [node name="Cam" parent="." instance=ExtResource( 4 )]
 position = Vector2( 641, 850 )

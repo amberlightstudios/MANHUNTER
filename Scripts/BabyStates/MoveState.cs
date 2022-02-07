@@ -14,7 +14,11 @@ namespace BabyStates
 
 		public override void _Process(float delta)
 		{
-			
+			if (IsChasing) {
+				baby.PlayAnimation("Walk");
+			} else {
+				baby.PlayAnimation("Idle");
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -40,7 +44,12 @@ namespace BabyStates
 
 				IsChasing = true;
 				baby.Velocity = new Vector2(baby.Speed * Math.Sign(baby.GetAttackDist()), baby.Velocity.y);
-				// baby.CheckEdge();
+
+				if (baby.Velocity.x < 0) {
+					baby.TurnLeft();
+				} else if (baby.Velocity.x > 0) {
+					baby.TurnRight();
+				}
 			} else {
 				IsChasing = false;
 				baby.Velocity = Vector2.Zero;

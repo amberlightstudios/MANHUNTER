@@ -102,18 +102,23 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 30 )
+extents = Vector2( 18, 28.5 )
 
 [node name="Jumper" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource( 2 )
+Gravity = 20.0
+health = 2
+Speed = 200.0
+JumpSpeed = 50.0
+attackRange = 150.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 7 )
 hframes = 4
 vframes = 4
-frame = 7
+frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9odW1hbjAxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9aHVtYW4wMS5wbmcKb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
 }
@@ -135,6 +140,18 @@ enabled = true
 cast_to = Vector2( 40, 0 )
 collision_mask = 8
 
+[node name="EdgeDetectRight" type="RayCast2D" parent="Sprite"]
+position = Vector2( 14, 0 )
+enabled = true
+cast_to = Vector2( 0, 35 )
+collision_mask = 8
+
+[node name="EdgeDetectLeft" type="RayCast2D" parent="Sprite"]
+position = Vector2( -20, 0 )
+enabled = true
+cast_to = Vector2( 0, 35 )
+collision_mask = 8
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attacked = SubResource( 3 )
 anims/Death = SubResource( 8 )
@@ -144,20 +161,8 @@ anims/Shoot = SubResource( 9 )
 anims/Walk = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3, 2 )
+position = Vector2( -3, 0.5 )
 shape = SubResource( 1 )
-
-[node name="EdgeDetectRight" type="RayCast2D" parent="."]
-position = Vector2( 22, 0 )
-enabled = true
-cast_to = Vector2( 0, 30 )
-collision_mask = 8
-
-[node name="EdgeDetectLeft" type="RayCast2D" parent="."]
-position = Vector2( -22, 0 )
-enabled = true
-cast_to = Vector2( 0, 30 )
-collision_mask = 8
 
 [node name="TopDetect" type="RayCast2D" parent="."]
 enabled = true
@@ -166,5 +171,5 @@ collision_mask = 8
 
 [node name="GroundDetect" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 30 )
+cast_to = Vector2( 0, 35 )
 collision_mask = 8

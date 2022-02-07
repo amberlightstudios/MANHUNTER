@@ -12,7 +12,7 @@ namespace BabyStates
 
 		public override void _Process(float delta)
 		{
-			
+			baby.PlayAnimation("Jump");
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -23,6 +23,12 @@ namespace BabyStates
 			
 			if (baby.TopDetect.IsColliding() && baby.Velocity.y < 0) {
 				baby.Velocity = new Vector2(baby.Velocity.x, 0);
+			}
+
+			if (baby.Velocity.x < 0) {
+				baby.TurnLeft();
+			} else if (baby.Velocity.x > 0) {
+				baby.TurnRight();
 			}
 		}
 	}
