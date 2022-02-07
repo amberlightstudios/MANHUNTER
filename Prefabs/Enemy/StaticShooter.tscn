@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/StaticShooter.cs" type="Script" id=1]
 
@@ -42,7 +42,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 length = 0.3
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -57,6 +56,69 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=7]
+length = 0.64
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 3.0, 4.0, 3.0, 0.0, 5.0, 6.0, 5.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.975
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.175, 0.275, 0.375, 0.475 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 1.44
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08, 1.26 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 1.0, 0.0, 1.0, 2.0, 1.0, 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.0, 15.0 ]
+}
+
+[sub_resource type="Animation" id=11]
 length = 0.64
 loop = true
 tracks/0/type = "value"
@@ -91,6 +153,9 @@ __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9zaG9vdGVyMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PVRydWUKb19mb2xkZXJ8PXJlczovL1Nwcml0ZXMvRW5lbWllcwpvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
 }
 
+[node name="ShootPoint" type="Node2D" parent="Sprite"]
+position = Vector2( -36, 9 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
@@ -100,12 +165,15 @@ anims/Idle = SubResource( 5 )
 anims/Shoot = SubResource( 6 )
 anims/Walk = SubResource( 7 )
 
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 8 )
+anims/Idle = SubResource( 9 )
+anims/Shoot = SubResource( 10 )
+anims/Walk = SubResource( 11 )
+
 [node name="ShootRange" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange"]
 shape = SubResource( 2 )
-
-[node name="ShootPoint" type="Node2D" parent="."]
-position = Vector2( 0, -12 )

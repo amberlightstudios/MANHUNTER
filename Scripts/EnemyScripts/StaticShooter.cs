@@ -10,13 +10,17 @@ public class StaticShooter : Enemy
 	[Export]
 	private int damage = 1;
 	private float timer;
+	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
+	private AnimationPlayer animPlayer;
 
 	public override void _Ready() 
 	{
+		sprite = GetNode<Sprite>("Sprite");
 		shootRange = GetNode<Area2D>("ShootRange");
-		shootPoint = GetNode<Node2D>("ShootPoint");
+		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
+		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		timer = shootFrequency;
 	}
 
@@ -39,9 +43,15 @@ public class StaticShooter : Enemy
 					bullet.Position = shootPoint.GlobalPosition;
 					GetParent().AddChild(bullet);
 					timer = 0;
+					sprite.Scale = new Vector2(Math.Sign(bullet.Direction.x) * -1, 1);
+					animPlayer.Play("Shoot");
 					break;
 				}
-			}
+			} 
+		}
+
+		if (!animPlayer.IsPlaying()) {
+			animPlayer.Play("Idle");
 		}
 	}
 
