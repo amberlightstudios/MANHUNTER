@@ -6,8 +6,8 @@
 [sub_resource type="StreamTexture" id=31]
 load_path = "res://.import/goblin01.png-9ac5c99e4e8eb7cb56ce7e8c6bf2ce36.stex"
 
-[sub_resource type="CircleShape2D" id=30]
-radius = 43.1014
+[sub_resource type="RectangleShape2D" id=30]
+extents = Vector2( 35.4637, 27.9934 )
 
 [sub_resource type="Animation" id=22]
 length = 0.25
@@ -162,7 +162,7 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -42.5649, 6.54473 )
+position = Vector2( -46.0126, 4.52335 )
 rotation = -1.57503
 shape = SubResource( 30 )
 

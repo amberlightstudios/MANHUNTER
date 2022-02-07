@@ -307,7 +307,7 @@ public class Goblin : Character
 		AttackEnemy();
 	}
 
-	public void AttackEnemy() 
+	public bool AttackEnemy() 
 	{
 		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncAttack));
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
@@ -315,6 +315,7 @@ public class Goblin : Character
 			Vector2 enemyPosition = enemy.Position;
 			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
+		return enemiesInRange.Count > 0;
 	}
 
 	public void PlayAnimation(String name) 

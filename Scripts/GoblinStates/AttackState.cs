@@ -53,10 +53,10 @@ namespace GoblinStates
 				return;
 			}
 
-			if (timer > 0.2f && !haveAttacked) {
-				player.AttackEnemy();
-				haveAttacked = true;
-			}
+            if (timer > 0.2f && !haveAttacked) {
+                haveAttacked = player.AttackEnemy();
+                haveAttacked = true;
+            }
 
 			player.PlayAnimation("Melee1");
 		}
@@ -68,6 +68,7 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
+            player.AnimPlayer.Stop();
 			player.State = previousState;
 		}
 	}
