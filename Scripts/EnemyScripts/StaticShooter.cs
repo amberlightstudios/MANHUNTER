@@ -39,10 +39,10 @@ public class StaticShooter : Enemy
 					bullet.Damage = damage;
 					bullet.Speed = bulletSpeed;
 					bullet.Direction = p.Position - shootPoint.GlobalPosition;
+					sprite.Scale = new Vector2(Math.Sign(bullet.Direction.x) * -1, 1);
 					bullet.Position = shootPoint.GlobalPosition;
 					GetParent().AddChild(bullet);
 					timer = 0;
-					sprite.Scale = new Vector2(Math.Sign(bullet.Direction.x) * -1, 1);
 					PlayAnimation("Shoot");
 					break;
 				}
