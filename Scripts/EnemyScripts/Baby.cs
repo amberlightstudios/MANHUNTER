@@ -143,9 +143,4 @@ public class Baby : Enemy
 		// DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));
 		// DrawLine(Vector2.Zero, new Vector2(-attackRange, 0), new Color(0, 0, 0, 1));
 	}
-
-	public void PlayAnimation(string name) 
-	{
-		animPlayer.Play(name);
-	}
 }
