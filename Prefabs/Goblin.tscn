@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
+[ext_resource path="res://Sprites/CharacterUI.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
 
@@ -216,3 +217,17 @@ script = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
 position = Vector2( -3.5, 1.81732 )
 shape = SubResource( 11 )
+
+[node name="HPBar" type="ProgressBar" parent="."]
+margin_left = -52.0
+margin_top = -48.0
+margin_right = 16.0
+margin_bottom = -37.0
+theme = ExtResource( 1 )
+max_value = 10.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="value_changed" from="HPBar" to="." method="_on_HPBar_value_changed"]

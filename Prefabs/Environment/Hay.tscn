@@ -6,6 +6,7 @@
 extents = Vector2( 6.27451, 6.07843 )
 
 [node name="Hay" type="KinematicBody2D"]
+z_index = 100
 collision_layer = 8
 collision_mask = 14
 
