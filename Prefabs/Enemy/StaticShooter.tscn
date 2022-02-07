@@ -88,8 +88,8 @@ tracks/0/keys = {
 "values": [ 0.0, 3.0, 4.0, 3.0, 0.0, 5.0, 6.0, 5.0 ]
 }
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 400.18
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 460, 21.5 )
 
 [node name="StaticShooter" type="KinematicBody2D"]
 collision_layer = 4
@@ -125,4 +125,5 @@ collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange"]
-shape = SubResource( 2 )
+z_index = 10
+shape = SubResource( 11 )
