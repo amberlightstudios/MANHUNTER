@@ -23,7 +23,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=8]
 length = 0.975
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -55,7 +54,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -102,7 +100,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 28.5 )
+extents = Vector2( 18, 30 )
 
 [node name="Jumper" type="KinematicBody2D"]
 collision_layer = 4
@@ -118,7 +116,6 @@ attackRange = 150.0
 texture = SubResource( 7 )
 hframes = 4
 vframes = 4
-frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9odW1hbjAxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9aHVtYW4wMS5wbmcKb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
 }

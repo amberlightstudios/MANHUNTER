@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/EnemyScripts/StaticShooter.cs" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=8]
+[sub_resource type="StreamTexture" id=10]
 load_path = "res://.import/shooter01.png-2e280e012830b437020cd720101a9689.stex"
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -100,12 +100,11 @@ health = 2
 bulletSpeed = 7.0
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 8 )
+texture = SubResource( 10 )
 hframes = 4
 vframes = 4
-frame = 8
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9zaG9vdGVyMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzL0VuZW1pZXMKb19uYW1lfD0Kb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9zaG9vdGVyMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzL0VuZW1pZXMKb19uYW1lfD1zaG9vdGVyMDEucG5nCm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
 
 [node name="ShootPoint" type="Node2D" parent="Sprite"]

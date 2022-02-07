@@ -219,10 +219,10 @@ position = Vector2( -3.5, 1.81732 )
 shape = SubResource( 11 )
 
 [node name="HPBar" type="ProgressBar" parent="."]
-margin_left = -52.0
-margin_top = -48.0
-margin_right = 16.0
-margin_bottom = -37.0
+margin_left = -40.0
+margin_top = -55.0
+margin_right = 28.0
+margin_bottom = -44.0
 theme = ExtResource( 1 )
 max_value = 10.0
 percent_visible = false
