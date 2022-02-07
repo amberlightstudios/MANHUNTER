@@ -6,8 +6,8 @@
 [sub_resource type="StreamTexture" id=27]
 load_path = "res://.import/goblin01.png-ccb665e924bab111333faf91eb57a107.stex"
 
-[sub_resource type="RectangleShape2D" id=30]
-extents = Vector2( 33.0039, 31.4997 )
+[sub_resource type="CircleShape2D" id=30]
+radius = 43.1014
 
 [sub_resource type="Animation" id=22]
 length = 0.84
@@ -143,7 +143,7 @@ throwDownSpeed = 200.0
 texture = SubResource( 27 )
 hframes = 6
 vframes = 5
-frame = 8
+frame = 26
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvZ29ibGluMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD0Kb19uYW1lfD0Kb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -157,7 +157,7 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -38.4873, 6.99783 )
+position = Vector2( -42.5649, 6.54473 )
 rotation = -1.57503
 shape = SubResource( 30 )
 
