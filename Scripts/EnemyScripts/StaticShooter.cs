@@ -13,7 +13,6 @@ public class StaticShooter : Enemy
 	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
-	private AnimationPlayer animPlayer;
 
 	public override void _Ready() 
 	{

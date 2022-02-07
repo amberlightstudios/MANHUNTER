@@ -15,7 +15,6 @@ public class Baby : Enemy
 	[Puppet]
 	public Vector2 BabyPuppetVelocity { get; set; }
 	
-	private AnimationPlayer animPlayer;
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
 	public RayCast2D TopDetect;
 	private Sprite sprite;
