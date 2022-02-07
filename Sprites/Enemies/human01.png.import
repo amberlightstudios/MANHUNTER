@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/human01.png-066f75c2360ed37381396cb0d853b396.stex"
+path="res://.import/human01.png-798f074073311d304ac47b1ff9f7a482.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/human01.png"
-dest_files=[ "res://.import/human01.png-066f75c2360ed37381396cb0d853b396.stex" ]
+source_file="res://Sprites/Enemies/human01.png"
+dest_files=[ "res://.import/human01.png-798f074073311d304ac47b1ff9f7a482.stex" ]
 
 [params]
 
