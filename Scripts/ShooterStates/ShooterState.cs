@@ -9,7 +9,7 @@ namespace ShooterStates
         public abstract void _Process(float delta);
         public abstract void _PhysicsProcess(float delta);
         public virtual void ExitState(ShooterState newState) {
-
+            shooter.State = newState;
         }
     }
 }

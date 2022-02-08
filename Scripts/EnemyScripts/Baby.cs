@@ -126,6 +126,11 @@ public class Baby : Enemy
 		return Player.Position.x - Position.x;
 	}
 
+	public override void Death() 
+	{
+		State.ExitState(new DeathState(this));
+	}
+
 	public override void _Draw()
 	{
 		// DrawLine(Vector2.Zero, new Vector2(attackRange, 0), new Color(0, 0, 0, 1));

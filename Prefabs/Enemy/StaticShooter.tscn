@@ -5,12 +5,14 @@
 [sub_resource type="StreamTexture" id=10]
 load_path = "res://.import/shooter01.png-2e280e012830b437020cd720101a9689.stex"
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 460, 21.5 )
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31, 31 )
 
 [sub_resource type="Animation" id=9]
-length = 0.25
-loop = true
+length = 1.44
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -18,15 +20,14 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08, 1.26 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 7.0 ]
+"values": [ 0.0, 1.0, 0.0, 1.0, 2.0, 1.0, 0.0, 1.0 ]
 }
 
 [sub_resource type="Animation" id=4]
 length = 0.975
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -58,7 +59,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 length = 0.3
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -88,9 +88,6 @@ tracks/0/keys = {
 "values": [ 0.0, 3.0, 4.0, 3.0, 0.0, 5.0, 6.0, 5.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 460, 21.5 )
-
 [node name="StaticShooter" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 8
@@ -103,12 +100,23 @@ bulletSpeed = 7.0
 texture = SubResource( 10 )
 hframes = 4
 vframes = 4
+frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9zaG9vdGVyMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzL0VuZW1pZXMKb19uYW1lfD1zaG9vdGVyMDEucG5nCm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
 
 [node name="ShootPoint" type="Node2D" parent="Sprite"]
 position = Vector2( -36, 9 )
+
+[node name="ShootRange" type="Area2D" parent="Sprite"]
+position = Vector2( 0, 7 )
+scale = Vector2( -1, 1 )
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/ShootRange"]
+z_index = 10
+shape = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -119,11 +127,3 @@ anims/Death = SubResource( 4 )
 anims/Idle = SubResource( 5 )
 anims/Shoot = SubResource( 6 )
 anims/Walk = SubResource( 7 )
-
-[node name="ShootRange" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange"]
-z_index = 10
-shape = SubResource( 11 )

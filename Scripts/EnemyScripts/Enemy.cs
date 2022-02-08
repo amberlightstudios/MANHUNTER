@@ -12,7 +12,8 @@ public class Enemy : Character
 
 	protected bool isTakingDamage = false;
 
-    protected AnimationPlayer animPlayer;
+	protected AnimationPlayer animPlayer;
+	public AnimationPlayer AnimPlayer { get => animPlayer; }
 
 	public override void _Ready()
 	{
@@ -41,7 +42,7 @@ public class Enemy : Character
 		base.TakeDamage(dmg);
 		isTakingDamage = true;
 		if (health <= 0) {
-			GetParent().RemoveChild(this);
+			Death();
 		}
 		Task.Delay(1000).ContinueWith(t => isTakingDamage = false);
 	}
@@ -52,7 +53,12 @@ public class Enemy : Character
 		Position += knockbackDist;
 	}
 
-    public virtual void PlayAnimation(string name) 
+	public virtual void Death() 
+	{
+		GetParent().RemoveChild(this);
+	}
+
+	public virtual void PlayAnimation(string name) 
 	{
 		animPlayer.Play(name);
 	}

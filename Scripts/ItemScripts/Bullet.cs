@@ -15,7 +15,8 @@ public class Bullet : Area2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		Position += Direction.Normalized() * Speed;
+		// Bullet should only move horizontally. 
+		Position += new Vector2(Math.Sign(Direction.x), 0) * Speed;
 
 		Godot.Collections.Array playersHit = this.GetOverlappingBodies();
 		foreach (Goblin g in playersHit) {
