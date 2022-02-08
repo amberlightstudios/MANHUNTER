@@ -14,6 +14,7 @@ public class StaticShooter : Enemy
 	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
+	private RayCast2D groundDetect;
 
 	public ShooterState State;
 
@@ -23,6 +24,7 @@ public class StaticShooter : Enemy
 		shootRange = GetNode<Area2D>("Sprite/ShootRange");
 		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		groundDetect = GetNode<RayCast2D>("GroundDetect");
 
 		State = new StaticState(this, shootFrequency);
 	}
@@ -38,6 +40,10 @@ public class StaticShooter : Enemy
 
 		velocity.y += Gravity;
 		MoveAndSlide(velocity);
+	}
+
+	public bool OnGround() {
+		return groundDetect.IsColliding();
 	}
 
 	public Goblin DetectPlayer() 

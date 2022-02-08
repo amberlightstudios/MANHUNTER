@@ -100,7 +100,6 @@ bulletSpeed = 7.0
 texture = SubResource( 10 )
 hframes = 4
 vframes = 4
-frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9zaG9vdGVyMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzL0VuZW1pZXMKb19uYW1lfD1zaG9vdGVyMDEucG5nCm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
@@ -127,3 +126,8 @@ anims/Death = SubResource( 4 )
 anims/Idle = SubResource( 5 )
 anims/Shoot = SubResource( 6 )
 anims/Walk = SubResource( 7 )
+
+[node name="GroundDetect" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 8

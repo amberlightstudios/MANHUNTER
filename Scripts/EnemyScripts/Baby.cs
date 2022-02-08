@@ -128,6 +128,7 @@ public class Baby : Enemy
 
 	public override void Death() 
 	{
+		isTakingDamage = false;
 		State.ExitState(new DeathState(this));
 	}
 

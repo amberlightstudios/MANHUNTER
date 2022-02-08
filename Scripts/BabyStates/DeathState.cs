@@ -4,15 +4,22 @@ namespace BabyStates
 {
     public class DeathState : BabyState
     {
+        bool isPlayingAnim = false;
+        
         public DeathState(Baby baby) 
         {
             this.baby = baby;
-            baby.PlayAnimation("Death");
+            baby.Velocity = new Vector2(0, baby.Velocity.y);
         }
 
         public override void _Process(float delta)
         {
-            if (!baby.AnimPlayer.IsPlaying()) {
+            if (baby.OnGround() && !isPlayingAnim) {
+                baby.PlayAnimation("Death");
+                isPlayingAnim = true;
+            }
+
+            if (isPlayingAnim && !baby.AnimPlayer.IsPlaying()) {
                 baby.GetParent().RemoveChild(baby);
             }
         }

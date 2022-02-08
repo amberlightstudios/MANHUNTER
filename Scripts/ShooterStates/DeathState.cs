@@ -4,15 +4,22 @@ namespace ShooterStates
 {
     public class DeathState : ShooterState
     {
+        bool isPlayingAnim = false;
+
         public DeathState(StaticShooter shooter) 
         {
             this.shooter = shooter;
-            shooter.PlayAnimation("Death");
+            shooter.Velocity = new Vector2(0, shooter.Velocity.y);
         }
 
         public override void _Process(float delta)
         {
-            if (!shooter.AnimPlayer.IsPlaying()) {
+            if (shooter.OnGround() && !isPlayingAnim) {
+                shooter.PlayAnimation("Death");
+                isPlayingAnim = true;
+            }
+
+            if (isPlayingAnim && !shooter.AnimPlayer.IsPlaying()) {
                 shooter.GetParent().RemoveChild(shooter);
             }
         }
