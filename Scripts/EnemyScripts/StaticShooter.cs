@@ -90,6 +90,7 @@ public class StaticShooter : Enemy
 
 	public override void Death()
 	{
+		touchDamage = 0;
 		State.ExitState(new DeathState(this));
 	}
 }

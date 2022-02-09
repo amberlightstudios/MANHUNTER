@@ -162,7 +162,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (isInvincible)
+		if (isInvincible || dmg == 0)
 			return;
 		base.TakeDamage(dmg);
 

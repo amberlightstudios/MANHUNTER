@@ -14,8 +14,9 @@ namespace PlayerScripts
 
 		public override void _Process(float delta)
 		{
-			if (this.GetOverlappingBodies().Count > 0) {
-				player.TakeDamage(1);
+			foreach (Enemy e in this.GetOverlappingBodies()) {
+				player.TakeDamage(e.TouchDamage);
+				break;
 			}
 		}
 	}

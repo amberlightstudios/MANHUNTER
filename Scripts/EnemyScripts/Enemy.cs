@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 public class Enemy : Character
 {
+	protected int touchDamage = 1;
+	public int TouchDamage { get => touchDamage; }
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
 	public bool IsGrabbed = false;
@@ -55,6 +57,7 @@ public class Enemy : Character
 
 	public virtual void Death() 
 	{
+		touchDamage = 0;
 		GetParent().RemoveChild(this);
 	}
 
