@@ -4,21 +4,35 @@ namespace GoblinStates
 {
 	public class JumpState : GoblinState
 	{
+        private int tick = 0;
+        private bool highJump = false;
+
 		public JumpState(Goblin player) 
 		{
 			this.player = player;
-			player.Velocity.y = -10 * player.JumpSpeed;
+			player.Velocity.y = -8 * player.JumpSpeed;
+
+            // Play jump animation
+			player.PlayAnimation("Jump");
 		}
 
 		public JumpState(Goblin player, bool isFallingDown) 
 		{
 			this.player = player;
 			if (!isFallingDown)
-				player.Velocity.y = -10 * player.JumpSpeed;
+				player.Velocity.y = -8 * player.JumpSpeed;
 		}
 
 		public override void _Process(float delta)
 		{
+            if (Input.IsActionPressed("Jump") && !highJump) {
+                tick += 1;
+                if (tick > 5) {
+                    player.Velocity.y += -2.5f * player.JumpSpeed;
+                    highJump = true;
+                }
+            }
+
 			if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right")) {
 				player.Velocity.x = 0;
 			}
@@ -35,26 +49,26 @@ namespace GoblinStates
 
 			if (Input.IsActionJustPressed("Attack")) {
 				ExitState(new AttackState(player, this));
+                return;
 			}
 
 			if (Input.IsActionPressed("wall_climb")) {
 				bool isWallClimbing = player.CanWallClimb();
 				if (isWallClimbing) {
 					ExitState(new WallClimbState(player));
+                    return;
 				}
 			}
 
 			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
 				ExitState(new ThrowState(player, new JumpState(player, true)));
-			}
-
-			// Play jump animation
-			player.PlayAnimation("Jump");
+                return;
+            }
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
-			if (player.IsOnGround()) {
+			if (player.OnGround()) {
 				MoveState newState = new MoveState(player);
 				ExitState(newState);
 				return;

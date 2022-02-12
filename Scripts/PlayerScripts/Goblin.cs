@@ -12,9 +12,7 @@ public class Goblin : Character
 	[Export]
 	public float Speed { get; private set; }
 	public Vector2 Velocity;
-	
-	[Export]
-	private int meleeDamage = 2;
+
 
 	[Puppet]
 	public Vector2 PuppetPosition { get; set; }
@@ -25,14 +23,19 @@ public class Goblin : Character
 	[Puppet]
 	public String PuppetAnimation { get; set; }
 
+
+
 	[Export]
 	public float JumpSpeed { get; private set; }
 	[Export]
 	public float WallClimbSpeed { get; private set; }
+
+
+	[Export]
+	private int meleeDamage = 2;
 	[Export]
 	public float AttakDeceleration = 0.5f;
 
-	
 
 	// This is for throwing.
 	[Export]
@@ -51,10 +54,22 @@ public class Goblin : Character
 	private Vector2 throwVelocity;
 	[Export]
 	private float throwDownSpeed;
+
+
+	[Export]
+	private float knockBackSpeed;
+	public float KnockBackSpeed { get => knockBackSpeed; }
 	[Export]
 	private int invincibleTime = 1300;
+	[Export]
+	private int stunTime = 200;
+	public int StunTime { get => stunTime; }
 	private bool isInvincible = false;
 	private bool stunAfterHit = false;
+	
+
+
+
 
 	// faceDirection == -1 -> Player is facing left.. 
 	// faceDirection == 1 -> Player is facing right. 
@@ -149,15 +164,10 @@ public class Goblin : Character
 	
 	private void UpdateGoblin(float delta)
 	{
-		if (stunAfterHit) {
-			Velocity = Vector2.Zero;
-		} else {
-			State._PhysicsProcess(delta);
-			// Gravity
-			Velocity.y += Gravity;
-			Velocity = MoveAndSlide(Velocity);
-		}
-
+		State._PhysicsProcess(delta);
+		// Gravity
+		Velocity.y += Gravity;
+		Velocity = MoveAndSlide(Velocity);
 	}
 
 	public override void TakeDamage(int dmg) 
@@ -229,8 +239,6 @@ public class Goblin : Character
 		}  
 		if (PuppetAnimation != null) {
 			animPlayer.Play(PuppetAnimation);
-		} else {
-			animPlayer.Play("Idle");
 		}
 	}
 
@@ -253,7 +261,7 @@ public class Goblin : Character
 		WallDetectFoot.Scale = new Vector2(-1, 1);
 	}
 
-	public bool IsOnGround() 
+	public bool OnGround() 
 	{
 		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
 				&& Velocity.y >= 0;
@@ -296,16 +304,6 @@ public class Goblin : Character
 		enemy.Velocity = new Vector2(Velocity.x * 0.5f, throwDownSpeed);
 	}
 
-	// public Bomb CreateBomb(String name) 
-	// {
-		// PackedScene bombLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bomb.tscn");
-		// Bomb bomb = bombLoader.Instance<Bomb>();
-		// bomb.Name = name;
-		// GetParent().AddChild(bomb);
-		// bomb.Position = ThrowPoint;
-	// 	return bomb;
-	// }
-
 	
 	[Remote]
 	public void SyncAttack()
@@ -316,6 +314,7 @@ public class Goblin : Character
 	public bool AttackEnemy() 
 	{
 		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncAttack));
+
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
@@ -326,6 +325,9 @@ public class Goblin : Character
 
 	public void PlayAnimation(String name) 
 	{
+		if (name == animPlayer.CurrentAnimation) {
+			return;
+		}
 		animPlayer.Play(name);
 	}
 }

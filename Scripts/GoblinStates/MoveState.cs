@@ -20,23 +20,27 @@ namespace GoblinStates {
 				player.TurnRight();
 				player.PlayAnimation("Walk");
 			}
+			
+			if (player.Velocity.Length() == 0) 
+				player.PlayAnimation("Idle");
 
-			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
+			if (Input.IsActionJustPressed("Jump") && player.OnGround()) {
 				ExitState(new JumpState(player));
-			} else if (!player.IsOnGround()) {
+				return;
+			} else if (!player.OnGround()) {
 				ExitState(new JumpState(player, true));
+				return;
 			}
 
 			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
 				ExitState(new ThrowState(player, this));
+				return;
 			}
 
 			if (Input.IsActionJustPressed("Attack")) {
 				ExitState(new AttackState(player, this));
+				return;
 			}
-
-			if (player.Velocity.Length() == 0) 
-				player.PlayAnimation("Idle");
 		}
 
 		public override void _PhysicsProcess(float delta)

@@ -27,7 +27,7 @@ namespace GoblinStates
 				return;
 			} 
 
-			if (Input.IsActionJustPressed("Jump") && player.IsOnGround()) {
+			if (Input.IsActionJustPressed("Jump") && player.OnGround()) {
 				JumpState newState = new JumpState(player);
 				ExitState(newState);
 				return;

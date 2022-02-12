@@ -21,7 +21,7 @@ namespace GoblinStates
 
 			if ((player.FaceDirection == 1 && Input.IsActionPressed("move_left"))
 			|| (player.FaceDirection == -1 && Input.IsActionPressed("move_right"))) {
-				if (player.IsOnGround()) {
+				if (player.OnGround()) {
 					ExitState(new MoveState(player));
 				} else {
 					ExitState(new JumpState(player, true));

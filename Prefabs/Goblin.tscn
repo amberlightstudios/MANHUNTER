@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/CharacterUI.tres" type="Theme" id=1]
-[ext_resource path="res://Scripts/Goblin.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
 
 [sub_resource type="StreamTexture" id=31]
@@ -76,7 +76,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=29]
 length = 0.475
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -139,7 +138,7 @@ health = 10
 Speed = 300.0
 JumpSpeed = 60.0
 WallClimbSpeed = 300.0
-AttakDeceleration = 3.0
+AttakDeceleration = 0.0
 rocksCount = 10
 throwDirection = Vector2( 1, 0 )
 maxThrowForce = 600.0
@@ -150,7 +149,7 @@ throwDownSpeed = 200.0
 texture = SubResource( 31 )
 hframes = 5
 vframes = 5
-frame = 21
+frame = 17
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvZ29ibGluMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzCm9fbmFtZXw9Z29ibGluMDEucG5nCm9ubHlfdmlzaWJsZXw9VHJ1ZQpvX2V4X3B8PQo="
 }

@@ -7,7 +7,7 @@ namespace BabyStates
 		public JumpState(Baby baby) 
 		{
 			this.baby = baby;
-			baby.Velocity = new Vector2(baby.GetAttackDist(), -10 * baby.JumpSpeed);
+			baby.Velocity = new Vector2(baby.GetAttackDist() * 1.2f, -10 * baby.JumpSpeed);
 		}
 
 		public override void _Process(float delta)
