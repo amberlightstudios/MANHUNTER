@@ -7,7 +7,7 @@
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
 
 [sub_resource type="RectangleShape2D" id=30]
-extents = Vector2( 35.4637, 27.9934 )
+extents = Vector2( 8.01684, 7.52953 )
 
 [sub_resource type="Animation" id=32]
 length = 0.2
@@ -138,10 +138,10 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 11.5, 29 )
+extents = Vector2( 3.5, 8.5 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 8.5, 27.1827 )
+extents = Vector2( 2.5, 7.5 )
 
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
@@ -162,25 +162,25 @@ throwVelocity = Vector2( 300, -130 )
 throwDownSpeed = 200.0
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 13, -9 )
 texture = SubResource( 38 )
 hframes = 6
 vframes = 5
-frame = 19
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
 
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
-position = Vector2( -24, 6 )
+position = Vector2( 7, -1 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
+visible = false
+position = Vector2( 11, 0 )
 collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -46.0126, 4.52335 )
+position = Vector2( -3.47037, 0.997742 )
 rotation = -1.57503
 shape = SubResource( 30 )
 
@@ -196,34 +196,35 @@ anims/Ladder = SubResource( 37 )
 anims/Walk = SubResource( 26 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( -3.5, 1 )
+position = Vector2( 0.5, 1.5 )
 shape = SubResource( 2 )
 
 [node name="WallDetect" type="RayCast2D" parent="WalkCollsionBox"]
-position = Vector2( 0, -19.75 )
+visible = false
+position = Vector2( 3, -7.75 )
 enabled = true
-cast_to = Vector2( -13, 0 )
+cast_to = Vector2( -8, 0 )
 collision_mask = 8
 
 [node name="WallDetectFoot" type="RayCast2D" parent="WalkCollsionBox"]
-position = Vector2( 0, 15 )
+visible = false
+position = Vector2( 3, 8 )
 enabled = true
-cast_to = Vector2( -13, 0 )
+cast_to = Vector2( -8, 0 )
 collision_mask = 8
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
 visible = false
-position = Vector2( 6, -9 )
+position = Vector2( 3, -1 )
 enabled = true
-cast_to = Vector2( 0, 42 )
+cast_to = Vector2( 0, 12 )
 collision_mask = 8
 
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
 visible = false
-position = Vector2( -13, -9 )
+position = Vector2( -2, -1 )
 enabled = true
-cast_to = Vector2( 0, 42 )
+cast_to = Vector2( 0, 12 )
 collision_mask = 8
 
 [node name="EnemyHitBox" type="Area2D" parent="."]
@@ -233,5 +234,5 @@ collision_mask = 4
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
-position = Vector2( -3.5, 1.81732 )
+position = Vector2( 0.5, 1.5 )
 shape = SubResource( 11 )

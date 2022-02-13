@@ -239,8 +239,8 @@ public class Goblin : Character
 
 	public void TurnLeft() 
 	{
-		sprite.Position = Vector2.Zero;
-		sprite.Scale = defaultSpriteScale;
+		sprite.Position = new Vector2(1, 0);
+		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
 		FaceDirection = -1;
 		throwVelocity.x = Math.Abs(throwVelocity.x) * -1;
 		wallDetect.Scale = Vector2.One;
@@ -249,7 +249,8 @@ public class Goblin : Character
 
 	public void TurnRight() 
 	{
-		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
+		sprite.Position = Vector2.Zero;
+		sprite.Scale = defaultSpriteScale;
 		FaceDirection = 1;
 		throwVelocity.x = Math.Abs(throwVelocity.x);
 		wallDetect.Scale = new Vector2(-1, 1);
