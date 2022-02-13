@@ -100,7 +100,6 @@ public class Goblin : Character
 
 	private Vector2 defaultSpriteScale;
 	
-	private ProgressBar HPBar;
 
 	public override void _Ready()
 	{
@@ -113,7 +112,6 @@ public class Goblin : Character
 		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
-		HPBar = GetNode<ProgressBar>("HPBar");
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
 
@@ -139,9 +137,6 @@ public class Goblin : Character
 
 		if (isMultiPlayer && !IsNetworkMaster())
 			PuppetPosition = Position;
-			
-		// HealthBar logic
-		HPBar.SetValue(health);
 	}
 
 	public override void _PhysicsProcess(float delta)
