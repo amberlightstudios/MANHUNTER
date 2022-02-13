@@ -7,7 +7,7 @@
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
 
 [sub_resource type="RectangleShape2D" id=30]
-extents = Vector2( 8.01684, 7.52953 )
+extents = Vector2( 8.01684, 7.36218 )
 
 [sub_resource type="Animation" id=32]
 length = 0.2
@@ -138,13 +138,14 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3.5, 8.5 )
+extents = Vector2( 3.5, 8 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 2.5, 7.5 )
 
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
+scale = Vector2( 3, 3 )
 z_index = 20
 collision_layer = 2
 collision_mask = 8
@@ -180,7 +181,7 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -3.47037, 0.997742 )
+position = Vector2( -3.30301, 0.997025 )
 rotation = -1.57503
 shape = SubResource( 30 )
 
@@ -196,7 +197,7 @@ anims/Ladder = SubResource( 37 )
 anims/Walk = SubResource( 26 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 1.5 )
+position = Vector2( 0.5, 1 )
 shape = SubResource( 2 )
 
 [node name="WallDetect" type="RayCast2D" parent="WalkCollsionBox"]
