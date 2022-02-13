@@ -35,6 +35,11 @@ namespace GoblinStates
 			timer += delta;
 
 			if (!player.AnimPlayer.IsPlaying()) {
+                if (!player.OnGround()) {
+                    ExitState(new JumpState(player, true));
+                    player.PlayAnimation("Jump");
+                    return;
+                }
 				ExitState(previousState);
 				return;
 			}

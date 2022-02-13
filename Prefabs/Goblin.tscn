@@ -162,7 +162,7 @@ throwDownSpeed = 200.0
 texture = SubResource( 38 )
 hframes = 6
 vframes = 5
-frame = 8
+frame = 10
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
