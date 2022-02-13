@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace ShooterStates
 {
@@ -25,7 +26,7 @@ namespace ShooterStates
         public override void _Process(float delta)
         {
             timer += delta;
-            if (timer > animationLength) {
+            if (timer > animationLength + new Random().Next(-1, 2)) {
                 ExitState(new StaticState(shooter));
             }
         }

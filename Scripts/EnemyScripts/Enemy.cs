@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 public class Enemy : Character
 {
-	protected int touchDamage = 1;
+	protected int touchDamage = 0;
 	public int TouchDamage { get => touchDamage; }
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }

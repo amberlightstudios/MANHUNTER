@@ -27,8 +27,8 @@ namespace GoblinStates
 		{
             if (Input.IsActionPressed("Jump") && !highJump) {
                 tick += 1;
-                if (tick > 5) {
-                    player.Velocity.y += -2.5f * player.JumpSpeed;
+                if (tick > 6) {
+                    player.Velocity.y += -3.5f * player.JumpSpeed;
                     highJump = true;
                 }
             }

@@ -18,9 +18,9 @@ public class Bullet : Area2D
 		// Bullet should only move horizontally. 
 		Position += new Vector2(Math.Sign(Direction.x), 0) * Speed;
 
-		Godot.Collections.Array playersHit = this.GetOverlappingBodies();
-		foreach (Goblin g in playersHit) {
-			g.TakeDamage(Damage);
+		Godot.Collections.Array playersHit = this.GetOverlappingAreas();
+		foreach (Area2D g in playersHit) {
+			((Goblin) g.GetParent()).TakeDamage(Damage);
 			GetParent().RemoveChild(this);
 		}
 
