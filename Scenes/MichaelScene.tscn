@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Prefabs/Environment/GroundPlatform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/ParallaxBackground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/Enemy/RushingEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=5]
-[ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Prefabs/Environment/GroundTiles.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/GameManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Network.tscn" type="PackedScene" id=9]
@@ -27,12 +25,3 @@ tile_data = PoolIntArray( 1245186, 0, 0, 1245187, 0, 1, 1245188, 0, 2, 1245189, 
 position = Vector2( 641, 850 )
 
 [node name="Network" parent="." instance=ExtResource( 9 )]
-
-[node name="Rusher" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1144, 575 )
-Gravity = 1.5
-speed = 400.0
-explodeRadius = 60.0
-
-[node name="StaticShooter" parent="." instance=ExtResource( 6 )]
-position = Vector2( 904, 575 )

@@ -7,22 +7,27 @@ namespace GoblinStates
 	{
 		private GoblinState previousState;
 		private float timer = 0;
-		private float animLength;
 		private bool haveAttacked = false;
 		private int previousFaceDirection;
 		private float speed;
+        private string[] idleAnimationNames = new string[] { "BasicIdle", "BasicIdle2" };
+        private string[] movingAnimationNames = new string[] { "BasicMoving", "BasicMoving2" };
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
 			this.player = player;
-			player.Velocity = Vector2.Zero;
 			
-			animLength = player.AnimPlayer.CurrentAnimationLength;
 			previousFaceDirection = player.FaceDirection;
 			speed = player.Speed;
 
 			this.previousState = previousState;
-            player.PlayAnimation("Melee1");
+
+            int randomAnim = new Random().Next(0, 2);
+            if (player.Velocity.Length() > 0) {
+                player.PlayAnimation(movingAnimationNames[randomAnim]);
+            } else {
+                player.PlayAnimation(idleAnimationNames[randomAnim]);
+            }
 		}
 
 		public override void _Process(float delta)

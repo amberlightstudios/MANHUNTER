@@ -105,7 +105,7 @@ margin_bottom = 117.0
 custom_styles/hover = SubResource( 1 )
 text = "Quit"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer/Start" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer/Start" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer2/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer3/Quit" to="." method="_on_Quit_pressed"]
