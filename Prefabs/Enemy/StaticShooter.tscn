@@ -1,48 +1,18 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/StaticShooter.cs" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=10]
-load_path = "res://.import/shooter01.png-2e280e012830b437020cd720101a9689.stex"
+[sub_resource type="StreamTexture" id=12]
+load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 460, 21.5 )
+extents = Vector2( 184.042, 8 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31, 31 )
-
-[sub_resource type="Animation" id=9]
-length = 1.44
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08, 1.26 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0.0, 1.0, 0.0, 1.0, 2.0, 1.0, 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=4]
-length = 0.975
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.175, 0.275, 0.375, 0.475 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0 ]
-}
+extents = Vector2( 3.5, 7.5 )
 
 [sub_resource type="Animation" id=5]
-length = 1.44
+length = 0.1
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -51,14 +21,30 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08, 1.26 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0.0, 1.0, 0.0, 1.0, 2.0, 1.0, 0.0, 1.0 ]
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.075
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7.0 ]
 }
 
 [sub_resource type="Animation" id=6]
-length = 0.3
+length = 0.135
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -66,14 +52,14 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.085, 0.11 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0.0, 15.0 ]
+"values": [ 8.0, 9.0, 10.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=7]
-length = 0.64
+length = 0.6
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -82,13 +68,15 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56 ),
+"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0.0, 3.0, 4.0, 3.0, 0.0, 5.0, 6.0, 5.0 ]
+"values": [ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 5.0, 4.0 ]
 }
 
 [node name="StaticShooter" type="KinematicBody2D"]
+position = Vector2( 0, -1 )
+scale = Vector2( 3, 3 )
 collision_layer = 4
 collision_mask = 8
 script = ExtResource( 1 )
@@ -97,33 +85,34 @@ health = 2
 bulletSpeed = 7.0
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 10 )
+texture = SubResource( 12 )
 hframes = 4
-vframes = 4
+vframes = 3
+frame = 8
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9zaG9vdGVyMDEuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PUZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzL0VuZW1pZXMKb19uYW1lfD1zaG9vdGVyMDEucG5nCm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
 
 [node name="ShootPoint" type="Node2D" parent="Sprite"]
 position = Vector2( -36, 9 )
 
 [node name="ShootRange" type="Area2D" parent="Sprite"]
-position = Vector2( 0, 7 )
 scale = Vector2( -1, 1 )
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/ShootRange"]
+position = Vector2( 0, 1 )
 z_index = 10
 shape = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.5, 1.5 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attacked = SubResource( 9 )
-anims/Death = SubResource( 4 )
 anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 13 )
 anims/Shoot = SubResource( 6 )
 anims/Walk = SubResource( 7 )
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shooter01.png-2e280e012830b437020cd720101a9689.stex"
+path="res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/shooter01.png"
-dest_files=[ "res://.import/shooter01.png-2e280e012830b437020cd720101a9689.stex" ]
+source_file="res://Sprites/Enemies/HumanShooter1.png"
+dest_files=[ "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex" ]
 
 [params]
 
