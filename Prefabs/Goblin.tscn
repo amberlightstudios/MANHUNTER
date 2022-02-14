@@ -11,7 +11,6 @@ extents = Vector2( 8.01684, 8.9992 )
 
 [sub_resource type="Animation" id=32]
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -27,7 +26,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=33]
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -43,7 +41,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=34]
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -59,7 +56,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=35]
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -170,7 +166,7 @@ ladderClimbSpeed = 300.0
 texture = SubResource( 40 )
 hframes = 6
 vframes = 5
-frame = 19
+frame = 23
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
