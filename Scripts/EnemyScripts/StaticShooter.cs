@@ -74,12 +74,12 @@ public class StaticShooter : Enemy
 
 	public void TurnLeft() 
 	{
-		sprite.Scale = Vector2.One;
+		sprite.Scale = new Vector2(-1, 1);
 	}
 
 	public void TurnRight() 
 	{
-		sprite.Scale = new Vector2(-1, 1);
+		sprite.Scale = Vector2.One;
 	}
 
 	public override void TakeDamage(int dmg, Vector2 knockbackDist)

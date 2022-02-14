@@ -26,7 +26,7 @@ namespace ShooterStates
         public override void _Process(float delta)
         {
             timer += delta;
-            if (timer > animationLength + new Random().Next(-1, 2)) {
+            if (timer > animationLength) {
                 ExitState(new StaticState(shooter));
             }
         }

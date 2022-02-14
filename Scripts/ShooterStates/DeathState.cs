@@ -8,6 +8,7 @@ namespace ShooterStates
 
         public DeathState(StaticShooter shooter) 
         {
+            shooter.GetParent().RemoveChild(shooter); // Remove this later
             this.shooter = shooter;
             shooter.Velocity = new Vector2(0, shooter.Velocity.y);
         }
@@ -15,7 +16,7 @@ namespace ShooterStates
         public override void _Process(float delta)
         {
             if (shooter.OnGround() && !isPlayingAnim) {
-                shooter.PlayAnimation("Death");
+                // shooter.PlayAnimation("Death");
                 isPlayingAnim = true;
             }
 
