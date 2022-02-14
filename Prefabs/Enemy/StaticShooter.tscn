@@ -6,7 +6,7 @@
 load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 233.333, 2.66667 )
+extents = Vector2( 201.333, 2.66667 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 7.5 )
@@ -75,12 +75,11 @@ tracks/0/keys = {
 }
 
 [node name="StaticShooter" type="KinematicBody2D"]
-position = Vector2( 0, -1 )
 scale = Vector2( 3, 3 )
 collision_layer = 4
 collision_mask = 8
 script = ExtResource( 1 )
-Gravity = 20.0
+Gravity = 2.0
 health = 1
 shootFrequency = 0.5
 bulletSpeed = 7.0
@@ -89,7 +88,7 @@ bulletSpeed = 7.0
 texture = SubResource( 12 )
 hframes = 4
 vframes = 3
-frame = 10
+frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
@@ -98,14 +97,20 @@ __meta__ = {
 position = Vector2( 12, 0.666667 )
 
 [node name="ShootRange" type="Area2D" parent="Sprite"]
+visible = false
 scale = Vector2( -1, 1 )
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/ShootRange"]
-position = Vector2( -0.666672, 0.999998 )
+position = Vector2( -32.6667, 0.999998 )
 z_index = 10
 shape = SubResource( 11 )
+
+[node name="WallDetect" type="RayCast2D" parent="Sprite"]
+enabled = true
+cast_to = Vector2( 5, 0 )
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, 1.5 )
@@ -120,4 +125,16 @@ anims/Walk = SubResource( 7 )
 [node name="GroundDetect" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 40 )
+collision_mask = 8
+
+[node name="EdgeDetectLeft" type="RayCast2D" parent="."]
+position = Vector2( -4.66667, 0 )
+enabled = true
+cast_to = Vector2( 0, 11 )
+collision_mask = 8
+
+[node name="EdgeDetectRight" type="RayCast2D" parent="."]
+position = Vector2( 5.66667, 0.333333 )
+enabled = true
+cast_to = Vector2( 0, 11 )
 collision_mask = 8

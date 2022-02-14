@@ -25,7 +25,7 @@ namespace ShooterStates
         public override void _PhysicsProcess(float delta)
         {
             if (shooter.PlayerOffset().Length() > shooter.EvadeDist * 2) {
-                ExitState(new StaticState(shooter));
+                ExitState(new NormalState(shooter));
             }
         }
     }

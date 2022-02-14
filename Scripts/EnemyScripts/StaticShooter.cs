@@ -12,6 +12,9 @@ public class StaticShooter : Enemy
 	[Export]
 	private int damage = 1;
 	[Export]
+	private float roamSpeed = 30f;
+	public float RoamSpeed { get => roamSpeed; }
+	[Export]
 	private float evadeDist = 90f;
 	public float EvadeDist { get => evadeDist; }
 	private float evadeSpeed = 200f;
@@ -21,7 +24,7 @@ public class StaticShooter : Enemy
 	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
-	private RayCast2D groundDetect;
+	private RayCast2D groundDetect, edgeDetectLeft, edgeDetectRight, wallDetect;
 
 	public ShooterState State;
 
@@ -32,9 +35,12 @@ public class StaticShooter : Enemy
 		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		groundDetect = GetNode<RayCast2D>("GroundDetect");
+		edgeDetectLeft = GetNode<RayCast2D>("EdgeDetectLeft");
+		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
+		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		gm = GetNode<GameManager>("/root/Main/GameManager");
 
-		State = new StaticState(this, shootFrequency);
+		State = new NormalState(this, shootFrequency);
 	}
 
 	public override void _Process(float delta)
@@ -80,13 +86,26 @@ public class StaticShooter : Enemy
 		GetParent().AddChild(bullet);
 	}
 
+	public void EdgeDetect() 
+	{
+		if ((!edgeDetectLeft.IsColliding() || wallDetect.IsColliding()) && velocity.x < 0) {
+			TurnRight();
+			velocity.x *= -1;
+		} else if ((!edgeDetectRight.IsColliding() || wallDetect.IsColliding()) && velocity.x > 0) {
+			TurnLeft();
+			velocity.x *= -1;
+		}
+	}
+
 	public void TurnLeft() 
 	{
+		sprite.Position = new Vector2(1, 0);
 		sprite.Scale = new Vector2(-1, 1);
 	}
 
 	public void TurnRight() 
 	{
+		sprite.Position = Vector2.Zero;
 		sprite.Scale = Vector2.One;
 	}
 
