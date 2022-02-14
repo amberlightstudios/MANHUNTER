@@ -11,6 +11,13 @@ public class StaticShooter : Enemy
 	private float bulletSpeed;
 	[Export]
 	private int damage = 1;
+	[Export]
+	private float evadeDist = 90f;
+	public float EvadeDist { get => evadeDist; }
+	private float evadeSpeed = 200f;
+	public float EvadeSpeed { get => evadeSpeed; }
+
+	private GameManager gm;
 	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
@@ -25,6 +32,7 @@ public class StaticShooter : Enemy
 		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		groundDetect = GetNode<RayCast2D>("GroundDetect");
+		gm = GetNode<GameManager>("/root/Main/GameManager");
 
 		State = new StaticState(this, shootFrequency);
 	}
@@ -92,5 +100,25 @@ public class StaticShooter : Enemy
 	{
 		touchDamage = 0;
 		State.ExitState(new DeathState(this));
+	}
+
+	public Vector2 PlayerOffset() 
+	{
+		Vector2 dist = Vector2.Inf;
+
+		for (int i = 0; i < 4; i++) {
+			if (gm.PlayerList[i] != null) {
+				Goblin player = gm.PlayerList[i];
+				Vector2 newDist = Position - player.Position;
+				dist = newDist.Length() < dist.Length() ? newDist : dist;
+			}
+		}
+		
+		return dist;
+	}
+
+	public override void _Draw()
+	{
+		// DrawCircle(Vector2.Zero, evadeDist/3, new Color(1, 1, 1, 1));
 	}
 }

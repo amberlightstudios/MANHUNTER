@@ -26,6 +26,12 @@ namespace ShooterStates
 
 		public override void _PhysicsProcess(float delta)
 		{
+			Vector2 offset = shooter.PlayerOffset();
+			if (offset.Length() < shooter.EvadeDist) {
+                ExitState(new EvadeState(shooter, offset));
+                return;
+            }
+
 			Goblin target = shooter.DetectPlayer();
 			if (target != null) {
 				if (target.Position.x < shooter.Position.x) {

@@ -3,6 +3,8 @@ using System;
 
 public class GameManager : Node2D
 {
+	public Goblin[] PlayerList = new Goblin[4] { null, null, null, null};
+	private int newPlayerIndex = 0;
 	public Goblin Player { get; private set; }
 	private Vector2 screenSize;
 
@@ -35,5 +37,12 @@ public class GameManager : Node2D
 		if (Input.IsActionJustPressed("quit_game")) {
 			GetTree().Quit();
 		}
+	}
+
+	public void AddNewPlayer(Goblin player) 
+	{
+		PlayerList[newPlayerIndex % 4] = player;
+		newPlayerIndex += 1;
+		newPlayerIndex %= 4;
 	}
 }

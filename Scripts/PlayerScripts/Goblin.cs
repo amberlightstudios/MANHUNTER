@@ -101,11 +101,15 @@ public class Goblin : Character
 	private float ladderClimbSpeed;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
+	private GameManager gm;
 	private Vector2 defaultSpriteScale;
 	
 
 	public override void _Ready()
 	{
+		gm =  GetParent().GetNode<GameManager>("GameManager");
+		gm.AddNewPlayer(this);
+		
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
 		enemyHitBox = GetNode<Area2D>("EnemyHitBox");
@@ -186,7 +190,10 @@ public class Goblin : Character
 		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
 	}
 
-	public void RestartGame() { GetTree().ReloadCurrentScene(); }
+	public void RestartGame() 
+	{ 
+		GetTree().ReloadCurrentScene(); 
+	}
 
 	public void Throw() 
 	{

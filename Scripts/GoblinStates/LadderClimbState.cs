@@ -12,13 +12,15 @@ namespace GoblinStates
         }
 
         public override void _Process(float delta)
-        {
+        {   
+            player.PlayAnimation("Ladder");
             if (Input.IsActionPressed("move_up")) {
                 player.Velocity = new Vector2(0, -player.LadderClimbSpeed);
             } else if (Input.IsActionPressed("move_down")) {
                 player.Velocity = new Vector2(0, player.LadderClimbSpeed);
             } else {
                 player.Velocity = Vector2.Zero;
+                player.PlayAnimation("Idle");
             }
 
             if (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")) {
