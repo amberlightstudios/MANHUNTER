@@ -134,7 +134,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3.5, 8 )
+extents = Vector2( 3.5, 6.5 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 2.5, 7.5 )
@@ -162,7 +162,7 @@ throwDownSpeed = 200.0
 texture = SubResource( 38 )
 hframes = 6
 vframes = 5
-frame = 10
+frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -193,7 +193,7 @@ anims/Ladder = SubResource( 37 )
 anims/Walk = SubResource( 26 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 1 )
+position = Vector2( 0.833344, 2.5 )
 shape = SubResource( 2 )
 
 [node name="WallDetect" type="RayCast2D" parent="WalkCollsionBox"]
