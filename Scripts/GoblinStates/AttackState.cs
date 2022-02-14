@@ -10,8 +10,8 @@ namespace GoblinStates
 		private bool haveAttacked = false;
 		private int previousFaceDirection;
 		private float speed;
-        private string[] idleAnimationNames = new string[] { "BasicIdle", "BasicIdle2" };
-        private string[] movingAnimationNames = new string[] { "BasicMoving", "BasicMoving2" };
+		private string[] idleAnimationNames = new string[] { "BasicIdle", "BasicIdle2" };
+		private string[] movingAnimationNames = new string[] { "BasicMoving", "BasicMoving2" };
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
@@ -22,12 +22,12 @@ namespace GoblinStates
 
 			this.previousState = previousState;
 
-            int randomAnim = new Random().Next(0, 2);
-            if (player.Velocity.Length() > 0) {
-                player.PlayAnimation(movingAnimationNames[randomAnim]);
-            } else {
-                player.PlayAnimation(idleAnimationNames[randomAnim]);
-            }
+			int randomAnim = new Random().Next(0, 2);
+			if (player.Velocity.Length() > 0) {
+				player.PlayAnimation(movingAnimationNames[randomAnim]);
+			} else {
+				player.PlayAnimation(idleAnimationNames[randomAnim]);
+			}
 		}
 
 		public override void _Process(float delta)
@@ -35,37 +35,37 @@ namespace GoblinStates
 			timer += delta;
 
 			if (!player.AnimPlayer.IsPlaying()) {
-                if (!player.OnGround()) {
-                    ExitState(new JumpState(player, true));
-                    player.PlayAnimation("Jump");
-                    return;
-                }
+				if (!player.OnGround()) {
+					ExitState(new JumpState(player, true));
+					player.PlayAnimation("Jump");
+					return;
+				}
 				ExitState(previousState);
 				return;
 			}
 
-            player.Velocity.x = 0;
-            if (Input.IsActionPressed("move_left")) {
-                player.Velocity.x = -1 * speed;
-                player.TurnLeft();
-            } 
-            if (Input.IsActionPressed("move_right")) {
-                player.Velocity.x = speed;
-                player.TurnRight();
-            }
-            if (player.FaceDirection != previousFaceDirection) {
-                ExitState(previousState);
-                return;
-            }
+			player.Velocity.x = 0;
+			if (Input.IsActionPressed("move_left")) {
+				player.Velocity.x = -1 * speed;
+				player.TurnLeft();
+			} 
+			if (Input.IsActionPressed("move_right")) {
+				player.Velocity.x = speed;
+				player.TurnRight();
+			}
+			if (player.FaceDirection != previousFaceDirection) {
+				ExitState(previousState);
+				return;
+			}
 
-            if (Input.IsActionJustPressed("Jump") && player.OnGround()) {
-                ExitState(new JumpState(player));
-                return;
-            }
+			if (Input.IsActionJustPressed("Jump") && player.OnGround()) {
+				ExitState(new JumpState(player));
+				return;
+			}
 
-            if (!haveAttacked) {
-                haveAttacked = player.AttackEnemy();
-            }
+			if (!haveAttacked) {
+				haveAttacked = player.AttackEnemy();
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -75,7 +75,7 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
-            // player.AnimPlayer.Stop();
+			// player.AnimPlayer.Stop();
 			player.State = newState;
 		}
 	}

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Generator;
 
 public class Main : Node2D
 {
@@ -18,6 +19,8 @@ public class Main : Node2D
 
 	public override void _Ready()
 	{
+		Goblin player = Generator.Generator.Instance.GeneratePlayer("Initial Player", GetNode("/root/Main"));
+		AttachCamera(player);
 		GetTree().Connect("network_peer_connected", this, nameof(PlayerConnected));
 		GetTree().Connect("network_peer_disconnected", this, nameof(PlayerDisconnected));
 		GetTree().Connect("connected_to_server", this, nameof(ConnectedToServer));
@@ -140,17 +143,21 @@ public class Main : Node2D
 		Goblin peerPlayer = SpawnPlayer(id, playerName);
 		peerPlayer.SetColor(new Color(1, 0.39f, 0.28f, 1));
 	}
+	
+	public void AttachCamera(Goblin target) { 
+		// Update the camera
+		Cam cam = GetNodeOrNull<Cam>("Cam");
+		if (cam != null) {
+			cam.Player = target;
+		}
+	}
 
 	[Remote]
 	private void StartGame()
 	{
 		// spawn yourself
-		SpawnPlayer(GetTree().GetNetworkUniqueId(), PlayerName);
-		// Update the camera
-		Cam cam = GetNodeOrNull<Cam>("Cam");
-		if (cam != null) {
-			cam.Player = GetNodeOrNull<Goblin>(GetTree().GetNetworkUniqueId().ToString());
-		}
+		Goblin player = SpawnPlayer(GetTree().GetNetworkUniqueId(), PlayerName);
+		AttachCamera(player);
 	}
 
 	private Goblin SpawnPlayer(int id, string playerName)
