@@ -9,7 +9,7 @@ load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.st
 extents = Vector2( 233.333, 2.66667 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.5, 7.5 )
+extents = Vector2( 4.5, 7.5 )
 
 [sub_resource type="Animation" id=5]
 length = 0.1

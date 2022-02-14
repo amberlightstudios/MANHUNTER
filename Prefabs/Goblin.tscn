@@ -3,14 +3,15 @@
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
 
-[sub_resource type="StreamTexture" id=38]
+[sub_resource type="StreamTexture" id=40]
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
 
 [sub_resource type="RectangleShape2D" id=30]
-extents = Vector2( 8.01684, 7.36218 )
+extents = Vector2( 8.01684, 8.9992 )
 
 [sub_resource type="Animation" id=32]
 length = 0.2
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -26,6 +27,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=33]
 length = 0.2
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -36,11 +38,12 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 18.0, 19.0, 20.0, 21.0 ]
+"values": [ 19.0, 20.0, 21.0, 22.0 ]
 }
 
 [sub_resource type="Animation" id=34]
 length = 0.2
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -51,11 +54,12 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 15.0, 16.0, 17.0, 15.0 ]
+"values": [ 15.0, 16.0, 17.0, 18.0 ]
 }
 
 [sub_resource type="Animation" id=35]
 length = 0.2
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -66,7 +70,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 22.0, 23.0, 24.0, 25.0 ]
+"values": [ 23.0, 24.0, 25.0, 26.0 ]
 }
 
 [sub_resource type="Animation" id=20]
@@ -163,10 +167,10 @@ throwDownSpeed = 200.0
 ladderClimbSpeed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 38 )
+texture = SubResource( 40 )
 hframes = 6
 vframes = 5
-frame = 1
+frame = 19
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -176,13 +180,12 @@ position = Vector2( 7, -1 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
-visible = false
 position = Vector2( 11, 0 )
 collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -3.30301, 0.997025 )
+position = Vector2( -1.66599, 0.990097 )
 rotation = -1.57503
 shape = SubResource( 30 )
 
