@@ -24,11 +24,14 @@ public class Goblin : Character
 	public String PuppetAnimation { get; set; }
 
 
-
 	[Export]
 	public float JumpSpeed { get; private set; }
 	[Export]
 	public float WallClimbSpeed { get; private set; }
+
+
+	[Export]
+	public float DashSpeed { get; private set; }
 
 
 	[Export]
@@ -65,7 +68,7 @@ public class Goblin : Character
 	[Export]
 	private int stunTime = 200;
 	public int StunTime { get => stunTime; }
-	private bool isInvincible = false;
+	public bool IsInvincible = false;
 	private bool stunAfterHit = false;
 
 
@@ -175,7 +178,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (isInvincible || dmg == 0)
+		if (IsInvincible || dmg == 0)
 			return;
 		base.TakeDamage(dmg);
 
@@ -185,9 +188,9 @@ public class Goblin : Character
 
 		animPlayer.Play("Attacked");
 		stunAfterHit = true;
-		isInvincible = true;
+		IsInvincible = true;
 		Task.Delay(200).ContinueWith(t => stunAfterHit = false);
-		Task.Delay(invincibleTime).ContinueWith(t => isInvincible = false);
+		Task.Delay(invincibleTime).ContinueWith(t => IsInvincible = false);
 	}
 
 	public void RestartGame() 

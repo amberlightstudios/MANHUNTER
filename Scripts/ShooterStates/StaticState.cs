@@ -28,9 +28,9 @@ namespace ShooterStates
 		{
 			Vector2 offset = shooter.PlayerOffset();
 			if (offset.Length() < shooter.EvadeDist) {
-                ExitState(new EvadeState(shooter, offset));
-                return;
-            }
+				ExitState(new EvadeState(shooter, offset));
+				return;
+			}
 
 			Goblin target = shooter.DetectPlayer();
 			if (target != null) {

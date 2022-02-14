@@ -46,6 +46,11 @@ namespace GoblinStates {
 				ExitState(new LadderClimbState(player));
 				return;
 			}
+			
+			if (Input.IsActionJustPressed("Dash")) {
+				ExitState(new DashState(player));
+				return;
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)

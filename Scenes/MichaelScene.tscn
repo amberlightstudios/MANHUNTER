@@ -37,7 +37,6 @@ shootFrequency = 0.4
 
 [node name="StaticShooter3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1242, 403 )
-shootFrequency = 0.8
 
 [node name="StaticShooter4" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2171, 400 )

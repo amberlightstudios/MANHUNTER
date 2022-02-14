@@ -154,6 +154,7 @@ health = 1
 Speed = 300.0
 JumpSpeed = 90.0
 WallClimbSpeed = 300.0
+DashSpeed = 700.0
 AttakDeceleration = 0.0
 rocksCount = 10
 throwDirection = Vector2( 1, 0 )
