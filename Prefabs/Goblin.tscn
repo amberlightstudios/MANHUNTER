@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
@@ -139,6 +139,9 @@ extents = Vector2( 3.5, 6.5 )
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 2.5, 6.5 )
 
+[sub_resource type="RectangleShape2D" id=39]
+extents = Vector2( 1.5, 7.33334 )
+
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
 scale = Vector2( 3, 3 )
@@ -157,12 +160,13 @@ throwDirection = Vector2( 1, 0 )
 maxThrowForce = 600.0
 throwVelocity = Vector2( 300, -130 )
 throwDownSpeed = 200.0
+ladderClimbSpeed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 38 )
 hframes = 6
 vframes = 5
-frame = 11
+frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -232,3 +236,11 @@ script = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
 position = Vector2( 0.5, 2.5 )
 shape = SubResource( 11 )
+
+[node name="LadderDetection" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetection"]
+position = Vector2( 0.5, 1.66667 )
+shape = SubResource( 39 )

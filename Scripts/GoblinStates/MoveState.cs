@@ -41,6 +41,11 @@ namespace GoblinStates {
 				ExitState(new AttackState(player, this));
 				return;
 			}
+
+			if (player.OnLadder() && Input.IsActionPressed("move_up")) {
+				ExitState(new LadderClimbState(player));
+				return;
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)

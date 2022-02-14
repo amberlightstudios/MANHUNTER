@@ -35,6 +35,7 @@ public class Goblin : Character
 	private int meleeDamage = 2;
 	[Export]
 	public float AttakDeceleration = 0.5f;
+	private Area2D meleeArea;
 
 
 	// This is for throwing.
@@ -66,8 +67,6 @@ public class Goblin : Character
 	public int StunTime { get => stunTime; }
 	private bool isInvincible = false;
 	private bool stunAfterHit = false;
-	
-
 
 
 
@@ -96,7 +95,11 @@ public class Goblin : Character
 	private RayCast2D wallDetect;
 	public RayCast2D WallDetectFoot { get; private set; }
 
-	private Area2D meleeArea;
+	
+	private Area2D ladderDetection;
+	[Export]
+	private float ladderClimbSpeed;
+	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
 	private Vector2 defaultSpriteScale;
 	
@@ -112,6 +115,7 @@ public class Goblin : Character
 		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
+		ladderDetection = GetNode<Area2D>("LadderDetection");
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
 
@@ -261,6 +265,11 @@ public class Goblin : Character
 	{
 		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
 				&& Velocity.y >= 0;
+	}
+
+	public bool OnLadder() 
+	{
+		return ladderDetection.GetOverlappingBodies().Count > 0;
 	}
 
 	public bool CanWallClimb() 

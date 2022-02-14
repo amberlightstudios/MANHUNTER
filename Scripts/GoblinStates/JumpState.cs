@@ -20,7 +20,7 @@ namespace GoblinStates
 		{
 			this.player = player;
 			if (!isFallingDown)
-				player.Velocity.y = -8 * player.JumpSpeed;
+				player.Velocity.y = -6 * player.JumpSpeed;
 		}
 
 		public override void _Process(float delta)
@@ -62,6 +62,11 @@ namespace GoblinStates
 
 			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
 				ExitState(new ThrowState(player, new JumpState(player, true)));
+                return;
+            }
+
+            if (player.OnLadder() && (Input.IsActionPressed("move_up") || Input.IsActionPressed("move_down"))) {
+                ExitState(new LadderClimbState(player));
                 return;
             }
 		}
