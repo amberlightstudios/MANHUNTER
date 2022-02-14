@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Cam.cs" type="Script" id=1]
-[ext_resource path="res://Sprites/Environment/bg-layers.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Environment/clouds_1.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Environment/Sky.png" type="Texture" id=2]
 
 [node name="Cam" type="Camera2D"]
 position = Vector2( 603, 371 )
@@ -16,13 +15,6 @@ script = ExtResource( 1 )
 layer = -128
 
 [node name="Sky" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( 629, 360 )
+position = Vector2( 600, 360 )
 scale = Vector2( 2, 2 )
-z_index = -100
 texture = ExtResource( 2 )
-
-[node name="BGClouds" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( 640, 190 )
-scale = Vector2( 2.5, 3 )
-z_index = -100
-texture = ExtResource( 3 )
