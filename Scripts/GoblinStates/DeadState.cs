@@ -10,6 +10,7 @@ namespace GoblinStates
 		public DeadState(Goblin player) 
 		{
 			this.player = player;
+			player.RestartGame();
 			player.Velocity = Vector2.Zero;
 			player.AnimPlayer.Play("Death");
 			animationLength = player.AnimPlayer.CurrentAnimationLength;

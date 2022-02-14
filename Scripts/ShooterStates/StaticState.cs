@@ -41,7 +41,7 @@ namespace ShooterStates
 				}
 			} else {
 				if (timer > 0) {
-					timer -= delta;
+					timer -= delta/10;
 				} else {
 					timer = 0;
 				}
