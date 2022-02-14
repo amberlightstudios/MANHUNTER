@@ -4,15 +4,15 @@ namespace GoblinStates
 {
 	public class JumpState : GoblinState
 	{
-        private int tick = 0;
-        private bool highJump = false;
+		private int tick = 0;
+		private bool highJump = false;
 
 		public JumpState(Goblin player) 
 		{
 			this.player = player;
 			player.Velocity.y = -8 * player.JumpSpeed;
 
-            // Play jump animation
+			// Play jump animation
 			player.PlayAnimation("Jump");
 		}
 
@@ -25,13 +25,13 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
-            if (Input.IsActionPressed("Jump") && !highJump) {
-                tick += 1;
-                if (tick > 6) {
-                    player.Velocity.y += -3.5f * player.JumpSpeed;
-                    highJump = true;
-                }
-            }
+			if (Input.IsActionPressed("Jump") && !highJump) {
+				tick += 1;
+				if (tick > 12) {
+					player.Velocity.y += -3f * player.JumpSpeed;
+					highJump = true;
+				}
+			}
 
 			if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right")) {
 				player.Velocity.x = 0;
@@ -49,26 +49,26 @@ namespace GoblinStates
 
 			if (Input.IsActionJustPressed("Attack")) {
 				ExitState(new AttackState(player, this));
-                return;
+				return;
 			}
 
 			if (Input.IsActionPressed("wall_climb")) {
 				bool isWallClimbing = player.CanWallClimb();
 				if (isWallClimbing) {
 					ExitState(new WallClimbState(player));
-                    return;
+					return;
 				}
 			}
 
 			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
 				ExitState(new ThrowState(player, new JumpState(player, true)));
-                return;
-            }
+				return;
+			}
 
-            if (player.OnLadder() && (Input.IsActionPressed("move_up") || Input.IsActionPressed("move_down"))) {
-                ExitState(new LadderClimbState(player));
-                return;
-            }
+			if (player.OnLadder() && (Input.IsActionPressed("move_up") || Input.IsActionPressed("move_down"))) {
+				ExitState(new LadderClimbState(player));
+				return;
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)

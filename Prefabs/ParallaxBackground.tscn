@@ -11,7 +11,7 @@
 [node name="Clouds" type="ParallaxLayer" parent="."]
 position = Vector2( 0, 29 )
 motion_scale = Vector2( 0.34, 1 )
-motion_mirroring = Vector2( 1080, 0 )
+motion_mirroring = Vector2( 2160, 0 )
 
 [node name="Sprite" type="Sprite" parent="Clouds"]
 position = Vector2( 1080, 280 )
