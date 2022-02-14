@@ -18,7 +18,7 @@ namespace GoblinStates
             timer += delta;
             if (timer > 0.15f) {
                 if (player.OnGround()) {
-                    if (timer > 0.20f) {
+                    if (timer > 0.23f) {
                         ExitState(new MoveState(player));
                     } else {
                         player.IsInvincible = false;
