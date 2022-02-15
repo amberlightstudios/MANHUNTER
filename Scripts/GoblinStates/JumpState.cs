@@ -6,7 +6,7 @@ namespace GoblinStates
 	{
 		private int tick = 0;
 		private bool highJump = false;
-        private bool haveDashed = false;
+		private bool haveDashed = false;
 
 		public JumpState(Goblin player) 
 		{
@@ -24,10 +24,10 @@ namespace GoblinStates
 				player.Velocity.y = -6 * player.JumpSpeed;
 		}
 
-        public JumpState(Goblin player, bool isFallingDown, bool haveDashed) 
+		public JumpState(Goblin player, bool isFallingDown, bool haveDashed) 
 		{
 			this.player = player;
-            this.haveDashed = haveDashed;
+			this.haveDashed = haveDashed;
 			if (!isFallingDown)
 				player.Velocity.y = -6 * player.JumpSpeed;
 		}
@@ -79,10 +79,10 @@ namespace GoblinStates
 				return;
 			}
 
-            if (Input.IsActionJustPressed("Dash") && !haveDashed) {
-                ExitState(new DashState(player));
-                return;
-            }
+			if (Input.IsActionJustPressed("Dash") && !haveDashed) {
+				ExitState(new DashState(player));
+				return;
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)
