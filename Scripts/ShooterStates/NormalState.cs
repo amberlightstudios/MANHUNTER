@@ -23,8 +23,8 @@ namespace ShooterStates
 		public override void _Process(float delta)
 		{
             tick++;
-            if (tick > 40) {
-                int random = new Random().Next(-1, 3);
+            if (tick > 20) {
+                int random = new Random().Next(-1, 5);
                 tick = 0;
                 if (Math.Abs(random) == 1) {
                     shooter.Velocity = new Vector2(shooter.RoamSpeed * random, shooter.Velocity.y);
@@ -33,7 +33,9 @@ namespace ShooterStates
                     } else {
                         shooter.TurnRight();
                     }
-                } 
+                } else {
+                    shooter.Velocity = new Vector2(0, shooter.Velocity.y);
+                }
             }
             
             if (shooter.Velocity.x != 0) {
@@ -45,11 +47,11 @@ namespace ShooterStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			Vector2 offset = shooter.PlayerOffset();
-			if (offset.Length() < shooter.EvadeDist) {
-				ExitState(new EvadeState(shooter, offset));
-				return;
-			}
+			// Vector2 offset = shooter.PlayerOffset();
+			// if (offset.Length() < shooter.EvadeDist) {
+			// 	ExitState(new EvadeState(shooter, offset));
+			// 	return;
+			// }
 
 			Goblin target = shooter.DetectPlayer();
 			if (target != null) {

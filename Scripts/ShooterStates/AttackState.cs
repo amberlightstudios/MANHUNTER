@@ -35,11 +35,11 @@ namespace ShooterStates
 
         public override void _PhysicsProcess(float delta)
         {
-            Vector2 offset = shooter.PlayerOffset();
-            if (offset.Length() < shooter.EvadeDist) {
-                ExitState(new EvadeState(shooter, offset));
-                return;
-            }
+            // Vector2 offset = shooter.PlayerOffset();
+            // if (offset.Length() < shooter.EvadeDist) {
+            //     ExitState(new EvadeState(shooter, offset));
+            //     return;
+            // }
         }
     }
 }
