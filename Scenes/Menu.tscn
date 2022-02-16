@@ -71,7 +71,7 @@ margin_right = 1080.0
 margin_bottom = 116.0
 focus_mode = 0
 custom_styles/hover = SubResource( 1 )
-text = "Start"
+text = "Host Game"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
 margin_top = 120.0

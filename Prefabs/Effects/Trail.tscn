@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Prefabs/Effects/Trail.gd" type="Script" id=1]
+
+[sub_resource type="ShaderMaterial" id=3]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.845455 ), 0.0, 0.0, 0, 0, Vector2( 0.120635, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 1, 1, 1, 0.364706, 0, 0.463867, 1, 1 )
+
+[node name="Trail" type="Line2D"]
+show_behind_parent = true
+material = SubResource( 3 )
+z_index = -1
+width = 20.0
+width_curve = SubResource( 2 )
+default_color = Color( 0.141176, 0.286275, 0.988235, 1 )
+gradient = SubResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
