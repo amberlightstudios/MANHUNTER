@@ -15,6 +15,9 @@ namespace GoblinStates
 
 			// Play jump animation
 			player.PlayAnimation("Jump");
+			player.Walk.SetEmitting(false);
+			player.Jump.Restart();
+			player.Jump.SetEmitting(true);
 		}
 
 		public JumpState(Goblin player, bool isFallingDown) 
