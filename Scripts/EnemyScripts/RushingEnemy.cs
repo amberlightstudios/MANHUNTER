@@ -78,7 +78,6 @@ public class RushingEnemy : Enemy
 	public override void Death() 
 	{
 		State.ExitState(new DeathState(this));
-		GetParent().RemoveChild(this);
 	}
 
 	public void Attack() 
