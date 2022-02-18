@@ -17,7 +17,6 @@ public class Baby : Enemy
 	
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect;
 	public RayCast2D TopDetect;
-	private Sprite sprite;
 	private GameManager gamemanager;
 	public RayCast2D PlayerDetect { get; private set; }
 	public RayCast2D PlayerDetectBack{ get; private set; }
@@ -106,12 +105,12 @@ public class Baby : Enemy
 		}
 	}
 
-	public void TurnLeft() 
+	public override void TurnLeft() 
 	{
 		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
 	}
 
-	public void TurnRight() 
+	public override void TurnRight() 
 	{
 		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
 	}

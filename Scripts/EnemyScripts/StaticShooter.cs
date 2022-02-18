@@ -21,7 +21,6 @@ public class StaticShooter : Enemy
 	public float EvadeSpeed { get => evadeSpeed; }
 
 	private GameManager gm;
-	private Sprite sprite;
 	private Area2D shootRange;
 	private Node2D shootPoint;
 	private RayCast2D groundDetect, edgeDetectLeft, edgeDetectRight, wallDetect;
@@ -95,18 +94,6 @@ public class StaticShooter : Enemy
 			TurnLeft();
 			velocity.x *= -1;
 		}
-	}
-
-	public void TurnLeft() 
-	{
-		sprite.Position = new Vector2(1, 0);
-		sprite.Scale = new Vector2(-1, 1);
-	}
-
-	public void TurnRight() 
-	{
-		sprite.Position = Vector2.Zero;
-		sprite.Scale = Vector2.One;
 	}
 
 	public override void TakeDamage(int dmg, Vector2 knockbackDist)
