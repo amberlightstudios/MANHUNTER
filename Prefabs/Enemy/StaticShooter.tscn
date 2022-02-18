@@ -9,7 +9,6 @@ load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.st
 extents = Vector2( 201.333, 2.66667 )
 
 [sub_resource type="StreamTexture" id=14]
-load_path = "res://.import/Alert.png-19ed8ad57aea83431927f933fa2142cd.stex"
 
 [sub_resource type="Animation" id=15]
 length = 0.21
@@ -138,7 +137,7 @@ bulletSpeed = 7.0
 texture = SubResource( 16 )
 hframes = 5
 vframes = 4
-frame = 1
+frame = 15
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }

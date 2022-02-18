@@ -5,6 +5,9 @@ using ShooterStates;
 public class StaticShooter : Enemy
 {
 	[Export]
+	private float noticeTime = 1f;
+	public float NoticeTime { get => noticeTime; }
+	[Export]
 	private float shootFrequency = 2f;  // The enemy shoots every shootFrequency seconds
 	public float ShootFrequency { get => shootFrequency; }
 	[Export]

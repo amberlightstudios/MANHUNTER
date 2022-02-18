@@ -55,17 +55,8 @@ namespace ShooterStates
 
 			Goblin target = shooter.DetectPlayer();
 			if (target != null) {
-				if (target.Position.x < shooter.Position.x) {
-					shooter.TurnLeft();
-				} else if (target.Position.x > shooter.Position.x) {
-					shooter.TurnRight();
-				}
-
-				timer += delta;
-				if (timer > shooter.ShootFrequency) {
-					ExitState(new AttackState(shooter, target));
-					return;
-				}
+				ExitState(new NoticeState(shooter, target));
+				return;
 			} else {
 				if (timer > 0) {
 					timer -= delta/10;
