@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
@@ -142,6 +142,13 @@ extents = Vector2( 2.5, 6.5 )
 [sub_resource type="RectangleShape2D" id=39]
 extents = Vector2( 1.5, 7.33334 )
 
+[sub_resource type="Gradient" id=41]
+offsets = PoolRealArray( 0.0176056, 0.996479, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0 )
+
+[sub_resource type="Curve" id=42]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
 [node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 459, 458 )
 scale = Vector2( 3, 3 )
@@ -164,10 +171,11 @@ throwDownSpeed = 200.0
 ladderClimbSpeed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.333344, -0.333328 )
 texture = SubResource( 40 )
 hframes = 6
 vframes = 5
-frame = 23
+frame = 11
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -244,3 +252,51 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetection"]
 position = Vector2( 0.5, 1.66667 )
 shape = SubResource( 39 )
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Walk" type="CPUParticles2D" parent="Particles"]
+position = Vector2( 0, 9 )
+emitting = false
+amount = 30
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.2
+lifetime_randomness = 0.4
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 8, 0 )
+gravity = Vector2( -30, -90 )
+angular_velocity = 5.0
+angular_velocity_random = 1.0
+scale_amount = 6.0
+scale_amount_random = 0.5
+color_ramp = SubResource( 41 )
+
+[node name="Jump" type="CPUParticles2D" parent="Particles"]
+position = Vector2( 0, 7 )
+z_index = -1
+emitting = false
+amount = 20
+lifetime = 0.9
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.5
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 5, 0 )
+direction = Vector2( -0.1, 0 )
+spread = 0.0
+gravity = Vector2( 0, 300 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+damping = 15.0
+damping_random = 1.0
+angle = 50.0
+angle_random = 1.0
+scale_amount = 5.0
+scale_amount_random = 0.3
+scale_amount_curve = SubResource( 42 )
+color_ramp = SubResource( 41 )
