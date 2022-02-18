@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/RushingEnemy.cs" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=12]
 load_path = "res://.import/HumanMelee1.png-fc9111647694830d49bb20a1c02c3024.stex"
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 7.5, 11.6667 )
 
 [sub_resource type="Animation" id=8]
 length = 0.71
@@ -117,9 +120,10 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 30 )
+extents = Vector2( 3.66667, 8.66667 )
 
 [node name="Rusher" type="KinematicBody2D"]
+scale = Vector2( 3, 3 )
 z_index = 10
 collision_layer = 4
 collision_mask = 8
@@ -129,42 +133,54 @@ health = 1
 speed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -0.333333 )
 texture = SubResource( 12 )
 hframes = 5
 vframes = 5
-frame = 16
+frame = 22
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbk1lbGVlMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9VHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
 
 [node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
-position = Vector2( 0, -20 )
+visible = false
+position = Vector2( 0, -0.333333 )
 enabled = true
-cast_to = Vector2( -1000, 0 )
+cast_to = Vector2( 1000, 0 )
 collision_mask = 2
 
 [node name="PlayerDetectBack" type="RayCast2D" parent="Sprite"]
-position = Vector2( 0, -20 )
+visible = false
+position = Vector2( 0, -0.333333 )
 enabled = true
-cast_to = Vector2( 680, 0 )
+cast_to = Vector2( -700, 0 )
 collision_mask = 2
 
 [node name="WallDetect" type="RayCast2D" parent="Sprite"]
+visible = false
 enabled = true
-cast_to = Vector2( 40, 0 )
+cast_to = Vector2( 10, 0 )
 collision_mask = 8
 
 [node name="EdgeDetectRight" type="RayCast2D" parent="Sprite"]
-position = Vector2( 14, 0 )
+visible = false
+position = Vector2( 4.33333, 0 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 0, 15 )
 collision_mask = 8
 
 [node name="EdgeDetectLeft" type="RayCast2D" parent="Sprite"]
-position = Vector2( -20, 0 )
+visible = false
+position = Vector2( -3, 0 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 0, 15 )
 collision_mask = 8
+
+[node name="MeleeArea" type="Area2D" parent="Sprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
+position = Vector2( 11.1667, -1.66667 )
+shape = SubResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 8 )
@@ -176,10 +192,12 @@ anims/Walk = SubResource( 6 )
 anims/WalkAlert = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3, 0.5 )
+visible = false
+position = Vector2( 0.666667, 1.33333 )
 shape = SubResource( 1 )
 
 [node name="TopDetect" type="RayCast2D" parent="."]
+visible = false
 enabled = true
-cast_to = Vector2( 0, -30 )
+cast_to = Vector2( 0, -9 )
 collision_mask = 8

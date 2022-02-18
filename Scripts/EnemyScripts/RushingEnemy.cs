@@ -1,29 +1,33 @@
 using Godot;
 using System;
+using RushEnemyStates;
 
 public class RushingEnemy : Enemy
 {
 	[Export]
 	private float speed;
 	[Export]
-	private float explodeLoadTime = 0.6f;
-	[Export]
-	private float explodeRadius;
+	private float roamSpeed;
+	public float RoamSpeed { get => roamSpeed; }
 
 	private Goblin player = null;
-	private bool isChasing = false, isExploding = false, isDead = false;
+	private bool isChasing = false, isAttack = false, isDead = false;
 
 	private RayCast2D playerDetect, playerDetectBack;
+	private Area2D meleeArea;
+
+	public RushEnemyState State;
 
 	public override void _Ready()
 	{
 		playerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
 		playerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
+		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 	}
 
-	private float explodeTimer = 0f;
+	private float attackTimer = 0f;
 	public override void _Process(float delta)
 	{
 		if (isDead) {
@@ -33,16 +37,6 @@ public class RushingEnemy : Enemy
 			return;
 		}
 
-		if (player != null && (player.Position - Position).Length() < explodeRadius) {
-			isExploding = true;
-		}
-
-		if (isExploding) {
-			explodeTimer += delta;
-			if (explodeTimer > explodeLoadTime) {
-
-			}
-		}
 
 		if (isChasing) {
 			PlayAnimation("Walk");
@@ -55,10 +49,14 @@ public class RushingEnemy : Enemy
 	{
 		if (isDead)
 			return;
+			
+		if (meleeArea.GetOverlappingBodies().Count > 0 && !isAttack) {
+			isAttack = true;
+			velocity.x = 0;
+		}
 
 		if ((playerDetect.IsColliding() && Goblin.PlayerType.Equals(playerDetect.GetCollider().GetType())) 
-		|| (playerDetectBack.IsColliding() && Goblin.PlayerType.Equals(playerDetectBack.GetCollider().GetType()))
-		|| isChasing) {
+		|| (playerDetectBack.IsColliding() && Goblin.PlayerType.Equals(playerDetectBack.GetCollider().GetType()))) {
 			if (!isChasing) {
 				if (playerDetect.IsColliding()) {
 					player = (Goblin) playerDetect.GetCollider();
@@ -82,38 +80,29 @@ public class RushingEnemy : Enemy
 			velocity = new Vector2(0, velocity.y);
 		}
 
-		if (isExploding) {
-			velocity = new Vector2(0, velocity.y);
-		}
-
 		velocity.y += Gravity;
 		MoveAndSlide(velocity);
 	}
 
-	public override void TurnLeft() 
-	{
-		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
-	}
-
-	public override void TurnRight() 
-	{
-		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
+	public bool PlayerDetect() {
+		return (playerDetect.IsColliding() && Goblin.PlayerType.Equals(playerDetect.GetCollider().GetType())) 
+		|| (playerDetectBack.IsColliding() && Goblin.PlayerType.Equals(playerDetectBack.GetCollider().GetType()));
 	}
 
 	public override void Death() 
 	{
 		isDead = true;
-		PlayAnimation("Death");
+		// PlayAnimation("Death");
 	}
 
 	public override void PlayAnimation(string name)
 	{
+		if (name == animPlayer.CurrentAnimation) {
+			return;
+		}
 		base.PlayAnimation(name);
 		if (isDead) {
 			return;
-		}
-		if (isExploding) {
-			
 		}
 	}
 
