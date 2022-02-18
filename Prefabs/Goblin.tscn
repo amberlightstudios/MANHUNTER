@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Sprites/Effects/Dust.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
+[ext_resource path="res://Prefabs/Sounds/PlayerSound.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StreamTexture" id=40]
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
@@ -299,3 +300,5 @@ scale_amount = 1.5
 scale_amount_random = 0.3
 scale_amount_curve = SubResource( 42 )
 color_ramp = SubResource( 41 )
+
+[node name="SoundEffects" parent="." instance=ExtResource( 4 )]
