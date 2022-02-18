@@ -14,7 +14,6 @@ public class RushingEnemy : Enemy
 	private bool isChasing = false, isExploding = false, isDead = false;
 
 	private RayCast2D playerDetect, playerDetectBack;
-	private Sprite sprite;
 
 	public override void _Ready()
 	{
@@ -91,12 +90,12 @@ public class RushingEnemy : Enemy
 		MoveAndSlide(velocity);
 	}
 
-	public void TurnLeft() 
+	public override void TurnLeft() 
 	{
 		sprite.Scale = new Vector2(Math.Abs(sprite.Scale.x), sprite.Scale.y);
 	}
 
-	public void TurnRight() 
+	public override void TurnRight() 
 	{
 		sprite.Scale = new Vector2(-1 * Math.Abs(sprite.Scale.x), sprite.Scale.y);
 	}

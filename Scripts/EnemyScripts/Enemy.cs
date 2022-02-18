@@ -16,6 +16,7 @@ public class Enemy : Character
 
 	protected AnimationPlayer animPlayer;
 	public AnimationPlayer AnimPlayer { get => animPlayer; }
+	protected Sprite sprite;
 
 	public override void _Ready()
 	{
@@ -31,6 +32,18 @@ public class Enemy : Character
 	{
 		velocity.y += Gravity;
 		MoveAndSlide(velocity);
+	}
+
+	public virtual void TurnLeft() 
+	{
+		sprite.Position = new Vector2(1, 0);
+		sprite.Scale = new Vector2(-1, 1);
+	}
+
+	public virtual void TurnRight() 
+	{
+		sprite.Position = Vector2.Zero;
+		sprite.Scale = Vector2.One;
 	}
 
 	public void UpdatePosition(Vector2 pos, Vector2 scaleMultiplier) 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
+[ext_resource path="res://Sprites/Effects/Dust.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
 
@@ -264,12 +265,13 @@ one_shot = true
 explosiveness = 0.2
 lifetime_randomness = 0.4
 local_coords = false
+texture = ExtResource( 1 )
 emission_shape = 2
 emission_rect_extents = Vector2( 8, 0 )
 gravity = Vector2( -30, -90 )
 angular_velocity = 5.0
 angular_velocity_random = 1.0
-scale_amount = 6.0
+scale_amount = 2.0
 scale_amount_random = 0.5
 color_ramp = SubResource( 41 )
 
@@ -283,20 +285,17 @@ one_shot = true
 explosiveness = 0.9
 lifetime_randomness = 0.5
 local_coords = false
+texture = ExtResource( 1 )
 emission_shape = 2
-emission_rect_extents = Vector2( 5, 0 )
+emission_rect_extents = Vector2( 4.5, 0 )
 direction = Vector2( -0.1, 0 )
 spread = 0.0
 gravity = Vector2( 0, 300 )
 initial_velocity = 10.0
 initial_velocity_random = 1.0
-angular_velocity = 10.0
-angular_velocity_random = 1.0
 damping = 15.0
 damping_random = 1.0
-angle = 50.0
-angle_random = 1.0
-scale_amount = 5.0
+scale_amount = 1.5
 scale_amount_random = 0.3
 scale_amount_curve = SubResource( 42 )
 color_ramp = SubResource( 41 )
