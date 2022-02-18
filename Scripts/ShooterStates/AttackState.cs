@@ -13,11 +13,7 @@ namespace ShooterStates
 			this.shooter = shooter;
 			this.target = target;
 			shooter.Velocity = Vector2.Zero;
-			if (target.Position.x < shooter.Position.x) {
-				shooter.TurnLeft();
-			} else if (target.Position.x > shooter.Position.x) {
-				shooter.TurnRight();
-			}
+			
 			shooter.PlayAnimation("IdleAlert");
 		}
 

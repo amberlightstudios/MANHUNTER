@@ -27,31 +27,48 @@ position = Vector2( 641, 850 )
 
 [node name="StaticShooter" parent="." instance=ExtResource( 3 )]
 position = Vector2( 809, 595 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 886, 402 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter5" parent="." instance=ExtResource( 3 )]
 position = Vector2( 836, 165 )
-shootFrequency = 0.4
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1242, 403 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter4" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2171, 400 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter8" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2251, 162 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter9" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2046, 161 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter6" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2229, 640 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="StaticShooter7" parent="." instance=ExtResource( 3 )]
 position = Vector2( 2535, 641 )
+noticeTime = 0.8
+shootFrequency = 1.0
 
 [node name="Ladders" parent="." instance=ExtResource( 6 )]
 tile_data = PoolIntArray( 262172, 2, 0, 262195, 2, 0, 327708, 2, 65536, 327731, 2, 65536, 393244, 2, 65536, 393267, 2, 65536, 458780, 2, 65536, 458803, 2, 65536, 524316, 2, 131072, 524339, 2, 131072, 589847, 2, 0, 589872, 2, 0, 655383, 2, 65536, 655408, 2, 65536, 720919, 2, 65536, 720944, 2, 65536, 786455, 2, 131072, 786480, 2, 65536, 852016, 2, 131072 )
