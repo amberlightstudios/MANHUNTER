@@ -130,53 +130,48 @@ collision_mask = 8
 script = ExtResource( 1 )
 Gravity = 20.0
 health = 1
-speed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -0.333333 )
 texture = SubResource( 12 )
 hframes = 5
 vframes = 5
-frame = 22
+frame = 16
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbk1lbGVlMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9VHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
 
 [node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
-visible = false
 position = Vector2( 0, -0.333333 )
 enabled = true
-cast_to = Vector2( 1000, 0 )
-collision_mask = 2
+cast_to = Vector2( 300, 0 )
+collision_mask = 10
 
 [node name="PlayerDetectBack" type="RayCast2D" parent="Sprite"]
-visible = false
-position = Vector2( 0, -0.333333 )
 enabled = true
-cast_to = Vector2( -700, 0 )
-collision_mask = 2
+cast_to = Vector2( -100, 0 )
+collision_mask = 10
 
 [node name="WallDetect" type="RayCast2D" parent="Sprite"]
-visible = false
 enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 8
 
 [node name="EdgeDetectRight" type="RayCast2D" parent="Sprite"]
-visible = false
 position = Vector2( 4.33333, 0 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 collision_mask = 8
 
 [node name="EdgeDetectLeft" type="RayCast2D" parent="Sprite"]
-visible = false
 position = Vector2( -3, 0 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 collision_mask = 8
 
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
+collision_layer = 32
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
 position = Vector2( 11.1667, -1.66667 )
@@ -195,9 +190,3 @@ anims/WalkAlert = SubResource( 11 )
 visible = false
 position = Vector2( 0.666667, 1.33333 )
 shape = SubResource( 1 )
-
-[node name="TopDetect" type="RayCast2D" parent="."]
-visible = false
-enabled = true
-cast_to = Vector2( 0, -9 )
-collision_mask = 8

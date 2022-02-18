@@ -6,7 +6,7 @@ public class GrenadeEnemy : Enemy
 {
 	[Export]
 	private float throwFreq = 2f;
-    public float ThrowFreq { get => throwFreq; }
+	public float ThrowFreq { get => throwFreq; }
 	[Export]
 	private float roamSpeed = 60f;
 	public float RoamSpeed { get => roamSpeed; }

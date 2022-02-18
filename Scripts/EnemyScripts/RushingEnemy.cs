@@ -5,15 +5,13 @@ using RushEnemyStates;
 public class RushingEnemy : Enemy
 {
 	[Export]
-	private float speed;
+	private float chaseSpeed;
+	public float ChaseSpeed { get => chaseSpeed; }
 	[Export]
 	private float roamSpeed;
 	public float RoamSpeed { get => roamSpeed; }
 
-	private Goblin player = null;
-	private bool isChasing = false, isAttack = false, isDead = false;
-
-	private RayCast2D playerDetect, playerDetectBack;
+	private RayCast2D playerDetect, playerDetectBack, edgeDetectLeft, edgeDetectRight, wallDetect;
 	private Area2D meleeArea;
 
 	public RushEnemyState State;
@@ -23,76 +21,71 @@ public class RushingEnemy : Enemy
 		playerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
 		playerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
+		edgeDetectLeft = GetNode<RayCast2D>("Sprite/EdgeDetectLeft");
+		edgeDetectRight = GetNode<RayCast2D>("Sprite/EdgeDetectRight");
+		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+		State = new NormalState(this);
 	}
 
 	private float attackTimer = 0f;
 	public override void _Process(float delta)
 	{
-		if (isDead) {
-			if (!animPlayer.IsPlaying()) {
-				GetParent().RemoveChild(this);
-			}
-			return;
-		}
-
-
-		if (isChasing) {
-			PlayAnimation("Walk");
-		} else {
-			PlayAnimation("Idle");
-		}
+		State._Process(delta);
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		if (isDead)
-			return;
-			
-		if (meleeArea.GetOverlappingBodies().Count > 0 && !isAttack) {
-			isAttack = true;
-			velocity.x = 0;
-		}
+		State._PhysicsProcess(delta);
 
-		if ((playerDetect.IsColliding() && Goblin.PlayerType.Equals(playerDetect.GetCollider().GetType())) 
-		|| (playerDetectBack.IsColliding() && Goblin.PlayerType.Equals(playerDetectBack.GetCollider().GetType()))) {
-			if (!isChasing) {
-				if (playerDetect.IsColliding()) {
-					player = (Goblin) playerDetect.GetCollider();
-				} else {
-					player = (Goblin) playerDetectBack.GetCollider();
-				}
-			}
-
-			if (!isChasing) {
-				float attackDirection = Math.Sign(player.Position.x - Position.x);
-				velocity = new Vector2(attackDirection * speed, velocity.y);
-				if (velocity.x < 0) {
-					TurnLeft();
-				} else if (velocity.x > 0) {
-					TurnRight();
-				}
-			}
-
-			isChasing = true;
-		} else {
-			velocity = new Vector2(0, velocity.y);
-		}
-
-		velocity.y += Gravity;
-		MoveAndSlide(velocity);
+		base._PhysicsProcess(delta);
 	}
 
-	public bool PlayerDetect() {
-		return (playerDetect.IsColliding() && Goblin.PlayerType.Equals(playerDetect.GetCollider().GetType())) 
-		|| (playerDetectBack.IsColliding() && Goblin.PlayerType.Equals(playerDetectBack.GetCollider().GetType()));
+	public bool EdgeDetect() 
+	{
+		if ((!edgeDetectLeft.IsColliding() || wallDetect.IsColliding()) && velocity.x < 0) {
+			TurnRight();
+			velocity.x *= -1;
+			return true;
+		} else if ((!edgeDetectRight.IsColliding() || wallDetect.IsColliding()) && velocity.x > 0) {
+			TurnLeft();
+			velocity.x *= -1;
+			return true;
+		}
+
+		return false;
+	}
+
+	public Goblin PlayerDetect() 
+	{
+		if (playerDetect.IsColliding() && Goblin.PlayerType.Equals(playerDetect.GetCollider().GetType())) {
+			return (Goblin) playerDetect.GetCollider();
+		}
+		if (playerDetectBack.IsColliding() && Goblin.PlayerType.Equals(playerDetectBack.GetCollider().GetType())) {
+			return (Goblin) playerDetectBack.GetCollider();
+		}
+
+		return null;
+	}
+
+	public bool PlayerInRange() 
+	{
+		return meleeArea.GetOverlappingAreas().Count > 0;
 	}
 
 	public override void Death() 
 	{
-		isDead = true;
-		// PlayAnimation("Death");
+		State.ExitState(new DeathState(this));
+		GetParent().RemoveChild(this);
+	}
+
+	public void Attack() 
+	{
+		foreach (Area2D g in meleeArea.GetOverlappingAreas()) {
+			((Goblin) g.GetParent()).TakeDamage(5);
+		}
 	}
 
 	public override void PlayAnimation(string name)
@@ -101,9 +94,6 @@ public class RushingEnemy : Enemy
 			return;
 		}
 		base.PlayAnimation(name);
-		if (isDead) {
-			return;
-		}
 	}
 
 	public override void _Draw()

@@ -12,7 +12,7 @@ namespace RushEnemyStates
 
         public override void _Process(float delta)
         {
-            if (enemy.Velocity.Length() > 0) {
+            if (enemy.Velocity.x != 0) {
                 enemy.PlayAnimation("Walk");
             } else {
                 enemy.PlayAnimation("Idle");
@@ -22,10 +22,13 @@ namespace RushEnemyStates
         private int tick = 0;
         public override void _PhysicsProcess(float delta)
         {
-            if (enemy.PlayerDetect()) {
-                ExitState(new ChaseState(enemy));
+            Goblin target = enemy.PlayerDetect();
+            if (target != null) {
+                ExitState(new ChaseState(enemy, target));
+                return;
             }
 
+            tick++;
             if (tick > 20) {
                 int random = new Random().Next(-1, 5);
                 tick = 0;
@@ -40,6 +43,8 @@ namespace RushEnemyStates
                     enemy.Velocity = new Vector2(0, enemy.Velocity.y);
                 }
             }
+
+            enemy.EdgeDetect();
         }
     }
 }
