@@ -346,15 +346,18 @@ public class Goblin : Character
 
 	public void PlayAnimation(String name) 
 	{
-		GD.Print(name);
 		if (name == animPlayer.CurrentAnimation) {
 			return;
 		}
 		animPlayer.Play(name);
+		HandleSoundEffect(name);
+	}
+	
+	public void HandleSoundEffect(String name)
+	{
 		if (name == "BasicIdle" || name == "BasicIdle2" || name == "BasicMoving" || name == "BasicMoving2") {
 			AudioStreamPlayer2D sound = (AudioStreamPlayer2D)GetNode("/root/Main/SoundAttack");
 			sound.Play();
 		}
-
 	}
 }
