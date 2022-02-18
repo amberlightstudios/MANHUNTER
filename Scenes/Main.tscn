@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Network.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Prefabs/Environment/Ladders.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Enemy/RushingEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Sounds/Hit.wav" type="AudioStream" id=10]
 [ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=11]
 
 [node name="Main" type="Node2D"]
@@ -96,3 +97,6 @@ tile_data = PoolIntArray( 1769533, 1, 196609, 1835039, 1, 0, 1835040, 1, 1, 1835
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="SoundAttack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
