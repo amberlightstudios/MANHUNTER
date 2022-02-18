@@ -1,12 +1,27 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/RushingEnemy.cs" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=7]
-load_path = "res://.import/human01.png-798f074073311d304ac47b1ff9f7a482.stex"
+[sub_resource type="StreamTexture" id=12]
+load_path = "res://.import/HumanMelee1.png-fc9111647694830d49bb20a1c02c3024.stex"
 
-[sub_resource type="Animation" id=3]
-length = 0.25
+[sub_resource type="Animation" id=8]
+length = 0.71
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.125, 0.325, 0.36, 0.385, 0.41 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.1
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -18,26 +33,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 7.0 ]
+"values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=8]
-length = 0.975
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.175, 0.275, 0.375, 0.475 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0 ]
-}
-
-[sub_resource type="Animation" id=4]
-length = 1.44
+[sub_resource type="Animation" id=9]
+length = 0.1
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -46,14 +46,15 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08, 1.26 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0.0, 1.0, 0.0, 1.0, 2.0, 1.0, 0.0, 1.0 ]
+"values": [ 1.0 ]
 }
 
 [sub_resource type="Animation" id=5]
-length = 0.4
+length = 0.075
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -61,14 +62,14 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 3.0, 4.0 ]
+"values": [ 14.0 ]
 }
 
-[sub_resource type="Animation" id=9]
-length = 0.25
+[sub_resource type="Animation" id=10]
+length = 0.075
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -84,7 +85,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=6]
-length = 0.64
+length = 0.6
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -93,10 +94,26 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56 ),
+"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0.0, 3.0, 4.0, 3.0, 0.0, 5.0, 6.0, 5.0 ]
+"values": [ 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 6.0, 5.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.36
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.045, 0.09, 0.135, 0.18, 0.225, 0.27, 0.315 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 12.0, 11.0 ]
 }
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -112,12 +129,12 @@ health = 1
 speed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 7 )
-hframes = 4
-vframes = 4
-frame = 1
+texture = SubResource( 12 )
+hframes = 5
+vframes = 5
+frame = 16
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9odW1hbjAxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9aHVtYW4wMS5wbmcKb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbk1lbGVlMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9VHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
 
 [node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
@@ -150,12 +167,13 @@ cast_to = Vector2( 0, 35 )
 collision_mask = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attacked = SubResource( 3 )
-anims/Death = SubResource( 8 )
+anims/Attack = SubResource( 8 )
 anims/Idle = SubResource( 4 )
+anims/IdleAlert = SubResource( 9 )
 anims/Jump = SubResource( 5 )
-anims/Shoot = SubResource( 9 )
+anims/JumpAlert = SubResource( 10 )
 anims/Walk = SubResource( 6 )
+anims/WalkAlert = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -3, 0.5 )
