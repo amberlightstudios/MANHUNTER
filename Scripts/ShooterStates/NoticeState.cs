@@ -24,7 +24,7 @@ namespace ShooterStates
         {
             timer += delta;
             if (timer > shooter.NoticeTime) {
-                ExitState(new AttackState(shooter, target));
+                ExitState(new AttackState(shooter));
             } 
         }
 

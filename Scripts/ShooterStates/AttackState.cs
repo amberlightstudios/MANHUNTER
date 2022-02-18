@@ -5,15 +5,12 @@ namespace ShooterStates
 {
 	public class AttackState : ShooterState
 	{
-		private Goblin target;
 		private float timer = 0f;
 
-		public AttackState(StaticShooter shooter, Goblin target) 
+		public AttackState(StaticShooter shooter) 
 		{   
 			this.shooter = shooter;
-			this.target = target;
 			shooter.Velocity = Vector2.Zero;
-			
 			shooter.PlayAnimation("IdleAlert");
 		}
 
@@ -25,7 +22,7 @@ namespace ShooterStates
 
 			if (timer > shooter.ShootFrequency) {
 				shooter.PlayAnimation("Shoot");
-				shooter.Shoot(target);
+				shooter.Shoot();
 				timer = 0;
 			}
 
@@ -33,6 +30,12 @@ namespace ShooterStates
 				ExitState(new NormalState(shooter));
 				return;
 			} else if (!shooter.AnimPlayer.IsPlaying()) {
+				Goblin target = shooter.DetectPlayer();
+				if (target.Position.x < shooter.Position.x) {
+					shooter.TurnLeft();
+				} else if (target.Position.x > shooter.Position.x) {
+					shooter.TurnRight();
+				}
 				shooter.PlayAnimation("IdleAlert");
 			}
 		}

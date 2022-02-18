@@ -77,13 +77,13 @@ public class StaticShooter : Enemy
 		return null;
 	}
 
-	public void Shoot(Goblin target) 
+	public void Shoot() 
 	{
 		PackedScene bulletLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bullet.tscn");
 		Bullet bullet = bulletLoader.Instance<Bullet>();
 		bullet.Damage = damage;
 		bullet.Speed = bulletSpeed;
-		bullet.Direction = target.Position - shootPoint.GlobalPosition;
+		bullet.Direction = sprite.Scale;
 		bullet.Position = shootPoint.GlobalPosition;
 		GetParent().AddChild(bullet);
 	}
