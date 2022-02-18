@@ -29,6 +29,12 @@ position = Vector2( 641, 850 )
 [node name="Rusher" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1253, 592 )
 
+[node name="Rusher2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 947, 151 )
+
+[node name="Rusher3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 770, 151 )
+
 [node name="StaticShooter" parent="." instance=ExtResource( 3 )]
 position = Vector2( 809, 595 )
 noticeTime = 0.8

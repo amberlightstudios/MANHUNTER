@@ -21,8 +21,8 @@ public class RushingEnemy : Enemy
 		playerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
 		playerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
-		edgeDetectLeft = GetNode<RayCast2D>("Sprite/EdgeDetectLeft");
-		edgeDetectRight = GetNode<RayCast2D>("Sprite/EdgeDetectRight");
+		edgeDetectLeft = GetNode<RayCast2D>("EdgeDetectLeft");
+		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");

@@ -120,7 +120,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.66667, 8.66667 )
+extents = Vector2( 3.66667, 8 )
 
 [node name="Rusher" type="KinematicBody2D"]
 scale = Vector2( 3, 3 )
@@ -160,18 +160,6 @@ enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 8
 
-[node name="EdgeDetectRight" type="RayCast2D" parent="Sprite"]
-position = Vector2( 4.33333, 0 )
-enabled = true
-cast_to = Vector2( 0, 15 )
-collision_mask = 8
-
-[node name="EdgeDetectLeft" type="RayCast2D" parent="Sprite"]
-position = Vector2( -3, 0 )
-enabled = true
-cast_to = Vector2( 0, 15 )
-collision_mask = 8
-
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
 collision_layer = 32
 collision_mask = 2
@@ -190,6 +178,17 @@ anims/Walk = SubResource( 6 )
 anims/WalkAlert = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 0.666667, 1.33333 )
+position = Vector2( 0.666667, 0.666664 )
 shape = SubResource( 1 )
+
+[node name="EdgeDetectRight" type="RayCast2D" parent="."]
+position = Vector2( 6, -0.333333 )
+enabled = true
+cast_to = Vector2( 0, 15 )
+collision_mask = 8
+
+[node name="EdgeDetectLeft" type="RayCast2D" parent="."]
+position = Vector2( -5, -0.333333 )
+enabled = true
+cast_to = Vector2( 0, 15 )
+collision_mask = 8
