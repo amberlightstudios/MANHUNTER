@@ -350,14 +350,6 @@ public class Goblin : Character
 			return;
 		}
 		animPlayer.Play(name);
-		HandleSoundEffect(name);
-	}
-	
-	public void HandleSoundEffect(String name)
-	{
-		if (name == "BasicIdle" || name == "BasicIdle2" || name == "BasicMoving" || name == "BasicMoving2") {
-			AudioStreamPlayer2D sound = (AudioStreamPlayer2D)GetNode("SoundEffects");
-			sound.Play();
-		}
+		((GoblinSound)GetNode("SoundEffects")).PlaySound(name);
 	}
 }
