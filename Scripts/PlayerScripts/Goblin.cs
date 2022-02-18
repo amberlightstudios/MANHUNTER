@@ -336,7 +336,6 @@ public class Goblin : Character
 	public bool AttackEnemy() 
 	{
 		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncAttack));
-
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
@@ -351,5 +350,14 @@ public class Goblin : Character
 			return;
 		}
 		animPlayer.Play(name);
+		HandleSoundEffect(name);
+	}
+	
+	public void HandleSoundEffect(String name)
+	{
+		if (name == "BasicIdle" || name == "BasicIdle2" || name == "BasicMoving" || name == "BasicMoving2") {
+			AudioStreamPlayer2D sound = (AudioStreamPlayer2D)GetNode("/root/Main/SoundAttack");
+			sound.Play();
+		}
 	}
 }
