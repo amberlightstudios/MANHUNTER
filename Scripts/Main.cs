@@ -11,7 +11,6 @@ public class Main : Node2D
 			Goblin player = generator.GeneratePlayer("Initial Player", GetNode("/root/Main"));
 			AttachCamera(player);
 		}
-
 	}
 	
 	public void AttachCamera(Goblin target) { 

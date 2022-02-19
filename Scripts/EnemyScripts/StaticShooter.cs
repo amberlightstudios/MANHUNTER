@@ -102,7 +102,6 @@ public class StaticShooter : Enemy
 	public override void TakeDamage(int dmg, Vector2 knockbackDist)
 	{
 		base.TakeDamage(dmg, knockbackDist * 0.4f);
-		
 	}
 
 	public override void Death()

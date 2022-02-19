@@ -112,6 +112,8 @@ public class Goblin : Character
 	private CPUParticles2D jump;
 	public CPUParticles2D Jump { get => jump; }
 	
+	private PackedScene gameOver;
+	
 
 	public override void _Ready()
 	{
@@ -128,8 +130,12 @@ public class Goblin : Character
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
 		ladderDetection = GetNode<Area2D>("LadderDetection");
+
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
+
+		gameOver = (PackedScene) ResourceLoader.Load("res://scenes/GameOver.tscn");
+
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
 
@@ -203,6 +209,11 @@ public class Goblin : Character
 	public void RestartGame() 
 	{ 
 		GetTree().ReloadCurrentScene(); 
+	}
+	
+	public void GameOver()
+	{
+		GetTree().ChangeScene("res://Scenes/GameOver.tscn");
 	}
 
 	public void Throw() 

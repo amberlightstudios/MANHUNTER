@@ -10,7 +10,6 @@ namespace GoblinStates
 		public DeadState(Goblin player) 
 		{
 			this.player = player;
-			player.RestartGame();
 			player.Velocity = Vector2.Zero;
 			player.AnimPlayer.Play("Death");
 			animationLength = player.AnimPlayer.CurrentAnimationLength;
@@ -19,7 +18,7 @@ namespace GoblinStates
 		public override void _Process(float delta)
 		{
 			if (timer > animationLength) {
-				player.RestartGame();
+				player.GameOver();
 			}
 
 			timer += animationLength;
