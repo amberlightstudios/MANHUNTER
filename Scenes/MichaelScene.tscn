@@ -26,59 +26,105 @@ position = Vector2( 641, 850 )
 
 [node name="Network" parent="." instance=ExtResource( 9 )]
 
-[node name="Rusher" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1253, 592 )
+[node name="ShootingEnemies" type="Node2D" parent="."]
 
-[node name="Rusher2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 947, 151 )
-
-[node name="Rusher3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 770, 151 )
-
-[node name="StaticShooter" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 809, 595 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter2" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter2" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 886, 402 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter5" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter5" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 836, 165 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter3" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter3" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 1242, 403 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter4" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter4" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 2171, 400 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter8" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter8" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 2251, 162 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter9" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter9" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 2046, 161 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter6" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter6" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 2229, 640 )
 noticeTime = 0.8
 shootFrequency = 1.0
 
-[node name="StaticShooter7" parent="." instance=ExtResource( 3 )]
+[node name="StaticShooter7" parent="ShootingEnemies" instance=ExtResource( 3 )]
 position = Vector2( 2535, 641 )
 noticeTime = 0.8
 shootFrequency = 1.0
+
+[node name="RushingEnemies" type="Node2D" parent="."]
+
+[node name="Rusher" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 1253, 592 )
+
+[node name="Rusher10" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 1434, 401 )
+
+[node name="Rusher12" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 1316, 400 )
+
+[node name="Rusher11" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 791, 399 )
+
+[node name="Rusher2" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 947, 151 )
+
+[node name="Rusher3" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 770, 151 )
+
+[node name="Rusher4" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 1111, 155 )
+
+[node name="Rusher5" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 1043, 152 )
+
+[node name="Rusher6" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2427, 640 )
+
+[node name="Rusher7" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2436, 398 )
+
+[node name="Rusher8" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2248, 398 )
+
+[node name="Rusher13" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2154, 154 )
+
+[node name="Rusher14" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2154, 154 )
+
+[node name="Rusher15" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2154, 154 )
+
+[node name="Rusher16" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2154, 154 )
+
+[node name="Rusher17" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2154, 154 )
+
+[node name="Rusher9" parent="RushingEnemies" instance=ExtResource( 1 )]
+position = Vector2( 2609, 398 )
 
 [node name="Ladders" parent="." instance=ExtResource( 6 )]
 tile_data = PoolIntArray( 262172, 2, 0, 262195, 2, 0, 327708, 2, 65536, 327731, 2, 65536, 393244, 2, 65536, 393267, 2, 65536, 458780, 2, 65536, 458803, 2, 65536, 524316, 2, 131072, 524339, 2, 131072, 589847, 2, 0, 589872, 2, 0, 655383, 2, 65536, 655408, 2, 65536, 720919, 2, 65536, 720944, 2, 65536, 786455, 2, 131072, 786480, 2, 65536, 852016, 2, 131072 )

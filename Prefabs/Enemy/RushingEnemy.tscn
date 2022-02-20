@@ -6,7 +6,7 @@
 load_path = "res://.import/HumanMelee1.png-fc9111647694830d49bb20a1c02c3024.stex"
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 7.5, 11.6667 )
+extents = Vector2( 9.33335, 11.6667 )
 
 [sub_resource type="Animation" id=8]
 length = 0.71
@@ -165,7 +165,7 @@ collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( 11.1667, -1.66667 )
+position = Vector2( 9.33335, -1.66667 )
 shape = SubResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
