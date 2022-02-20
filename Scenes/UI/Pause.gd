@@ -1,7 +1,11 @@
 extends CanvasLayer
 
 var selected = 0
-var noopen = ["res://Scenes/UI/Menu.tscn", "res://Scenes/UI/GameOver.tscn"]
+var noopen = [
+	"res://Scenes/UI/Menu.tscn", 
+	"res://Scenes/UI/GameOver.tscn", 
+	"res://Scenes/UI/JoinGame.tscn"
+	]
 
 func _ready():
 	set_visible(false)
@@ -13,6 +17,12 @@ func _input(event):
 			return
 		set_visible(!get_tree().paused)
 		get_tree().paused = !get_tree().paused
+		
+	if event.is_action_pressed("Quit"):
+		if get_tree().paused == false:
+			return
+		get_tree().change_scene("res://Scenes/UI/Menu.tscn")
+		_on_Continue_pressed()
 
 
 func _on_Continue_pressed():
