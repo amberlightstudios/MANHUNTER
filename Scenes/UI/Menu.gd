@@ -1,8 +1,5 @@
 extends Control
 
-var index = 0
-
-
 onready var start_btn = $MarginContainer/VBoxContainer/Buttons/MarginContainer/Start
 
 func _ready():
@@ -16,7 +13,3 @@ func _on_Join_pressed():
 
 func _on_Quit_pressed():
 	get_tree().quit()
-
-
-
-

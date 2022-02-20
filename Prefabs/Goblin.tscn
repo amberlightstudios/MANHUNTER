@@ -258,7 +258,7 @@ shape = SubResource( 39 )
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="Walk" type="CPUParticles2D" parent="Particles"]
-position = Vector2( 0, 9 )
+position = Vector2( -3, 9 )
 emitting = false
 amount = 30
 lifetime = 0.7
@@ -269,7 +269,7 @@ local_coords = false
 texture = ExtResource( 1 )
 emission_shape = 2
 emission_rect_extents = Vector2( 8, 0 )
-gravity = Vector2( -30, -90 )
+gravity = Vector2( -30, -60 )
 angular_velocity = 5.0
 angular_velocity_random = 1.0
 scale_amount = 2.0

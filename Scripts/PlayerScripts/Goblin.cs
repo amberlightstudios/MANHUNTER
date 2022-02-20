@@ -113,7 +113,6 @@ public class Goblin : Character
 	public CPUParticles2D Jump { get => jump; }
 	
 	private PackedScene gameOver;
-	
 
 	public override void _Ready()
 	{
@@ -187,6 +186,10 @@ public class Goblin : Character
 		// Gravity
 		Velocity.y += Gravity;
 		Velocity = MoveAndSlide(Velocity);
+		
+		if (Velocity.y != 0) {
+			walk.SetEmitting(false);
+		}
 	}
 
 	public override void TakeDamage(int dmg) 
@@ -277,6 +280,7 @@ public class Goblin : Character
 		throwVelocity.x = Math.Abs(throwVelocity.x) * -1;
 		wallDetect.Scale = Vector2.One;
 		WallDetectFoot.Scale = Vector2.One;
+		walk.Position = new Vector2(3, 9);
 	}
 
 	public void TurnRight() 
@@ -287,6 +291,7 @@ public class Goblin : Character
 		throwVelocity.x = Math.Abs(throwVelocity.x);
 		wallDetect.Scale = new Vector2(-1, 1);
 		WallDetectFoot.Scale = new Vector2(-1, 1);
+		walk.Position = new Vector2(-3, 9);
 	}
 
 	public bool OnGround() 
