@@ -19,48 +19,31 @@ public class Network : Node
 
 	public override void _Ready()
 	{
+
+	}
+
+	public void InitNetwork()
+	{
 		GetTree().Connect("network_peer_connected", this, nameof(PlayerConnected));
 		GetTree().Connect("network_peer_disconnected", this, nameof(PlayerDisconnected));
 		GetTree().Connect("connected_to_server", this, nameof(ConnectedToServer));
 		GetTree().Connect("connection_failed", this, nameof(ConnectionFailed));
 		GetTree().Connect("server_disconnected", this, nameof(ServerDisconnected));
-
-		HostButton = (Button)GetNode("VBoxContainer/HostButton");
-		HostButton.Connect("pressed", this, nameof(HostGame));
-
-		JoinButton = (Button)GetNode("VBoxContainer/JoinButton");
-		JoinButton.Connect("pressed", this, nameof(JoinGame));
-
-		LeaveButton = (Button)GetNode("VBoxContainer/LeaveButton");
-		LeaveButton.Connect("pressed", this, nameof(LeaveGame));
-		LeaveButton.Disabled = true;
-
-		AddressText = (TextEdit)GetNode("VBoxContainer/AddressText");
-		NameText = (TextEdit)GetNode("VBoxContainer/PlayerNameText");
-		if (Globals.SinglePlayer) {
-			DisableNetwork();
-		}
 	}
-
 
 	public void HostGame()
 	{
-		PlayerName = ((TextEdit)GetNode("VBoxContainer/PlayerNameText")).Text;
-
 		var peer = new NetworkedMultiplayerENet();
 		peer.CreateServer(default_port, 32);
 		GetTree().NetworkPeer = peer;
 		
 		GD.Print("You are now hosting.");
 
-		SetInGame();
 		StartGame();
 	}
 
-	public void JoinGame()
+	public void JoinGame(string address)
 	{
-		var address = AddressText.Text;
-
 		GD.Print($"Joining game with address {address}");
 
 		var clientPeer = new NetworkedMultiplayerENet();
@@ -87,12 +70,11 @@ public class Network : Node
 		((NetworkedMultiplayerENet)GetTree().NetworkPeer).CloseConnection();
 		GetTree().NetworkPeer = null;
 
-		SetInMenu();
 	}
 
 	private void PlayerConnected(int id)
 	{
-		PlayerName = NameText.Text;
+		PlayerName = id.ToString();
 
 		GD.Print($"tell other player my name is {PlayerName} and my id is {id}");
 		// tell the player that just connected who we are by sending an rpc back to them with your name.
@@ -110,7 +92,6 @@ public class Network : Node
 
 		GD.Print("Successfully connected to the server");
 
-		SetInGame();
 		StartGame();
 	}
 
@@ -120,14 +101,12 @@ public class Network : Node
 
 		GD.Print("Failed to connect.");
 
-		SetInMenu();
 	}
 
 	private void ServerDisconnected()
 	{
 		GD.Print($"Disconnected from the server");
 
-		SetInMenu();
 		LeaveGame();
 	}
 
@@ -163,7 +142,6 @@ public class Network : Node
 	{
 		Goblin playerNode = generator.GeneratePlayer(id.ToString(), GetNode("/root/Main"));;
 		playerNode.SetNetworkMaster(id);
-		GetNode("/root/Main").AddChild(playerNode);
 		return playerNode;
 	}
 
@@ -176,34 +154,5 @@ public class Network : Node
 			Players.Remove(id);
 			GetNode(id.ToString()).QueueFree();
 		}
-	}
-
-	// Lock the fields the player shouldn't use while in a game
-	private void SetInGame()
-	{
-		HostButton.Disabled = true;
-		JoinButton.Disabled = true;
-		LeaveButton.Disabled = false;
-		NameText.Readonly = true;
-		AddressText.Readonly = true;
-	}
-
-	// unlock the fields the player should be able to use while not in game
-	private void SetInMenu()
-	{
-		HostButton.Disabled = false;
-		JoinButton.Disabled = false;
-		LeaveButton.Disabled = true;
-		NameText.Readonly = false;
-		AddressText.Readonly = false;
-	}
-	
-	private void DisableNetwork()
-	{
-		HostButton.Disabled = true;
-		JoinButton.Disabled = true;
-		LeaveButton.Disabled = true;
-		NameText.Readonly = true;
-		AddressText.Readonly = true;
 	}
 }

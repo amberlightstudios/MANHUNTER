@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/UI/Pause.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/black_texture.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=3]
-[ext_resource path="res://Scenes/UI/PauseMenu.gd" type="Script" id=4]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 pause_mode = 2
@@ -22,7 +21,6 @@ __meta__ = {
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -74,6 +72,6 @@ margin_bottom = 39.0
 text = "Quit"
 flat = true
 
-[connection signal="pressed" from="Control/Buttons/MarginContainer/Continue" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Buttons/MarginContainer/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="Control/Buttons/MarginContainer/Continue" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Buttons/MarginContainer2/Quit" to="." method="_on_Quit_pressed"]

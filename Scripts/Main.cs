@@ -1,14 +1,18 @@
 using Godot;
 using System;
 
-public class Main : Node2D
+public class Main : Network
 {
 	private Generator generator = Generator.Instance;
 	
 	public override void _Ready()
 	{
-		if (Globals.SinglePlayer) {
-			Goblin player = generator.GeneratePlayer("Initial Player", GetNode("/root/Main"));
+		if (!Globals.SinglePlayer) {
+			InitNetwork();
+			if (Globals.IsHost) HostGame();
+			else JoinGame(Globals.HostAddress);
+		} else {
+			Goblin player = generator.GeneratePlayer("Single Player", this);;
 			AttachCamera(player);
 		}
 	}
