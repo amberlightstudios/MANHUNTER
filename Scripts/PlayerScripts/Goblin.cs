@@ -213,7 +213,7 @@ public class Goblin : Character
 	
 	public void GameOver()
 	{
-		GetTree().ChangeScene("res://Scenes/GameOver.tscn");
+		GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 	}
 
 	public void Throw() 

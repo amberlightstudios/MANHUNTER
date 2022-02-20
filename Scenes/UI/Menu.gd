@@ -2,6 +2,12 @@ extends Control
 
 var index = 0
 
+
+onready var start_btn = $MarginContainer/VBoxContainer/Buttons/MarginContainer/Start
+
+func _ready():
+	start_btn.grab_focus()
+
 func _on_Start_pressed():
 	get_tree().change_scene("res://Scenes/Main.tscn")
 

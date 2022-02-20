@@ -27,7 +27,4 @@ public class Generator
 		target.AddChild(playerNode);
 		return playerNode;
 	}
-	
-
-
 }
