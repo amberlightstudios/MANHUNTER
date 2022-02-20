@@ -33,10 +33,6 @@ public class GameManager : Node2D
 			OS.WindowMaximized = !OS.WindowMaximized;
 			OS.WindowFullscreen = !OS.WindowFullscreen;
 		}
-
-		if (Input.IsActionJustPressed("quit_game")) {
-			GetTree().Quit();
-		}
 	}
 
 	public void AddNewPlayer(Goblin player) 

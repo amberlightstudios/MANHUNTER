@@ -252,10 +252,10 @@ public class Goblin : Character
 	
 	public void BroadcastState() 
 	{
-		Rset(nameof(PuppetPosition), Position);			
+		Rset(nameof(PuppetPosition), Position);
 		Rset(nameof(PuppetVelocity), Velocity);
 		Rset(nameof(PuppetFaceDirection), FaceDirection);
-		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);	
+		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);
 	}
 	
 	public void ReceiveState() 

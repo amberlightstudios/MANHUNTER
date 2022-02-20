@@ -1,6 +1,6 @@
 extends Control
 
-onready var start_btn = $MarginContainer/VBoxContainer/Buttons/MarginContainer/Start
+onready var start_btn = $MarginContainer/VBoxContainer/Buttons/MarginContainer4/Play
 
 func _ready():
 	start_btn.grab_focus()

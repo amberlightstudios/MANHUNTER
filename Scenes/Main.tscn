@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Network.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/ParallaxBackground.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Enemy/JumpingEnemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/GameManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Prefabs/Environment/Autotiles.tres" type="TileSet" id=6]
 [ext_resource path="res://Prefabs/Environment/Ladders.tscn" type="PackedScene" id=7]
@@ -54,15 +53,6 @@ position = Vector2( 1565, 66 )
 
 [node name="StaticShooter9" parent="Enemies" instance=ExtResource( 11 )]
 position = Vector2( 1652, 62 )
-
-[node name="Jumper2" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 256, 565 )
-
-[node name="Jumper3" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 744, 489 )
-
-[node name="Jumper4" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1488, 593 )
 
 [node name="EnvItems" type="Node2D" parent="."]
 
