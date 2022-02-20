@@ -9,6 +9,7 @@ public class JoinGame : Node
 	public override void _Ready()
 	{
  		AddressTextBox = (LineEdit) GetNode("MarginContainer/VBoxContainer/InputContainer/MarginContainer/LineEdit");
+		AddressTextBox.GrabFocus();
 	}
 
 	private void _on_LineEdit_text_entered(String new_text)
