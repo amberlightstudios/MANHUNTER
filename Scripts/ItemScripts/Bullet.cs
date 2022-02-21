@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public class Bullet : Area2D
 {
@@ -8,6 +9,7 @@ public class Bullet : Area2D
 	public Vector2 Direction;
 	public float Range;
 	private Area2D groundDetect;
+	private AnimationPlayer animPlayer;
 
 	private float startX;
 
@@ -15,6 +17,7 @@ public class Bullet : Area2D
 	{
 		groundDetect = GetNode<Area2D>("GroundDetect");
 		startX = Position.x;
+		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -29,15 +32,21 @@ public class Bullet : Area2D
 		Godot.Collections.Array playersHit = this.GetOverlappingAreas();
 		foreach (Area2D g in playersHit) {
 			((Goblin) g.GetParent()).TakeDamage(Damage);
-			GetParent().RemoveChild(this);
+			PlayBulletHit();
 		}
 
 		Godot.Collections.Array groundHit = groundDetect.GetOverlappingBodies();
 		if (groundHit.Count > 0) {
-			GetParent().RemoveChild(this);
+			PlayBulletHit();
 		}
 	}
 
+	async Task PlayBulletHit()
+	{
+		animPlayer.Play("Hit");
+		await Task.Delay(500);
+		GetParent().RemoveChild(this);
+	}
 }
 
 
