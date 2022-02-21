@@ -3,21 +3,41 @@ using Godot;
 namespace GoblinStates {
 	public class MoveState : GoblinState 
 	{
+		private float timer = 0f;
+
 		public MoveState(Goblin player) {
 			this.player = player;
 		}
 
 		public override void _Process(float delta)
 		{
+			timer += delta;
+
+			if (timer < 0.3f 
+			&& ((player.FaceDirection == 1 && Input.IsActionJustPressed("move_right")) 
+			|| (player.FaceDirection == -1 && Input.IsActionJustPressed("move_left")))
+			|| Input.IsActionPressed("speed_boost")) {
+				SpeedBoost = player.SpeedBoost;
+			}
+
+			if (Input.IsActionJustReleased("speed_boost") 
+			|| (Input.IsActionJustReleased("move_left") || Input.IsActionJustReleased("move_right"))) {
+				SpeedBoost = 1;
+			}
+
+			if (Input.IsActionJustPressed("move_right") || Input.IsActionJustPressed("move_left")) {
+				timer = 0;
+			}
+
 			player.Velocity.x = 0;
 			if (Input.IsActionPressed("move_left")) {
-				player.Velocity.x = -1 * player.Speed;
+				player.Velocity.x = -1 * player.Speed * SpeedBoost;
 				player.TurnLeft();
 				player.PlayAnimation("Walk");
 
 			} 
 			if (Input.IsActionPressed("move_right")) {
-				player.Velocity.x = player.Speed;
+				player.Velocity.x = player.Speed * SpeedBoost;
 				player.TurnRight();
 				player.PlayAnimation("Walk");
 			}
@@ -52,10 +72,10 @@ namespace GoblinStates {
 				return;
 			}
 			
-			if (Input.IsActionJustPressed("Dash")) {
-				ExitState(new DashState(player));
-				return;
-			}
+			// if (Input.IsActionJustPressed("Dash")) {
+			// 	ExitState(new DashState(player));
+			// 	return;
+			// }
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -65,11 +85,6 @@ namespace GoblinStates {
 			} else {
 				player.ReturnNormalGravity();
 			}
-		}
-
-		public override void ExitState(GoblinState newState)
-		{
-			player.State = newState;
 		}
 	}
 }

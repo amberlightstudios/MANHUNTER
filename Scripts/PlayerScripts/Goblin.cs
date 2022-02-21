@@ -11,6 +11,8 @@ public class Goblin : Character
 
 	[Export]
 	public float Speed { get; private set; }
+	[Export]
+	public float SpeedBoost { get; private set; }
 	public Vector2 Velocity;
 	public bool Killed = false;
 

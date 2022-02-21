@@ -51,16 +51,23 @@ namespace GoblinStates
 			}
 
 			if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right")) {
+                SpeedBoost = 1;
 				player.Velocity.x = 0;
 			}
 
 			if (Input.IsActionPressed("move_left")) {
-				player.Velocity.x = -1 * player.Speed;
+                if (player.FaceDirection == 1) {
+                    SpeedBoost = 1;
+                }
+				player.Velocity.x = -1 * player.Speed * SpeedBoost;
 				player.TurnLeft();
 			}
 
 			if (Input.IsActionPressed("move_right")) {
-				player.Velocity.x = player.Speed;
+                if (player.FaceDirection == -1) {
+                    SpeedBoost = 1;
+                }
+				player.Velocity.x = player.Speed * SpeedBoost;
 				player.TurnRight();
 			}
 
@@ -87,10 +94,10 @@ namespace GoblinStates
 				return;
 			}
 
-			if (Input.IsActionJustPressed("Dash") && !haveDashed) {
-				ExitState(new DashState(player));
-				return;
-			}
+			// if (Input.IsActionJustPressed("Dash") && !haveDashed) {
+			// 	ExitState(new DashState(player));
+			// 	return;
+			// }
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -100,11 +107,6 @@ namespace GoblinStates
 				ExitState(newState);
 				return;
 			}
-		}
-
-		public override void ExitState(GoblinState newState)
-		{
-			player.State = newState;
 		}
 	}
 }
