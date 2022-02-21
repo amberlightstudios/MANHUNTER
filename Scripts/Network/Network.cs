@@ -50,6 +50,13 @@ public class Network : Node
 		var result = clientPeer.CreateClient(address, default_port);
 
 		GetTree().NetworkPeer = clientPeer;
+		
+		// TODO: need to back player out of game and let them go from the main menu 
+		// if IP doesn't resolve without kicking them out of the game entirely
+		if (result.ToString() == "CantResolve") {
+			GetTree().ChangeScene("res://Scenes/UI/Menu.tscn");
+			
+		}
 	}
 
 	public void LeaveGame()

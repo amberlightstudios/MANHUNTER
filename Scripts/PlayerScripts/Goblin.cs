@@ -111,8 +111,6 @@ public class Goblin : Character
 	public CPUParticles2D Walk { get => walk; }
 	private CPUParticles2D jump;
 	public CPUParticles2D Jump { get => jump; }
-	
-	private PackedScene gameOver;
 
 	public override void _Ready()
 	{
@@ -132,8 +130,6 @@ public class Goblin : Character
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
-
-		gameOver = (PackedScene) ResourceLoader.Load("res://scenes/GameOver.tscn");
 
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;

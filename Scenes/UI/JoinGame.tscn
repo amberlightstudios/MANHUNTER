@@ -76,5 +76,6 @@ margin_top = 50.0
 margin_right = 900.0
 margin_bottom = 115.0
 max_length = 15
+placeholder_text = "Enter Host IP"
 
 [connection signal="text_entered" from="MarginContainer/VBoxContainer/InputContainer/MarginContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]

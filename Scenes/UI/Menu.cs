@@ -7,10 +7,10 @@ public class Menu : Control
 	public override void _Ready()
 	{
 		Button PlayButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer1/Play");
-		Button HostButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer2/Host");		
+		Button HostButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer2/Host");
 		Button JoinButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer3/Join");
 		Button QuitButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer4/Quit");
-		PlayButton.GrabFocus();				
+		PlayButton.GrabFocus();
 		PlayButton.Connect("pressed", this, nameof(PlayGame));
 		HostButton.Connect("pressed", this, nameof(HostGame));
 		JoinButton.Connect("pressed", this, nameof(JoinGame));
