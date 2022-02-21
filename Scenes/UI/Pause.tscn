@@ -40,11 +40,11 @@ __meta__ = {
 
 [node name="MarginContainer3" type="MarginContainer" parent="Control/Buttons"]
 margin_right = 1280.0
-margin_bottom = 291.0
+margin_bottom = 249.0
 
 [node name="Label" type="Label" parent="Control/Buttons/MarginContainer3"]
 margin_right = 1280.0
-margin_bottom = 291.0
+margin_bottom = 249.0
 text = "Game Paused
 ______
 
@@ -55,16 +55,16 @@ ______
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/Buttons"]
-margin_top = 341.0
+margin_top = 299.0
 margin_right = 1280.0
-margin_bottom = 341.0
+margin_bottom = 299.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Continue" type="Button" parent="Control/Buttons/MarginContainer"]
 visible = false
 margin_right = 1280.0
-margin_bottom = 39.0
+margin_bottom = 33.0
 text = "Continue"
 flat = true
 __meta__ = {
@@ -72,14 +72,14 @@ __meta__ = {
 }
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control/Buttons"]
-margin_top = 391.0
+margin_top = 349.0
 margin_right = 1280.0
-margin_bottom = 391.0
+margin_bottom = 349.0
 
 [node name="Quit" type="Button" parent="Control/Buttons/MarginContainer2"]
 visible = false
 margin_right = 1280.0
-margin_bottom = 39.0
+margin_bottom = 33.0
 text = "Quit Game"
 flat = true
 

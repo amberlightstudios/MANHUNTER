@@ -6,7 +6,7 @@ func _ready():
 	restart.grab_focus()
 	
 func _on_Start_pressed():
-	get_tree().change_scene("res://Scenes/Main.tscn")
+	get_tree().reload_current_scene()
 
 func _on_Main_Menu_pressed():
 	get_tree().change_scene("res://Scenes/UI/Menu.tscn")

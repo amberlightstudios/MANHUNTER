@@ -1,0 +1,165 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/UI/LevelSelect.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.345098, 0.447059, 0.537255, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.32549, 0.407843, 0.509804, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.933333, 0.933333, 0.933333, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="LevelSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 1344.0
+margin_bottom = 768.0
+color = Color( 0.207843, 0.262745, 0.333333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1280.0
+margin_bottom = 720.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 720.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer1" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+margin_right = 1280.0
+margin_bottom = 357.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 250
+custom_constants/margin_left = 250
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Buttons/MarginContainer1"]
+margin_left = 250.0
+margin_right = 1030.0
+margin_bottom = 357.0
+text = "
+
+
+
+Level Select
+__________
+
+
+
+"
+align = 1
+
+[node name="1" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+margin_top = 361.0
+margin_right = 1280.0
+margin_bottom = 447.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 250
+custom_constants/margin_left = 250
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Button" parent="MarginContainer/VBoxContainer/Buttons/1"]
+margin_left = 250.0
+margin_right = 1030.0
+margin_bottom = 86.0
+focus_neighbour_bottom = NodePath("../../2/2")
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+text = "level 1"
+
+[node name="2" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+margin_top = 451.0
+margin_right = 1280.0
+margin_bottom = 538.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 250
+custom_constants/margin_left = 250
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Button" parent="MarginContainer/VBoxContainer/Buttons/2"]
+margin_left = 250.0
+margin_right = 1030.0
+margin_bottom = 87.0
+focus_neighbour_top = NodePath("../../1/1")
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+text = "Level 2"
+
+[node name="Host2" type="Button" parent="MarginContainer/VBoxContainer/Buttons"]
+visible = false
+margin_top = 470.0
+margin_right = 1280.0
+margin_bottom = 503.0
+focus_neighbour_top = NodePath("../1/1")
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+text = "Level 3"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+margin_top = 542.0
+margin_right = 1280.0
+margin_bottom = 629.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 250
+custom_constants/margin_left = 250
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host3" type="Button" parent="MarginContainer/VBoxContainer/Buttons"]
+visible = false
+margin_top = 588.0
+margin_right = 1280.0
+margin_bottom = 621.0
+focus_neighbour_top = NodePath("../1/1")
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+text = "Level 4"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+margin_top = 633.0
+margin_right = 1280.0
+margin_bottom = 720.0
+size_flags_vertical = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/1/1" to="." method="_on_1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/2/2" to="." method="_on_2_pressed"]

@@ -38,6 +38,9 @@ position = Vector2( 1357, 106 )
 [node name="Rusher" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 1955, 297 )
 
+[node name="Rusher2" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 1688, 586 )
+
 [node name="StaticShooter6" parent="Enemies" instance=ExtResource( 11 )]
 position = Vector2( 858, 346 )
 

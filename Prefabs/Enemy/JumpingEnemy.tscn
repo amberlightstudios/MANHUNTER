@@ -3,7 +3,6 @@
 [ext_resource path="res://Scripts/EnemyScripts/Baby.cs" type="Script" id=2]
 
 [sub_resource type="StreamTexture" id=7]
-load_path = "res://.import/human01.png-798f074073311d304ac47b1ff9f7a482.stex"
 
 [sub_resource type="Animation" id=3]
 length = 0.25

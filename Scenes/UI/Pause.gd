@@ -8,6 +8,7 @@ var noopen = [
 	
 var goback = [
 	"res://Scenes/UI/JoinGame.tscn",
+	"res://Scenes/UI/LevelSelect.tscn"
 ]
 
 func _ready():
