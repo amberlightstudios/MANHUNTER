@@ -62,9 +62,6 @@ public class StaticShooter : Enemy
 
 	public bool OnGround() {
 		bool onGround = groundDetect.IsColliding();
-		if (onGround) {
-			velocity.y = 0;
-		}
 		return onGround;
 	}
 
