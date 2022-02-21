@@ -15,9 +15,9 @@ public class JoinGame : Node
 	private void _on_LineEdit_text_entered(String new_text)
 	{
 		// Replace with function body.
-		//if (!ValidateIPv4(AddressTextBox.Text)) {
-			//return;
-		//}
+		if (!ValidateIPv4(AddressTextBox.Text) && AddressTextBox.Text.ToLower() != "localhost") {
+			return;
+		}
 
 		Globals.HostAddress = AddressTextBox.Text;
 		GetTree().ChangeScene("res://Scenes/Main.tscn");
