@@ -55,7 +55,7 @@ namespace GoblinStates
 		public override void ExitState(GoblinState newState)
 		{
 			player.ReturnNormalGravity();
-            base.ExitState(newState);
+			base.ExitState(newState);
 		}
 	}
 }

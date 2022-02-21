@@ -46,16 +46,16 @@ namespace GoblinStates
 
 			player.Velocity.x = 0;
 			if (Input.IsActionPressed("move_left")) {
-                if (player.FaceDirection == 1) {
-                    SpeedBoost = 1;
-                }
+				if (player.FaceDirection == 1) {
+					SpeedBoost = 1;
+				}
 				player.Velocity.x = -1 * speed * SpeedBoost;
 				player.TurnLeft();
 			} 
 			if (Input.IsActionPressed("move_right")) {
-                if (player.FaceDirection == -1) {
-                    SpeedBoost = 1;
-                }
+				if (player.FaceDirection == -1) {
+					SpeedBoost = 1;
+				}
 				player.Velocity.x = speed * SpeedBoost;
 				player.TurnRight();
 			}
@@ -76,11 +76,11 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-            if (player.IsStandingOnLadder()) {
-                player.SetZeroGravity();
-            } else {
-                player.ReturnNormalGravity();
-            }
+			if (player.IsStandingOnLadder()) {
+				player.SetZeroGravity();
+			} else {
+				player.ReturnNormalGravity();
+			}
 			speed -= player.AttakDeceleration;
 		}
 	}

@@ -51,22 +51,22 @@ namespace GoblinStates
 			}
 
 			if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right")) {
-                SpeedBoost = 1;
+				SpeedBoost = 1;
 				player.Velocity.x = 0;
 			}
 
 			if (Input.IsActionPressed("move_left")) {
-                if (player.FaceDirection == 1) {
-                    SpeedBoost = 1;
-                }
+				if (player.FaceDirection == 1) {
+					SpeedBoost = 1;
+				}
 				player.Velocity.x = -1 * player.Speed * SpeedBoost;
 				player.TurnLeft();
 			}
 
 			if (Input.IsActionPressed("move_right")) {
-                if (player.FaceDirection == -1) {
-                    SpeedBoost = 1;
-                }
+				if (player.FaceDirection == -1) {
+					SpeedBoost = 1;
+				}
 				player.Velocity.x = player.Speed * SpeedBoost;
 				player.TurnRight();
 			}

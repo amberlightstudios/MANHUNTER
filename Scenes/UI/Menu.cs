@@ -19,8 +19,7 @@ public class Menu : Control
 	
 	public void PlayGame() {
 		// TODO: this shouldn't be false, but need a solid way to seamlessly go from single to multi
-		Globals.SinglePlayer = false;
-		Globals.IsHost = true;
+		Globals.SinglePlayer = true;
 		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 	}
 
