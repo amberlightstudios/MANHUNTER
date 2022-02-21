@@ -107,6 +107,8 @@ public class Goblin : Character
 	public CPUParticles2D Walk { get => walk; }
 	private CPUParticles2D jump;
 	public CPUParticles2D Jump { get => jump; }
+
+	private Vector2 screenSize;
 	
 	public override void _Ready()
 	{
@@ -136,6 +138,8 @@ public class Goblin : Character
 
 		normalGravity = Gravity;
 
+		screenSize = GetViewport().GetVisibleRect().Size;
+
 		State = new MoveState(this);
 	}
 
@@ -152,6 +156,10 @@ public class Goblin : Character
 	public override void _PhysicsProcess(float delta)
 	{
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
+			if (Position.y > screenSize.y + 50) {
+				GameOver();
+			}
+
 			State._PhysicsProcess(delta);
 			Velocity.y += Gravity;
 			Velocity = MoveAndSlide(Velocity);
