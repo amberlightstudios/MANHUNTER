@@ -11,7 +11,7 @@ public class RushingEnemy : Enemy
 	private float roamSpeed;
 	public float RoamSpeed { get => roamSpeed; }
 
-	private RayCast2D playerDetect, playerDetectBack, edgeDetectLeft, edgeDetectRight, wallDetect;
+	private RayCast2D playerDetect, playerDetectBack, edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect;
 	private Area2D meleeArea;
 
 	public RushEnemyState State;
@@ -23,6 +23,7 @@ public class RushingEnemy : Enemy
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
 		edgeDetectLeft = GetNode<RayCast2D>("EdgeDetectLeft");
 		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
+		groundDetect = GetNode<RayCast2D>("GroundDetect");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -40,7 +41,15 @@ public class RushingEnemy : Enemy
 	{
 		State._PhysicsProcess(delta);
 
-		base._PhysicsProcess(delta);
+		if (!OnGround()) {
+			velocity.y += Gravity;
+		}
+		MoveAndSlide(velocity);
+	}
+
+	public bool OnGround() 
+	{
+		return groundDetect.IsColliding();
 	}
 
 	public bool EdgeDetect() 

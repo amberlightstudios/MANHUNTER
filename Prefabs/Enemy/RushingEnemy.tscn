@@ -185,10 +185,15 @@ shape = SubResource( 1 )
 position = Vector2( 6, -0.333333 )
 enabled = true
 cast_to = Vector2( 0, 15 )
-collision_mask = 8
+collision_mask = 72
 
 [node name="EdgeDetectLeft" type="RayCast2D" parent="."]
 position = Vector2( -5, -0.333333 )
 enabled = true
 cast_to = Vector2( 0, 15 )
-collision_mask = 8
+collision_mask = 72
+
+[node name="GroundDetect" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 9.2 )
+collision_mask = 72

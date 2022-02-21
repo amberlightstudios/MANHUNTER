@@ -98,10 +98,10 @@ public class Goblin : Character
 	private RayCast2D wallDetect;
 	public RayCast2D WallDetectFoot { get; private set; }
 
-	
-	private Area2D ladderDetection;
 	[Export]
 	private float ladderClimbSpeed;
+	private Area2D ladderDetection;
+	private RayCast2D ladderDetectTop, ladderDetectFoot;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
 	private GameManager gm;
@@ -125,14 +125,20 @@ public class Goblin : Character
 		groundDetectRight = GetNode<RayCast2D>("GroundDetectRight");
 		wallDetect = GetNode<RayCast2D>("WalkCollsionBox/WallDetect");
 		WallDetectFoot = GetNode<RayCast2D>("WalkCollsionBox/WallDetectFoot");
+
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
+
 		ladderDetection = GetNode<Area2D>("LadderDetection");
+		ladderDetectFoot = GetNode<RayCast2D>("LadderDetection/LadderDetectFoot");
+		ladderDetectTop = GetNode<RayCast2D>("LadderDetection/LadderDetectTop");
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
 
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
+
+		normalGravity = Gravity;
 
 		State = new MoveState(this);
 	}
@@ -184,7 +190,7 @@ public class Goblin : Character
 		Velocity = MoveAndSlide(Velocity);
 		
 		if (Velocity.y != 0) {
-			walk.SetEmitting(false);
+			walk.Emitting = false;
 		}
 	}
 
@@ -292,8 +298,16 @@ public class Goblin : Character
 
 	public bool OnGround() 
 	{
-		return (groundDetectLeft.IsColliding() || groundDetectRight.IsColliding()) 
+		return (groundDetectLeft.IsColliding() 
+			|| groundDetectRight.IsColliding() 
+			|| IsStandingOnLadder()) 
 				&& Velocity.y >= 0;
+	}
+
+	// check if the character is standing on top of a ladder. (Not climbing)
+	public bool IsStandingOnLadder() 
+	{
+		return !ladderDetectTop.IsColliding() && ladderDetectFoot.IsColliding();
 	}
 
 	public bool OnLadder() 
@@ -306,10 +320,8 @@ public class Goblin : Character
 		return wallDetect.IsColliding();
 	}
 
-	private float normalGravity;
 	public void SetZeroGravity() 
 	{
-		normalGravity = Gravity;
 		Gravity = 0f;
 	}
 
@@ -360,6 +372,9 @@ public class Goblin : Character
 	{
 		if (name == animPlayer.CurrentAnimation) {
 			return;
+		}
+		if (name == "Walk") {
+			walk.Emitting = true;
 		}
 		animPlayer.Play(name);
 		((GoblinSound)GetNode("SoundEffects")).PlaySound(name);

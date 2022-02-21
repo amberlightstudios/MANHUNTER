@@ -183,10 +183,12 @@ __meta__ = {
 }
 
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
+visible = false
 position = Vector2( 7, -1 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
+visible = false
 position = Vector2( 11, 0 )
 collision_layer = 32
 collision_mask = 4
@@ -208,16 +210,19 @@ anims/Ladder = SubResource( 37 )
 anims/Walk = SubResource( 26 )
 
 [node name="WalkCollsionBox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.833344, 2.5 )
 shape = SubResource( 2 )
 
 [node name="WallDetect" type="RayCast2D" parent="WalkCollsionBox"]
+visible = false
 position = Vector2( 0, -5.41667 )
 enabled = true
 cast_to = Vector2( -4, 0 )
 collision_mask = 8
 
 [node name="WallDetectFoot" type="RayCast2D" parent="WalkCollsionBox"]
+visible = false
 position = Vector2( 0, 5.33333 )
 enabled = true
 cast_to = Vector2( -4, 0 )
@@ -254,6 +259,18 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetection"]
 position = Vector2( 0.5, 1.66667 )
 shape = SubResource( 39 )
+
+[node name="LadderDetectTop" type="RayCast2D" parent="LadderDetection"]
+position = Vector2( 0.5, -4 )
+enabled = true
+cast_to = Vector2( 0, -3 )
+collision_mask = 64
+
+[node name="LadderDetectFoot" type="RayCast2D" parent="LadderDetection"]
+position = Vector2( 0.5, 7 )
+enabled = true
+cast_to = Vector2( 0, 2.5 )
+collision_mask = 64
 
 [node name="Particles" type="Node2D" parent="."]
 

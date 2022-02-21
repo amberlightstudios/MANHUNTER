@@ -11,18 +11,22 @@ namespace GoblinStates
 		public JumpState(Goblin player) 
 		{
 			this.player = player;
+
+            player.ReturnNormalGravity();
 			player.Velocity.y = -8 * player.JumpSpeed;
 
 			// Play jump animation
 			player.PlayAnimation("Jump");
-			player.Walk.SetEmitting(false);
+			player.Walk.Emitting = false;
 			player.Jump.Restart();
-			player.Jump.SetEmitting(true);
+			player.Jump.Emitting = true;
 		}
 
 		public JumpState(Goblin player, bool isFallingDown) 
 		{
 			this.player = player;
+            player.ReturnNormalGravity();
+
 			if (!isFallingDown)
 				player.Velocity.y = -6 * player.JumpSpeed;
 		}
@@ -31,8 +35,9 @@ namespace GoblinStates
 		{
 			this.player = player;
 			this.haveDashed = haveDashed;
-			if (!isFallingDown)
+			if (!isFallingDown) 
 				player.Velocity.y = -6 * player.JumpSpeed;
+            highJump = true;
 		}
 
 		public override void _Process(float delta)

@@ -14,21 +14,19 @@ namespace GoblinStates {
 				player.Velocity.x = -1 * player.Speed;
 				player.TurnLeft();
 				player.PlayAnimation("Walk");
-				player.Walk.SetEmitting(true);
 
 			} 
 			if (Input.IsActionPressed("move_right")) {
 				player.Velocity.x = player.Speed;
 				player.TurnRight();
 				player.PlayAnimation("Walk");
-				player.Walk.SetEmitting(true);
 			}
 			
-			if (player.Velocity.Length() == 0) 
+			if (player.Velocity.x == 0) 
 				player.PlayAnimation("Idle");
 				
 			if (player.Velocity.x == 0)
-				player.Walk.SetEmitting(false);
+				player.Walk.Emitting = false;
 
 			if (Input.IsActionJustPressed("Jump") && player.OnGround()) {
 				ExitState(new JumpState(player));
@@ -48,7 +46,8 @@ namespace GoblinStates {
 				return;
 			}
 
-			if (player.OnLadder() && Input.IsActionPressed("move_up")) {
+			if ((player.OnLadder() && Input.IsActionPressed("move_up")) 
+			|| (player.IsStandingOnLadder() && Input.IsActionPressed("move_down"))) {
 				ExitState(new LadderClimbState(player));
 				return;
 			}
@@ -61,7 +60,11 @@ namespace GoblinStates {
 
 		public override void _PhysicsProcess(float delta)
 		{
-
+			if (player.IsStandingOnLadder()) {
+				player.SetZeroGravity();
+			} else {
+				player.ReturnNormalGravity();
+			}
 		}
 
 		public override void ExitState(GoblinState newState)

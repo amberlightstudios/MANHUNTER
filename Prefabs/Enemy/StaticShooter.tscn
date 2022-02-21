@@ -186,19 +186,21 @@ anims/Shoot = SubResource( 6 )
 anims/Walk = SubResource( 7 )
 anims/WalkAlert = SubResource( 18 )
 
-[node name="GroundDetect" type="RayCast2D" parent="."]
+[node name="Detections" type="Node2D" parent="."]
+
+[node name="GroundDetect" type="RayCast2D" parent="Detections"]
 enabled = true
 cast_to = Vector2( 0, 40 )
-collision_mask = 8
+collision_mask = 72
 
-[node name="EdgeDetectLeft" type="RayCast2D" parent="."]
+[node name="EdgeDetectLeft" type="RayCast2D" parent="Detections"]
 position = Vector2( -4.66667, 0 )
 enabled = true
 cast_to = Vector2( 0, 11 )
-collision_mask = 8
+collision_mask = 72
 
-[node name="EdgeDetectRight" type="RayCast2D" parent="."]
+[node name="EdgeDetectRight" type="RayCast2D" parent="Detections"]
 position = Vector2( 5.66667, 0.333333 )
 enabled = true
 cast_to = Vector2( 0, 11 )
-collision_mask = 8
+collision_mask = 72

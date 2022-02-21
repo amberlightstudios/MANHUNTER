@@ -36,9 +36,9 @@ public class StaticShooter : Enemy
 		shootRange = GetNode<Area2D>("Sprite/ShootRange");
 		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		groundDetect = GetNode<RayCast2D>("GroundDetect");
-		edgeDetectLeft = GetNode<RayCast2D>("EdgeDetectLeft");
-		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
+		groundDetect = GetNode<RayCast2D>("Detections/GroundDetect");
+		edgeDetectLeft = GetNode<RayCast2D>("Detections/EdgeDetectLeft");
+		edgeDetectRight = GetNode<RayCast2D>("Detections/EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		gm = GetNode<GameManager>("/root/Main/GameManager");
 
@@ -54,12 +54,18 @@ public class StaticShooter : Enemy
 	{
 		State._PhysicsProcess(delta);
 
-		velocity.y += Gravity;
+		if (!OnGround()) {
+			velocity.y += Gravity;
+		}
 		MoveAndSlide(velocity);
 	}
 
 	public bool OnGround() {
-		return groundDetect.IsColliding();
+		bool onGround = groundDetect.IsColliding();
+		if (onGround) {
+			velocity.y = 0;
+		}
+		return onGround;
 	}
 
 	public Goblin DetectPlayer() 

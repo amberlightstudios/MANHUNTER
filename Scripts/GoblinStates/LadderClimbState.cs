@@ -31,7 +31,7 @@ namespace GoblinStates
 
         public override void _PhysicsProcess(float delta)
         {
-            if (!player.OnLadder()) {
+            if (!player.OnLadder() && !player.IsStandingOnLadder()) {
                 ExitState(new JumpState(player, false));
                 return;
             }
