@@ -13,7 +13,7 @@ namespace GoblinStates {
 		{
 			timer += delta;
 
-			if (timer < 0.3f 
+			if (timer < 0.2f 
 			&& ((player.FaceDirection == 1 && Input.IsActionJustPressed("move_right")) 
 			|| (player.FaceDirection == -1 && Input.IsActionJustPressed("move_left")))
 			|| Input.IsActionPressed("speed_boost")) {
