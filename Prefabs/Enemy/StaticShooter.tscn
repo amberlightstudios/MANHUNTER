@@ -190,7 +190,7 @@ anims/WalkAlert = SubResource( 18 )
 
 [node name="GroundDetect" type="RayCast2D" parent="Detections"]
 enabled = true
-cast_to = Vector2( 0, 40 )
+cast_to = Vector2( 0, 9.4 )
 collision_mask = 72
 
 [node name="EdgeDetectLeft" type="RayCast2D" parent="Detections"]
