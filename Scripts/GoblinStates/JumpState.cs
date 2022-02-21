@@ -12,7 +12,7 @@ namespace GoblinStates
 		{
 			this.player = player;
 
-            player.ReturnNormalGravity();
+			player.ReturnNormalGravity();
 			player.Velocity.y = -8 * player.JumpSpeed;
 
 			// Play jump animation
@@ -25,7 +25,7 @@ namespace GoblinStates
 		public JumpState(Goblin player, bool isFallingDown) 
 		{
 			this.player = player;
-            player.ReturnNormalGravity();
+			player.ReturnNormalGravity();
 
 			if (!isFallingDown)
 				player.Velocity.y = -6 * player.JumpSpeed;
@@ -37,7 +37,7 @@ namespace GoblinStates
 			this.haveDashed = haveDashed;
 			if (!isFallingDown) 
 				player.Velocity.y = -6 * player.JumpSpeed;
-            highJump = true;
+			highJump = true;
 		}
 
 		public override void _Process(float delta)

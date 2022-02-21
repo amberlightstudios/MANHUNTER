@@ -4,6 +4,7 @@ using System;
 public class GameManager : Node2D
 {
 	public Goblin[] PlayerList = new Goblin[4] { null, null, null, null};
+	public int NumPlayers = 0;
 	private int newPlayerIndex = 0;
 	public Goblin Player { get; private set; }
 	private Vector2 screenSize;
@@ -35,10 +36,26 @@ public class GameManager : Node2D
 		}
 	}
 
-	public void AddNewPlayer(Goblin player) 
+	public int AddNewPlayer(Goblin player) 
 	{
-		PlayerList[newPlayerIndex % 4] = player;
+		PlayerList[newPlayerIndex] = player;
 		newPlayerIndex += 1;
-		newPlayerIndex %= 4;
+		NumPlayers += 1;
+		// newPlayerIndex %= 4;
+		return newPlayerIndex - 1;
+	}
+	
+	public void RemovePlayer(int index) 
+	{
+		NumPlayers -= 1;
+		PlayerList[index] = null;
+	}
+	
+	public Goblin GetRandomAlive()
+	{
+		foreach (Goblin player in PlayerList) {
+			if (player != null) return player;
+		}	
+		return null;
 	}
 }

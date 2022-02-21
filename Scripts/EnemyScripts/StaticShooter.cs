@@ -47,18 +47,26 @@ public class StaticShooter : Enemy
 
 	public override void _Process(float delta)
 	{
-		State._Process(delta);
+		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
+			State._Process(delta);		
+		} 
+		SynchronizeState();		
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		State._PhysicsProcess(delta);
-
-		if (!OnGround()) {
-			velocity.y += Gravity;
-		}
-		MoveAndSlide(velocity);
+		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
+			State._PhysicsProcess(delta);
+			if (!OnGround()) velocity.y += Gravity;
+			MoveAndSlide(velocity);
+		}  
+		SynchronizeState();
 	}
+	
+	private void Interpolate() {
+		// TODO
+	}
+
 
 	public bool OnGround() {
 		bool onGround = groundDetect.IsColliding();
@@ -80,7 +88,7 @@ public class StaticShooter : Enemy
 		return null;
 	}
 
-	public void Shoot() 
+	public override void Shoot() 
 	{
 		PackedScene bulletLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Bullet.tscn");
 		Bullet bullet = bulletLoader.Instance<Bullet>();

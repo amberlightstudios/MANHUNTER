@@ -141,8 +141,5 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer/Restart" to="." method="_on_Start_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer/Restart" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer2/Main Menu" to="." method="_on_Main_Menu_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer2/Main Menu" to="." method="_on_Start_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer2/Main Menu" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MarginContainer3/Quit Game" to="." method="_on_Quit_pressed"]

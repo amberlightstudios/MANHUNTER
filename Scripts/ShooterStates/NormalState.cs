@@ -19,30 +19,30 @@ namespace ShooterStates
 			this.timer = timer;
 		}
 
-        private int tick = 0;
+		private int tick = 0;
 		public override void _Process(float delta)
 		{
-            tick++;
-            if (tick > 20) {
-                int random = new Random().Next(-1, 5);
-                tick = 0;
-                if (Math.Abs(random) == 1) {
-                    shooter.Velocity = new Vector2(shooter.RoamSpeed * random, shooter.Velocity.y);
-                    if (random < 0) {
-                        shooter.TurnLeft();
-                    } else {
-                        shooter.TurnRight();
-                    }
-                } else {
-                    shooter.Velocity = new Vector2(0, shooter.Velocity.y);
-                }
-            }
-            
-            if (shooter.Velocity.x != 0) {
-                shooter.PlayAnimation("Walk");
-            } else {
-                shooter.PlayAnimation("Idle");
-            }
+			tick++;
+			if (tick > 20) {
+				int random = new Random().Next(-1, 5);
+				tick = 0;
+				if (Math.Abs(random) == 1) {
+					shooter.Velocity = new Vector2(shooter.RoamSpeed * random, shooter.Velocity.y);
+					if (random < 0) {
+						shooter.TurnLeft();
+					} else {
+						shooter.TurnRight();
+					}
+				} else {
+					shooter.Velocity = new Vector2(0, shooter.Velocity.y);
+				}
+			}
+			
+			if (shooter.Velocity.x != 0) {
+				shooter.PlayAnimation("Walk");
+			} else {
+				shooter.PlayAnimation("Idle");
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -65,7 +65,7 @@ namespace ShooterStates
 				}
 			}
 
-            shooter.EdgeDetect();
+			shooter.EdgeDetect();
 		}
 	}
 }

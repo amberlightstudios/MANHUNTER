@@ -18,7 +18,12 @@ namespace GoblinStates
 		public override void _Process(float delta)
 		{
 			if (timer > animationLength) {
-				player.GameOver();
+				if (Globals.SinglePlayer) player.GameOver();
+				else {
+					player.Killed = true;				
+					player.SynchronizeState();
+					player.RemoveSelf();					
+				}
 			}
 
 			timer += animationLength;

@@ -21,9 +21,10 @@ public class GoblinSound : AudioStreamPlayer2D
 		if (name == "BasicIdle" || name == "BasicIdle2" || name == "BasicMoving" || name == "BasicMoving2") {
 			Stream = StreamAttack;
 			Play();
-		} else if (name == "Jump") {
-			Stream = StreamJump;
-			Play();
-		}
+		} 
+//		else if (name == "Jump") {
+//			Stream = StreamJump;
+//			Play();
+//		}
 	}
 }

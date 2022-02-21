@@ -22,6 +22,7 @@ namespace ShooterStates
 
 			if (timer > shooter.ShootFrequency) {
 				shooter.PlayAnimation("Shoot");
+				shooter.Fire += 1;				
 				shooter.Shoot();
 				timer = 0;
 			}

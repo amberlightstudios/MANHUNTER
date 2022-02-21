@@ -12,17 +12,14 @@ public class Goblin : Character
 	[Export]
 	public float Speed { get; private set; }
 	public Vector2 Velocity;
+	public bool Killed = false;
 
 
-	[Puppet]
-	public Vector2 PuppetPosition { get; set; }
-	[Puppet]
-	public Vector2 PuppetVelocity { get; set; }
-	[Puppet]
-	public int PuppetFaceDirection { get; set; }
-	[Puppet]
-	public String PuppetAnimation { get; set; }
-
+	[Puppet] public Vector2 PuppetPosition { get; set; }
+	[Puppet] public Vector2 PuppetVelocity { get; set; }
+	[Puppet] public int PuppetFaceDirection { get; set; }
+	[Puppet] public String PuppetAnimation { get; set; }
+	[Puppet] public bool PuppetKilled {get; set; }
 
 	[Export]
 	public float JumpSpeed { get; private set; }
@@ -71,10 +68,6 @@ public class Goblin : Character
 	public bool IsInvincible = false;
 	private bool stunAfterHit = false;
 
-
-
-	// faceDirection == -1 -> Player is facing left.. 
-	// faceDirection == 1 -> Player is facing right. 
 	public int FaceDirection { get; private set; }
 
 	private AnimationPlayer animPlayer;
@@ -104,18 +97,19 @@ public class Goblin : Character
 	private RayCast2D ladderDetectTop, ladderDetectFoot;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
-	private GameManager gm;
+	public GameManager gm;
+	public int PlayerIndex;
 	private Vector2 defaultSpriteScale;
 	
 	private CPUParticles2D walk;
 	public CPUParticles2D Walk { get => walk; }
 	private CPUParticles2D jump;
 	public CPUParticles2D Jump { get => jump; }
-
+	
 	public override void _Ready()
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
-		gm.AddNewPlayer(this);
+		PlayerIndex = gm.AddNewPlayer(this);
 		
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
@@ -145,53 +139,83 @@ public class Goblin : Character
 
 	public override void _Process(float delta)
 	{
-		// Networking part
-		var isMultiPlayer = GetTree().NetworkPeer != null;
-		if (isMultiPlayer) {
-			if (IsNetworkMaster()) { 
-				State._Process(delta);
-				BroadcastState();
-			}	
-			else {
-				ReceiveState();
-			}
-		} else {
-			State._Process(delta);
+		if (Globals.SinglePlayer || IsNetworkMaster()) {
+			State._Process(delta);			
 		}
-		
-
-		if (isMultiPlayer && !IsNetworkMaster())
+		SynchronizeState();
+		if (!Globals.SinglePlayer && !IsNetworkMaster())
 			PuppetPosition = Position;
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		var isMultiPlayer = GetTree().NetworkPeer != null;
-		if (isMultiPlayer) {
-			if (IsNetworkMaster()) {
-				UpdateGoblin(delta);
-				BroadcastState();
-			}	
-			else {
-				ReceiveState();
+		if (Globals.SinglePlayer || IsNetworkMaster()) {
+			State._PhysicsProcess(delta);
+			Velocity.y += Gravity;
+			Velocity = MoveAndSlide(Velocity);
+			
+			if (Velocity.y != 0) {
+				walk.Emitting = false;
 			}
 		}
-		// Single player mode.  
-		else {
-			UpdateGoblin(delta);
+		SynchronizeState();
+	}
+	
+	public void SynchronizeState() {
+		if (!Globals.SinglePlayer) {
+			if (IsNetworkMaster()) { 
+				BroadcastState();
+			} else {
+				ReceiveState();
+			}
+		} 
+	}
+	
+	public void BroadcastState() 
+	{
+		Rset(nameof(PuppetPosition), Position);
+		Rset(nameof(PuppetVelocity), Velocity);
+		Rset(nameof(PuppetFaceDirection), FaceDirection);
+		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);
+		Rset(nameof(PuppetKilled), Killed);
+	}
+	
+	public void ReceiveState() 
+	{
+		Position = PuppetPosition;
+		Velocity = PuppetVelocity;
+		if (FaceDirection == -1 && PuppetFaceDirection == 1) {
+			TurnRight();
+		} else if (FaceDirection != PuppetFaceDirection) {
+			TurnLeft();
+		}  
+		if (PuppetAnimation != null) {
+			animPlayer.Play(PuppetAnimation);
+		}
+		if (PuppetKilled) {
+			RemoveSelf();
 		}
 	}
 	
-	private void UpdateGoblin(float delta)
-	{
-		State._PhysicsProcess(delta);
-		// Gravity
-		Velocity.y += Gravity;
-		Velocity = MoveAndSlide(Velocity);
-		
-		if (Velocity.y != 0) {
-			walk.Emitting = false;
-		}
+	public void RemoveSelf() {
+		FreeCamera();				
+		gm.RemovePlayer(PlayerIndex);
+		if (gm.NumPlayers == 0) GameOver();			
+		else {
+			AttachCamera();			
+			GetParent().RemoveChild(this);
+		} 
+	}
+	
+	public void FreeCamera() {
+		 Cam cam = GetNodeOrNull<Cam>("/root/Main/Cam");
+		if (cam.Player == this)
+			 cam.Player = null;
+	}
+	
+	public void AttachCamera() {
+		Cam cam = GetNodeOrNull<Cam>("/root/Main/Cam");
+		cam.Player = gm.GetRandomAlive();
 	}
 
 	public override void TakeDamage(int dmg) 
@@ -218,6 +242,7 @@ public class Goblin : Character
 	
 	public void GameOver()
 	{
+		if (!Globals.SinglePlayer) ((Network) GetParent()).LeaveGame();
 		GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 	}
 
@@ -252,27 +277,6 @@ public class Goblin : Character
 		GenerateRock();
 	}
 	
-	public void BroadcastState() 
-	{
-		Rset(nameof(PuppetPosition), Position);
-		Rset(nameof(PuppetVelocity), Velocity);
-		Rset(nameof(PuppetFaceDirection), FaceDirection);
-		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);
-	}
-	
-	public void ReceiveState() 
-	{
-		Position = PuppetPosition;
-		Velocity = PuppetVelocity;
-		if (FaceDirection == -1 && PuppetFaceDirection == 1) {
-			TurnRight();
-		} else if (FaceDirection != PuppetFaceDirection) {
-			TurnLeft();
-		}  
-		if (PuppetAnimation != null) {
-			animPlayer.Play(PuppetAnimation);
-		}
-	}
 
 	public void TurnLeft() 
 	{
@@ -350,16 +354,8 @@ public class Goblin : Character
 		enemy.Velocity = new Vector2(Velocity.x * 0.5f, throwDownSpeed);
 	}
 
-	
-	[Remote]
-	public void SyncAttack()
-	{
-		AttackEnemy();
-	}
-
 	public bool AttackEnemy() 
 	{
-		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncAttack));
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;

@@ -9,6 +9,7 @@ public class Main : Network
 	{
 		if (!Globals.SinglePlayer) {
 			InitNetwork();
+			GD.Print(Globals.HostAddress);
 			if (Globals.IsHost) HostGame();
 			else JoinGame(Globals.HostAddress);
 		} else {

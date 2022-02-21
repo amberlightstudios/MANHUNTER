@@ -63,16 +63,7 @@ public class Network : Node
 	{
 		GD.Print("Leaving current game");
 
-		foreach(var player in Players)
-		{
-			GetNode(player.Key.ToString()).QueueFree();
-		}
-
 		Players.Clear();
-
-		GetNode(GetTree().GetNetworkUniqueId().ToString()).QueueFree();
-
-		Rpc(nameof(RemovePlayer), GetTree().GetNetworkUniqueId());
 
 		((NetworkedMultiplayerENet)GetTree().NetworkPeer).CloseConnection();
 		GetTree().NetworkPeer = null;
