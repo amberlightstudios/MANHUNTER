@@ -103,7 +103,7 @@ namespace GoblinStates
 		public override void _PhysicsProcess(float delta)
 		{
 			if (player.OnGround()) {
-				MoveState newState = new MoveState(player);
+				MoveState newState = new MoveState(player, 10);
 				ExitState(newState);
 				return;
 			}

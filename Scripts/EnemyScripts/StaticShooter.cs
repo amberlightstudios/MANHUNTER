@@ -13,6 +13,8 @@ public class StaticShooter : Enemy
 	[Export]
 	private float bulletSpeed;
 	[Export]
+	private float bulletRange = 300f;
+	[Export]
 	private int damage = 1;
 	[Export]
 	private float roamSpeed = 30f;
@@ -96,6 +98,7 @@ public class StaticShooter : Enemy
 		bullet.Speed = bulletSpeed;
 		bullet.Direction = sprite.Scale;
 		bullet.Position = shootPoint.GlobalPosition;
+		bullet.Range = bulletRange;
 		GetParent().AddChild(bullet);
 	}
 

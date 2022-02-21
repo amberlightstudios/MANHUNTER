@@ -5,8 +5,9 @@ namespace GoblinStates {
 	{
 		private float timer = 0f;
 
-		public MoveState(Goblin player) {
+		public MoveState(Goblin player, float timer = 0) {
 			this.player = player;
+			this.timer = timer;
 		}
 
 		public override void _Process(float delta)
