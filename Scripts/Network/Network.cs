@@ -51,11 +51,9 @@ public class Network : Node
 
 		GetTree().NetworkPeer = clientPeer;
 		
-		// TODO: need to back player out of game and let them go from the main menu 
-		// if IP doesn't resolve without kicking them out of the game entirely
-		if (result.ToString() == "CantResolve") {
-			GetTree().ChangeScene("res://Scenes/UI/Menu.tscn");
-			
+		if (PlayerName == null) {
+			GD.Print("Game joined does not exist");
+			GetTree().ChangeScene("res://Scenes/UI/Popup.tscn");
 		}
 	}
 
