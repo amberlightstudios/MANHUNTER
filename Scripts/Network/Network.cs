@@ -50,11 +50,6 @@ public class Network : Node
 		var result = clientPeer.CreateClient(address, default_port);
 
 		GetTree().NetworkPeer = clientPeer;
-		
-		if (PlayerName == null) {
-			GD.Print("Game joined does not exist");
-			GetTree().ChangeScene("res://Scenes/UI/Popup.tscn");
-		}
 	}
 
 	public void LeaveGame()
@@ -96,7 +91,7 @@ public class Network : Node
 		GetTree().NetworkPeer = null;
 
 		GD.Print("Failed to connect.");
-
+		GetTree().ChangeScene("res://Scenes/UI/Popup.tscn");
 	}
 
 	private void ServerDisconnected()
