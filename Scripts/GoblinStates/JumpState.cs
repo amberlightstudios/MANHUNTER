@@ -42,6 +42,10 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
+            if (Input.IsActionJustReleased("speed_boost")) {
+                SpeedBoost = 1;
+            }
+
 			if (Input.IsActionPressed("Jump") && !highJump) {
 				tick += 1;
 				if (tick > 12) {
@@ -102,7 +106,17 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
+            if (player.IsFallingTowardsLadder()) {
+                if (player.Velocity.y > 200) {
+                    player.Velocity.y = 200;
+                }
+                player.SetZeroGravity();
+            } 
+
 			if (player.OnGround()) {
+                if (player.IsStandingOnLadder()) {
+                    player.Velocity.y = 0;
+                }
 				MoveState newState = new MoveState(player, 10);
 				ExitState(newState);
 				return;

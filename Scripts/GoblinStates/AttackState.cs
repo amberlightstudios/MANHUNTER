@@ -34,6 +34,10 @@ namespace GoblinStates
 		{
 			timer += delta;
 
+            if (Input.IsActionJustReleased("speed_boost")) {
+                SpeedBoost = 1;
+            }
+
 			if (!player.AnimPlayer.IsPlaying()) {
 				if (!player.OnGround()) {
 					ExitState(new JumpState(player, true));
@@ -76,11 +80,16 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			if (player.IsStandingOnLadder()) {
-				player.SetZeroGravity();
-			} else {
-				player.ReturnNormalGravity();
-			}
+			if (player.IsStandingOnLadder() && player.Velocity.y >= 0) {
+                player.Velocity.y = 0;
+                player.SetZeroGravity();
+			} else if (player.IsFallingTowardsLadder()) {
+                if (player.Velocity.y > 250) {
+                    player.Velocity.y = 250;
+                }
+                player.SetZeroGravity();
+            }
+
 			speed -= player.AttakDeceleration;
 		}
 	}

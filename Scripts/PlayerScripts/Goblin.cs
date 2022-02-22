@@ -96,7 +96,7 @@ public class Goblin : Character
 	[Export]
 	private float ladderClimbSpeed;
 	private Area2D ladderDetection;
-	private RayCast2D ladderDetectTop, ladderDetectFoot;
+	private RayCast2D ladderDetectTop, ladderDetectFoot, ladderDetectLong;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
 	public GameManager gm;
@@ -129,6 +129,7 @@ public class Goblin : Character
 		ladderDetection = GetNode<Area2D>("LadderDetection");
 		ladderDetectFoot = GetNode<RayCast2D>("LadderDetection/LadderDetectFoot");
 		ladderDetectTop = GetNode<RayCast2D>("LadderDetection/LadderDetectTop");
+		ladderDetectLong = GetNode<RayCast2D>("LadderDetection/LadderDetectLong");
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
@@ -161,7 +162,9 @@ public class Goblin : Character
 			}
 
 			State._PhysicsProcess(delta);
-			Velocity.y += Gravity;
+			if (Velocity.y < TERMINAL_VELOCITY) {
+				Velocity.y += Gravity;
+			}
 			Velocity = MoveAndSlide(Velocity);
 			
 			if (Velocity.y != 0) {
@@ -327,6 +330,11 @@ public class Goblin : Character
 	public bool OnLadder() 
 	{
 		return ladderDetection.GetOverlappingBodies().Count > 0;
+	}
+
+	public bool IsFallingTowardsLadder() 
+	{
+		return !ladderDetectTop.IsColliding() && ladderDetectLong.IsColliding() && Velocity.y > 200;
 	}
 
 	public bool CanWallClimb() 

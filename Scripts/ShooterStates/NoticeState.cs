@@ -24,7 +24,12 @@ namespace ShooterStates
 		{
 			timer += delta;
 			if (timer > shooter.NoticeTime) {
-				ExitState(new AttackState(shooter));
+                if (shooter.DetectPlayer() != null) {
+				    ExitState(new AttackState(shooter));
+                } else {
+                    ExitState(new NormalState(shooter));
+                }
+                return;
 			} 
 		}
 
