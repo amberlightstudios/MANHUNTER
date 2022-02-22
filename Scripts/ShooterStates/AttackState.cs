@@ -16,17 +16,6 @@ namespace ShooterStates
 
 		public override void _Process(float delta)
 		{
-			if (shooter.AnimPlayer.CurrentAnimation == "IdleAlert") {
-				timer += delta;
-			}
-
-			if (timer > shooter.ShootFrequency) {
-				shooter.PlayAnimation("Shoot");
-				shooter.Fire += 1;				
-				shooter.Shoot();
-				timer = 0;
-			}
-
 			if (!shooter.AnimPlayer.IsPlaying() && shooter.DetectPlayer() == null) {
 				ExitState(new NormalState(shooter));
 				return;
@@ -43,11 +32,16 @@ namespace ShooterStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			// Vector2 offset = shooter.PlayerOffset();
-			// if (offset.Length() < shooter.EvadeDist) {
-			//     ExitState(new EvadeState(shooter, offset));
-			//     return;
-			// }
+			if (shooter.AnimPlayer.CurrentAnimation == "IdleAlert") {
+				timer += delta;
+			}
+
+			if (timer > shooter.ShootFrequency) {
+				shooter.PlayAnimation("Shoot");
+				shooter.Fire += 1;				
+				shooter.Shoot();
+				timer = 0;
+			}
 		}
 	}
 }

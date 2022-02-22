@@ -22,6 +22,11 @@ namespace ShooterStates
 
 		public override void _Process(float delta)
 		{
+            shooter.PlayAnimation("IdleAlert");
+		}
+
+		public override void _PhysicsProcess(float delta)
+		{
 			timer += delta;
 			if (timer > shooter.NoticeTime) {
                 if (shooter.DetectPlayer() != null) {
@@ -31,11 +36,6 @@ namespace ShooterStates
                 }
                 return;
 			} 
-		}
-
-		public override void _PhysicsProcess(float delta)
-		{
-			
 		}
 	}
 }

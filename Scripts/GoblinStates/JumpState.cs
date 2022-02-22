@@ -29,6 +29,7 @@ namespace GoblinStates
 
 			if (!isFallingDown)
 				player.Velocity.y = -6 * player.JumpSpeed;
+            highJump = true;
 		}
 
 		public JumpState(Goblin player, bool isFallingDown, bool haveDashed) 
@@ -107,6 +108,7 @@ namespace GoblinStates
 		public override void _PhysicsProcess(float delta)
 		{
             if (player.IsFallingTowardsLadder()) {
+                highJump = true;
                 if (player.Velocity.y > 200) {
                     player.Velocity.y = 200;
                 }

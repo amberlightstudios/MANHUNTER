@@ -6,7 +6,7 @@
 load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 79.3333, 2.66667 )
+extents = Vector2( 122.167, 2.66667 )
 
 [sub_resource type="StreamTexture" id=14]
 
@@ -130,13 +130,16 @@ collision_mask = 8
 script = ExtResource( 1 )
 Gravity = 2.0
 health = 1
-shootFrequency = 0.4
+noticeTime = 0.2
+shootFrequency = 0.8
 bulletSpeed = 5.8
+bulletRange = 450.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 16 )
 hframes = 5
 vframes = 4
+frame = 8
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
 }
@@ -150,7 +153,7 @@ collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/ShootRange"]
-position = Vector2( -21, 0.333331 )
+position = Vector2( -29.5, 0.333331 )
 z_index = 10
 shape = SubResource( 11 )
 
@@ -160,7 +163,6 @@ cast_to = Vector2( 5, 0 )
 collision_mask = 8
 
 [node name="Alert" type="Sprite" parent="Sprite"]
-visible = false
 position = Vector2( 0, -15.3333 )
 texture = SubResource( 14 )
 hframes = 2
