@@ -9,4 +9,4 @@ func _on_1_pressed():
 	get_tree().change_scene("res://Scenes/TutorialLevel.tscn")
 
 func _on_2_pressed():
-	get_tree().change_scene("res://Scenes/Main.tscn")
+	get_tree().change_scene("res://Scenes/2.tscn")
