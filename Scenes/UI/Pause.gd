@@ -9,7 +9,9 @@ var goback = [
 	"res://Scenes/UI/JoinGame.tscn",
 	"res://Scenes/UI/LevelSelect.tscn",
 	"res://Scenes/UI/Loading.tscn",
+	"res://Scenes/UI/CreateUser.tscn",
 	"res://Prefabs/Network.tscn"
+	
 ]
 
 func _ready():

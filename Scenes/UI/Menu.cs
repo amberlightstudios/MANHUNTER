@@ -26,7 +26,12 @@ public class Menu : Control
 	public void HostGame() {
 		Globals.SinglePlayer = false;
 		Globals.IsHost = true;
-		GetTree().ChangeScene("res://Scenes/UI/CreateUser.tscn");		
+		if (Globals.PlayerName == "Host" || Globals.PlayerName == "") {
+			GetTree().ChangeScene("res://Scenes/UI/CreateUser.tscn");
+		} else {
+			GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
+		}
+		
 	}
 	
 	public void JoinGame() {

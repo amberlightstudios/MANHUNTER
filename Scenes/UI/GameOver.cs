@@ -23,7 +23,7 @@ public class GameOver : Control
 
 	private void MainMenu()
 	{
-		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
+		GetTree().ChangeScene("res://Scenes/UI/Menu.tscn");
 	}
 
 
