@@ -11,19 +11,19 @@ namespace GoblinStates
 			this.player = player;
 			player.Velocity = Vector2.Zero;
 			player.ReturnNormalGravity();
-            player.SetCollisionLayerBit(1, false);
-            player.SetCollisionLayerBit(7, true);
+
+			if (!Globals.SinglePlayer) {
+				player.SetInvisible();
+				player.Killed = true;				
+				player.SynchronizeState();
+			} else {
+				player.GameOver();
+			}
 		}
 
 		public override void _Process(float delta)
 		{
-			if (Globals.SinglePlayer) {
-				player.GameOver();
-			} else {
-				player.Killed = true;				
-				player.SynchronizeState();
-				player.RemoveSelf();					
-			}
+
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -35,6 +35,7 @@ namespace GoblinStates
 		{
 			if (player.IsRevived) {
                 player.State = new MoveState(this.player);
+				player.Killed = false;
                 player.IsRevived = false;
             }
 			return;

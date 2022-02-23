@@ -109,6 +109,7 @@ public class Goblin : Character
 			if (value) {
 				isRevived = value;
 				State.ExitState(null);
+				gm.AddNewPlayer(this);
 				// Return control to the player here. 
 				return;
 			} 
@@ -214,7 +215,6 @@ public class Goblin : Character
 		PuppetFaceDirection = fd;
 		PuppetAnimation = anim;
 		PuppetKilled = killed;
-		
 	}
 	
 	public void BroadcastState() 
@@ -236,7 +236,11 @@ public class Goblin : Character
 			animPlayer.Play(PuppetAnimation);
 		}
 		if (PuppetKilled) {
-			RemoveSelf();
+			SetCollisionLayerBit(1, false);
+        	SetCollisionLayerBit(7, true);
+		} else {
+			SetCollisionLayerBit(1, true);
+			SetCollisionLayerBit(7, false);
 		}
 	}
 	
@@ -247,13 +251,21 @@ public class Goblin : Character
 		Velocity = MoveAndSlide(Velocity);
 	}
 	
+	public void SetInvisible()
+	{
+		// gm.RemovePlayer(PlayerIndex);
+		// if (gm.NumPlayers == 0) GameOver();
+		SetCollisionLayerBit(1, false);
+        SetCollisionLayerBit(7, true);
+	}
+
 	public void RemoveSelf() {
 		FreeCamera();				
 		gm.RemovePlayer(PlayerIndex);
 		if (gm.NumPlayers == 0) GameOver();			
 		else {
 			AttachCamera();			
-			// GetParent().RemoveChild(this);
+			GetParent().RemoveChild(this);
 		} 
 	}
 	
