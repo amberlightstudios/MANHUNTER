@@ -67,6 +67,7 @@ public class Network : Node
 		GD.Print($"tell other player my name is {PlayerName} and my id is {id}");
 		// tell the player that just connected who we are by sending an rpc back to them with your name.
 		RpcId(id, nameof(RegisterPlayer), PlayerName);
+		if (Globals.IsHost) Rpc(nameof(SyncLevel), Globals.LastPlayedLevel);
 	}
 
 	private void PlayerDisconnected(int id)
@@ -104,6 +105,7 @@ public class Network : Node
 		GD.Print($"{playerName} added with ID {id}");
 		LobbyRoom.AddPlayer(id, playerName);	
 		NumPlayers += 1;	
+		LobbyRoom.NumPlayers += 1;
 	}
 	
 	public void AttachCamera(Goblin target) { 
@@ -111,20 +113,6 @@ public class Network : Node
 		if (cam != null) {
 			cam.Player = target;
 		}
-	}
-
-	[Remote]
-	private void StartGame()
-	{
-		Goblin player = SpawnPlayer(GetTree().GetNetworkUniqueId(), PlayerName);
-		AttachCamera(player);
-	}
-
-	public Goblin SpawnPlayer(int id, string playerName)
-	{
-		Goblin playerNode = generator.GeneratePlayer(id.ToString(), GetNode("/root/Main"));;
-		playerNode.SetNetworkMaster(id);
-		return playerNode;
 	}
 
 	[Remote]
@@ -137,6 +125,7 @@ public class Network : Node
 		}
 		LobbyRoom.RemovePlayer(id);
 		NumPlayers -= 1;
+		LobbyRoom.NumPlayers -= 1;
 	}
 	
 	private void JoinLobby()
@@ -145,12 +134,9 @@ public class Network : Node
 		AddChild(LobbyRoom);
 	}
 	
-	public void LoadLevel()
+	[Remote]
+	private void SyncLevel(int level)
 	{
-		Node levelScene = (Node) ((PackedScene) ResourceLoader.Load(
-							Globals.GetPathToLevel(Globals.LastPlayedLevel))
-						).Instance();
-		GetNode("Lobby").QueueFree();
-		AddChild(levelScene);		
+		Globals.LastPlayedLevel = level;
 	}
 }

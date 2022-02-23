@@ -184,6 +184,7 @@ public class Goblin : Character
 		} 
 	}
 	
+	[Remote]
 	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim, 
 							bool killed)
 	{
@@ -236,13 +237,13 @@ public class Goblin : Character
 	}
 	
 	public void FreeCamera() {
-		 Cam cam = GetNodeOrNull<Cam>("/root/Main/Cam");
+		 Cam cam = (Cam) GetParent().GetNode("Cam");
 		if (cam.Player == this)
 			 cam.Player = null;
 	}
 	
 	public void AttachCamera() {
-		Cam cam = GetNodeOrNull<Cam>("/root/Main/Cam");
+		Cam cam = (Cam) GetParent().GetNode("Cam");
 		cam.Player = gm.GetRandomAlive();
 	}
 

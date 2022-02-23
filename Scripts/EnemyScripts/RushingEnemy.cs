@@ -34,17 +34,23 @@ public class RushingEnemy : Enemy
 	private float attackTimer = 0f;
 	public override void _Process(float delta)
 	{
-		State._Process(delta);
+		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
+			State._Process(delta);		
+		} 
+		SynchronizeState();	
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		State._PhysicsProcess(delta);
+		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
+			State._PhysicsProcess(delta);
 
-		if (!OnGround()) {
-			velocity.y += Gravity;
-		}
-		MoveAndSlide(velocity);
+			if (!OnGround()) {
+				velocity.y += Gravity;
+			}
+			MoveAndSlide(velocity);
+		}  
+		SynchronizeState();
 	}
 
 	public bool OnGround() 
@@ -89,7 +95,7 @@ public class RushingEnemy : Enemy
 		State.ExitState(new DeathState(this));
 	}
 
-	public void Attack() 
+	public override void Attack() 
 	{
 		foreach (Area2D g in meleeArea.GetOverlappingAreas()) {
 			((Goblin) g.GetParent()).TakeDamage(5);

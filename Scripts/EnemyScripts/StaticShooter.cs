@@ -42,7 +42,7 @@ public class StaticShooter : Enemy
 		edgeDetectLeft = GetNode<RayCast2D>("Detections/EdgeDetectLeft");
 		edgeDetectRight = GetNode<RayCast2D>("Detections/EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
-		gm = GetNode<GameManager>("/root/Main/GameManager");
+		gm =  GetParent().GetParent().GetNode<GameManager>("GameManager");
 
 		State = new NormalState(this, shootFrequency);
 	}

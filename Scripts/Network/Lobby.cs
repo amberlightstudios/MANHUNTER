@@ -50,6 +50,7 @@ public class Lobby : Network
 	{
 		if (!CanStart && ReadyPlayers == NumPlayers && ReadyPlayers > 1) {
 			CanStart = true;
+			ChangePlayerStatus(PlayerId, "Can Start");
 		}
 	}
 	
@@ -59,6 +60,7 @@ public class Lobby : Network
 			CanStart = false;						
 			Rpc(nameof(LoadGame));
 			LoadLevel();
+			QueueFree();
 		}
 	}
 	
@@ -66,20 +68,23 @@ public class Lobby : Network
 	{
 		if (!IsReady) {
 			IsReady = true;
+			ChangePlayerStatus(PlayerId, "Ready");
 			Rpc(nameof(ReadyPlayer), PlayerId);			
 		} 
 	}
 	
 	[Remote]
-	public void ReadyPlayer()
+	public void ReadyPlayer(int id)
 	{
 		ReadyPlayers += 1;
+		ChangePlayerStatus(id, "Ready");
 	}
 
 	[Remote]
 	public void LoadGame()
 	{
-		LoadLevel();
+		LoadLevel();		
+		QueueFree();
 	}
 	
 	public void AddPlayer(int id, string name) 
@@ -87,9 +92,9 @@ public class Lobby : Network
 		// TODO
 		GridContainer container = (GridContainer) GetNode("Players");
 		Node user = ProfileScene.Instance();
+		user.Name = id.ToString();		
 		Label userName = (Label) user.GetNode("Sprite/VBoxContainer/Name");
 		userName.Text = name;
-		user.Name = id.ToString();
 		container.AddChild(user);
 	}
 	
@@ -97,8 +102,19 @@ public class Lobby : Network
 	{
 		// TODO
 		GridContainer container = (GridContainer) GetNode("Players");
-		container.RemoveChild(container.GetNode($"/{id}"));
+		container.RemoveChild(container.GetNode($"{id}"));
 	}
 	
+	private void ChangePlayerStatus(int id, string status)
+	{
+		((Label)GetNode($"Players/{id}/Sprite/VBoxContainer/Name2")).Text = status;
+	}
 
+	public void LoadLevel()
+	{
+		Node levelScene = (Node) ((PackedScene) ResourceLoader.Load(
+							Globals.GetPathToLevel(Globals.LastPlayedLevel))
+						).Instance();
+		GetParent().AddChild(levelScene);		
+	}
 }

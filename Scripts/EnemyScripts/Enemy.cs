@@ -10,6 +10,7 @@ public class Enemy : Character
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
 	public int FaceDirection;
 	public int Fire = 0;
+	public int Melee = 0;	
 	public bool IsGrabbed = false;
 	public bool IsThrown = false;
 	public bool IsThrownDown = false;
@@ -21,6 +22,7 @@ public class Enemy : Character
 	protected Sprite sprite;
 	
 	[Puppet] public int PuppetFire;
+	[Puppet] public int PuppetMelee;	
 	[Puppet] public Vector2 PuppetVelocity;
 	[Puppet] public string PuppetAnimation = "";
 	[Puppet] public int PuppetFaceDirection;
@@ -56,11 +58,20 @@ public class Enemy : Character
 	
 	public void BroadcastState()
 	{
-		Rset(nameof(PuppetPosition), Position);		
-		Rset(nameof(PuppetVelocity), Velocity);
-		Rset(nameof(PuppetFaceDirection), FaceDirection);
-		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);
-		Rset(nameof(PuppetFire), Fire);
+		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
+					  animPlayer.CurrentAnimation, Fire, Melee);
+	}
+	
+	[Remote]
+	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim,
+							int fire, int melee)
+	{
+		PuppetPosition = pos;
+		PuppetVelocity = vel;
+		PuppetFaceDirection = fd;
+		PuppetAnimation = anim;
+		PuppetFire = fire;
+		PuppetMelee = melee;
 	}
 	
 	public void ReceiveState()
@@ -78,6 +89,10 @@ public class Enemy : Character
 		if (PuppetFire > Fire) {
 			Fire += 1;
 			Shoot();
+		}
+		if (PuppetMelee > Melee) {
+			Melee += 1;
+			Attack();
 		}
 	}
 
@@ -136,10 +151,15 @@ public class Enemy : Character
 	}
 	
 	public virtual void Interpolate() {
-		// TODO
+		velocity.y += Gravity;
+		MoveAndSlide(velocity);
 	}
 	
 	public virtual void Shoot() {
 		// Implemented in subclass
+	}
+	
+	public virtual void Attack() {
+		// Implemented in subclass		
 	}
 }
