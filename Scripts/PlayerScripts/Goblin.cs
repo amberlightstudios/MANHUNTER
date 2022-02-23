@@ -110,7 +110,7 @@ public class Goblin : Character
 				isRevived = value;
 				State.ExitState(null);
 				gm.AddNewPlayer(this);
-				
+
 				// Return control to the player here. 
 
 				SetCollisionLayerBit(1, true);
@@ -246,8 +246,8 @@ public class Goblin : Character
 		} else {
 			SetCollisionLayerBit(1, true);
 			SetCollisionLayerBit(7, false);
-			enemyHitBox.SetCollisionLayerBit(1, false);
-			enemyHitBox.SetCollisionLayerBit(7, true);
+			enemyHitBox.SetCollisionLayerBit(1, true);
+			enemyHitBox.SetCollisionLayerBit(7, false);
 		}
 	}
 	

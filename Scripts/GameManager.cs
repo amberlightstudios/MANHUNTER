@@ -46,7 +46,10 @@ public class GameManager : Node2D
 	}
 	
 	public void RemovePlayer(int index) 
-	{
+	{	
+		if (PlayerList[index] == null) {
+			return;
+		}
 		NumPlayers -= 1;
 		PlayerList[index] = null;
 	}

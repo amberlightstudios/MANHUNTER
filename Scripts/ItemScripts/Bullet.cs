@@ -29,6 +29,7 @@ public class Bullet : Area2D
 			GetParent().RemoveChild(this);
 		}
 
+		// Can hit multiple times in a single frame. (Need to fix later)
 		Godot.Collections.Array playersHit = this.GetOverlappingAreas();
 		foreach (Area2D g in playersHit) {
 			((Goblin) g.GetParent()).TakeDamage(Damage);
