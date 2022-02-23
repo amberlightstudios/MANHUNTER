@@ -10,12 +10,12 @@ public class Network : Node
 	public int PlayerId { get; set; }
 	public Dictionary<int, string> Players = new Dictionary<int, string>();
 	private TextEdit NameText { get; set; }
-	public int NumPlayers;
+	public int NumPlayers = 1;
 	private Generator generator = Generator.Instance;
-	private Lobby LobbyRoom = (Lobby) ((PackedScene) ResourceLoader.Load("res://Scenes/UI/Lobby.tscn")).Instance();
-
+	private Lobby LobbyRoom;
 	public override void _Ready()
 	{
+		LobbyRoom = (Lobby) ((PackedScene) ResourceLoader.Load("res://Scenes/UI/Lobby.tscn")).Instance();
 		GetTree().Connect("network_peer_connected", this, nameof(PlayerConnected));
 		GetTree().Connect("network_peer_disconnected", this, nameof(PlayerDisconnected));
 		GetTree().Connect("connected_to_server", this, nameof(ConnectedToServer));
@@ -27,7 +27,7 @@ public class Network : Node
 			JoinGame(Globals.HostAddress);
 		}
 		PlayerId = GetTree().GetNetworkUniqueId();		
-		// PlayerName = Globals.PlayerName;
+		PlayerName = Globals.PlayerName;
 		Players.Add(PlayerId, PlayerName);
 	}
 
@@ -101,7 +101,8 @@ public class Network : Node
 		var id = GetTree().GetRpcSenderId();
 		Players.Add(id, playerName);
 		GD.Print($"{playerName} added with ID {id}");
-		LobbyRoom.AddPlayer(id, PlayerName);		
+		LobbyRoom.AddPlayer(id, PlayerName);	
+		NumPlayers += 1;	
 	}
 	
 	public void AttachCamera(Goblin target) { 
@@ -134,11 +135,21 @@ public class Network : Node
 			Players.Remove(id);
 		}
 		LobbyRoom.RemovePlayer(id);
+		NumPlayers -= 1;
 	}
 	
 	private void JoinLobby()
 	{
 		RemoveChild(GetNode("Loading"));
 		AddChild(LobbyRoom);
+	}
+	
+	public void LoadLevel()
+	{
+		Node levelScene = (Node) ((PackedScene) ResourceLoader.Load(
+							Globals.GetPathToLevel(Globals.LastPlayedLevel))
+						).Instance();
+		GetNode("Lobby").QueueFree();
+		AddChild(levelScene);		
 	}
 }

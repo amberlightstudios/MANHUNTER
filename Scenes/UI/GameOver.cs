@@ -17,7 +17,7 @@ public class GameOver : Control
 
 	private void RestartLevel()
 	{
-		GetTree().ChangeScene($"res://Scenes/Levels/{Globals.LastPlayedLevel}.tscn");
+		GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LastPlayedLevel));
 	}
 
 

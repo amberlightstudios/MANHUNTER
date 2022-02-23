@@ -48,7 +48,7 @@ public class JoinGame : Node
 
 		Globals.HostAddress = AddressTextBox.Text;
 
-		GetTree().ChangeScene("res://Prefabs/Network.tscn");
+		GetTree().ChangeScene(Globals.PathToNetwork);
 	}
 
 	private bool ValidateIPv4(string ipString)

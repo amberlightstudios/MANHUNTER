@@ -8,12 +8,7 @@ public class LevelSelect : Control
 	{
 		Button L1 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/1/1");
 		Button L2 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/2/2");
-//		Button L3 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/3/3");
-
 		L1.GrabFocus();
-//		L1.Connect("pressed", this, nameof(PlayGame));
-//		L2.Connect("pressed", this, nameof(HostGame));
-//		L3.Connect("pressed", this, nameof(JoinGame));
 	}
 	
 	public override void _Process(float delta)
@@ -25,14 +20,20 @@ public class LevelSelect : Control
 	private void _on_1_pressed()
 	{
 		Globals.LastPlayedLevel = 1;
-		GetTree().ChangeScene($"res://Scenes/Levels/{Globals.LastPlayedLevel}.tscn");
+		if (Globals.SinglePlayer) 
+			GetTree().ChangeScene(Globals.GetPathToLevel(1));
+		else
+			GetTree().ChangeScene(Globals.PathToNetwork);			
 	}
 
 
 	private void _on_2_pressed()
 	{
 		Globals.LastPlayedLevel = 2;
-		GetTree().ChangeScene($"res://Scenes/Levels/{Globals.LastPlayedLevel}.tscn");
+		if (Globals.SinglePlayer) 
+			GetTree().ChangeScene(Globals.GetPathToLevel(2));
+		else
+			GetTree().ChangeScene(Globals.PathToNetwork);	
 	}
 }
 

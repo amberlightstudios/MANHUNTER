@@ -5,37 +5,46 @@ using Godot.Collections;
 public class Lobby : Network
 {
 	public string GameLevel;
-	public Button StartButton;
-	public Button ReadyButton;
-	private int ReadyPlayers;
+	private int ReadyPlayers = 1;
 	private bool IsReady;
 	private bool CanStart;
+	private PackedScene ProfileScene;
+	private Label ReadyLabel;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Button btn = (Button) GetNode("Button");
-		if (Globals.IsHost) {
-			btn.Text = "Start Game";
-			btn.Connect("pressed", this, nameof(StartGame));
-			StartButton = btn;
-		} else {
-			btn.Text = "Ready";	 
-			btn.Connect("pressed", this, nameof(ReadyGame));			
-			ReadyButton = btn;
-		}
+		ProfileScene = (PackedScene) ResourceLoader.Load("res://Scenes/UI/Profile.tscn");
+//		ReadyLabel = (Label) GetNode("Instructions/HBoxContainer/Tip/Label");
+//
+//		if (Globals.IsHost) {
+//			ReadyLabel.Text = "Start";
+//		} else {
+//			ReadyLabel.Text = "Ready";	 
+//		}
 		AddPlayer(PlayerId, PlayerName);
 	}
 	
 	public override void _Process(float delta)
 	{
 		CheckCanStart();
+		ListenToInput();
+	}
+	
+	public void ListenToInput()
+	{
+		if (Input.IsActionPressed("Attack")) {
+			if (Globals.IsHost) StartGame();
+			else ReadyGame();
+		} else if (Input.IsActionPressed("Quit")) {
+			LeaveGame();
+			GetTree().ChangeScene("res://Scenes/UI/Menu.tscn");
+		}
 	}
 	
 	public void CheckCanStart()
 	{
-		if (!CanStart && ReadyPlayers == NumPlayers) {
-			StartButton.Disabled = false;
+		if (!CanStart && ReadyPlayers == NumPlayers && ReadyPlayers > 1) {
 			CanStart = true;
 		}
 	}
@@ -43,10 +52,9 @@ public class Lobby : Network
 	public void StartGame()
 	{
 		if (CanStart) {
-			StartButton.Disabled = true;
+			CanStart = false;						
 			Rpc(nameof(LoadGame));
-			GetTree().ChangeScene(GameLevel);
-			CanStart = false;			
+			LoadLevel();
 		}
 	}
 	
@@ -54,8 +62,7 @@ public class Lobby : Network
 	{
 		if (!IsReady) {
 			IsReady = true;
-			Rpc(nameof(ReadyPlayer), PlayerId);
-			ReadyButton.Disabled = true;
+			Rpc(nameof(ReadyPlayer), PlayerId);			
 		} 
 	}
 	
@@ -68,14 +75,26 @@ public class Lobby : Network
 	[Remote]
 	public void LoadGame()
 	{
-		GetTree().ChangeScene(GameLevel);
+		LoadLevel();
 	}
 	
-	public void AddPlayer(int id, string name) {
+	public void AddPlayer(int id, string name) 
+	{
 		// TODO
+		GridContainer container = (GridContainer) GetNode("Players");
+		Node user = ProfileScene.Instance();
+		Label userName = (Label) user.GetNode("Sprite/VBoxContainer/Name");
+		userName.Text = PlayerName;
+		user.Name = id.ToString();
+		container.AddChild(user);
 	}
 	
-	public void RemovePlayer(int id) {
+	public void RemovePlayer(int id) 
+	{
 		// TODO
+		GridContainer container = (GridContainer) GetNode("Players");
+		container.RemoveChild(container.GetNode($"/{id}"));
 	}
+	
+
 }

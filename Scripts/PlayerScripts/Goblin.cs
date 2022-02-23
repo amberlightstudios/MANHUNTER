@@ -157,7 +157,7 @@ public class Goblin : Character
 	{
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
 			if (Position.y > screenSize.y + 50) {
-				GameOver();
+				RemoveSelf();
 			}
 
 			State._PhysicsProcess(delta);
@@ -178,18 +178,27 @@ public class Goblin : Character
 			if (IsNetworkMaster()) { 
 				BroadcastState();
 			} else {
+				Interpolate();
 				ReceiveState();
 			}
 		} 
 	}
 	
+	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim, 
+							bool killed)
+	{
+		PuppetPosition = pos;
+		PuppetVelocity = vel;
+		PuppetFaceDirection = fd;
+		PuppetAnimation = anim;
+		PuppetKilled = killed;
+		
+	}
+	
 	public void BroadcastState() 
 	{
-		Rset(nameof(PuppetPosition), Position);
-		Rset(nameof(PuppetVelocity), Velocity);
-		Rset(nameof(PuppetFaceDirection), FaceDirection);
-		Rset(nameof(PuppetAnimation), animPlayer.CurrentAnimation);
-		Rset(nameof(PuppetKilled), Killed);
+		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
+		animPlayer.CurrentAnimation, Killed);
 	}
 	
 	public void ReceiveState() 
@@ -207,6 +216,13 @@ public class Goblin : Character
 		if (PuppetKilled) {
 			RemoveSelf();
 		}
+	}
+	
+	public void Interpolate() {
+		if (Velocity.y < TERMINAL_VELOCITY) {
+			Velocity.y += Gravity;
+		}
+		Velocity = MoveAndSlide(Velocity);
 	}
 	
 	public void RemoveSelf() {
