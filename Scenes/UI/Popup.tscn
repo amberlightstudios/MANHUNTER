@@ -72,9 +72,14 @@ margin_top = -189.0
 margin_right = 315.5
 margin_bottom = 189.0
 theme = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]The IP you entered is not hosting a game...
+
+Try again later or host your own game!
+[/center]"
 text = "The IP you entered is not hosting a game...
 
-Try a different ip or host your own game!
+Try again later or host your own game!
 "
 __meta__ = {
 "_edit_use_anchors_": false

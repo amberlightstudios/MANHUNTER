@@ -141,5 +141,6 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Restart/Restart" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Restart/Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MainMenu/MainMenu" to="." method="_on_Main_Menu_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Quit/Quit" to="." method="_on_Quit_pressed"]

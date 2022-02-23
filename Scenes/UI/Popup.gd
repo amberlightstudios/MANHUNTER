@@ -1,7 +1,11 @@
 extends Control
 
 
+export var text = ""
+
 func _ready():
+	if ($Panel/RichTextLabel.text == ""):
+		$Panel/RichTextLabel.text = text
 	$Panel/AnimationPlayer.play("Popup")
 	get_node("Panel/Restart").grab_focus()
 

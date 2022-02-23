@@ -84,7 +84,7 @@ align = 1
 [node name="1" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
 margin_top = 361.0
 margin_right = 1280.0
-margin_bottom = 447.0
+margin_bottom = 446.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 250
@@ -96,16 +96,16 @@ __meta__ = {
 [node name="1" type="Button" parent="MarginContainer/VBoxContainer/Buttons/1"]
 margin_left = 250.0
 margin_right = 1030.0
-margin_bottom = 86.0
+margin_bottom = 85.0
 focus_neighbour_bottom = NodePath("../../2/2")
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 text = "level 1"
 
 [node name="2" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
-margin_top = 451.0
+margin_top = 450.0
 margin_right = 1280.0
-margin_bottom = 538.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 250
@@ -117,16 +117,16 @@ __meta__ = {
 [node name="2" type="Button" parent="MarginContainer/VBoxContainer/Buttons/2"]
 margin_left = 250.0
 margin_right = 1030.0
-margin_bottom = 87.0
+margin_bottom = 86.0
 focus_neighbour_top = NodePath("../../1/1")
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 text = "Level 2"
 
 [node name="3" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
-margin_top = 542.0
+margin_top = 540.0
 margin_right = 1280.0
-margin_bottom = 629.0
+margin_bottom = 626.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 250
@@ -139,26 +139,31 @@ __meta__ = {
 visible = false
 margin_left = 250.0
 margin_right = 1030.0
-margin_bottom = 87.0
+margin_bottom = 86.0
 focus_neighbour_top = NodePath("../../1/1")
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 text = "Level 3"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
-margin_top = 633.0
+margin_top = 630.0
 margin_right = 1280.0
-margin_bottom = 720.0
+margin_bottom = 716.0
 size_flags_vertical = 3
 
 [node name="Host3" type="Button" parent="MarginContainer/VBoxContainer/Buttons/MarginContainer"]
 visible = false
 margin_right = 1280.0
-margin_bottom = 87.0
+margin_bottom = 86.0
 focus_neighbour_top = NodePath("../../1/1")
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 text = "Level 4"
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+margin_top = 720.0
+margin_right = 1280.0
+margin_bottom = 720.0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/1/1" to="." method="_on_1_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/2/2" to="." method="_on_2_pressed"]

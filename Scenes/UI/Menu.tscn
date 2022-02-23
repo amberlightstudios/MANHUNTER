@@ -85,7 +85,7 @@ focus_neighbour_top = NodePath("../../MarginContainer4/Quit")
 focus_neighbour_bottom = NodePath("../../MarginContainer2/Host")
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
-text = "Play"
+text = "singleplayer"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons"]
 margin_top = 90.0

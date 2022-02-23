@@ -3,7 +3,7 @@ using System;
 
 public class LevelSelect : Control
 {
-
+	int levelSelected = 1;
 	public override void _Ready()
 	{
 		Button L1 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/1/1");
@@ -15,18 +15,24 @@ public class LevelSelect : Control
 //		L2.Connect("pressed", this, nameof(HostGame));
 //		L3.Connect("pressed", this, nameof(JoinGame));
 	}
+	
+	public override void _Process(float delta)
+	{
+		// TODO: change logic to on enter pressed anywhere inside the main menu and update the state 
+	}
 
+	
 	private void _on_1_pressed()
 	{
-		Globals.LastPlayedLevel = ("res://Scenes/1.tscn");
-		GetTree().ChangeScene("res://Prefabs/Network.tscn");
+		Globals.LastPlayedLevel = 1;
+		GetTree().ChangeScene($"res://Scenes/Levels/{Globals.LastPlayedLevel}.tscn");
 	}
 
 
 	private void _on_2_pressed()
 	{
-		Globals.LastPlayedLevel = ("res://Scenes/2.tscn");
-		GetTree().ChangeScene("res://Prefabs/Network.tscn");
+		Globals.LastPlayedLevel = 2;
+		GetTree().ChangeScene($"res://Scenes/Levels/{Globals.LastPlayedLevel}.tscn");
 	}
 }
 
