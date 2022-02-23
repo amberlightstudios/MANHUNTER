@@ -10,6 +10,8 @@ public class Lobby : Network
 	private bool CanStart;
 	private PackedScene ProfileScene;
 	private Label ReadyLabel;
+	private string PlayerName;
+	private int PlayerId;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -22,6 +24,8 @@ public class Lobby : Network
 		} else {
 			ReadyLabel.Text = "Ready";	 
 		}
+		PlayerId = GetTree().GetNetworkUniqueId();
+		PlayerName = Globals.PlayerName;	
 		AddPlayer(PlayerId, PlayerName);
 	}
 	

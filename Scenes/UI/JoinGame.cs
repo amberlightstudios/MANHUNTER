@@ -24,6 +24,7 @@ public class JoinGame : Node
 	private void _on_Name_text_entered(String new_text)
 	{
 		AddressTextBox.GrabFocus();
+		Globals.PlayerName = NameBox.Text;
 	}
 
 	private void _on_IP_text_entered(String new_text)

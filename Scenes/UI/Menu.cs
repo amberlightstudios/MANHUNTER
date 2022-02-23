@@ -26,6 +26,7 @@ public class Menu : Control
 	public void HostGame() {
 		Globals.SinglePlayer = false;
 		Globals.IsHost = true;
+		Globals.PlayerName = "Host";
 		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 	}
 	

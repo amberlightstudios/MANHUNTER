@@ -21,14 +21,12 @@ public class Network : Node
 		GetTree().Connect("connected_to_server", this, nameof(ConnectedToServer));
 		GetTree().Connect("connection_failed", this, nameof(ConnectionFailed));
 		GetTree().Connect("server_disconnected", this, nameof(ServerDisconnected));
+		PlayerName = Globals.PlayerName;
 		if (Globals.IsHost) {
-			Globals.PlayerName = "Host";
 			HostGame();
 		} else {
 			JoinGame(Globals.HostAddress);
 		}
-		PlayerId = GetTree().GetNetworkUniqueId();		
-		PlayerName = Globals.PlayerName;
 		Players.Add(PlayerId, PlayerName);
 	}
 
@@ -37,6 +35,7 @@ public class Network : Node
 		var peer = new NetworkedMultiplayerENet();
 		peer.CreateServer(default_port, 32);
 		GetTree().NetworkPeer = peer;
+		PlayerId = GetTree().GetNetworkUniqueId();				
 		GD.Print("You are now hosting.");	
 		JoinLobby();
 	}
@@ -49,6 +48,7 @@ public class Network : Node
 		var result = clientPeer.CreateClient(address, default_port);
 
 		GetTree().NetworkPeer = clientPeer;
+		PlayerId = GetTree().GetNetworkUniqueId();				
 	}
 
 	public void LeaveGame()
