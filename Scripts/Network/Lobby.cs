@@ -15,13 +15,14 @@ public class Lobby : Network
 	public override void _Ready()
 	{
 		ProfileScene = (PackedScene) ResourceLoader.Load("res://Scenes/UI/Profile.tscn");
-//		ReadyLabel = (Label) GetNode("Instructions/HBoxContainer/Tip/Label");
-//
-//		if (Globals.IsHost) {
-//			ReadyLabel.Text = "Start";
-//		} else {
-//			ReadyLabel.Text = "Ready";	 
-//		}
+		ReadyLabel = (Label) GetNode("Instructions/HBoxContainer/Tip/Label");
+
+		if (Globals.IsHost) {
+			PlayerName = "Host";
+			ReadyLabel.Text = "Start";
+		} else {
+			ReadyLabel.Text = "Ready";	 
+		}
 		AddPlayer(PlayerId, PlayerName);
 	}
 	
@@ -84,7 +85,7 @@ public class Lobby : Network
 		GridContainer container = (GridContainer) GetNode("Players");
 		Node user = ProfileScene.Instance();
 		Label userName = (Label) user.GetNode("Sprite/VBoxContainer/Name");
-		userName.Text = PlayerName;
+		userName.Text = name;
 		user.Name = id.ToString();
 		container.AddChild(user);
 	}
