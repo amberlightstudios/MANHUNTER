@@ -236,8 +236,7 @@ public class Goblin : Character
 			animPlayer.Play(PuppetAnimation);
 		}
 		if (PuppetKilled) {
-			SetCollisionLayerBit(1, false);
-        	SetCollisionLayerBit(7, true);
+			SetInvisible();
 		} else {
 			SetCollisionLayerBit(1, true);
 			SetCollisionLayerBit(7, false);
@@ -253,10 +252,10 @@ public class Goblin : Character
 	
 	public void SetInvisible()
 	{
-		// gm.RemovePlayer(PlayerIndex);
-		// if (gm.NumPlayers == 0) GameOver();
+		gm.RemovePlayer(PlayerIndex);
+		if (gm.NumPlayers == 0) GameOver();
 		SetCollisionLayerBit(1, false);
-        SetCollisionLayerBit(7, true);
+		SetCollisionLayerBit(7, true);
 	}
 
 	public void RemoveSelf() {
