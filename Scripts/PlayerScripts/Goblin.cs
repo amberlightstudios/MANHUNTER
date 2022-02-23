@@ -106,19 +106,7 @@ public class Goblin : Character
 	public bool IsRevived { 
 		get => isRevived; 
 		set {
-			if (value) {
-				isRevived = value;
-				State.ExitState(null);
-				gm.AddNewPlayer(this);
-
-				// Return control to the player here. 
-
-				SetCollisionLayerBit(1, true);
-				SetCollisionLayerBit(7, false);
-				enemyHitBox.SetCollisionLayerBit(1, false);
-				enemyHitBox.SetCollisionLayerBit(7, true);
-				return;
-			} 
+			if (value) RevivePlayerPuppet();
 			isRevived = value;
 		}    
 	}
@@ -482,5 +470,29 @@ public class Goblin : Character
 		PlayerName = name;
 		Label nameTag = (Label) GetNode("NameTag/Panel/Name");
 		nameTag.Text = name;
+	}
+	
+	public void RevivePlayer()
+	{
+		isRevived = true;
+		State.ExitState(null);
+		gm.AddNewPlayer(this);
+		// Return control to the player here. 
+		SetCollisionLayerBit(1, true);
+		SetCollisionLayerBit(7, false);
+		enemyHitBox.SetCollisionLayerBit(1, false);
+		enemyHitBox.SetCollisionLayerBit(7, true);
+		return;
+	}
+	
+	public void RevivePlayerPuppet()
+	{
+		Rpc(nameof(RevivePlayerMaster));
+		RevivePlayer();
+	}
+	
+	public void RevivePlayerMaster()
+	{
+		RevivePlayer();
 	}
 }

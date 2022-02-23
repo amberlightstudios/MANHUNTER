@@ -34,10 +34,10 @@ namespace GoblinStates
 		public override void ExitState(GoblinState newState)
 		{
 			if (player.IsRevived) {
-                player.State = new MoveState(this.player);
+				player.State = new MoveState(this.player);
 				player.Killed = false;
-                player.IsRevived = false;
-            }
+				player.IsRevived = false;
+			}
 			return;
 		}
 	}
