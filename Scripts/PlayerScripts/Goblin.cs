@@ -281,7 +281,8 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		State = new DeadState(this);
+		if (health <= 0)
+			State = new DeadState(this);
 		// if (IsInvincible || dmg == 0)
 		// 	return;
 		// base.TakeDamage(dmg);
