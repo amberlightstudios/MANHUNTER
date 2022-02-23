@@ -203,6 +203,7 @@ speed_boost={
 2d_physics/layer_5="Bomb"
 2d_physics/layer_6="Dummy (No Collision)"
 2d_physics/layer_7="Ladders"
+2d_physics/layer_10="Temp"
 
 [physics]
 

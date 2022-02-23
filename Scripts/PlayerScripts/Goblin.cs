@@ -77,7 +77,6 @@ public class Goblin : Character
 	private Sprite sprite;
 	public Sprite PlayerSprite { get => sprite; }
 	private CollisionShape2D walkCollisionBox;
-	public CollisionShape2D WalkCollisionBox { get => walkCollisionBox; }
 	private Area2D enemyHitBox;
 
 	private RayCast2D groundDetectLeft;
@@ -96,7 +95,7 @@ public class Goblin : Character
 	[Export]
 	private float ladderClimbSpeed;
 	private Area2D ladderDetection;
-	private RayCast2D ladderDetectTop, ladderDetectFoot, ladderDetectLong;
+	private RayCast2D ladderDetectTop, ladderDetectFoot, ladderDetectSide;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
 	public GameManager gm;
@@ -127,9 +126,9 @@ public class Goblin : Character
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
 
 		ladderDetection = GetNode<Area2D>("LadderDetection");
-		ladderDetectFoot = GetNode<RayCast2D>("LadderDetection/LadderDetectFoot");
 		ladderDetectTop = GetNode<RayCast2D>("LadderDetection/LadderDetectTop");
-		ladderDetectLong = GetNode<RayCast2D>("LadderDetection/LadderDetectLong");
+		ladderDetectFoot = GetNode<RayCast2D>("LadderDetection/LadderDetectFoot");
+		ladderDetectSide = GetNode<RayCast2D>("LadderDetection/LadderDetectSide");
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
@@ -275,15 +274,16 @@ public class Goblin : Character
 	// When the throw animation ends and the player throws out the rock (or other objects). 
 	public void GenerateRock() 
 	{
-		if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncGenerateRock));
-		PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
-		Rock rock = throwLoader.Instance<Rock>();
-		rock.Direction = FaceDirection;
-		GetParent().AddChild(rock);
-		rock.Position = ThrowPoint;
-		rocksCount -= 1;
+		// if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncGenerateRock));
+		// PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
+		// Rock rock = throwLoader.Instance<Rock>();
+		// rock.Direction = FaceDirection;
+		// GetParent().AddChild(rock);
+		// rock.Position = ThrowPoint;
+		// rocksCount -= 1;
 	}
 	
+
 	[Remote]
 	public void SyncGenerateRock()
 	{
@@ -299,6 +299,7 @@ public class Goblin : Character
 		throwVelocity.x = Math.Abs(throwVelocity.x) * -1;
 		wallDetect.Scale = Vector2.One;
 		WallDetectFoot.Scale = Vector2.One;
+		ladderDetectSide.Scale = new Vector2(-1, 1);
 		walk.Position = new Vector2(3, 9);
 	}
 
@@ -310,21 +311,22 @@ public class Goblin : Character
 		throwVelocity.x = Math.Abs(throwVelocity.x);
 		wallDetect.Scale = new Vector2(-1, 1);
 		WallDetectFoot.Scale = new Vector2(-1, 1);
+		ladderDetectSide.Scale = Vector2.One;
 		walk.Position = new Vector2(-3, 9);
 	}
 
 	public bool OnGround() 
 	{
 		return (groundDetectLeft.IsColliding() 
-			|| groundDetectRight.IsColliding() 
-			|| IsStandingOnLadder()) 
+			|| groundDetectRight.IsColliding()) 
 				&& Velocity.y >= 0;
 	}
 
-	// check if the character is standing on top of a ladder. (Not climbing)
-	public bool IsStandingOnLadder() 
+	public void SetLadderCollision(bool activate) 
 	{
-		return !ladderDetectTop.IsColliding() && ladderDetectFoot.IsColliding();
+		groundDetectLeft.SetCollisionMaskBit(6, activate);
+		groundDetectRight.SetCollisionMaskBit(6, activate);
+		SetCollisionLayerBit(9, activate);
 	}
 
 	public bool OnLadder() 
@@ -332,9 +334,14 @@ public class Goblin : Character
 		return ladderDetection.GetOverlappingBodies().Count > 0;
 	}
 
-	public bool IsFallingTowardsLadder() 
+	public bool IsRunningIntoLadder() 
 	{
-		return !ladderDetectTop.IsColliding() && ladderDetectLong.IsColliding() && Velocity.y > 200;
+		return ladderDetectSide.IsColliding();
+	}
+
+	public bool IsFallingTowardsLadder() 
+	{   
+		return !ladderDetectTop.IsColliding() && ladderDetectFoot.IsColliding() && Velocity.y > 200;
 	}
 
 	public bool CanWallClimb() 

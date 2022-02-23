@@ -68,7 +68,7 @@ namespace GoblinStates {
 			}
 
 			if ((player.OnLadder() && Input.IsActionPressed("move_up")) 
-			|| (player.IsStandingOnLadder() && Input.IsActionPressed("move_down"))) {
+			|| (player.OnGround() && Input.IsActionPressed("move_down"))) {
 				ExitState(new LadderClimbState(player));
 				return;
 			}
@@ -81,10 +81,10 @@ namespace GoblinStates {
 
 		public override void _PhysicsProcess(float delta)
 		{
-			if (player.IsStandingOnLadder()) {
-				player.SetZeroGravity();
+			if (player.IsRunningIntoLadder()) {
+				player.SetLadderCollision(false);
 			} else {
-				player.ReturnNormalGravity();
+				player.SetLadderCollision(true);
 			}
 		}
 	}

@@ -108,17 +108,14 @@ namespace GoblinStates
 		public override void _PhysicsProcess(float delta)
 		{
             if (player.IsFallingTowardsLadder()) {
-                highJump = true;
-                if (player.Velocity.y > 200) {
-                    player.Velocity.y = 200;
-                }
-                player.SetZeroGravity();
+                player.SetLadderCollision(true);
             } 
 
+            if (player.IsRunningIntoLadder()) {
+                player.SetLadderCollision(false);
+            }
+
 			if (player.OnGround()) {
-                if (player.IsStandingOnLadder()) {
-                    player.Velocity.y = 0;
-                }
 				MoveState newState = new MoveState(player, 10);
 				ExitState(newState);
 				return;

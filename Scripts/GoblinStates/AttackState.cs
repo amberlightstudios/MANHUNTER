@@ -80,14 +80,10 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			if (player.IsStandingOnLadder() && player.Velocity.y >= 0) {
-                player.Velocity.y = 0;
-                player.SetZeroGravity();
-			} else if (player.IsFallingTowardsLadder()) {
-                if (player.Velocity.y > 250) {
-                    player.Velocity.y = 250;
-                }
-                player.SetZeroGravity();
+            if (player.IsRunningIntoLadder()) {
+                player.SetLadderCollision(false);
+            } else {
+                player.SetLadderCollision(true);
             }
 
 			speed -= player.AttakDeceleration;

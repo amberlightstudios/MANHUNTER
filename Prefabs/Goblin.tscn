@@ -270,14 +270,15 @@ collision_mask = 64
 [node name="LadderDetectFoot" type="RayCast2D" parent="LadderDetection"]
 position = Vector2( 0.5, 7 )
 enabled = true
-cast_to = Vector2( 0, 3 )
+cast_to = Vector2( 0, 20 )
 collision_mask = 64
 
-[node name="LadderDetectLong" type="RayCast2D" parent="LadderDetection"]
-position = Vector2( 0.5, 7 )
+[node name="LadderDetectSide" type="RayCast2D" parent="LadderDetection"]
+position = Vector2( 0, -4.66667 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+cast_to = Vector2( 30, 0 )
 collision_mask = 64
+collide_with_areas = true
 
 [node name="Particles" type="Node2D" parent="."]
 

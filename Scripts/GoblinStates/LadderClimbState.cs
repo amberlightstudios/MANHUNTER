@@ -8,6 +8,7 @@ namespace GoblinStates
         {
             this.player = player;
             player.SetZeroGravity();
+            player.SetLadderCollision(false);
             player.PlayAnimation("Ladder");
         }
 
@@ -31,7 +32,7 @@ namespace GoblinStates
 
         public override void _PhysicsProcess(float delta)
         {
-            if (!player.OnLadder() && !player.IsStandingOnLadder()) {
+            if (!player.OnLadder()) {
                 if (Input.IsActionPressed("move_up")) {
                     ExitState(new JumpState(player, false));
                 } else if (Input.IsActionPressed("move_down")) {
