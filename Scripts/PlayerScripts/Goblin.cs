@@ -41,7 +41,7 @@ public class Goblin : Character
 	private Area2D meleeArea;
 
 
-	// This is for throwing.
+	// This is for throwing. (need to delete this part later)
 	[Export]
 	private int rocksCount = 4; 
 	public int RocksCount { get => rocksCount; private set => rocksCount = value; }
@@ -98,6 +98,23 @@ public class Goblin : Character
 	private Area2D ladderDetection;
 	private RayCast2D ladderDetectTop, ladderDetectFoot, ladderDetectSide;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
+
+    [Export]
+    private float reviveTime = 3f;
+    public float ReviveTime { get => reviveTime; }
+    private bool isRevived = false;
+    public bool IsRevived { 
+        get => isRevived; 
+        set {
+            if (value) {
+                isRevived = value;
+                State.ExitState(null);
+                // Return control to the player here. 
+                return;
+            } 
+            isRevived = value;
+        }    
+    }
 
 	public GameManager gm;
 	public int PlayerIndex;
@@ -233,7 +250,7 @@ public class Goblin : Character
 		if (gm.NumPlayers == 0) GameOver();			
 		else {
 			AttachCamera();			
-			GetParent().RemoveChild(this);
+			// GetParent().RemoveChild(this);
 		} 
 	}
 	
@@ -250,19 +267,20 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (IsInvincible || dmg == 0)
-			return;
-		base.TakeDamage(dmg);
+        State = new DeadState(this);
+		// if (IsInvincible || dmg == 0)
+		// 	return;
+		// base.TakeDamage(dmg);
 
-		if (health <= 0) {
-			State = new DeadState(this);
-		}
+		// if (health <= 0) {
+		// 	State = new DeadState(this);
+		// }
 
-		animPlayer.Play("Attacked");
-		stunAfterHit = true;
-		IsInvincible = true;
-		Task.Delay(200).ContinueWith(t => stunAfterHit = false);
-		Task.Delay(invincibleTime).ContinueWith(t => IsInvincible = false);
+		// animPlayer.Play("Attacked");
+		// stunAfterHit = true;
+		// IsInvincible = true;
+		// Task.Delay(200).ContinueWith(t => stunAfterHit = false);
+		// Task.Delay(invincibleTime).ContinueWith(t => IsInvincible = false);
 	}
 
 	public void RestartGame() 
@@ -360,6 +378,11 @@ public class Goblin : Character
 	public bool IsFallingTowardsLadder() 
 	{   
 		return !ladderDetectTop.IsColliding() && ladderDetectFoot.IsColliding() && Velocity.y > 200;
+	}
+
+	public bool IsHittingLadderOnTop() 
+	{
+		return ladderDetectTop.IsColliding();
 	}
 
 	public bool CanWallClimb() 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Sprites/Effects/Dust.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
@@ -139,6 +139,9 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 3.5, 6.5 )
 
+[sub_resource type="CircleShape2D" id=44]
+radius = 11.6667
+
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 2.5, 6.5 )
 
@@ -247,6 +250,14 @@ enabled = true
 cast_to = Vector2( 0, 12 )
 collision_mask = 8
 
+[node name="ReviveArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReviveArea"]
+position = Vector2( 1, 1 )
+shape = SubResource( 44 )
+
 [node name="EnemyHitBox" type="Area2D" parent="."]
 visible = false
 collision_layer = 2
@@ -268,7 +279,7 @@ shape = SubResource( 39 )
 [node name="LadderDetectTop" type="RayCast2D" parent="LadderDetection"]
 position = Vector2( 0.5, -4 )
 enabled = true
-cast_to = Vector2( 0, -3 )
+cast_to = Vector2( 0, -8 )
 collision_mask = 64
 
 [node name="LadderDetectFoot" type="RayCast2D" parent="LadderDetection"]
@@ -278,7 +289,7 @@ cast_to = Vector2( 0, 20 )
 collision_mask = 64
 
 [node name="LadderDetectSide" type="RayCast2D" parent="LadderDetection"]
-position = Vector2( 0, -4.66667 )
+position = Vector2( 0, -3.33333 )
 enabled = true
 cast_to = Vector2( 30, 0 )
 collision_mask = 64

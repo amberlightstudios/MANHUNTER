@@ -9,7 +9,7 @@
 [ext_resource path="res://Prefabs/Environment/GroundTiles.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/GameManager.tscn" type="PackedScene" id=8]
 
-[node name="Level" type="Node2D"]
+[node name="Main" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="GameManager" parent="." instance=ExtResource( 8 )]
