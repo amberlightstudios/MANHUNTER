@@ -111,7 +111,7 @@ namespace GoblinStates
 				player.SetLadderCollision(true);
 			} 
 
-			if (player.IsRunningIntoLadder()) {
+			if (player.IsRunningIntoLadder() || player.IsHittingLadderOnTop()) {
 				player.SetLadderCollision(false);
 			}
 
