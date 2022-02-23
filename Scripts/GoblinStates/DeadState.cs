@@ -13,9 +13,9 @@ namespace GoblinStates
 			player.ReturnNormalGravity();
 
 			if (!Globals.SinglePlayer) {
-				player.SetInvisible();
 				player.Killed = true;				
 				player.SynchronizeState();
+				player.SetInvisible();				
 			} else {
 				player.GameOver();
 			}

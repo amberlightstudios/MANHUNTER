@@ -230,13 +230,14 @@ public class Goblin : Character
 			animPlayer.Play(PuppetAnimation);
 		}
 		if (PuppetKilled) {
-			SetInvisible();
+			if (!Killed) SetInvisible();
 		} else {
 			SetCollisionLayerBit(1, true);
 			SetCollisionLayerBit(7, false);
 			enemyHitBox.SetCollisionLayerBit(1, true);
 			enemyHitBox.SetCollisionLayerBit(7, false);
 		}
+		Killed = PuppetKilled;
 	}
 	
 	public void Interpolate() {

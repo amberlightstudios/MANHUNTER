@@ -53,7 +53,7 @@ public class Network : Node
 
 	public void LeaveGame()
 	{
-		GD.Print("Leaving current game");
+		GD.Print($"{PlayerName} Leaving current game");
 
 		Players.Clear();
 
