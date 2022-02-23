@@ -1,14 +1,15 @@
 extends CanvasLayer
 
-var selected = 0
+
 var noopen = [
 	"res://Scenes/UI/Menu.tscn", 
 	"res://Scenes/UI/GameOver.tscn", 
 ]
-	
 var goback = [
 	"res://Scenes/UI/JoinGame.tscn",
-	"res://Scenes/UI/LevelSelect.tscn"
+	"res://Scenes/UI/LevelSelect.tscn",
+	"res://Scenes/UI/Loading.tscn",
+	"res://Prefabs/Network.tscn"
 ]
 
 func _ready():

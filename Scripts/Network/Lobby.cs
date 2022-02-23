@@ -40,7 +40,7 @@ public class Lobby : Network
 		if (Input.IsActionPressed("Attack")) {
 			if (Globals.IsHost) StartGame();
 			else ReadyGame();
-		} else if (Input.IsActionPressed("Quit")) {
+		} else if (Input.IsActionPressed("Pause")) {
 			LeaveGame();
 			GetTree().ChangeScene("res://Scenes/UI/Menu.tscn");
 		}
