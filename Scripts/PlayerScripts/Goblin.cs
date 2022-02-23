@@ -480,8 +480,8 @@ public class Goblin : Character
 		// Return control to the player here. 
 		SetCollisionLayerBit(1, true);
 		SetCollisionLayerBit(7, false);
-		enemyHitBox.SetCollisionLayerBit(1, false);
-		enemyHitBox.SetCollisionLayerBit(7, true);
+		enemyHitBox.SetCollisionLayerBit(1, true);
+		enemyHitBox.SetCollisionLayerBit(7, false);
 		return;
 	}
 	
@@ -491,6 +491,7 @@ public class Goblin : Character
 		RevivePlayer();
 	}
 	
+	[Remote]
 	public void RevivePlayerMaster()
 	{
 		RevivePlayer();
