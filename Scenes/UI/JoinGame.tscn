@@ -95,7 +95,7 @@ margin_bottom = 93.0
 max_length = 15
 placeholder_text = "Enter Host IP"
 
-[connection signal="text_entered" from="MarginContainer/VBoxContainer/MarginContainer2/Name" to="." method="_on_Name_text_entered"]
 [connection signal="text_entered" from="MarginContainer/VBoxContainer/MarginContainer2/Name" to="." method="_on_LineEdit_text_entered"]
-[connection signal="text_entered" from="MarginContainer/VBoxContainer/MarginContainer/IP" to="." method="_on_IP_text_entered"]
+[connection signal="text_entered" from="MarginContainer/VBoxContainer/MarginContainer2/Name" to="." method="_on_Name_text_entered"]
 [connection signal="text_entered" from="MarginContainer/VBoxContainer/MarginContainer/IP" to="." method="_on_LineEdit_text_entered"]
+[connection signal="text_entered" from="MarginContainer/VBoxContainer/MarginContainer/IP" to="." method="_on_IP_text_entered"]
