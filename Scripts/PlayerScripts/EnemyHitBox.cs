@@ -14,10 +14,10 @@ namespace PlayerScripts
 
 		public override void _Process(float delta)
 		{
-			foreach (Enemy e in this.GetOverlappingBodies()) {
-				player.TakeDamage(e.TouchDamage);
-				break;
-			}
+			// foreach (Enemy e in this.GetOverlappingBodies()) {
+			// 	player.TakeDamage(e.TouchDamage);
+			// 	break;
+			// }
 		}
 	}
 }

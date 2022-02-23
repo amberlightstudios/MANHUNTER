@@ -110,7 +110,13 @@ public class Goblin : Character
 				isRevived = value;
 				State.ExitState(null);
 				gm.AddNewPlayer(this);
+				
 				// Return control to the player here. 
+
+				SetCollisionLayerBit(1, true);
+				SetCollisionLayerBit(7, false);
+				enemyHitBox.SetCollisionLayerBit(1, false);
+				enemyHitBox.SetCollisionLayerBit(7, true);
 				return;
 			} 
 			isRevived = value;
@@ -240,6 +246,8 @@ public class Goblin : Character
 		} else {
 			SetCollisionLayerBit(1, true);
 			SetCollisionLayerBit(7, false);
+			enemyHitBox.SetCollisionLayerBit(1, false);
+			enemyHitBox.SetCollisionLayerBit(7, true);
 		}
 	}
 	
@@ -256,6 +264,8 @@ public class Goblin : Character
 		if (gm.NumPlayers == 0) GameOver();
 		SetCollisionLayerBit(1, false);
 		SetCollisionLayerBit(7, true);
+		enemyHitBox.SetCollisionLayerBit(1, false);
+		enemyHitBox.SetCollisionLayerBit(7, true);
 	}
 
 	public void RemoveSelf() {
@@ -281,6 +291,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
+		base.TakeDamage(dmg);
 		if (health <= 0)
 			State = new DeadState(this);
 		// if (IsInvincible || dmg == 0)

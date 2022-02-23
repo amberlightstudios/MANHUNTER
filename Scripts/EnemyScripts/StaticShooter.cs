@@ -77,13 +77,13 @@ public class StaticShooter : Enemy
 
 	public Goblin DetectPlayer() 
 	{
-		Godot.Collections.Array playersInRange = shootRange.GetOverlappingBodies();
+		Godot.Collections.Array playersInRange = shootRange.GetOverlappingAreas();
 		Physics2DDirectSpaceState spaceState = GetWorld2d().DirectSpaceState;
-		foreach (Goblin p in playersInRange) {
+		foreach (Area2D p in playersInRange) {
 			Godot.Collections.Dictionary result =  spaceState.IntersectRay(Position, p.Position, collisionLayer: 8);
 			// No Ground layer intersected. 
 			if (result.Count == 0) {
-				return p;
+				return (Goblin) p.GetParent();
 			}
 		}
 
