@@ -115,6 +115,7 @@ public class Goblin : Character
             isRevived = value;
         }    
     }
+    private Area2D reviveDetect;
 
 	public GameManager gm;
 	public int PlayerIndex;
@@ -147,6 +148,8 @@ public class Goblin : Character
 		ladderDetectTop = GetNode<RayCast2D>("LadderDetection/LadderDetectTop");
 		ladderDetectFoot = GetNode<RayCast2D>("LadderDetection/LadderDetectFoot");
 		ladderDetectSide = GetNode<RayCast2D>("LadderDetection/LadderDetectSide");
+
+        reviveDetect = GetNode<Area2D>("ReviveDetect");
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
@@ -282,6 +285,15 @@ public class Goblin : Character
 		// Task.Delay(200).ContinueWith(t => stunAfterHit = false);
 		// Task.Delay(invincibleTime).ContinueWith(t => IsInvincible = false);
 	}
+
+    public Goblin FindReviveTarget() 
+    {
+        Godot.Collections.Array targets = reviveDetect.GetOverlappingBodies();
+        foreach (Goblin g in targets) {
+            return g;
+        }
+        return null;
+    }
 
 	public void RestartGame() 
 	{ 

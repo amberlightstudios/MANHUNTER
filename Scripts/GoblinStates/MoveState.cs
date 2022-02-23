@@ -73,6 +73,14 @@ namespace GoblinStates {
 				return;
 			}
 			
+            if (Input.IsActionJustPressed("Revive")) {
+                Goblin target = player.FindReviveTarget();
+                if (target != null) {
+                    ExitState(new ReviveState(player, target));
+                    return;
+                }
+            }
+
 			// if (Input.IsActionJustPressed("Dash")) {
 			// 	ExitState(new DashState(player));
 			// 	return;
