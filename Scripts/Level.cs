@@ -17,9 +17,7 @@ public class Level : Network
 			foreach( KeyValuePair<int, string> kvp in Players)
 			{
 				Goblin Player = SpawnPlayer(kvp.Key, kvp.Value);				
-				if (kvp.Key != GetTree().GetNetworkUniqueId()) {
-					Player.SetColor(new Color(1, 0.39f, 0.28f, 1));
-				} else {
+				if (kvp.Key == GetTree().GetNetworkUniqueId()) {
 					AttachCamera(Player);
 				}
 				if (LastPlayer != null) {
@@ -39,7 +37,8 @@ public class Level : Network
 	
 	public Goblin SpawnPlayer(int id, string playerName)
 	{
-		Goblin playerNode = generator.GeneratePlayer(id.ToString(), this);;
+		Goblin playerNode = generator.GeneratePlayer(id.ToString(), this);
+		playerNode.SetName(playerName);
 		playerNode.SetNetworkMaster(id);
 		return playerNode;
 	}

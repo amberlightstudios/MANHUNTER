@@ -8,7 +8,8 @@ public class Goblin : Character
 {
 	public GoblinState State;
 	public static Type PlayerType = new Goblin().GetType();
-
+	public string PlayerName;
+	
 	[Export]
 	public float Speed { get; private set; }
 	[Export]
@@ -416,5 +417,12 @@ public class Goblin : Character
 		}
 		animPlayer.Play(name);
 		((GoblinSound)GetNode("SoundEffects")).PlaySound(name);
+	}
+	
+	public void SetName(String name)
+	{
+		PlayerName = name;
+		Label nameTag = (Label) GetNode("NameTag/Panel/Name");
+		nameTag.Text = name;
 	}
 }

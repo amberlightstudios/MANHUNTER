@@ -342,6 +342,9 @@ margin_top = 50.0
 margin_right = 143.333
 margin_bottom = 90.0
 rect_rotation = 45.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="Panel" parent="NameTag"]
 margin_left = -16.6667

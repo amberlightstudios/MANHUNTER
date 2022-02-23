@@ -13,6 +13,9 @@ public class CreateUser : Control
 		
 		animPlayer = (AnimationPlayer) GetNode("Panel/AnimationPlayer");
 		animPlayer.Play("Popup");
+		if (Globals.PlayerName != "") {
+			NameBox.Text = Globals.PlayerName;
+		}
 	}
 
 	private void _on_LineEdit_text_changed(String new_text)
@@ -23,7 +26,11 @@ public class CreateUser : Control
 	private void _on_LineEdit_text_entered(String new_text)
 	{
 		Globals.PlayerName = new_text;
-		animPlayer.PlayBackwards("Popup");
+		if (Globals.PlayerName != "")
+		{
+			animPlayer.PlayBackwards("Popup");
+			GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
+		}
 	}
 }
 
