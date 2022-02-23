@@ -99,23 +99,23 @@ public class Goblin : Character
 	private RayCast2D ladderDetectTop, ladderDetectFoot, ladderDetectSide;
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
-    [Export]
-    private float reviveTime = 3f;
-    public float ReviveTime { get => reviveTime; }
-    private bool isRevived = false;
-    public bool IsRevived { 
-        get => isRevived; 
-        set {
-            if (value) {
-                isRevived = value;
-                State.ExitState(null);
-                // Return control to the player here. 
-                return;
-            } 
-            isRevived = value;
-        }    
-    }
-    private Area2D reviveDetect;
+	[Export]
+	private float reviveTime = 3f;
+	public float ReviveTime { get => reviveTime; }
+	private bool isRevived = false;
+	public bool IsRevived { 
+		get => isRevived; 
+		set {
+			if (value) {
+				isRevived = value;
+				State.ExitState(null);
+				// Return control to the player here. 
+				return;
+			} 
+			isRevived = value;
+		}    
+	}
+	private Area2D reviveDetect;
 
 	public GameManager gm;
 	public int PlayerIndex;
@@ -149,7 +149,7 @@ public class Goblin : Character
 		ladderDetectFoot = GetNode<RayCast2D>("LadderDetection/LadderDetectFoot");
 		ladderDetectSide = GetNode<RayCast2D>("LadderDetection/LadderDetectSide");
 
-        reviveDetect = GetNode<Area2D>("ReviveDetect");
+		reviveDetect = GetNode<Area2D>("ReviveArea");
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
@@ -270,7 +270,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-        State = new DeadState(this);
+		State = new DeadState(this);
 		// if (IsInvincible || dmg == 0)
 		// 	return;
 		// base.TakeDamage(dmg);
@@ -286,14 +286,14 @@ public class Goblin : Character
 		// Task.Delay(invincibleTime).ContinueWith(t => IsInvincible = false);
 	}
 
-    public Goblin FindReviveTarget() 
-    {
-        Godot.Collections.Array targets = reviveDetect.GetOverlappingBodies();
-        foreach (Goblin g in targets) {
-            return g;
-        }
-        return null;
-    }
+	public Goblin FindReviveTarget() 
+	{
+		Godot.Collections.Array targets = reviveDetect.GetOverlappingBodies();
+		foreach (Goblin g in targets) {
+			return g;
+		}
+		return null;
+	}
 
 	public void RestartGame() 
 	{ 

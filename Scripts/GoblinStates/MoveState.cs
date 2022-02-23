@@ -73,7 +73,7 @@ namespace GoblinStates {
 				return;
 			}
 			
-            if (Input.IsActionJustPressed("Revive")) {
+            if (!Globals.SinglePlayer && Input.IsActionJustPressed("Revive")) {
                 Goblin target = player.FindReviveTarget();
                 if (target != null) {
                     ExitState(new ReviveState(player, target));
