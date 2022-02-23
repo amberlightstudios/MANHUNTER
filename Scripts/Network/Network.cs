@@ -22,6 +22,7 @@ public class Network : Node
 		GetTree().Connect("connection_failed", this, nameof(ConnectionFailed));
 		GetTree().Connect("server_disconnected", this, nameof(ServerDisconnected));
 		if (Globals.IsHost) {
+			Globals.PlayerName = "Host";
 			HostGame();
 		} else {
 			JoinGame(Globals.HostAddress);
@@ -101,7 +102,7 @@ public class Network : Node
 		var id = GetTree().GetRpcSenderId();
 		Players.Add(id, playerName);
 		GD.Print($"{playerName} added with ID {id}");
-		LobbyRoom.AddPlayer(id, PlayerName);	
+		LobbyRoom.AddPlayer(id, playerName);	
 		NumPlayers += 1;	
 	}
 	

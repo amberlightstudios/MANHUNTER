@@ -18,7 +18,6 @@ public class Lobby : Network
 		ReadyLabel = (Label) GetNode("Instructions/HBoxContainer/Tip/Label");
 
 		if (Globals.IsHost) {
-			PlayerName = "Host";
 			ReadyLabel.Text = "Start";
 		} else {
 			ReadyLabel.Text = "Ready";	 
