@@ -74,18 +74,6 @@ public class Baby : Enemy
 		MoveAndSlide(velocity);
 	}
 
-	public void BroadcastState() 
-	{
-		Rset(nameof(BabyPuppetPosition), Position);			
-		Rset(nameof(BabyPuppetVelocity), Velocity);
-	}
-	
-	public void ReceiveState() 
-	{
-		Position = BabyPuppetPosition;
-		Velocity = BabyPuppetVelocity;
-	}
-	
 	public bool OnGround() 
 	{
 		return GetNode<RayCast2D>("GroundDetect").IsColliding();

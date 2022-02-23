@@ -6,29 +6,29 @@ public class Network : Node
 {
 	private readonly int default_port = 4321;
 
-	private string PlayerName { get; set; }
-
-	private Dictionary<int, string> Players = new Dictionary<int, string>();
-
-	private Button HostButton { get; set; }
-	private Button JoinButton { get; set; }
-	private Button LeaveButton { get; set; }
+	public string PlayerName { get; set; }
+	public int PlayerId { get; set; }
+	public Dictionary<int, string> Players = new Dictionary<int, string>();
 	private TextEdit NameText { get; set; }
-	private TextEdit AddressText { get; set; }
+	public int NumPlayers;
 	private Generator generator = Generator.Instance;
+	private Lobby LobbyRoom = (Lobby) ((PackedScene) ResourceLoader.Load("res://Scenes/UI/Lobby.tscn")).Instance();
 
 	public override void _Ready()
-	{
-
-	}
-
-	public void InitNetwork()
 	{
 		GetTree().Connect("network_peer_connected", this, nameof(PlayerConnected));
 		GetTree().Connect("network_peer_disconnected", this, nameof(PlayerDisconnected));
 		GetTree().Connect("connected_to_server", this, nameof(ConnectedToServer));
 		GetTree().Connect("connection_failed", this, nameof(ConnectionFailed));
 		GetTree().Connect("server_disconnected", this, nameof(ServerDisconnected));
+		if (Globals.IsHost) {
+			HostGame();
+		} else {
+			JoinGame(Globals.HostAddress);
+		}
+		PlayerId = GetTree().GetNetworkUniqueId();		
+		// PlayerName = Globals.PlayerName;
+		Players.Add(PlayerId, PlayerName);
 	}
 
 	public void HostGame()
@@ -36,10 +36,8 @@ public class Network : Node
 		var peer = new NetworkedMultiplayerENet();
 		peer.CreateServer(default_port, 32);
 		GetTree().NetworkPeer = peer;
-		
-		GD.Print("You are now hosting.");
-
-		StartGame();
+		GD.Print("You are now hosting.");	
+		JoinLobby();
 	}
 
 	public void JoinGame(string address)
@@ -65,8 +63,6 @@ public class Network : Node
 
 	private void PlayerConnected(int id)
 	{
-		PlayerName = id.ToString();
-
 		GD.Print($"tell other player my name is {PlayerName} and my id is {id}");
 		// tell the player that just connected who we are by sending an rpc back to them with your name.
 		RpcId(id, nameof(RegisterPlayer), PlayerName);
@@ -80,10 +76,8 @@ public class Network : Node
 
 	private void ConnectedToServer()
 	{
-
 		GD.Print("Successfully connected to the server");
-
-		StartGame();
+		JoinLobby();	
 	}
 
 	private void ConnectionFailed()
@@ -105,14 +99,9 @@ public class Network : Node
 	private void RegisterPlayer(string playerName)
 	{
 		var id = GetTree().GetRpcSenderId();
-
 		Players.Add(id, playerName);
-
 		GD.Print($"{playerName} added with ID {id}");
-
-		// a player has been added spawn in the right location
-		Goblin peerPlayer = SpawnPlayer(id, playerName);
-		peerPlayer.SetColor(new Color(1, 0.39f, 0.28f, 1));
+		LobbyRoom.AddPlayer(id, PlayerName);		
 	}
 	
 	public void AttachCamera(Goblin target) { 
@@ -129,7 +118,7 @@ public class Network : Node
 		AttachCamera(player);
 	}
 
-	private Goblin SpawnPlayer(int id, string playerName)
+	public Goblin SpawnPlayer(int id, string playerName)
 	{
 		Goblin playerNode = generator.GeneratePlayer(id.ToString(), GetNode("/root/Main"));;
 		playerNode.SetNetworkMaster(id);
@@ -143,7 +132,13 @@ public class Network : Node
 		if (Players.ContainsKey(id))
 		{
 			Players.Remove(id);
-			GetNode(id.ToString()).QueueFree();
 		}
+		LobbyRoom.RemovePlayer(id);
+	}
+	
+	private void JoinLobby()
+	{
+		RemoveChild(GetNode("Loading"));
+		AddChild(LobbyRoom);
 	}
 }

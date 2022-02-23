@@ -34,9 +34,9 @@ namespace GoblinStates
 		{
 			timer += delta;
 
-            if (Input.IsActionJustReleased("speed_boost")) {
-                SpeedBoost = 1;
-            }
+			if (Input.IsActionJustReleased("speed_boost")) {
+				SpeedBoost = 1;
+			}
 
 			if (!player.AnimPlayer.IsPlaying()) {
 				if (!player.OnGround()) {
@@ -80,11 +80,11 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-            if (player.IsRunningIntoLadder()) {
-                player.SetLadderCollision(false);
-            } else {
-                player.SetLadderCollision(true);
-            }
+			if (player.IsRunningIntoLadder()) {
+				player.SetLadderCollision(false);
+			} else {
+				player.SetLadderCollision(true);
+			}
 
 			speed -= player.AttakDeceleration;
 		}

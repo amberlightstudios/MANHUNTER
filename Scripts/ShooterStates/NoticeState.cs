@@ -22,19 +22,19 @@ namespace ShooterStates
 
 		public override void _Process(float delta)
 		{
-            shooter.PlayAnimation("IdleAlert");
+			shooter.PlayAnimation("IdleAlert");
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
 			timer += delta;
 			if (timer > shooter.NoticeTime) {
-                if (shooter.DetectPlayer() != null) {
-				    ExitState(new AttackState(shooter));
-                } else {
-                    ExitState(new NormalState(shooter));
-                }
-                return;
+				if (shooter.DetectPlayer() != null) {
+					ExitState(new AttackState(shooter));
+				} else {
+					ExitState(new NormalState(shooter));
+				}
+				return;
 			} 
 		}
 	}

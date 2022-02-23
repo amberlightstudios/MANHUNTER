@@ -19,14 +19,14 @@ public class LevelSelect : Control
 	private void _on_1_pressed()
 	{
 		Globals.LastPlayedLevel = ("res://Scenes/1.tscn");
-		GetTree().ChangeScene("res://Scenes/1.tscn");
+		GetTree().ChangeScene("res://Prefabs/Network.tscn");
 	}
 
 
 	private void _on_2_pressed()
 	{
 		Globals.LastPlayedLevel = ("res://Scenes/2.tscn");
-		GetTree().ChangeScene("res://Scenes/2.tscn");
+		GetTree().ChangeScene("res://Prefabs/Network.tscn");
 	}
 }
 

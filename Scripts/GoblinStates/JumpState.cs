@@ -29,7 +29,7 @@ namespace GoblinStates
 
 			if (!isFallingDown)
 				player.Velocity.y = -6 * player.JumpSpeed;
-            highJump = true;
+			highJump = true;
 		}
 
 		public JumpState(Goblin player, bool isFallingDown, bool haveDashed) 
@@ -43,9 +43,9 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
-            if (Input.IsActionJustReleased("speed_boost")) {
-                SpeedBoost = 1;
-            }
+			if (Input.IsActionJustReleased("speed_boost")) {
+				SpeedBoost = 1;
+			}
 
 			if (Input.IsActionPressed("Jump") && !highJump) {
 				tick += 1;
@@ -107,13 +107,13 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-            if (player.IsFallingTowardsLadder()) {
-                player.SetLadderCollision(true);
-            } 
+			if (player.IsFallingTowardsLadder()) {
+				player.SetLadderCollision(true);
+			} 
 
-            if (player.IsRunningIntoLadder()) {
-                player.SetLadderCollision(false);
-            }
+			if (player.IsRunningIntoLadder()) {
+				player.SetLadderCollision(false);
+			}
 
 			if (player.OnGround()) {
 				MoveState newState = new MoveState(player, 10);
