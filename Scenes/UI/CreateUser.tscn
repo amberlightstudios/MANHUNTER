@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/UI/Fonts/upheaval.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/UI/CreateUser.cs" type="Script" id=2]
+[ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=3]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Popup"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+
+[node name="CreateUser" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 360.0
+margin_bottom = 240.0
+rect_pivot_offset = Vector2( 360, 240 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -315.0
+margin_top = -152.0
+margin_right = 316.0
+margin_bottom = 189.0
+theme = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]
+please enter the name of your goblin
+
+(max 8 chars)
+[/center]"
+text = "
+please enter the name of your goblin
+
+(max 8 chars)
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
+anims/Popup = SubResource( 5 )
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -150.0
+margin_right = 150.0
+margin_bottom = -100.0
+theme = ExtResource( 3 )
+max_length = 8
+placeholder_text = "type here"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 1344.0
+margin_bottom = 768.0
+color = Color( 0.207843, 0.262745, 0.333333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="text_changed" from="Panel/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="Panel/LineEdit" to="." method="_on_LineEdit_text_entered"]
