@@ -59,6 +59,8 @@ public class Network : Node
 
 		((NetworkedMultiplayerENet)GetTree().NetworkPeer).CloseConnection();
 		GetTree().NetworkPeer = null;
+		Globals.SinglePlayer = true;
+		Globals.IsHost = false;
 		GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 
 	}
@@ -124,9 +126,12 @@ public class Network : Node
 		{
 			Players.Remove(id);
 		}
-		LobbyRoom.RemovePlayer(id);
 		NumPlayers -= 1;
-		LobbyRoom.NumPlayers -= 1;
+		if (LobbyRoom != null) {
+			LobbyRoom.RemovePlayer(id);		
+			LobbyRoom.NumPlayers -= 1;
+		}
+
 	}
 	
 	private void JoinLobby()

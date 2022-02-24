@@ -46,6 +46,7 @@ public class Enemy : Character
 	
 	public void SynchronizeState()
 	{
+		if (isTakingDamage) return;
 		if (GetTree().NetworkPeer != null) {
 			if  (GetTree().IsNetworkServer()) {
 				BroadcastState();
@@ -128,21 +129,15 @@ public class Enemy : Character
 
 	public virtual void TakeDamage(int dmg, Vector2 knockbackDist) 
 	{
-		if (GetTree().NetworkPeer != null) Rpc(nameof(TakeDamageRemote), dmg, knockbackDist);
 		TakeDamage(dmg);
 		Position += knockbackDist;
 	}
 	
-	[Remote]
-	public void TakeDamageRemote(int dmg, Vector2 knockbackDist)
-	{
-		TakeDamage(dmg, knockbackDist);
-	}
-
+	
 	public virtual void Death() 
 	{
 		touchDamage = 0;
-		GetParent().RemoveChild(this);
+		QueueFree();
 	}
 
 	public virtual void PlayAnimation(string name) 

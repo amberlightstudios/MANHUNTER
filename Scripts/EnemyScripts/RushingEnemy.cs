@@ -101,6 +101,19 @@ public class RushingEnemy : Enemy
 			((Goblin) g.GetParent()).TakeDamage(5);
 		}
 	}
+	
+	public override void TakeDamage(int dmg, Vector2 knockbackDist)
+	{
+		if (!Globals.SinglePlayer)
+			Rpc(nameof(TakeDamageRemote), dmg, knockbackDist);
+		base.TakeDamage(dmg, knockbackDist);
+	}
+	
+	[Remote]
+	public void TakeDamageRemote(int dmg, Vector2 knockbackDist)
+	{
+		base.TakeDamage(dmg, knockbackDist);
+	}
 
 	public override void PlayAnimation(string name)
 	{

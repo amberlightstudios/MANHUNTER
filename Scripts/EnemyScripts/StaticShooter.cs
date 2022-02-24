@@ -115,6 +115,14 @@ public class StaticShooter : Enemy
 
 	public override void TakeDamage(int dmg, Vector2 knockbackDist)
 	{
+		if (!Globals.SinglePlayer)
+			Rpc(nameof(TakeDamageRemote), dmg, knockbackDist);
+		base.TakeDamage(dmg, knockbackDist * 0.4f);
+	}
+	
+	[Remote]
+	public void TakeDamageRemote(int dmg, Vector2 knockbackDist)
+	{
 		base.TakeDamage(dmg, knockbackDist * 0.4f);
 	}
 

@@ -45,6 +45,14 @@ public class GameManager : Node2D
 		return newPlayerIndex - 1;
 	}
 	
+	public void SetNewPlayer(Goblin player, int index)
+	{
+		if (PlayerList[index] == null) {
+			NumPlayers += 1;
+			PlayerList[index] = player;
+		}
+	}
+	
 	public void RemovePlayer(int index) 
 	{	
 		if (PlayerList[index] == null) {

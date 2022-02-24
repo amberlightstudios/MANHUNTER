@@ -22,7 +22,9 @@ public class Goblin : Character
 	[Puppet] public Vector2 PuppetVelocity { get; set; }
 	[Puppet] public int PuppetFaceDirection { get; set; }
 	[Puppet] public String PuppetAnimation { get; set; }
-	[Puppet] public bool PuppetKilled {get; set; }
+	[Puppet] public bool PuppetKilled { get; set; }
+	[Puppet] public Color PuppetColor { get; set; }
+	[Puppet] public bool PuppetIsRevived { get; set; }
 
 	[Export]
 	public float JumpSpeed { get; private set; }
@@ -107,7 +109,6 @@ public class Goblin : Character
 		get => isRevived; 
 		set {
 			if (value) RevivePlayerPuppet();
-			isRevived = value;
 		}    
 	}
 	private Area2D reviveDetect;
@@ -173,7 +174,7 @@ public class Goblin : Character
 	{
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
 			if (Position.y > screenSize.y + 50) {
-				RemoveSelf();
+				HandleDropDead();
 			}
 
 			State._PhysicsProcess(delta);
@@ -202,25 +203,29 @@ public class Goblin : Character
 	
 	[Remote]
 	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim, 
-							bool killed)
+							bool killed, Color color, bool ir)
 	{
 		PuppetPosition = pos;
 		PuppetVelocity = vel;
 		PuppetFaceDirection = fd;
 		PuppetAnimation = anim;
 		PuppetKilled = killed;
+		PuppetColor = color;
+		PuppetIsRevived = ir;
 	}
 	
 	public void BroadcastState() 
 	{
 		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
-		animPlayer.CurrentAnimation, Killed);
+		animPlayer.CurrentAnimation, Killed, sprite.Modulate, isRevived);
 	}
 	
 	public void ReceiveState() 
 	{
 		Position = PuppetPosition;
 		Velocity = PuppetVelocity;
+		if (sprite.Modulate != PuppetColor)
+			SetColor(PuppetColor);
 		if (FaceDirection == -1 && PuppetFaceDirection == 1) {
 			TurnRight();
 		} else if (FaceDirection != PuppetFaceDirection) {
@@ -230,21 +235,38 @@ public class Goblin : Character
 			animPlayer.Play(PuppetAnimation);
 		}
 		if (PuppetKilled) {
-			if (!Killed) SetDead();
+			if (!Killed) {
+				SetDead();
+			} 
 		} else {
-			SetCollisionLayerBit(1, true);
-			SetCollisionLayerBit(7, false);
-			enemyHitBox.SetCollisionLayerBit(1, true);
-			enemyHitBox.SetCollisionLayerBit(7, false);
+			if (Killed) {
+				SetCollisionLayerBit(1, true);
+				SetCollisionLayerBit(7, false);
+				enemyHitBox.SetCollisionLayerBit(1, true);
+				enemyHitBox.SetCollisionLayerBit(7, false);
+			}
 		}
 		Killed = PuppetKilled;
+		if (PuppetIsRevived) {
+			if (!isRevived) RevivePlayer();
+		}
+		isRevived = PuppetIsRevived;
+		
 	}
 	
-	public void Interpolate() {
+	public void Interpolate() 
+	{
 		if (Velocity.y < TERMINAL_VELOCITY) {
 			Velocity.y += Gravity;
 		}
 		Velocity = MoveAndSlide(Velocity);
+	}
+	
+	public void HandleDropDead()
+	{
+		Killed = true;
+		SynchronizeState();
+		RemoveSelf();
 	}
 	
 	public void SetDead()
@@ -264,7 +286,7 @@ public class Goblin : Character
 		if (gm.NumPlayers == 0) GameOver();			
 		else {
 			AttachCamera();			
-			GetParent().RemoveChild(this);
+			QueueFree();
 		} 
 	}
 	
@@ -281,7 +303,6 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		GD.Print(PlayerName, Name);
 		if (Killed) return;
 		base.TakeDamage(dmg);
 		if (health <= 0)
@@ -479,25 +500,25 @@ public class Goblin : Character
 	public void RevivePlayer()
 	{
 		isRevived = true;
-		State.ExitState(null);
-		gm.AddNewPlayer(this);
+		Killed = false;
+		State.ExitState(new MoveState(this));
+		gm.SetNewPlayer(this, PlayerIndex);
 		SetCollisionLayerBit(1, true);
 		SetCollisionLayerBit(7, false);
 		enemyHitBox.SetCollisionLayerBit(1, true);
 		enemyHitBox.SetCollisionLayerBit(7, false);
-        SetColor(new Color(1, 1, 1, 1));
+		SetColor(new Color(1, 1, 1, 1));
 		return;
 	}
 	
 	public void RevivePlayerPuppet()
 	{
 		Rpc(nameof(RevivePlayerMaster));
-		RevivePlayer();
 	}
 	
 	[Remote]
 	public void RevivePlayerMaster()
 	{
-		RevivePlayer();
+		if (IsNetworkMaster()) RevivePlayer();
 	}
 }
