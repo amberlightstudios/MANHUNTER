@@ -35,7 +35,21 @@ public class LevelSelect : Control
 		else
 			GetTree().ChangeScene(Globals.PathToNetwork);	
 	}
+	
+	private void _on_3_pressed()
+	{
+		// Replace with function body.
+		Globals.LastPlayedLevel = 3;
+		if (Globals.SinglePlayer) {
+			GetTree().ChangeScene(Globals.GetPathToLevel(3));
+		} else {
+			GetTree().ChangeScene(Globals.PathToNetwork);
+		}
+	}
 }
+
+
+
 
 
 

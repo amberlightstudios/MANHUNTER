@@ -7,6 +7,7 @@ public class GameManager : Node2D
 	public int NumPlayers = 0;
 	private int newPlayerIndex = 0;
 	public Goblin Player { get; private set; }
+	public int NumEnemies = 0;
 	private Vector2 screenSize;
 
 	// Called when the node enters the scene tree for the first time.

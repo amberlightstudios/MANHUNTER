@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 public class Enemy : Character
 {
+	protected GameManager gm;
 	protected int touchDamage = 0;
 	public int TouchDamage { get => touchDamage; }
 	protected Vector2 velocity = new Vector2(0, 0.1f);
@@ -35,7 +36,8 @@ public class Enemy : Character
 	
 	public override void _Process(float delta)
 	{
-		
+		gm = GetNode<GameManager>("/root/Main/GameManager");
+		gm.NumEnemies += 1;
 	}   
 
 	public override void _PhysicsProcess(float delta)
