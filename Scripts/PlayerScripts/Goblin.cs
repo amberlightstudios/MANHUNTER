@@ -124,6 +124,9 @@ public class Goblin : Character
 
 	private Vector2 screenSize;
 	
+	private Node2D nameTag;
+	private Label name;
+	
 	public override void _Ready()
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
@@ -149,6 +152,11 @@ public class Goblin : Character
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
+		
+		nameTag = GetNode<Node2D>("NameTag");
+		name = GetNode<Label>("NameTag/Panel/Name");
+		if (Globals.PlayerName != "") name.Text = Globals.PlayerName;
+		else nameTag.Visible = false;
 
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
