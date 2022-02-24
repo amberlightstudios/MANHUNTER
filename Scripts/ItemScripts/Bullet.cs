@@ -12,7 +12,7 @@ public class Bullet : Area2D
 	private AnimationPlayer animPlayer;
 
 	private float startX;
-    private bool hasHit = false;
+	private bool hasHit = false;
 
 	public override void _Ready() 
 	{
@@ -23,8 +23,8 @@ public class Bullet : Area2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-        if (hasHit)
-            return;
+		if (hasHit)
+			return;
 
 		// Bullet should only move horizontally. 
 		Position += new Vector2(Math.Sign(Direction.x), 0) * Speed;
@@ -38,7 +38,7 @@ public class Bullet : Area2D
 		foreach (Area2D g in playersHit) {
 			((Goblin) g.GetParent()).TakeDamage(Damage);
 			PlayBulletHit();
-            return;
+			return;
 		}
 
 		Godot.Collections.Array groundHit = groundDetect.GetOverlappingBodies();
@@ -50,7 +50,7 @@ public class Bullet : Area2D
 	async Task PlayBulletHit()
 	{
 		animPlayer.Play("Hit");
-        hasHit = true;
+		hasHit = true;
 		await Task.Delay(500);
 		GetParent().RemoveChild(this);
 	}

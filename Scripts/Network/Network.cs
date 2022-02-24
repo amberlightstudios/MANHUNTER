@@ -59,6 +59,7 @@ public class Network : Node
 
 		((NetworkedMultiplayerENet)GetTree().NetworkPeer).CloseConnection();
 		GetTree().NetworkPeer = null;
+		GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 
 	}
 

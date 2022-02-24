@@ -280,6 +280,8 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
+		GD.Print(PlayerName, Name);
+		if (Killed) return;
 		base.TakeDamage(dmg);
 		if (health <= 0)
 			State = new DeadState(this);
@@ -315,7 +317,7 @@ public class Goblin : Character
 	public void GameOver()
 	{
 		if (!Globals.SinglePlayer) ((Network) GetParent()).LeaveGame();
-		GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
+		else GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 	}
 
 	public void Throw() 
