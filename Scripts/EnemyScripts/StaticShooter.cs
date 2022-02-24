@@ -82,9 +82,9 @@ public class StaticShooter : Enemy
 		foreach (Area2D p in playersInRange) {
 			Godot.Collections.Dictionary result =  spaceState.IntersectRay(Position, p.Position, collisionLayer: 8);
 			// No Ground layer intersected. 
-			if (result.Count == 0) {
-				return (Goblin) p.GetParent();
-			}
+			// if (result.Count == 0) {
+			return (Goblin) p.GetParent();
+			// }
 		}
 
 		return null;
