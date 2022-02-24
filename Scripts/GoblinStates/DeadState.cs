@@ -14,8 +14,8 @@ namespace GoblinStates
 
 			if (!Globals.SinglePlayer) {
 				player.Killed = true;				
-				//player.SynchronizeState();
-				player.SetInvisible();				
+				player.SynchronizeState();
+				player.SetDead();				
 			} else {
 				player.GameOver();
 			}

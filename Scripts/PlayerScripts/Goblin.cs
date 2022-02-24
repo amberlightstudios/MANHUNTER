@@ -230,7 +230,7 @@ public class Goblin : Character
 			animPlayer.Play(PuppetAnimation);
 		}
 		if (PuppetKilled) {
-			if (!Killed) SetInvisible();
+			if (!Killed) SetDead();
 		} else {
 			SetCollisionLayerBit(1, true);
 			SetCollisionLayerBit(7, false);
@@ -247,7 +247,7 @@ public class Goblin : Character
 		Velocity = MoveAndSlide(Velocity);
 	}
 	
-	public void SetInvisible()
+	public void SetDead()
 	{
 		gm.RemovePlayer(PlayerIndex);
 		if (gm.NumPlayers == 0) GameOver();
@@ -255,6 +255,7 @@ public class Goblin : Character
 		SetCollisionLayerBit(7, true);
 		enemyHitBox.SetCollisionLayerBit(1, false);
 		enemyHitBox.SetCollisionLayerBit(7, true);
+		SetColor(new Color( 1, 0, 0, 1 ));
 	}
 
 	public void RemoveSelf() {
@@ -480,11 +481,11 @@ public class Goblin : Character
 		isRevived = true;
 		State.ExitState(null);
 		gm.AddNewPlayer(this);
-		// Return control to the player here. 
 		SetCollisionLayerBit(1, true);
 		SetCollisionLayerBit(7, false);
 		enemyHitBox.SetCollisionLayerBit(1, true);
 		enemyHitBox.SetCollisionLayerBit(7, false);
+        SetColor(new Color(1, 1, 1, 1));
 		return;
 	}
 	
