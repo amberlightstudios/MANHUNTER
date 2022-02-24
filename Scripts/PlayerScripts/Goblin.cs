@@ -344,8 +344,20 @@ public class Goblin : Character
 		GetTree().ReloadCurrentScene(); 
 	}
 	
+	bool deathPlaying = false;
 	public void GameOver()
 	{
+		if (!deathPlaying) HandleDeathAnim();
+	}
+
+	async Task HandleDeathAnim() 
+	{
+		deathPlaying = true;
+		animPlayer.Play("Death");
+		await Task.Delay(885);
+		animPlayer.Play("Ghost");
+		await Task.Delay(2840);
+
 		if (!Globals.SinglePlayer) ((Network) GetParent()).LeaveGame();
 		else GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 	}
