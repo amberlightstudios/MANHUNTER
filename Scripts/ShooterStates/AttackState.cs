@@ -7,11 +7,12 @@ namespace ShooterStates
 	{
 		private float timer = 0f;
 
-		public AttackState(StaticShooter shooter) 
+		public AttackState(StaticShooter shooter, float timer = 0) 
 		{   
 			this.shooter = shooter;
 			shooter.Velocity = Vector2.Zero;
 			shooter.PlayAnimation("IdleAlert");
+			this.timer = timer;
 		}
 
 		public override void _Process(float delta)
