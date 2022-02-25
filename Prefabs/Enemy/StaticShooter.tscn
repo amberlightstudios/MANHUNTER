@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/StaticShooter.cs" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=16]
+[sub_resource type="StreamTexture" id=19]
 load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
 
 [sub_resource type="RectangleShape2D" id=11]
@@ -27,6 +27,21 @@ tracks/0/keys = {
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 7.5 )
+
+[sub_resource type="Animation" id=20]
+length = 0.415
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.115 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 18.0, 19.0, 20.0 ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 0.1
@@ -73,7 +88,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 7.0 ]
+"values": [ 14.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -88,7 +103,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.05, 0.085, 0.11 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 8.0, 9.0, 10.0, 0.0 ]
+"values": [ 15.0, 16.0, 17.0, 1.0 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -104,7 +119,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 5.0, 4.0 ]
+"values": [ 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 6.0, 5.0 ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -136,12 +151,12 @@ bulletSpeed = 5.8
 bulletRange = 450.0
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 16 )
+texture = SubResource( 19 )
 hframes = 5
-vframes = 4
-frame = 8
+vframes = 5
+frame = 15
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1UcnVlCm9fZm9sZGVyfD1yZXM6Ly9TcHJpdGVzL0VuZW1pZXMKb19uYW1lfD0Kb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
 }
 
 [node name="ShootPoint" type="Node2D" parent="Sprite"]
@@ -179,6 +194,7 @@ position = Vector2( 0.5, 1.5 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 20 )
 anims/Idle = SubResource( 5 )
 anims/IdleAlert = SubResource( 17 )
 anims/Jump = SubResource( 13 )
