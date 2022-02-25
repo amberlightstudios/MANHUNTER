@@ -1,15 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/RushingEnemy.cs" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=12]
+[sub_resource type="StreamTexture" id=14]
 load_path = "res://.import/HumanMelee1.png-fc9111647694830d49bb20a1c02c3024.stex"
 
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 9.33335, 11.6667 )
 
 [sub_resource type="Animation" id=8]
-length = 0.71
+length = 0.355
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -17,10 +17,25 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.125, 0.325, 0.36, 0.385, 0.41 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.1, 0.28, 0.315, 0.335 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0 ]
+"values": [ 16.0, 17.0, 18.0, 19.0, 20.0, 21.0 ]
+}
+
+[sub_resource type="Animation" id=15]
+length = 0.415
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.115 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 22.0, 23.0, 24.0 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -135,12 +150,11 @@ roamSpeed = 80.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -0.333333 )
-texture = SubResource( 12 )
+texture = SubResource( 14 )
 hframes = 5
 vframes = 5
-frame = 16
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbk1lbGVlMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9VHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbk1lbGVlMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9RmFsc2UKb19mb2xkZXJ8PXJlczovL1Nwcml0ZXMvRW5lbWllcwpvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
 }
 
 [node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
@@ -170,6 +184,7 @@ shape = SubResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 8 )
+anims/Death = SubResource( 15 )
 anims/Idle = SubResource( 4 )
 anims/IdleAlert = SubResource( 9 )
 anims/Jump = SubResource( 5 )
