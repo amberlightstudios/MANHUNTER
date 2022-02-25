@@ -7,7 +7,7 @@ namespace GoblinStates
 		public DashState(Goblin player) 
 		{
 			this.player = player;
-			player.IsInvincible = true;
+			// player.IsInvincible = true;
 			player.SetZeroGravity();
 			player.Velocity = new Vector2(player.DashSpeed * player.FaceDirection, 0);
 		}
@@ -16,14 +16,14 @@ namespace GoblinStates
 		public override void _Process(float delta)
 		{
 			timer += delta;
-			if (timer > 0.15f) {
+			if (timer > 0.2f) {
 				if (player.OnGround()) {
-					if (timer > 0.23f) {
-						ExitState(new MoveState(player));
-					} else {
-						player.IsInvincible = false;
-						player.Velocity = Vector2.Zero;
-					}
+					// if (timer > 0.28f) {
+					ExitState(new MoveState(player));
+					// } else {
+					// 	player.IsInvincible = false;
+					// 	player.Velocity = Vector2.Zero;
+					// }
 					return;
 				}
 				ExitState(new JumpState(player, true, true));

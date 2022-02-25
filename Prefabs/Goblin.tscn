@@ -10,7 +10,7 @@
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
 
 [sub_resource type="RectangleShape2D" id=30]
-extents = Vector2( 8.01684, 8.9992 )
+extents = Vector2( 8.01684, 10.668 )
 
 [sub_resource type="Animation" id=32]
 length = 0.2
@@ -183,11 +183,11 @@ collision_mask = 8
 script = ExtResource( 2 )
 Gravity = 40.0
 health = 1
-Speed = 250.0
-SpeedBoost = 1.6
+Speed = 350.0
+SpeedBoost = 1.2
 JumpSpeed = 90.0
 WallClimbSpeed = 300.0
-DashSpeed = 700.0
+DashSpeed = 600.0
 AttakDeceleration = 0.0
 rocksCount = 10
 throwDirection = Vector2( 1, 0 )
@@ -212,13 +212,12 @@ position = Vector2( 7, -1 )
 scale = Vector2( 5.556, 5.556 )
 
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
-visible = false
 position = Vector2( 11, 0 )
 collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( -1.66599, 0.990097 )
+position = Vector2( -3.33475, 0.997162 )
 rotation = -1.57503
 shape = SubResource( 30 )
 
@@ -268,6 +267,7 @@ cast_to = Vector2( 0, 12 )
 collision_mask = 8
 
 [node name="ReviveArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 128
 
@@ -286,6 +286,7 @@ position = Vector2( 0.5, 2.5 )
 shape = SubResource( 11 )
 
 [node name="LadderDetection" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 64
 
