@@ -99,10 +99,10 @@ namespace GoblinStates
 				return;
 			}
 
-			// if (Input.IsActionJustPressed("Dash") && !haveDashed) {
-			// 	ExitState(new DashState(player));
-			// 	return;
-			// }
+			if (Input.IsActionJustPressed("Dash") && !haveDashed) {
+				ExitState(new DashState(player));
+				return;
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)
