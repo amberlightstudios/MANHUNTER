@@ -20,7 +20,7 @@ namespace RushEnemyStates
 		public override void _Process(float delta)
 		{
 			timer += delta;
-			if (timer > animLength * 1f/2f) {
+			if (timer > animLength * 1f/3.5f) {
 				enemy.Melee += 1;
 				enemy.Attack();
 			}

@@ -1,15 +1,16 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/RushingEnemy.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/BloodGenerator.tscn" type="PackedScene" id=2]
 
 [sub_resource type="StreamTexture" id=14]
 load_path = "res://.import/HumanMelee1.png-fc9111647694830d49bb20a1c02c3024.stex"
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 9.33335, 11.6667 )
+extents = Vector2( 10.1667, 11.6667 )
 
 [sub_resource type="Animation" id=8]
-length = 0.355
+length = 0.71
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -17,10 +18,10 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.28, 0.315, 0.335 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.125, 0.325, 0.36, 0.385, 0.41 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 16.0, 17.0, 18.0, 19.0, 20.0, 21.0 ]
+"values": [ 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0 ]
 }
 
 [sub_resource type="Animation" id=15]
@@ -153,33 +154,38 @@ position = Vector2( 0, -0.333333 )
 texture = SubResource( 14 )
 hframes = 5
 vframes = 5
+frame = 24
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbk1lbGVlMS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9RmFsc2UKb19mb2xkZXJ8PXJlczovL1Nwcml0ZXMvRW5lbWllcwpvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
 }
 
 [node name="PlayerDetect" type="RayCast2D" parent="Sprite"]
+visible = false
 position = Vector2( 0, -0.333333 )
 enabled = true
 cast_to = Vector2( 180, 0 )
 collision_mask = 10
 
 [node name="PlayerDetectBack" type="RayCast2D" parent="Sprite"]
+visible = false
 position = Vector2( -0.333333, -3.57628e-07 )
 enabled = true
 cast_to = Vector2( -90, 0 )
 collision_mask = 10
 
 [node name="WallDetect" type="RayCast2D" parent="Sprite"]
+visible = false
 enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 8
 
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
+visible = false
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
-position = Vector2( 9.33335, -1.66667 )
+position = Vector2( 8.50002, -1.66667 )
 shape = SubResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -193,22 +199,29 @@ anims/Walk = SubResource( 6 )
 anims/WalkAlert = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.666667, 0.666664 )
 shape = SubResource( 1 )
 
 [node name="EdgeDetectRight" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( 6, -0.333333 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 collision_mask = 72
 
 [node name="EdgeDetectLeft" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( -5, -0.333333 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 collision_mask = 72
 
 [node name="GroundDetect" type="RayCast2D" parent="."]
+visible = false
 enabled = true
 cast_to = Vector2( 0, 9.2 )
 collision_mask = 72
+
+[node name="BloodGenerator" parent="." instance=ExtResource( 2 )]
+scale = Vector2( 0.33, 0.33 )

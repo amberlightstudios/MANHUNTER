@@ -70,7 +70,7 @@ public class Goblin : Character
 	[Export]
 	private int stunTime = 200;
 	public int StunTime { get => stunTime; }
-	public bool IsInvincible = false;
+	public bool Invincible = false;
 	private bool stunAfterHit = false;
 
 	public int FaceDirection { get; private set; }
@@ -311,7 +311,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (Killed) return;
+		if (Killed || Invincible) return;
 		base.TakeDamage(dmg);
 		if (health <= 0)
 			State = new DeadState(this);
@@ -494,6 +494,11 @@ public class Goblin : Character
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
 			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
+		}
+
+		Godot.Collections.Array bulletsHit = meleeArea.GetOverlappingAreas();
+		foreach (Bullet bullet in bulletsHit) {
+			bullet.PlayBulletHit();
 		}
 		return enemiesInRange.Count > 0;
 	}

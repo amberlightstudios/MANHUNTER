@@ -18,7 +18,7 @@ namespace ShooterStates
 		public override void _Process(float delta)
 		{
 			if (!shooter.AnimPlayer.IsPlaying() && shooter.DetectPlayer() == null) {
-				ExitState(new NormalState(shooter));
+				ExitState(new NormalState(shooter, true));
 				return;
 			} else if (!shooter.AnimPlayer.IsPlaying()) {
 				Goblin target = shooter.DetectPlayer();

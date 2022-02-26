@@ -27,7 +27,8 @@ namespace RushEnemyStates
 
         public override void _PhysicsProcess(float delta)
         {
-            if (enemy.PlayerInRange()) {
+            if (enemy.PlayerInRange() 
+            || Mathf.Sign(target.Position.x - enemy.Position.x) != Mathf.Sign(enemy.Velocity.x)) {
                 ExitState(new AttackState(enemy));
                 return;
             }

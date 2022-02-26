@@ -36,6 +36,8 @@ public class Bullet : Area2D
 		// Can hit multiple times in a single frame. (Need to fix later)
 		Godot.Collections.Array playersHit = this.GetOverlappingAreas();
 		foreach (Area2D g in playersHit) {
+			if ((g.CollisionLayer & 2) == 0)
+				continue;
 			((Goblin) g.GetParent()).TakeDamage(Damage);
 			PlayBulletHit();
 			return;
@@ -47,7 +49,7 @@ public class Bullet : Area2D
 		}
 	}
 
-	async Task PlayBulletHit()
+	public async Task PlayBulletHit()
 	{
 		animPlayer.Play("Hit");
 		hasHit = true;
