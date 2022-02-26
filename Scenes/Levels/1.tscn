@@ -66,9 +66,9 @@ __meta__ = {
 }
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="."]
-margin_left = 3944.0
+margin_left = 4059.0
 margin_top = 434.0
-margin_right = 4428.0
+margin_right = 4543.0
 margin_bottom = 587.0
 theme = ExtResource( 7 )
 text = "Use Left and Right Arrow Keys To hold Wall"
@@ -77,12 +77,12 @@ __meta__ = {
 }
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="."]
-margin_left = 4547.0
-margin_top = 606.0
-margin_right = 4965.0
-margin_bottom = 759.0
+margin_left = 4448.0
+margin_top = 581.0
+margin_right = 4866.0
+margin_bottom = 734.0
 theme = ExtResource( 7 )
-text = "Up and down to wall climb"
+text = "hold wall and use up and down arrow to wall climb"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -90,10 +90,10 @@ __meta__ = {
 [node name="RichTextLabel6" type="RichTextLabel" parent="."]
 margin_left = 6693.0
 margin_top = 409.0
-margin_right = 7218.0
+margin_right = 7322.0
 margin_bottom = 562.0
 theme = ExtResource( 7 )
-text = "Press 'Z' to attack"
+text = "Press Space to attack"
 __meta__ = {
 "_edit_use_anchors_": false
 }
