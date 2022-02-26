@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using ShooterStates;
+using Effect;
 
 public class StaticShooter : Enemy
 {
@@ -29,6 +30,7 @@ public class StaticShooter : Enemy
 	private Area2D shootRange;
 	private Node2D shootPoint;
 	private RayCast2D groundDetect, edgeDetectLeft, edgeDetectRight, wallDetect;
+	public BloodGenerator BloodGenerator;
 
 	public ShooterState State;
 
@@ -43,8 +45,9 @@ public class StaticShooter : Enemy
 		edgeDetectRight = GetNode<RayCast2D>("Detections/EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		gm =  GetParent().GetParent().GetNode<GameManager>("GameManager");
+		BloodGenerator = GetNode<BloodGenerator>("BloodGenerator");
 
-		State = new NormalState(this, shootFrequency);
+		State = new NormalState(this);
 	}
 
 	public override void _Process(float delta)

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using RushEnemyStates;
+using Effect;
 
 public class RushingEnemy : Enemy
 {
@@ -13,6 +14,7 @@ public class RushingEnemy : Enemy
 
 	private RayCast2D playerDetect, playerDetectBack, edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect;
 	private Area2D meleeArea;
+	public BloodGenerator BloodGenerator;
 
 	public RushEnemyState State;
 
@@ -27,6 +29,7 @@ public class RushingEnemy : Enemy
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		BloodGenerator = GetNode<BloodGenerator>("BloodGenerator");
 
 		State = new NormalState(this);
 	}
