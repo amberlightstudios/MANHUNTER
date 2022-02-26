@@ -19,13 +19,12 @@ func _ready():
 	
 
 func _physics_process(delta):
-	if get_slide_count():
-		state = inactive
-	if state == inactive:
-		rng.randomize()
-		yield(get_tree().create_timer(rng.randf_range(1, 5)), "timeout")
-		queue_free()
-	else:
+	if state == active:
+		if get_slide_count():
+			state = inactive
+			rng.randomize()
+			yield(get_tree().create_timer(rng.randi_range(5, 15)), "timeout")
+			queue_free()
 		vel.x = lerp(vel.x, 0, 0.05)
 		vel.y += gravity
 		vel.y = min(vel.y, terminal_vel)
