@@ -15,6 +15,7 @@ namespace GoblinStates
 		public override void _Process(float delta)
 		{   
 			player.PlayAnimation("Walk");
+			player.Walk.Emitting = false;
 			if (Input.IsActionPressed("move_up")) {
 				player.Velocity = new Vector2(0, -player.LadderClimbSpeed);
 			} else if (Input.IsActionPressed("move_down")) {
