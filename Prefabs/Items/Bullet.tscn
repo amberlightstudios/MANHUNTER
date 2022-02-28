@@ -40,10 +40,11 @@ tracks/0/keys = {
 radius = 5.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 1.0
+radius = 6.5
 
 [node name="Bullet" type="Area2D"]
 scale = Vector2( 2, 2 )
+z_index = 500
 collision_layer = 256
 collision_mask = 2
 script = ExtResource( 2 )
