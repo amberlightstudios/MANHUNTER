@@ -12,7 +12,8 @@ public class RushingEnemy : Enemy
 	private float roamSpeed;
 	public float RoamSpeed { get => roamSpeed; }
 
-	private RayCast2D playerDetect, playerDetectBack, edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect;
+	private RayCast2D playerDetect, playerDetectBack;
+	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect, ladderDetectSide;
 	private Area2D meleeArea;
 	public BloodGenerator BloodGenerator;
 
@@ -27,6 +28,7 @@ public class RushingEnemy : Enemy
 		edgeDetectRight = GetNode<RayCast2D>("EdgeDetectRight");
 		groundDetect = GetNode<RayCast2D>("GroundDetect");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
+		ladderDetectSide = GetNode<RayCast2D>("Sprite/LadderDetectSide");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		BloodGenerator = GetNode<BloodGenerator>("BloodGenerator");
@@ -47,6 +49,12 @@ public class RushingEnemy : Enemy
 	{
 		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
 			State._PhysicsProcess(delta);
+
+			if (ladderDetectSide.IsColliding()) {
+				SetCollisionLayerBit(9, false);
+			} else {
+				SetCollisionLayerBit(9, true);
+			}
 
 			if (!OnGround()) {
 				velocity.y += Gravity;

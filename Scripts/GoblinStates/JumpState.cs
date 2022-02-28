@@ -89,20 +89,15 @@ namespace GoblinStates
 				}
 			}
 
-			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
-				ExitState(new ThrowState(player, new JumpState(player, true)));
-				return;
-			}
-
 			if (player.OnLadder() && (Input.IsActionPressed("move_up") || Input.IsActionPressed("move_down"))) {
 				ExitState(new LadderClimbState(player));
 				return;
 			}
 
-			if (Input.IsActionJustPressed("Dash") && !haveDashed) {
-				ExitState(new DashState(player));
-				return;
-			}
+			// if (Input.IsActionJustPressed("Dash") && !haveDashed) {
+			// 	ExitState(new DashState(player));
+			// 	return;
+			// }
 		}
 
 		public override void _PhysicsProcess(float delta)

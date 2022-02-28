@@ -57,11 +57,6 @@ namespace GoblinStates {
 				return;
 			}
 
-			if (Input.IsActionJustPressed("Throw") && player.RocksCount > 0) {
-				ExitState(new ThrowState(player, this));
-				return;
-			}
-
 			if (Input.IsActionJustPressed("Attack")) {
 				ExitState(new AttackState(player, this));
 				return;

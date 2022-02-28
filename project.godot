@@ -208,7 +208,8 @@ Revive={
 2d_physics/layer_7="Ladders"
 2d_physics/layer_8="ReviveDetection"
 2d_physics/layer_9="Bullet"
-2d_physics/layer_10="Temp"
+2d_physics/layer_10="LadderCollidePlayer"
+2d_physics/layer_11="LadderCollideEnemy"
 
 [physics]
 

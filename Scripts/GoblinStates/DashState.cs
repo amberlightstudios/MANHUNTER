@@ -8,8 +8,8 @@ namespace GoblinStates
 		{
 			this.player = player;
 			player.Invincible = true;
-			player.SetZeroGravity();
             if (!player.OnGround()) {
+                player.SetZeroGravity();
 			    player.Velocity = new Vector2(player.DashSpeed * player.FaceDirection, 0);
             } else {
                 player.Velocity = new Vector2(player.DashSpeed * 0.7f * player.FaceDirection, 0);

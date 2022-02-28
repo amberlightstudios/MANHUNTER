@@ -5,18 +5,14 @@ using System.Threading.Tasks;
 public class Enemy : Character
 {
 	protected GameManager gm;
-	protected int touchDamage = 0;
-	public int TouchDamage { get => touchDamage; }
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
 	public int FaceDirection;
 	public int Fire = 0;
-	public int Melee = 0;	
-	public bool IsGrabbed = false;
-	public bool IsThrown = false;
-	public bool IsThrownDown = false;
+	public int Melee = 0;
 
-	protected bool isTakingDamage = false;
+    public bool Stunned = false;
+
 
 	protected AnimationPlayer animPlayer;
 	public AnimationPlayer AnimPlayer { get => animPlayer; }
@@ -48,7 +44,6 @@ public class Enemy : Character
 	
 	public void SynchronizeState()
 	{
-		if (isTakingDamage) return;
 		if (GetTree().NetworkPeer != null) {
 			if  (GetTree().IsNetworkServer()) {
 				BroadcastState();
@@ -122,11 +117,11 @@ public class Enemy : Character
 	public override void TakeDamage(int dmg)
 	{
 		base.TakeDamage(dmg);
-		isTakingDamage = true;
-		if (health <= 0) {
+		if (health <= 0 || Stunned) {
 			Death();
-		}
-		Task.Delay(1000).ContinueWith(t => isTakingDamage = false);
+		} else {
+            Stun();
+        }
 	}
 
 	public virtual void TakeDamage(int dmg, Vector2 knockbackDist) 
@@ -138,9 +133,10 @@ public class Enemy : Character
 	
 	public virtual void Death() 
 	{
-		touchDamage = 0;
 		QueueFree();
 	}
+
+    public virtual void Stun() {}
 
 	public virtual void PlayAnimation(string name) 
 	{

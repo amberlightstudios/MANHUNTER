@@ -20,16 +20,11 @@ public class StaticShooter : Enemy
 	[Export]
 	private float roamSpeed = 30f;
 	public float RoamSpeed { get => roamSpeed; }
-	[Export]
-	private float evadeDist = 90f;
-	public float EvadeDist { get => evadeDist; }
-	private float evadeSpeed = 200f;
-	public float EvadeSpeed { get => evadeSpeed; }
 
 	private GameManager gm;
 	private Area2D shootRange;
 	private Node2D shootPoint;
-	private RayCast2D groundDetect, edgeDetectLeft, edgeDetectRight, wallDetect;
+	private RayCast2D groundDetect, edgeDetectLeft, edgeDetectRight, wallDetect, ladderDetectSide;
 	public BloodGenerator BloodGenerator;
 
 	public ShooterState State;
@@ -39,6 +34,7 @@ public class StaticShooter : Enemy
 		sprite = GetNode<Sprite>("Sprite");
 		shootRange = GetNode<Area2D>("Sprite/ShootRange");
 		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
+		ladderDetectSide = GetNode<RayCast2D>("Sprite/LadderDetectSide");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		groundDetect = GetNode<RayCast2D>("Detections/GroundDetect");
 		edgeDetectLeft = GetNode<RayCast2D>("Detections/EdgeDetectLeft");
@@ -62,7 +58,17 @@ public class StaticShooter : Enemy
 	{
 		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
 			State._PhysicsProcess(delta);
-			if (!OnGround()) velocity.y += Gravity;
+
+			if (ladderDetectSide.IsColliding()) {
+				SetCollisionLayerBit(9, false);
+			} else {
+				SetCollisionLayerBit(9, true);
+			}
+
+			if (!OnGround()) {
+				velocity.y += Gravity;
+			}
+			
 			MoveAndSlide(velocity);
 		}  
 		SynchronizeState();
@@ -131,7 +137,6 @@ public class StaticShooter : Enemy
 
 	public override void Death()
 	{
-		touchDamage = 0;
 		State.ExitState(new DeathState(this));
 	}
 

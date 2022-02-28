@@ -61,17 +61,7 @@ public class Goblin : Character
 	[Export]
 	private float throwDownSpeed;
 
-
-	[Export]
-	private float knockBackSpeed;
-	public float KnockBackSpeed { get => knockBackSpeed; }
-	[Export]
-	private int invincibleTime = 1300;
-	[Export]
-	private int stunTime = 200;
-	public int StunTime { get => stunTime; }
 	public bool Invincible = false;
-	private bool stunAfterHit = false;
 
 	public int FaceDirection { get; private set; }
 
@@ -84,14 +74,7 @@ public class Goblin : Character
 
 	private RayCast2D groundDetectLeft;
 	private RayCast2D groundDetectRight;
-	public Vector2 ThrowPoint { 
-		get => (GetNode<Node2D>("Sprite/ThrowPoint").Position) * sprite.Scale + sprite.Position + Position;
-		private set => ThrowPoint = value; }
-	public Vector2 ThrowPointScale {
-		get => GetNode<Node2D>("Sprite/ThrowPoint").Scale * sprite.Scale * Scale;
-		private set => ThrowPointScale = value;
-	}
-	private string throwObjectPath = "res://Prefabs/Items/Rock.tscn";
+
 	private RayCast2D wallDetect;
 	public RayCast2D WallDetectFoot { get; private set; }
 
@@ -315,19 +298,6 @@ public class Goblin : Character
 		base.TakeDamage(dmg);
 		if (health <= 0)
 			State = new DeadState(this);
-		// if (IsInvincible || dmg == 0)
-		// 	return;
-		// base.TakeDamage(dmg);
-
-		// if (health <= 0) {
-		// 	State = new DeadState(this);
-		// }
-
-		// animPlayer.Play("Attacked");
-		// stunAfterHit = true;
-		// IsInvincible = true;
-		// Task.Delay(200).ContinueWith(t => stunAfterHit = false);
-		// Task.Delay(invincibleTime).ContinueWith(t => IsInvincible = false);
 	}
 
 	public Goblin FindReviveTarget() 
@@ -373,25 +343,6 @@ public class Goblin : Character
 		}
 		
 		animPlayer.Play("Throw");
-	}
-
-	// When the throw animation ends and the player throws out the rock (or other objects). 
-	public void GenerateRock() 
-	{
-		// if (GetTree().NetworkPeer != null && IsNetworkMaster()) Rpc(nameof(SyncGenerateRock));
-		// PackedScene throwLoader = ResourceLoader.Load<PackedScene>("res://Prefabs/Items/Rock.tscn");
-		// Rock rock = throwLoader.Instance<Rock>();
-		// rock.Direction = FaceDirection;
-		// GetParent().AddChild(rock);
-		// rock.Position = ThrowPoint;
-		// rocksCount -= 1;
-	}
-	
-
-	[Remote]
-	public void SyncGenerateRock()
-	{
-		GenerateRock();
 	}
 	
 
@@ -471,21 +422,6 @@ public class Goblin : Character
 	public void SetColor(Color color) 
 	{
 		sprite.Modulate = color;
-	}
-
-	public void ThrowEnemy(Enemy enemy) 
-	{
-		enemy.IsGrabbed = false;
-		enemy.IsThrown = true;
-		enemy.Velocity = throwVelocity + Velocity;
-	}
-
-	public void ThrowDownEnemy(Enemy enemy)
-	{
-		enemy.IsGrabbed = false;
-		enemy.IsThrown = false;
-		enemy.IsThrownDown = true;
-		enemy.Velocity = new Vector2(Velocity.x * 0.5f, throwDownSpeed);
 	}
 
 	public bool AttackEnemy() 
