@@ -5,29 +5,43 @@ namespace GoblinStates
 	public class DeadState : GoblinState 
 	{
 		private float timer = 0;
+		private float ghostTimeBeforeDeath = 1f;
 
 		public DeadState(Goblin player) 
 		{
 			this.player = player;
 			player.Velocity = Vector2.Zero;
 			player.ReturnNormalGravity();
+			
+			player.Killed = true;
 
 			if (!Globals.SinglePlayer) {
-				player.Killed = true;				
 				player.SynchronizeState();
 				player.SetDead();				
 			} else {
-				player.GameOver();
+				player.PlayAnimation("Death");
 			}
 		}
 
 		public override void _Process(float delta)
 		{
+			timer += delta;
 
+			if (!player.AnimPlayer.IsPlaying()) {
+				player.PlayAnimation("Ghost");
+				timer = 0;
+			}
+
+			if (Globals.SinglePlayer && timer > ghostTimeBeforeDeath) {
+				player.GameOver();
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
+			if (Globals.SinglePlayer) {
+				player.Velocity = Vector2.Zero;
+			}
 			player.Velocity.x = 0;
 		}
 

@@ -268,7 +268,7 @@ public class Goblin : Character
 		SetCollisionLayerBit(7, true);
 		enemyHitBox.SetCollisionLayerBit(1, false);
 		enemyHitBox.SetCollisionLayerBit(7, true);
-		SetColor(new Color( 1, 0, 0, 1 ));
+		// SetColor(new Color( 1, 0, 0, 1 ));
 	}
 
 	public void RemoveSelf() {
@@ -314,22 +314,21 @@ public class Goblin : Character
 		GetTree().ReloadCurrentScene(); 
 	}
 	
-	bool deathPlaying = false;
 	public void GameOver()
 	{
-		if (!deathPlaying) HandleDeathAnim();
+		if (!Globals.SinglePlayer) {
+			((Network) GetParent()).LeaveGame();
+		} else {
+			GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
+		}
 	}
 
 	async Task HandleDeathAnim() 
 	{
-		deathPlaying = true;
 		animPlayer.Play("Death");
 		await Task.Delay(885);
 		animPlayer.Play("Ghost");
 		await Task.Delay(2840);
-
-		if (!Globals.SinglePlayer) ((Network) GetParent()).LeaveGame();
-		else GetTree().ChangeScene("res://Scenes/UI/GameOver.tscn");
 	}
 
 	public void Throw() 
@@ -431,12 +430,15 @@ public class Goblin : Character
 			Vector2 enemyPosition = enemy.Position;
 			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
+		return enemiesInRange.Count > 0;
+	}
 
+	public void DeflectBullet() 
+	{
 		Godot.Collections.Array bulletsHit = meleeArea.GetOverlappingAreas();
 		foreach (Bullet bullet in bulletsHit) {
-			bullet.PlayBulletHit();
+			// bullet.PlayBulletHit();
 		}
-		return enemiesInRange.Count > 0;
 	}
 
 	public void PlayAnimation(String name) 
@@ -446,6 +448,8 @@ public class Goblin : Character
 		}
 		if (name == "Walk") {
 			walk.Emitting = true;
+		} else {
+			walk.Emitting = false;
 		}
 		animPlayer.Play(name);
 		((GoblinSound)GetNode("SoundEffects")).PlaySound(name);
