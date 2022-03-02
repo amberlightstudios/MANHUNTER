@@ -4,23 +4,26 @@ namespace RushEnemyStates
 {
 	public class AttackState : RushEnemyState
 	{
-		private float animLength;
-		private float timer;
+		private float animLength = float.MaxValue;
+		private float timer = 0f;
+        private bool startAttack = false;
 
 		public AttackState(RushingEnemy enemy) 
 		{
 			this.enemy = enemy;
-
-			enemy.Velocity = new Vector2(0, enemy.Velocity.y);
-
-			enemy.PlayAnimation("Attack");
-			animLength = enemy.AnimPlayer.CurrentAnimationLength;
+			enemy.Velocity = new Vector2(0, enemy.Velocity.y);	
 		}
 
 		public override void _Process(float delta)
 		{
-			timer += delta;
-			if (timer > animLength * 1f/3.5f) {
+            if (!startAttack && timer > 0.049f) {
+                enemy.PlayAnimation("Attack");
+			    animLength = enemy.AnimPlayer.CurrentAnimationLength;
+                startAttack = true;
+                timer = 0f;
+            }
+
+			if (timer > 0.049f && timer > animLength * 0.7f) {
 				enemy.Melee += 1;
 				enemy.Attack();
 			}
@@ -38,7 +41,7 @@ namespace RushEnemyStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			
+			timer += delta;
 		}
 	}
 }

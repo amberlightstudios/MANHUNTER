@@ -14,6 +14,9 @@ public class Bullet : Area2D
 	private float startX;
 	private bool hasHit = false;
 
+	private bool deflecting = false;
+	private float deflectTimer = 0f;
+
 	public override void _Ready() 
 	{
 		groundDetect = GetNode<Area2D>("GroundDetect");
@@ -25,6 +28,14 @@ public class Bullet : Area2D
 	{
 		if (hasHit)
 			return;
+
+		if (deflecting) {
+			deflectTimer += delta;
+			if (deflectTimer > 0.4f) {
+				deflecting = false;
+				deflectTimer = 0f;
+			}
+		}
 
 		// Bullet should only move horizontally. 
 		Position += new Vector2(Math.Sign(Direction.x), 0) * Speed;
@@ -39,22 +50,44 @@ public class Bullet : Area2D
 			if ((g.CollisionLayer & 2) == 0)
 				continue;
 			((Goblin) g.GetParent()).TakeDamage(Damage);
+			hasHit = true;
 			PlayBulletHit();
 			return;
 		}
 
 		Godot.Collections.Array groundHit = groundDetect.GetOverlappingBodies();
 		if (groundHit.Count > 0) {
+			hasHit = true;
 			PlayBulletHit();
+		}
+
+		// This part of code is only for hitting enemies.
+		foreach (Character c in this.GetOverlappingBodies()) {
+			if ((c.CollisionLayer & 4) == 0)
+				continue;
+
+			c.TakeDamage(Damage);
+			hasHit = true;
+			PlayBulletHit();
+			return;
 		}
 	}
 
 	public async Task PlayBulletHit()
 	{
 		animPlayer.Play("Hit");
-		hasHit = true;
 		await Task.Delay(500);
 		GetParent().RemoveChild(this);
+	}
+
+	// After deflection, the bullet is now also able to hit enemies
+	public void Deflect() 
+	{
+		if (!deflecting) {
+			Direction.x *= -1;
+			SetCollisionMaskBit(2, true);
+			deflecting = true;
+		}
 	}
 }
 

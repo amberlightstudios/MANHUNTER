@@ -201,7 +201,6 @@ position = Vector2( 0.333344, -0.333328 )
 texture = SubResource( 45 )
 hframes = 7
 vframes = 6
-frame = 23
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
@@ -214,7 +213,7 @@ scale = Vector2( 5.556, 5.556 )
 [node name="MeleeArea" type="Area2D" parent="Sprite"]
 position = Vector2( 11, 0 )
 collision_layer = 32
-collision_mask = 4
+collision_mask = 260
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/MeleeArea"]
 position = Vector2( -3.33475, 0.997162 )

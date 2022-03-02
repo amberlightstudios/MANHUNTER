@@ -437,7 +437,7 @@ public class Goblin : Character
 	{
 		Godot.Collections.Array bulletsHit = meleeArea.GetOverlappingAreas();
 		foreach (Bullet bullet in bulletsHit) {
-			// bullet.PlayBulletHit();
+			bullet.Deflect();
 		}
 	}
 

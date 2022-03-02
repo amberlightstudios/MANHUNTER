@@ -32,8 +32,6 @@ namespace GoblinStates
 
 		public override void _Process(float delta)
 		{
-			timer += delta;
-
 			if (Input.IsActionJustReleased("speed_boost")) {
 				SpeedBoost = 1;
 			}
@@ -80,6 +78,12 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
+            timer += delta;
+
+            if (timer >= 0.03f && timer <= 0.15f) {
+                player.DeflectBullet();
+            }
+
 			if (player.IsRunningIntoLadder()) {
 				player.SetLadderCollision(false);
 			} else {

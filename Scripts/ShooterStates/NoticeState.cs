@@ -33,7 +33,7 @@ namespace ShooterStates
 				if (shooter.DetectPlayer() != null) {
 					ExitState(new AttackState(shooter, shooter.ShootFrequency - 0.3f));
 				} 
-                else if (secondTimer > 1f) {
+                else if (secondTimer > 0.5f) {
 					ExitState(new NormalState(shooter, true));
 				} else {
                     secondTimer += delta;
