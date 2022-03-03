@@ -20,6 +20,8 @@ public class StaticShooter : Enemy
 	[Export]
 	private float roamSpeed = 30f;
 	public float RoamSpeed { get => roamSpeed; }
+	[Export]
+	private float knockBackSpeed;
 
 	private GameManager gm;
 	private Area2D shootRange;
@@ -138,6 +140,12 @@ public class StaticShooter : Enemy
 	public override void Death()
 	{
 		State.ExitState(new DeathState(this));
+	}
+
+	public override void KnockBack()
+	{
+		velocity.x = -1 * FaceDirection * knockBackSpeed;
+		State.ExitState(new KnockBackState(this));
 	}
 
 	public Vector2 PlayerOffset() 

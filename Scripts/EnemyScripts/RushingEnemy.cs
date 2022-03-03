@@ -11,6 +11,8 @@ public class RushingEnemy : Enemy
 	[Export]
 	private float roamSpeed;
 	public float RoamSpeed { get => roamSpeed; }
+	[Export]
+	private float knockBackSpeed;
 
 	private RayCast2D playerDetect, playerDetectBack;
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect, ladderDetectSide;
@@ -106,11 +108,24 @@ public class RushingEnemy : Enemy
 		State.ExitState(new DeathState(this));
 	}
 
-	public override void Attack() 
+	public override int Attack() 
 	{
 		foreach (Area2D g in meleeArea.GetOverlappingAreas()) {
-			((Goblin) g.GetParent()).TakeDamage(5);
+			Goblin player = g.GetParent<Goblin>();
+			if (!player.IsAttacking) {
+				player.TakeDamage(5);
+			} else {
+				return -1;
+			}
 		}
+
+		return 0;
+	}
+
+	public override void KnockBack() 
+	{
+		velocity.x = -1 * FaceDirection * knockBackSpeed;
+		State.ExitState(new KnockBackState(this));
 	}
 	
 	public override void TakeDamage(int dmg, Vector2 knockbackDist)

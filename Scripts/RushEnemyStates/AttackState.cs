@@ -6,7 +6,7 @@ namespace RushEnemyStates
 	{
 		private float animLength = float.MaxValue;
 		private float timer = 0f;
-        private bool startAttack = false;
+		private bool startAttack = false;
 
 		public AttackState(RushingEnemy enemy) 
 		{
@@ -16,16 +16,22 @@ namespace RushEnemyStates
 
 		public override void _Process(float delta)
 		{
-            if (!startAttack && timer > 0.049f) {
-                enemy.PlayAnimation("Attack");
-			    animLength = enemy.AnimPlayer.CurrentAnimationLength;
-                startAttack = true;
-                timer = 0f;
-            }
+			enemy.IsAttacking = false;
+
+			if (!startAttack && timer > 0.049f) {
+				enemy.PlayAnimation("Attack");
+				animLength = enemy.AnimPlayer.CurrentAnimationLength;
+				startAttack = true;
+				timer = 0f;
+			}
 
 			if (timer > 0.049f && timer > animLength * 0.7f) {
+				enemy.IsAttacking = true;
 				enemy.Melee += 1;
-				enemy.Attack();
+				int attackStaus = enemy.Attack();
+				if (attackStaus == -1) {
+					return;
+				}
 			}
 
 			if (!enemy.AnimPlayer.IsPlaying()) {
@@ -42,6 +48,12 @@ namespace RushEnemyStates
 		public override void _PhysicsProcess(float delta)
 		{
 			timer += delta;
+		}
+
+		public override void ExitState(RushEnemyState newState) 
+		{
+			enemy.IsAttacking = false;
+			enemy.State = newState;
 		}
 	}
 }

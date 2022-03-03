@@ -150,6 +150,7 @@ noticeTime = 0.2
 shootFrequency = 1.5
 bulletSpeed = 11.0
 bulletRange = 600.0
+knockBackSpeed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 19 )

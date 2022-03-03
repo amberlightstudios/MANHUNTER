@@ -41,25 +41,9 @@ public class Goblin : Character
 	[Export]
 	public float AttakDeceleration = 0.5f;
 	private Area2D meleeArea;
-
-
-	// This is for throwing. (need to delete this part later)
+	
 	[Export]
-	private int rocksCount = 4; 
-	public int RocksCount { get => rocksCount; private set => rocksCount = value; }
-	[Export]
-	private Vector2 throwDirection;
-	[Export]
-	private float maxThrowForce = 3000f;
-	[Export]
-	public float LowThrowMultiplier = 0.5f;
-	[Export]
-	public float AdditionalThrowMultiplier = 0.1f;
-	// This is for throwing enemies. (Temporary disable)
-	[Export]
-	private Vector2 throwVelocity;
-	[Export]
-	private float throwDownSpeed;
+	private float knockBackSpeed;
 
 	public bool Invincible = false;
 
@@ -330,19 +314,6 @@ public class Goblin : Character
 		animPlayer.Play("Ghost");
 		await Task.Delay(2840);
 	}
-
-	public void Throw() 
-	{
-		if (animPlayer.CurrentAnimation == "Throw")
-			return;
-
-		if (rocksCount <= 0) {
-			State.ExitState(null);
-			return;
-		}
-		
-		animPlayer.Play("Throw");
-	}
 	
 
 	public void TurnLeft() 
@@ -350,7 +321,6 @@ public class Goblin : Character
 		sprite.Position = new Vector2(1, 0);
 		sprite.Scale = new Vector2(-defaultSpriteScale.x, defaultSpriteScale.y);
 		FaceDirection = -1;
-		throwVelocity.x = Math.Abs(throwVelocity.x) * -1;
 		wallDetect.Scale = Vector2.One;
 		WallDetectFoot.Scale = Vector2.One;
 		ladderDetectSide.Scale = new Vector2(-1, 1);
@@ -362,7 +332,6 @@ public class Goblin : Character
 		sprite.Position = Vector2.Zero;
 		sprite.Scale = defaultSpriteScale;
 		FaceDirection = 1;
-		throwVelocity.x = Math.Abs(throwVelocity.x);
 		wallDetect.Scale = new Vector2(-1, 1);
 		WallDetectFoot.Scale = new Vector2(-1, 1);
 		ladderDetectSide.Scale = Vector2.One;
@@ -423,14 +392,36 @@ public class Goblin : Character
 		sprite.Modulate = color;
 	}
 
-	public bool AttackEnemy() 
+	public int AttackEnemy() 
 	{
+		RandomNumberGenerator rand = new RandomNumberGenerator();
+		rand.Randomize();
+		float stunNotKillProbability = 0.1f;
+
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
+		int enemyCount = enemiesInRange.Count;
+		if (enemyCount > 1) {
+			stunNotKillProbability = 0.25f;
+		}
+
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
+			if (enemy.FaceDirection != FaceDirection) {
+				float temp = rand.Randf();
+				if (enemy.IsAttacking || temp < stunNotKillProbability) {
+					enemy.KnockBack();
+					continue;
+				} 
+			}
 			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
-		return enemiesInRange.Count > 0;
+		return enemyCount;
+	}
+
+	public void KnockBack() 
+	{
+		Velocity.x = -1 * FaceDirection * knockBackSpeed;
+		State.ExitState(new KnockBackState(this));
 	}
 
 	public void DeflectBullet() 

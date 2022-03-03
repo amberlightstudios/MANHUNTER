@@ -11,7 +11,7 @@ public class Enemy : Character
 	public int Fire = 0;
 	public int Melee = 0;
 
-    public bool Stunned = false;
+	public bool Stunned = false;
 
 
 	protected AnimationPlayer animPlayer;
@@ -120,8 +120,8 @@ public class Enemy : Character
 		if (health <= 0 || Stunned) {
 			Death();
 		} else {
-            Stun();
-        }
+			Stun();
+		}
 	}
 
 	public virtual void TakeDamage(int dmg, Vector2 knockbackDist) 
@@ -130,16 +130,20 @@ public class Enemy : Character
 		Position += knockbackDist;
 	}
 	
+	public virtual void KnockBack() {}
 	
 	public virtual void Death() 
 	{
 		QueueFree();
 	}
 
-    public virtual void Stun() {}
+	public virtual void Stun() {}
 
 	public virtual void PlayAnimation(string name) 
 	{
+		if (name == null) {
+			animPlayer.Stop();
+		}
 		animPlayer.Play(name);
 	}
 	
@@ -152,7 +156,8 @@ public class Enemy : Character
 		// Implemented in subclass
 	}
 	
-	public virtual void Attack() {
+	public virtual int Attack() {
 		// Implemented in subclass		
+		return 0;
 	}
 }

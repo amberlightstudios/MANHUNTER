@@ -16,6 +16,7 @@ namespace GoblinStates
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
 			this.player = player;
+            player.IsAttacking = true;
 			
 			previousFaceDirection = player.FaceDirection;
 			speed = player.Speed;
@@ -72,7 +73,12 @@ namespace GoblinStates
 			}
 
 			if (!haveAttacked) {
-				haveAttacked = player.AttackEnemy();
+				int status = player.AttackEnemy();
+                if (status > 0) {
+                    haveAttacked = true;
+                } else if (status == -1) {
+                    return;
+                }
 			}
 		}
 
@@ -92,5 +98,11 @@ namespace GoblinStates
 
 			speed -= player.AttakDeceleration;
 		}
+
+        public override void ExitState(GoblinState newState) 
+        {
+            player.IsAttacking = false;
+            base.ExitState(newState);    
+        }
 	}
 }
