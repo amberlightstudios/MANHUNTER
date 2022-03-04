@@ -102,7 +102,7 @@ public class Goblin : Character
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
 	[Export]
-	private float reviveTime = 3f;
+	private float reviveTime = 2f;
 	public float ReviveTime { get => reviveTime; }
 	private bool isRevived = false;
 	public bool IsRevived { 
@@ -125,7 +125,11 @@ public class Goblin : Character
 	private Vector2 screenSize;
 	
 	private Node2D nameTag;
+	public Node2D NameTag { get => nameTag; }
 	private Label name;
+	private ProgressBar reviveBar;
+	public ProgressBar ReviveBar { get => reviveBar; }
+	
 	
 	public override void _Ready()
 	{
@@ -155,8 +159,11 @@ public class Goblin : Character
 		
 		nameTag = GetNode<Node2D>("NameTag");
 		name = GetNode<Label>("NameTag/Panel/Name");
-		if (Globals.PlayerName != "") name.Text = Globals.PlayerName;
-		else nameTag.Visible = false;
+		if (Globals.PlayerName != "") {
+			name.Text = Globals.PlayerName; 
+			nameTag.Visible = true;
+		}
+		reviveBar = GetNode<ProgressBar>("Revive/ProgressBar");
 
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
