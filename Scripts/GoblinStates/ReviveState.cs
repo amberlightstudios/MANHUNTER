@@ -14,6 +14,8 @@ namespace GoblinStates
 			target = deadTeammate;
 			player.Velocity = Vector2.Zero;
 			player.SetZeroGravity();
+            // Tell teammate he is being revived. add method here. 
+            target.BeingRevived = true;
 		}
 
 		public override void _Process(float delta)

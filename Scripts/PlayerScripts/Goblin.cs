@@ -111,6 +111,7 @@ public class Goblin : Character
 			if (value) RevivePlayerPuppet();
 		}    
 	}
+    public bool BeingRevived = false;
 	private Area2D reviveDetect;
 
 	public GameManager gm;
