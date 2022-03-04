@@ -14,14 +14,15 @@ namespace GoblinStates
 			target = deadTeammate;
 			player.Velocity = Vector2.Zero;
 			player.SetZeroGravity();
-            // Tell teammate he is being revived. add method here. 
-            target.BeingRevived = true;
+			// Tell teammate he is being revived. add method here. 
+			target.SetBeingRevivedPuppet(true);
 		}
 
 		public override void _Process(float delta)
 		{
 			if (Input.IsActionJustReleased("Revive")) {
 				player.ReturnNormalGravity();
+				target.SetBeingRevivedPuppet(false);
 				ExitState(new MoveState(player));
 				return;
 			}

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Level : Network
+public class Level : Node2D
 {
 	private Generator generator = Generator.Instance;
 	
