@@ -139,5 +139,3 @@ text = "Quit Game"
 __meta__ = {
 "_editor_description_": ""
 }
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/MainMenu/MainMenu" to="." method="_on_Main_Menu_pressed"]
