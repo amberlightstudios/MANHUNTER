@@ -272,9 +272,11 @@ public class Goblin : Character
 	
 	public void HandleDropDead()
 	{
-		Killed = true;
-		SynchronizeState();
-		RemoveSelf();
+		if (!Killed) {
+			Killed = true;
+			SynchronizeState();
+			RemoveSelf();
+		}
 	}
 	
 	public void SetDead()
