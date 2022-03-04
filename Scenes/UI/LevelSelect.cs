@@ -19,29 +19,25 @@ public class LevelSelect : Control
 	
 	private void _on_1_pressed()
 	{
-		Globals.LastPlayedLevel = 1;
 		if (Globals.SinglePlayer) 
-			GetTree().ChangeScene(Globals.GetPathToLevel(1));
+			GetTree().ChangeScene(Globals.GetPathToLevel("1"));
 		else
-			GetTree().ChangeScene(Globals.PathToNetwork);			
+			GetTree().ChangeScene(Globals.PathToNetwork);
 	}
 
 
 	private void _on_2_pressed()
 	{
-		Globals.LastPlayedLevel = 2;
 		if (Globals.SinglePlayer) 
-			GetTree().ChangeScene(Globals.GetPathToLevel(2));
+			GetTree().ChangeScene(Globals.GetPathToLevel("2"));
 		else
-			GetTree().ChangeScene(Globals.PathToNetwork);	
+			GetTree().ChangeScene(Globals.PathToNetwork);
 	}
 	
 	private void _on_3_pressed()
 	{
-		// Replace with function body.
-		Globals.LastPlayedLevel = 3;
 		if (Globals.SinglePlayer) {
-			GetTree().ChangeScene(Globals.GetPathToLevel(3));
+			GetTree().ChangeScene(Globals.GetPathToLevel("3"));
 		} else {
 			GetTree().ChangeScene(Globals.PathToNetwork);
 		}
