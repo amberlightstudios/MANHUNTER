@@ -17,6 +17,8 @@ namespace GoblinStates
 			player.SetZeroGravity();
 			player.ReviveBar.Visible = true;
 			player.NameTag.Visible = false;
+			// Tell teammate he is being revived. add method here. 
+			target.BeingRevived = true;
 		}
 
 		public override void _Process(float delta)
