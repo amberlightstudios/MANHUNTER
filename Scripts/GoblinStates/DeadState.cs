@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace GoblinStates
 {
@@ -33,6 +34,10 @@ namespace GoblinStates
 				if (timer > 5f) {
 					player.RemoveSelf();
 				} 
+			} else {
+				if ((Math.Round(timer * 100, 0) * 100) % 50 == 0)  {
+					player.ReviveBar.Value += 1;
+				}
 			}
 		}
 

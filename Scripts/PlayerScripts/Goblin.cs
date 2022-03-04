@@ -29,6 +29,7 @@ public class Goblin : Character
 	[Puppet] public Color PuppetColor { get; set; }
 	[Puppet] public bool PuppetIsRevived { get; set; }
 	[Puppet] public bool PuppetBeingRevived { get; set; }	
+	[Puppet] public int PuppetReviveBarValue { get; set; }	
 
 	[Export]
 	public float JumpSpeed { get; private set; }
@@ -106,7 +107,7 @@ public class Goblin : Character
 	public float LadderClimbSpeed { get => ladderClimbSpeed; }
 
 	[Export]
-	private float reviveTime = 3f;
+	private float reviveTime = 2f;
 	public float ReviveTime { get => reviveTime; }
 	private bool isRevived = false;
 	public bool IsRevived { 
@@ -129,15 +130,15 @@ public class Goblin : Character
 
 	private Vector2 screenSize;
 	
-	private Node2D nameTag;
-	private Label name;
+	public Node2D NameTag;
+	private Label NameTagLabel;
+	public ProgressBar ReviveBar;
+	
 	
 	public override void _Ready()
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
 		PlayerIndex = gm.AddNewPlayer(this);
-		if (!Globals.SinglePlayer) 
-			NetworkNode = GetNode<Network>("/root/Network");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
 		enemyHitBox = GetNode<Area2D>("EnemyHitBox");
@@ -159,10 +160,10 @@ public class Goblin : Character
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
 		
-		nameTag = GetNode<Node2D>("NameTag");
-		name = GetNode<Label>("NameTag/Panel/Name");
-		if (Globals.PlayerName != "") name.Text = Globals.PlayerName;
-		else nameTag.Visible = false;
+		NameTag = GetNode<Node2D>("NameTag");
+		NameTagLabel = NameTag.GetNode<Label>("Panel/Name");
+
+		ReviveBar = GetNode<ProgressBar>("Revive/ProgressBar");
 
 		defaultSpriteScale = sprite.Scale;
 		FaceDirection = -1;
@@ -172,6 +173,11 @@ public class Goblin : Character
 		screenSize = GetViewport().GetVisibleRect().Size;
 
 		State = new MoveState(this);
+		if (!Globals.SinglePlayer) {
+			NetworkNode = GetNode<Network>("/root/Network");		
+		} else {
+			NameTag.Visible = false;			
+		}
 	}
 
 	public override void _Process(float delta)
@@ -217,7 +223,8 @@ public class Goblin : Character
 	
 	[Remote]
 	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim, 
-							bool killed, Color color, bool ir, bool br, bool dead)
+							bool killed, Color color, bool ir, bool br, 
+							bool dead, int rbv)
 	{
 		PuppetPosition = pos;
 		PuppetVelocity = vel;
@@ -228,13 +235,14 @@ public class Goblin : Character
 		PuppetIsRevived = ir;
 		PuppetBeingRevived = br;		
 		PuppetIsDead = dead;
+		PuppetReviveBarValue = rbv;
 	}
 	
 	public void BroadcastState() 
 	{
 		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
 		animPlayer.CurrentAnimation, Killed, sprite.Modulate, isRevived, 
-		BeingRevived, IsDead);
+		BeingRevived, IsDead, ReviveBar.Value);
 	}
 	
 	public void ReceiveState() 
@@ -256,8 +264,13 @@ public class Goblin : Character
 		if (PuppetIsRevived && !isRevived) 
 			RevivePlayer();
 		isRevived = PuppetIsRevived;
+		if (PuppetBeingRevived && !BeingRevived) {
+			SetReviveBarVisible(true);
+		} else if (!PuppetBeingRevived && BeingRevived) {
+			SetReviveBarVisible(false);
+		}
 		BeingRevived = PuppetBeingRevived;
-		
+		ReviveBar.Value = PuppetReviveBarValue;	
 		if (PuppetIsDead && !IsDead) 
 			RemoveSelf();
 		IsDead = PuppetIsDead;
@@ -519,8 +532,7 @@ public class Goblin : Character
 	public void SetName(String name)
 	{
 		PlayerName = name;
-		Label nameTag = (Label) GetNode("NameTag/Panel/Name");
-		nameTag.Text = name;
+		NameTagLabel.Text = name;
 	}
 	
 	public void RevivePlayer()
@@ -528,6 +540,7 @@ public class Goblin : Character
 		BeingRevived = false;
 		isRevived = true;
 		Killed = false;
+		SetReviveBarVisible(false);		
 		State.ExitState(new MoveState(this));
 		gm.SetNewPlayer(this, PlayerIndex);
 		SetCollisionLayerBit(1, true);
@@ -557,6 +570,15 @@ public class Goblin : Character
 	[Remote]
 	public void SetBeingRevivedMaster(bool br)
 	{
-		if (IsNetworkMaster()) BeingRevived = br;
+		if (IsNetworkMaster()) {
+			SetReviveBarVisible(br);
+			BeingRevived = br;
+		}
+	}
+	
+	public void SetReviveBarVisible(bool visible)
+	{
+		NameTag.Visible = !visible;
+		ReviveBar.Visible = visible;			
 	}
 }
