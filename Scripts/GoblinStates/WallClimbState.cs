@@ -36,9 +36,14 @@ namespace GoblinStates
 			isMovingDown = false;
 			if (Input.IsActionPressed("move_up")) {
 				isMovingUp = true;
+				player.PlayAnimation("Climb");
 			} else if (Input.IsActionPressed("move_down")) {
 				isMovingDown = true;
 			} 
+
+			if (player.Velocity.y > 0) {
+				player.PlayAnimation("Slide");
+			}
 		}
 
 		public override void _PhysicsProcess(float delta)

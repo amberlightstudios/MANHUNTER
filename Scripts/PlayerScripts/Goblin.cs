@@ -374,6 +374,9 @@ public class Goblin : Character
 
 	public bool CanWallClimb() 
 	{
+		if (!wallDetect.IsColliding()) {
+			animPlayer.Play("Jump");
+		}
 		return wallDetect.IsColliding();
 	}
 
