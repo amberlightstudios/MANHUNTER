@@ -14,17 +14,17 @@ namespace GoblinStates {
 		{
 			timer += delta;
 
-			if (timer < 0.2f 
-			&& ((player.FaceDirection == 1 && Input.IsActionJustPressed("move_right")) 
-			|| (player.FaceDirection == -1 && Input.IsActionJustPressed("move_left")))
-			|| Input.IsActionPressed("speed_boost")) {
-				SpeedBoost = player.SpeedBoost;
-			}
+			// if (timer < 0.2f 
+			// && ((player.FaceDirection == 1 && Input.IsActionJustPressed("move_right")) 
+			// || (player.FaceDirection == -1 && Input.IsActionJustPressed("move_left")))
+			// || Input.IsActionPressed("speed_boost")) {
+			// 	SpeedBoost = player.SpeedBoost;
+			// }
 
-			if (Input.IsActionJustReleased("speed_boost") 
-			|| (Input.IsActionJustReleased("move_left") || Input.IsActionJustReleased("move_right"))) {
-				SpeedBoost = 1;
-			}
+			// if (Input.IsActionJustReleased("speed_boost") 
+			// || (Input.IsActionJustReleased("move_left") || Input.IsActionJustReleased("move_right"))) {
+			// 	SpeedBoost = 1;
+			// }
 
 			if (Input.IsActionJustPressed("move_right") || Input.IsActionJustPressed("move_left")) {
 				timer = 0;

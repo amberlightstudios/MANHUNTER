@@ -44,7 +44,7 @@ public class StaticShooter : Enemy
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		gm =  GetParent().GetParent().GetNode<GameManager>("GameManager");
 
-		State = new NormalState(this, shootFrequency);
+		State = new NormalState(this);
 	}
 
 	public override void _Process(float delta)
