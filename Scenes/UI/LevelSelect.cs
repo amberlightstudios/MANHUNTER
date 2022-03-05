@@ -31,6 +31,7 @@ public class LevelSelect : Control
 		}
 		else if (inputEvent.IsActionPressed("ui_accept")) {
 //			GD.Print("Level " + levelSelected);
+			Globals.LastPlayedLevel = levelSelected.ToString();
 			FadeIntoLevel();
 		}
 	}
