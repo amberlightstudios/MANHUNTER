@@ -182,6 +182,11 @@ public class Goblin : Character
 
 	public override void _Process(float delta)
 	{
+		// Delete this part later
+		if (Input.IsActionJustPressed("Invincible")) {
+			Killed = !Killed;
+		}
+
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
 			State._Process(delta);			
 		}

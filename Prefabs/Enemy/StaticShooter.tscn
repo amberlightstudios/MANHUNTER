@@ -6,7 +6,7 @@
 load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 122.167, 2.66667 )
+extents = Vector2( 188.333, 2.66667 )
 
 [sub_resource type="StreamTexture" id=14]
 
@@ -147,8 +147,8 @@ Gravity = 2.0
 health = 1
 noticeTime = 0.4
 shootFrequency = 1.5
-bulletSpeed = 13.0
-bulletRange = 450.0
+bulletSpeed = 14.0
+bulletRange = 600.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 19 )
@@ -168,7 +168,7 @@ collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/ShootRange"]
-position = Vector2( -29.5, 0.333331 )
+position = Vector2( -4.66664, 0.333333 )
 z_index = 10
 shape = SubResource( 11 )
 
