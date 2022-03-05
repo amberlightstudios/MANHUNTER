@@ -540,6 +540,7 @@ public class Goblin : Character
 		BeingRevived = false;
 		isRevived = true;
 		Killed = false;
+		ReviveBar.Value = 0;
 		SetReviveBarVisible(false);		
 		State.ExitState(new MoveState(this));
 		gm.SetNewPlayer(this, PlayerIndex);

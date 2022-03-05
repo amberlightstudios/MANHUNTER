@@ -6,20 +6,20 @@ namespace ShooterStates
 	public class NormalState : ShooterState
 	{
 		private float timer = 0f;
-        private bool noticed = false;
+		private bool noticed = false;
 
 		public NormalState(StaticShooter shooter) 
 		{
 			this.shooter = shooter;
 			timer = 0f;
-            noticed = false;
+			noticed = false;
 		}
 
-        public NormalState(StaticShooter shooter, bool noticed) 
-        {
-            this.shooter = shooter;
-            this.noticed = noticed;
-        }
+		public NormalState(StaticShooter shooter, bool noticed) 
+		{
+			this.shooter = shooter;
+			this.noticed = noticed;
+		}
 
 		private int tick = 0;
 		public override void _Process(float delta)
@@ -40,12 +40,12 @@ namespace ShooterStates
 				}
 			}
 
-            if (noticed) {
-                timer += delta;
-                if (timer > 2f) {
-                    noticed = false;
-                }
-            }
+			if (noticed) {
+				timer += delta;
+				if (timer > 2f) {
+					noticed = false;
+				}
+			}
 			
 			if (shooter.Velocity.x != 0) {
 				shooter.PlayAnimation("Walk");
@@ -59,15 +59,15 @@ namespace ShooterStates
 			Goblin target = shooter.DetectPlayer();
 			if (target != null) {
 				if (!noticed) {
-                    ExitState(new NoticeState(shooter, target));
-                } else {
-                    if (target.Position.x < shooter.Position.x) {
-                        shooter.TurnLeft();
-                    } else if (target.Position.x > shooter.Position.x) {
-                        shooter.TurnRight();
-                    }
-                    ExitState(new AttackState(shooter));
-                }
+					ExitState(new NoticeState(shooter, target));
+				} else {
+					if (target.Position.x < shooter.Position.x) {
+						shooter.TurnLeft();
+					} else if (target.Position.x > shooter.Position.x) {
+						shooter.TurnRight();
+					}
+					ExitState(new AttackState(shooter));
+				}
 				return;
 			} 
 
