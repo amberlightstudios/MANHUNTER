@@ -1,50 +1,65 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public class LevelSelect : Control
 {
 	int levelSelected = 1;
+	
+	private AnimationPlayer animPlayer;
+
 	public override void _Ready()
 	{
+		animPlayer = (AnimationPlayer) GetNode("Fader/AnimationPlayer");
 		Button L1 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/1/1");
-		Button L2 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/2/2");
 		L1.GrabFocus();
-	}
-	
-	public override void _Process(float delta)
-	{
-		// TODO: change logic to on enter pressed anywhere inside the main menu and update the state 
+		
+		FindAllLevels();
 	}
 
-	
-	private void _on_1_pressed()
+	public override void _Input(InputEvent inputEvent)
 	{
-		Globals.LastPlayedLevel = 1;
-		if (Globals.SinglePlayer) 
-			GetTree().ChangeScene(Globals.GetPathToLevel(1));
-		else
-			GetTree().ChangeScene(Globals.PathToNetwork);			
-	}
-
-
-	private void _on_2_pressed()
-	{
-		Globals.LastPlayedLevel = 2;
-		if (Globals.SinglePlayer) 
-			GetTree().ChangeScene(Globals.GetPathToLevel(2));
-		else
-			GetTree().ChangeScene(Globals.PathToNetwork);	
-	}
-	
-	private void _on_3_pressed()
-	{
-		// Replace with function body.
-		Globals.LastPlayedLevel = 3;
-		if (Globals.SinglePlayer) {
-			GetTree().ChangeScene(Globals.GetPathToLevel(3));
-		} else {
-			GetTree().ChangeScene(Globals.PathToNetwork);
+		if (inputEvent.IsActionPressed("ui_up")) {
+			if (levelSelected == 1) return;
+			levelSelected = (levelSelected - 1) % Globals.NumLevels;
+//			GD.Print("Level " + levelSelected);
 		}
+		else if (inputEvent.IsActionPressed("ui_down")) {
+			if (levelSelected == Globals.NumLevels) return;
+			levelSelected = (levelSelected + 1);
+//			GD.Print("Level " + levelSelected);
+		}
+		else if (inputEvent.IsActionPressed("ui_accept")) {
+//			GD.Print("Level " + levelSelected);
+			FadeIntoLevel();
+		}
+	}
+	
+	async Task FadeIntoLevel()
+	{
+		animPlayer.Play("Fade");
+		await Task.Delay(700);
+		if (Globals.SinglePlayer) 
+			GetTree().ChangeScene(Globals.GetPathToLevel(levelSelected.ToString()));
+		else
+			GetTree().ChangeScene(Globals.PathToNetwork);
+	}
+	
+	private void FindAllLevels()
+	{
+		if (Globals.LevelsLoaded) return;
+		var dir = new Directory();
+		dir.Open("res://Scenes/Levels");
+		dir.ListDirBegin();
+		var fileName = dir.GetNext();
+		while (fileName != "") {
+			if (!fileName.BeginsWith(".")) {
+				Globals.NumLevels++;
+				GD.Print(fileName);
+			}
+			fileName = dir.GetNext();
+		}
+		Globals.LevelsLoaded = false;
 	}
 }
 

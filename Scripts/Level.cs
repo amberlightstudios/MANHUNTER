@@ -26,6 +26,7 @@ public class Level : Node2D
 				LastPlayer = Player;
 			}
 		}
+		FadeOut();
 	}
 	
 	public void AttachCamera(Goblin target) { 
@@ -43,4 +44,12 @@ public class Level : Node2D
 		return playerNode;
 	}
 
+	private void FadeOut()
+	{
+		PackedScene fadeScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Fader.tscn");
+		CanvasLayer fader = (CanvasLayer) fadeScene.Instance<CanvasLayer>();
+		AnimationPlayer fade = (AnimationPlayer) fader.GetNode("AnimationPlayer");
+		fade.PlayBackwards("Fade");
+		GetParent().AddChild(fader);
+	}
 }

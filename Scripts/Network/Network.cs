@@ -141,7 +141,7 @@ public class Network : Node
 	}
 	
 	[Remote]
-	private void SyncLevel(int level)
+	private void SyncLevel(string level)
 	{
 		Globals.LastPlayedLevel = level;
 	}
