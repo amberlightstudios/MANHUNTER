@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/UI/LevelSelect.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=2]
@@ -6,8 +6,11 @@
 [ext_resource path="res://addons/FontAwesome5/fa-solid-900.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://addons/FontAwesome5/FontAwesome.gd" type="Script" id=5]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.345098, 0.447059, 0.537255, 1 )
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.32549, 0.407843, 0.509804, 1 )
@@ -21,8 +24,24 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="DynamicFont" id=3]
-size = 48
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="DynamicFont" id=8]
+size = 60
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="DynamicFont" id=9]
+size = 60
 font_data = ExtResource( 4 )
 
 [sub_resource type="Animation" id=7]
@@ -86,6 +105,9 @@ tracks/1/keys = {
 "values": [ Vector2( 150, 0 ) ]
 }
 
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.345098, 0.447059, 0.537255, 1 )
+
 [node name="LevelSelect" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -142,7 +164,7 @@ text = "
 
 
 
-Level Select
+choose a level
 __________
 
 
@@ -166,8 +188,10 @@ __meta__ = {
 margin_left = 250.0
 margin_right = 1030.0
 margin_bottom = 157.0
-custom_styles/hover = SubResource( 1 )
-custom_styles/focus = SubResource( 2 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 17 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/normal = SubResource( 2 )
 
 [node name="LRButtons" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons/Level"]
 margin_left = 250.0
@@ -180,12 +204,15 @@ custom_constants/margin_left = 150
 margin_left = 150.0
 margin_right = 630.0
 margin_bottom = 157.0
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 13 )
 
 [node name="Left" type="Label" parent="MarginContainer/VBoxContainer/Buttons/Level/LRButtons/Left"]
-margin_top = 63.0
+margin_top = 50.0
 margin_right = 480.0
 margin_bottom = 111.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 8 )
 text = ""
 script = ExtResource( 5 )
 __meta__ = {
@@ -198,12 +225,15 @@ icon_name = "chevron-left"
 margin_left = 150.0
 margin_right = 630.0
 margin_bottom = 157.0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
 
 [node name="Right" type="Label" parent="MarginContainer/VBoxContainer/Buttons/Level/LRButtons/Right"]
-margin_top = 63.0
+margin_top = 50.0
 margin_right = 480.0
 margin_bottom = 111.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 9 )
 text = ""
 align = 2
 script = ExtResource( 5 )

@@ -17,7 +17,6 @@ public class LevelSelect : Control
 		fader = (AnimationPlayer) GetNode("Fader/AnimationPlayer");
 		levelSelector = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Level/Number");
 		levelSelector.Text = "LEVEL " + levelSelected;
-		levelSelector.GrabFocus();
 		
 		FindAllLevels();
 	}
@@ -26,14 +25,14 @@ public class LevelSelect : Control
 	{
 		if (inputEvent.IsActionPressed("ui_left")) {
 			toggle.Play("GrowLeft");
-			if (levelSelected == 1) return;
-			levelSelected = (levelSelected - 1) % Globals.NumLevels;
+			if (levelSelected == 1) levelSelected = Globals.NumLevels;
+			else levelSelected --;
 			levelSelector.Text = "LEVEL " + levelSelected;
 		}
 		else if (inputEvent.IsActionPressed("ui_right")) {
 			toggle.Play("GrowRight");
-			if (levelSelected == Globals.NumLevels) return;
-			levelSelected = (levelSelected + 1);
+			if (levelSelected == Globals.NumLevels) levelSelected = 1;
+			else levelSelected++;
 			levelSelector.Text = "LEVEL " + levelSelected;
 		}
 		else if (inputEvent.IsActionPressed("ui_accept")) {
@@ -62,11 +61,10 @@ public class LevelSelect : Control
 		while (fileName != "") {
 			if (!fileName.BeginsWith(".")) {
 				Globals.NumLevels++;
-//				GD.Print(fileName);
 			}
 			fileName = dir.GetNext();
 		}
-		Globals.LevelsLoaded = false;
+		Globals.LevelsLoaded = true;
 	}
 }
 
