@@ -318,8 +318,10 @@ public class Goblin : Character
 		if (!Globals.SinglePlayer && IsNetworkMaster()) {
 			SynchronizeState();
 		}
-		FreeCamera();				
-		gm.RemovePlayer(PlayerIndex);
+		FreeCamera();			
+		if (!Killed) {	
+			gm.RemovePlayer(PlayerIndex);
+		}
 		if (gm.NumPlayers == 0) GameOver();			
 		else {
 			AttachCamera();			
