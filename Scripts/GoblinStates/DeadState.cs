@@ -47,7 +47,8 @@ namespace GoblinStates
 				player.State = new MoveState(this.player);
 				player.Killed = false;
 				player.IsRevived = false;
-				player.BeingRevived = false;
+				player.BeingRevived = false;			
+				player.ReviveBar.Value = 0;	
 			}
 			return;
 		}

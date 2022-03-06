@@ -548,13 +548,12 @@ public class Goblin : Character
 	
 	public void RevivePlayer()
 	{
-		BeingRevived = false;
-		isRevived = true;
-		Killed = false;
-		ReviveBar.Value = 0;
+		if (IsNetworkMaster()) {
+			isRevived = true;
+			State.ExitState(new MoveState(this));				
+		}
+		gm.SetNewPlayer(this, PlayerIndex);		
 		SetReviveBarVisible(false);		
-		State.ExitState(new MoveState(this));
-		gm.SetNewPlayer(this, PlayerIndex);
 		SetCollisionLayerBit(1, true);
 		SetCollisionLayerBit(7, false);
 		enemyHitBox.SetCollisionLayerBit(1, true);
