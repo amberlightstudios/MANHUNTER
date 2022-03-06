@@ -196,6 +196,7 @@ WallClimbSpeed = 300.0
 DashSpeed = 700.0
 AttakDeceleration = 0.0
 ladderClimbSpeed = 300.0
+reviveTime = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.333344, -0.333328 )

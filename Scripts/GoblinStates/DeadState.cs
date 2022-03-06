@@ -31,7 +31,7 @@ namespace GoblinStates
 
 			if (!player.BeingRevived) {
 				timer += delta;
-				if (timer > 5f) {
+				if (timer > 12f) {
 					player.RemoveSelf();
 				} 
 			} else {
