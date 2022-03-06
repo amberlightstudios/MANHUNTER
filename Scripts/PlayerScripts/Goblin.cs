@@ -346,14 +346,30 @@ public class Goblin : Character
 		Cam cam = (Cam) GetParent().GetNode("Cam");
 		cam.Player = gm.GetRandomAlive();
 	}
-
-	public override void TakeDamage(int dmg) 
-	{   
-		if (Killed) return;
-		GD.Print($"{PlayerName} Take Damge");
+	
+	[Remote]
+	public void TakeDamageMaster(int dmg)
+	{
+		if (Killed) return;		
+		GD.Print($"{PlayerName} Take Damge in Master");
 		base.TakeDamage(dmg);
 		if (health <= 0)
 			State = new DeadState(this);
+	}
+
+	public override void TakeDamage(int dmg) 
+	{   
+		if (Killed) return;		
+		if (Globals.SinglePlayer || IsNetworkMaster()) {
+			GD.Print($"{PlayerName} Take Damge");
+			base.TakeDamage(dmg);
+			if (health <= 0)
+				State = new DeadState(this);
+		} 
+		if (!Globals.SinglePlayer && !IsNetworkMaster()) {
+			RpcId(Int32.Parse(Name), nameof(TakeDamageMaster), dmg);
+		}
+
 		// if (IsInvincible || dmg == 0)
 		// 	return;
 		// base.TakeDamage(dmg);
