@@ -171,7 +171,7 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0 )
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="DynamicFont" id=43]
-size = 64
+size = 50
 font_data = ExtResource( 5 )
 
 [sub_resource type="Theme" id=51]
@@ -366,19 +366,21 @@ position = Vector2( -10, -20 )
 scale = Vector2( 0.1, 0.1 )
 
 [node name="Panel2" type="Panel" parent="NameTag"]
+visible = false
 margin_left = 103.333
-margin_top = 50.0
-margin_right = 143.333
-margin_bottom = 90.0
+margin_top = 60.0
+margin_right = 128.333
+margin_bottom = 85.0
 rect_rotation = 45.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="NameTag"]
-margin_left = -16.6667
-margin_right = 233.333
-margin_bottom = 80.0
+margin_left = 20.0
+margin_top = 35.0
+margin_right = 200.0
+margin_bottom = 95.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

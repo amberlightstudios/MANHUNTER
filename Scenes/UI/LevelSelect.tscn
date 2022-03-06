@@ -30,7 +30,7 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id=13]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=19]
 size = 60
 font_data = ExtResource( 4 )
 
@@ -40,7 +40,7 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=16]
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=20]
 size = 60
 font_data = ExtResource( 4 )
 
@@ -212,7 +212,7 @@ custom_styles/focus = SubResource( 13 )
 margin_top = 50.0
 margin_right = 480.0
 margin_bottom = 111.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 19 )
 text = ""
 script = ExtResource( 5 )
 __meta__ = {
@@ -233,7 +233,7 @@ custom_styles/focus = SubResource( 16 )
 margin_top = 50.0
 margin_right = 480.0
 margin_bottom = 111.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 20 )
 text = ""
 align = 2
 script = ExtResource( 5 )
