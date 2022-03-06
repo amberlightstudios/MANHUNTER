@@ -49,8 +49,8 @@ public class Enemy : Character
 	public void SynchronizeState()
 	{
 		if (isTakingDamage) return;
-		if (GetTree().NetworkPeer != null) {
-			if  (GetTree().IsNetworkServer()) {
+		if (!Globals.SinglePlayer) {
+			if (Globals.IsHost) {
 				BroadcastState();
 			} else {
 				Interpolate();

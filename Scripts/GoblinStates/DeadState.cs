@@ -16,7 +16,7 @@ namespace GoblinStates
 			if (!Globals.SinglePlayer) {
 				player.SetIsKilled();				
 			} else {
-				player.GameOver();
+				player.RemoveSelf();
 			}
 		}
 

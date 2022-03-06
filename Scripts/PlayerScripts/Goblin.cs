@@ -326,9 +326,7 @@ public class Goblin : Character
 			SynchronizeState();
 		}
 		FreeCamera();			
-		if (!Killed) {	
-			gm.RemovePlayer(PlayerIndex);
-		}
+		if (!Killed) gm.RemovePlayer(PlayerIndex);
 		if (gm.NumPlayers == 0) GameOver();			
 		else {
 			AttachCamera();			
@@ -350,7 +348,7 @@ public class Goblin : Character
 	[Remote]
 	public void TakeDamageMaster(int dmg)
 	{
-		if (Killed) return;		
+		if (Killed || IsDead) return;		
 		GD.Print($"{PlayerName} Take Damge in Master");
 		base.TakeDamage(dmg);
 		if (health <= 0)
@@ -359,7 +357,7 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (Killed) return;		
+		if (Killed || IsDead) return;		
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
 			GD.Print($"{PlayerName} Take Damge");
 			base.TakeDamage(dmg);
