@@ -114,6 +114,7 @@ public class Goblin : Character
 		get => isRevived; 
 		set {
 			if (value) RevivePlayerPuppet();
+			if (IsNetworkMaster()) isRevived = value;
 		}    
 	}
 	public bool BeingRevived = false;
@@ -265,9 +266,9 @@ public class Goblin : Character
 			animPlayer.Play(PuppetAnimation);
 		if (PuppetKilled && !Killed) 
 			SetIsKilled();
-		Killed = PuppetKilled;
-		if (PuppetIsRevived && !isRevived) 
+		else if (!PuppetKilled && Killed) 
 			RevivePlayer();
+		Killed = PuppetKilled;		
 		isRevived = PuppetIsRevived;
 		if (PuppetBeingRevived && !BeingRevived) {
 			SetReviveBarVisible(true);
@@ -343,6 +344,7 @@ public class Goblin : Character
 	public override void TakeDamage(int dmg) 
 	{   
 		if (Killed) return;
+		GD.Print($"{PlayerName} Take Damge");
 		base.TakeDamage(dmg);
 		if (health <= 0)
 			State = new DeadState(this);
@@ -550,15 +552,15 @@ public class Goblin : Character
 	{
 		if (IsNetworkMaster()) {
 			isRevived = true;
+			SetColor(new Color(1, 1, 1, 1));		
+			SetReviveBarVisible(false);				
 			State.ExitState(new MoveState(this));				
 		}
 		gm.SetNewPlayer(this, PlayerIndex);		
-		SetReviveBarVisible(false);		
 		SetCollisionLayerBit(1, true);
 		SetCollisionLayerBit(7, false);
 		enemyHitBox.SetCollisionLayerBit(1, true);
 		enemyHitBox.SetCollisionLayerBit(7, false);
-		SetColor(new Color(1, 1, 1, 1));
 		return;
 	}
 	

@@ -59,6 +59,7 @@ public class GameManager : Node2D
 		if (PlayerList[index] == null) {
 			NumPlayers += 1;
 			PlayerList[index] = player;
+			GD.Print($"Set Player {player.PlayerName}. Now Number Is {NumPlayers}");
 		}
 	}
 	
@@ -68,6 +69,7 @@ public class GameManager : Node2D
 			return;
 		}
 		NumPlayers -= 1;
+		GD.Print($"Remove Player {index}. Now Number Is {NumPlayers}");		
 		PlayerList[index] = null;
 	}
 	
