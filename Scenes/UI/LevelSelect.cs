@@ -6,31 +6,37 @@ public class LevelSelect : Control
 {
 	int levelSelected = 1;
 	
-	private AnimationPlayer animPlayer;
+	private AnimationPlayer toggle;
+	private AnimationPlayer fader;
+	
+	private Button levelSelector;
 
 	public override void _Ready()
 	{
-		animPlayer = (AnimationPlayer) GetNode("Fader/AnimationPlayer");
-		Button L1 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/1/1");
-		L1.GrabFocus();
+		toggle = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/Buttons/Level/AnimationPlayer");
+		fader = (AnimationPlayer) GetNode("Fader/AnimationPlayer");
+		levelSelector = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Level/Number");
+		levelSelector.Text = "LEVEL " + levelSelected;
+		levelSelector.GrabFocus();
 		
 		FindAllLevels();
 	}
 
 	public override void _Input(InputEvent inputEvent)
 	{
-		if (inputEvent.IsActionPressed("ui_up")) {
+		if (inputEvent.IsActionPressed("ui_left")) {
+			toggle.Play("GrowLeft");
 			if (levelSelected == 1) return;
 			levelSelected = (levelSelected - 1) % Globals.NumLevels;
-//			GD.Print("Level " + levelSelected);
+			levelSelector.Text = "LEVEL " + levelSelected;
 		}
-		else if (inputEvent.IsActionPressed("ui_down")) {
+		else if (inputEvent.IsActionPressed("ui_right")) {
+			toggle.Play("GrowRight");
 			if (levelSelected == Globals.NumLevels) return;
 			levelSelected = (levelSelected + 1);
-//			GD.Print("Level " + levelSelected);
+			levelSelector.Text = "LEVEL " + levelSelected;
 		}
 		else if (inputEvent.IsActionPressed("ui_accept")) {
-//			GD.Print("Level " + levelSelected);
 			Globals.LastPlayedLevel = levelSelected.ToString();
 			FadeIntoLevel();
 		}
@@ -38,7 +44,7 @@ public class LevelSelect : Control
 	
 	async Task FadeIntoLevel()
 	{
-		animPlayer.Play("Fade");
+		fader.Play("Fade");
 		await Task.Delay(700);
 		if (Globals.SinglePlayer) 
 			GetTree().ChangeScene(Globals.GetPathToLevel(levelSelected.ToString()));
@@ -56,7 +62,7 @@ public class LevelSelect : Control
 		while (fileName != "") {
 			if (!fileName.BeginsWith(".")) {
 				Globals.NumLevels++;
-				GD.Print(fileName);
+//				GD.Print(fileName);
 			}
 			fileName = dir.GetNext();
 		}
