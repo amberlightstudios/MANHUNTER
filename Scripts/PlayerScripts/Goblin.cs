@@ -297,12 +297,18 @@ public class Goblin : Character
 	
 	public void SetIsKilled()
 	{
+		if (Killed) {
+			return;
+		}
+
 		Killed = true;		
 		if (!Globals.SinglePlayer && IsNetworkMaster()) {
 			SynchronizeState();
 		}
 		gm.RemovePlayer(PlayerIndex);
-		if (gm.NumPlayers == 0) GameOver();
+		if (gm.NumPlayers == 0) {
+			GameOver();
+		}
 		SetCollisionLayerBit(1, false);
 		SetCollisionLayerBit(7, true);
 		enemyHitBox.SetCollisionLayerBit(1, false);
