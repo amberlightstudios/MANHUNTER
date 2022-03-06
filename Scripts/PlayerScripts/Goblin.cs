@@ -310,6 +310,10 @@ public class Goblin : Character
 	}
 
 	public void RemoveSelf() {
+		if (IsDead) {
+			return;
+		}
+
 		IsDead = true;		
 		if (!Globals.SinglePlayer && IsNetworkMaster()) {
 			SynchronizeState();

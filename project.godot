@@ -28,7 +28,7 @@ window/fps/force_fps=0
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/AsepriteWizard/plugin.cfg", "res://addons/FontAwesome5/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/AsepriteWizard/plugin.cfg" )
 
 [global]
 
