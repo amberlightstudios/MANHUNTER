@@ -13,9 +13,7 @@ public class Popup : Control
 	public override void _Ready()
 	{
 		label = (RichTextLabel) GetNode("Panel/RichTextLabel");
-		if (label.Text == "") {
-			label.Text = text;
-		}
+		if (label.Text == "") label.Text = text;
 
 		animPlayer = (AnimationPlayer) GetNode("Panel/AnimationPlayer");
 		animPlayer.Play("Popup");

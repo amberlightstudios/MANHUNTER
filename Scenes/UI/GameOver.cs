@@ -3,7 +3,6 @@ using System;
 
 public class GameOver : Control
 {
-
 	public override void _Ready()
 	{
 		Button Restart = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Restart/Restart");
@@ -20,12 +19,10 @@ public class GameOver : Control
 		GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LastPlayedLevel));
 	}
 
-
 	private void MainMenu()
 	{
 		GetTree().ChangeScene("res://Scenes/UI/Menu.tscn");
 	}
-
 
 	private void QuitGame()
 	{
