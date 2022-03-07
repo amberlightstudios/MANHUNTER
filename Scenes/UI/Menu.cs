@@ -15,6 +15,9 @@ public class Menu : Control
 		HostButton.Connect("pressed", this, nameof(HostGame));
 		JoinButton.Connect("pressed", this, nameof(JoinGame));
 		QuitButton.Connect("pressed", this, nameof(QuitGame));
+		
+		AnimationPlayer blink = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/MarginContainer/AnimationPlayer");
+		blink.Play("Logo");
 	}
 	
 	public void PlayGame() {
