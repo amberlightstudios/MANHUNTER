@@ -32,7 +32,7 @@ public class Enemy : Character
 	
 	public override void _Process(float delta)
 	{
-		gm = GetNode<GameManager>("/root/Main/GameManager");
+		gm =  GetParent().GetParent().GetNode<GameManager>("GameManager");
 		gm.NumEnemies += 1;
 	}   
 

@@ -9,8 +9,8 @@ namespace ShooterStates
 			this.shooter = shooter;
 			shooter.Velocity = new Vector2(0, shooter.Velocity.y);
 			shooter.PlayAnimation("Death");
-            shooter.BloodGenerator.GenerateBlood(15);
-            shooter.SetCollisionLayerBit(2, false);
+			shooter.BloodGenerator.GenerateBlood(15);
+			shooter.SetCollisionLayerBit(2, false);
 		}
 
 		public override void _Process(float delta)

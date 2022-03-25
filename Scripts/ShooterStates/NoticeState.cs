@@ -25,7 +25,7 @@ namespace ShooterStates
 			shooter.PlayAnimation("IdleAlert");
 		}
 
-        private float secondTimer = 0f;
+		private float secondTimer = 0f;
 		public override void _PhysicsProcess(float delta)
 		{
 			timer += delta;
@@ -33,11 +33,11 @@ namespace ShooterStates
 				if (shooter.DetectPlayer() != null) {
 					ExitState(new AttackState(shooter, shooter.ShootFrequency - 0.3f));
 				} 
-                else if (secondTimer > 0.5f) {
+				else if (secondTimer > 0.5f) {
 					ExitState(new NormalState(shooter, true));
 				} else {
-                    secondTimer += delta;
-                }
+					secondTimer += delta;
+				}
 				return;
 			} 
 		}

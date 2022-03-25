@@ -112,7 +112,7 @@ public class Lobby : Network
 
 	public void LoadLevel()
 	{
-		Node levelScene = (Node) ((PackedScene) ResourceLoader.Load(Globals.LastPlayedLevel)).Instance();
+		Node levelScene = (Node) ((PackedScene) ResourceLoader.Load(Globals.GetPathToLevel(Globals.LevelSelected.ToString()))).Instance();
 		GetParent().AddChild(levelScene);
 	}
 }

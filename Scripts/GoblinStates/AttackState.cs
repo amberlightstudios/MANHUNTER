@@ -16,7 +16,7 @@ namespace GoblinStates
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
 			this.player = player;
-            player.IsAttacking = true;
+			player.IsAttacking = true;
 			
 			previousFaceDirection = player.FaceDirection;
 			speed = player.Speed;
@@ -74,21 +74,21 @@ namespace GoblinStates
 
 			if (!haveAttacked) {
 				int status = player.AttackEnemy();
-                if (status > 0) {
-                    haveAttacked = true;
-                } else if (status == -1) {
-                    return;
-                }
+				if (status > 0) {
+					haveAttacked = true;
+				} else if (status == -1) {
+					return;
+				}
 			}
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
-            timer += delta;
+			timer += delta;
 
-            if (timer >= 0.03f && timer <= 0.15f) {
-                player.DeflectBullet();
-            }
+			if (timer >= 0.03f && timer <= 0.15f) {
+				player.DeflectBullet();
+			}
 
 			if (player.IsRunningIntoLadder()) {
 				player.SetLadderCollision(false);
@@ -99,10 +99,10 @@ namespace GoblinStates
 			speed -= player.AttakDeceleration;
 		}
 
-        public override void ExitState(GoblinState newState) 
-        {
-            player.IsAttacking = false;
-            base.ExitState(newState);    
-        }
+		public override void ExitState(GoblinState newState) 
+		{
+			player.IsAttacking = false;
+			base.ExitState(newState);    
+		}
 	}
 }

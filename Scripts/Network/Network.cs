@@ -70,7 +70,7 @@ public class Network : Node
 		GD.Print($"tell other player my name is {PlayerName} and my id is {id}");
 		// tell the player that just connected who we are by sending an rpc back to them with your name.
 		RpcId(id, nameof(RegisterPlayer), PlayerName);
-		if (Globals.IsHost) Rpc(nameof(SyncLevel), Globals.LastPlayedLevel);
+		if (Globals.IsHost) Rpc(nameof(SyncLevel), Globals.LevelSelected);
 	}
 
 	private void PlayerDisconnected(int id)
@@ -141,8 +141,8 @@ public class Network : Node
 	}
 	
 	[Remote]
-	private void SyncLevel(string level)
+	private void SyncLevel(int level)
 	{
-		Globals.LastPlayedLevel = level;
+		Globals.LevelSelected = level;
 	}
 }

@@ -3,32 +3,29 @@ using System;
 
 public class LevelSelect : Control
 {
-	int levelSelected = 1;
-
 	public override void _Ready()
 	{
-		Button L1 = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/1/1");
-		L1.GrabFocus();
-
+		Button LevelBtn = (Button) GetNode($"MarginContainer/VBoxContainer/Buttons/{Globals.LevelSelected}/{Globals.LevelSelected}");
+		LevelBtn.GrabFocus();
 		FindAllLevels();
 	}
 
 	public override void _Input(InputEvent inputEvent)
 	{
 		if (inputEvent.IsActionPressed("ui_up")) {
-			if (levelSelected == 1) return;
-			levelSelected = (levelSelected - 1) % Globals.NumLevels;
+			if (Globals.LevelSelected == 1) return;
+			Globals.LevelSelected = (Globals.LevelSelected - 1) % Globals.NumLevels;
 //			GD.Print("Level " + levelSelected);
 		}
 		else if (inputEvent.IsActionPressed("ui_down")) {
-			if (levelSelected == Globals.NumLevels) return;
-			levelSelected = (levelSelected + 1);
+			if (Globals.LevelSelected == Globals.NumLevels) return;
+			Globals.LevelSelected = (Globals.LevelSelected + 1);
 //			GD.Print("Level " + levelSelected);
 		}
 		else if (inputEvent.IsActionPressed("ui_accept")) {
 //			GD.Print("Level " + levelSelected);
 			if (Globals.SinglePlayer) 
-				GetTree().ChangeScene(Globals.GetPathToLevel(levelSelected.ToString()));
+				GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LevelSelected.ToString()));
 			else
 				GetTree().ChangeScene(Globals.PathToNetwork);
 		}

@@ -11,7 +11,7 @@ public class Character : KinematicBody2D
 	protected const float TERMINAL_VELOCITY = 800f;
 	protected float normalGravity;
 
-    public bool IsAttacking = false;
+	public bool IsAttacking = false;
 
 	public virtual void TakeDamage(int dmg) 
 	{

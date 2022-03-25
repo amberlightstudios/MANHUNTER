@@ -26,7 +26,6 @@ public class Level : Network
 				LastPlayer = Player;
 			}
 		}
-		Globals.LastPlayedLevel = GetTree().CurrentScene.Filename;
 	}
 	
 	public void AttachCamera(Goblin target) { 
