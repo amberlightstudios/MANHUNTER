@@ -88,6 +88,8 @@ public class Goblin : Character
 	public CPUParticles2D Walk { get => walk; }
 	private CPUParticles2D jump;
 	public CPUParticles2D Jump { get => jump; }
+	private CPUParticles2D slide;
+	public CPUParticles2D Slide { get => slide; }
 
 	private Vector2 screenSize;
 	
@@ -119,6 +121,7 @@ public class Goblin : Character
 
 		walk = GetNode<CPUParticles2D>("Particles/Walk");
 		jump = GetNode<CPUParticles2D>("Particles/Jump");
+		slide = GetNode<CPUParticles2D>("Particles/Slide");
 		
 		nameTag = GetNode<Node2D>("NameTag");
 		name = GetNode<Label>("NameTag/Panel/Name");
@@ -325,6 +328,7 @@ public class Goblin : Character
 		WallDetectFoot.Scale = Vector2.One;
 		ladderDetectSide.Scale = new Vector2(-1, 1);
 		walk.Position = new Vector2(3, 9);
+		slide.Position = new Vector2(-5, 9);
 	}
 
 	public void TurnRight() 
@@ -336,6 +340,7 @@ public class Goblin : Character
 		WallDetectFoot.Scale = new Vector2(-1, 1);
 		ladderDetectSide.Scale = Vector2.One;
 		walk.Position = new Vector2(-3, 9);
+		slide.Position = new Vector2(5, 9);
 	}
 
 	public bool OnGround() 
@@ -376,6 +381,7 @@ public class Goblin : Character
 	{
 		if (!wallDetect.IsColliding()) {
 			animPlayer.Play("Jump");
+			slide.Emitting = false;
 		}
 		return wallDetect.IsColliding();
 	}
