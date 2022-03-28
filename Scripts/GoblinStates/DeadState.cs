@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace GoblinStates
 {
@@ -39,10 +40,18 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			if (Globals.SinglePlayer) {
-				player.Velocity = Vector2.Zero;
-			}
 			player.Velocity.x = 0;
+
+			if (!player.BeingRevived) {
+				timer += delta;
+				if (timer > 12f) {
+					player.RemoveSelf();
+				} 
+			} else {
+				if ((Math.Round(timer * 100, 0) * 100) % 50 == 0)  {
+					player.ReviveBar.Value += 1;
+				}
+			}
 		}
 
 		public override void ExitState(GoblinState newState)

@@ -39,6 +39,14 @@ public class GameManager : Node2D
 
 	public int AddNewPlayer(Goblin player) 
 	{
+		int oldIndex = newPlayerIndex;
+		while (PlayerList[newPlayerIndex] != null) {
+			++newPlayerIndex;
+			if (newPlayerIndex % 4 == oldIndex) {
+				GD.Print("Cannot find open spot for new player");
+				return -1;
+			}
+		}
 		PlayerList[newPlayerIndex] = player;
 		newPlayerIndex += 1;
 		NumPlayers += 1;
@@ -51,6 +59,7 @@ public class GameManager : Node2D
 		if (PlayerList[index] == null) {
 			NumPlayers += 1;
 			PlayerList[index] = player;
+			GD.Print($"Set Player {player.PlayerName}. Now Number Is {NumPlayers}");
 		}
 	}
 	
@@ -60,6 +69,7 @@ public class GameManager : Node2D
 			return;
 		}
 		NumPlayers -= 1;
+		GD.Print($"Remove Player {index}. Now Number Is {NumPlayers}");		
 		PlayerList[index] = null;
 	}
 	
