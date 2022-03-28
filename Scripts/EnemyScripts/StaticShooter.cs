@@ -26,12 +26,12 @@ public class StaticShooter : Enemy
 	private Area2D shootRange;
 	private Node2D shootPoint;
 	private RayCast2D groundDetect, edgeDetectLeft, edgeDetectRight, wallDetect, ladderDetectSide;
-	public BloodGenerator BloodGenerator;
 
 	public ShooterState State;
 
 	public override void _Ready() 
 	{
+		InitEnemy();
 		sprite = GetNode<Sprite>("Sprite");
 		shootRange = GetNode<Area2D>("Sprite/ShootRange");
 		shootPoint = GetNode<Node2D>("Sprite/ShootPoint");
@@ -41,8 +41,6 @@ public class StaticShooter : Enemy
 		edgeDetectLeft = GetNode<RayCast2D>("Detections/EdgeDetectLeft");
 		edgeDetectRight = GetNode<RayCast2D>("Detections/EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
-		BloodGenerator = GetNode<BloodGenerator>("BloodGenerator");
-
 		State = new NormalState(this);
 	}
 

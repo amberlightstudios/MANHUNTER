@@ -17,12 +17,11 @@ public class RushingEnemy : Enemy
 	private RayCast2D playerDetect, playerDetectBack;
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect, ladderDetectSide;
 	private Area2D meleeArea;
-	public BloodGenerator BloodGenerator;
-
 	public RushEnemyState State;
 
 	public override void _Ready()
 	{
+		InitEnemy();
 		playerDetect = GetNode<RayCast2D>("Sprite/PlayerDetect");
 		playerDetectBack = GetNode<RayCast2D>("Sprite/PlayerDetectBack");
 		meleeArea = GetNode<Area2D>("Sprite/MeleeArea");
@@ -33,8 +32,6 @@ public class RushingEnemy : Enemy
 		ladderDetectSide = GetNode<RayCast2D>("Sprite/LadderDetectSide");
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		BloodGenerator = GetNode<BloodGenerator>("BloodGenerator");
-
 		State = new NormalState(this);
 	}
 

@@ -1,16 +1,18 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using Effect;
 
 public class Enemy : Character
 {
 	protected GameManager gm;
+	public BloodGenerator BloodGenerator;	
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
 	public int FaceDirection;
 	public int Fire = 0;
 	public int Melee = 0;
-
+	public int GenerateBlood = 0;
 	public bool Stunned = false;
 
 
@@ -24,22 +26,25 @@ public class Enemy : Character
 	[Puppet] public string PuppetAnimation = "";
 	[Puppet] public int PuppetFaceDirection;
 	[Puppet] public Vector2 PuppetPosition;
-		
+	[Puppet] public int PuppetGenerateBlood;
+	
+	public void InitEnemy()
+	{
+		gm =  GetParent().GetParent().GetNode<GameManager>("GameManager");
+		gm.NumEnemies += 1;
+		BloodGenerator = GetNode<BloodGenerator>("BloodGenerator");		
+	}
+	
 	public override void _Ready()
 	{
-		
 	}
 	
 	public override void _Process(float delta)
 	{
-		gm =  GetParent().GetParent().GetNode<GameManager>("GameManager");
-		gm.NumEnemies += 1;
 	}   
 
 	public override void _PhysicsProcess(float delta)
 	{
-		velocity.y += Gravity;
-		MoveAndSlide(velocity);
 	}
 	
 	public void SynchronizeState()
@@ -57,12 +62,12 @@ public class Enemy : Character
 	public void BroadcastState()
 	{
 		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
-					  animPlayer.CurrentAnimation, Fire, Melee);
+					  animPlayer.CurrentAnimation, Fire, Melee, GenerateBlood);
 	}
 	
 	[Remote]
 	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim,
-							int fire, int melee)
+							int fire, int melee, int blood)
 	{
 		PuppetPosition = pos;
 		PuppetVelocity = vel;
@@ -70,6 +75,7 @@ public class Enemy : Character
 		PuppetAnimation = anim;
 		PuppetFire = fire;
 		PuppetMelee = melee;
+		PuppetGenerateBlood = blood;
 	}
 	
 	public void ReceiveState()
@@ -91,6 +97,9 @@ public class Enemy : Character
 		if (PuppetMelee > Melee) {
 			Melee += 1;
 			Attack();
+		}
+		if (PuppetGenerateBlood > GenerateBlood) {
+			BloodGenerator.GenerateBlood(PuppetGenerateBlood);
 		}
 	}
 
