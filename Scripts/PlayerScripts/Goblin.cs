@@ -11,11 +11,15 @@ public class Goblin : Character
 	public string PlayerName;
 	
 	[Export]
+	public int Lives = 3;
+
+	[Export]
 	public float Speed { get; private set; }
 	[Export]
 	public float SpeedBoost { get; private set; }
 	public Vector2 Velocity;
 	public bool Killed = false;
+	public bool BeingRevived = false;
 
 
 	[Puppet] public Vector2 PuppetPosition { get; set; }
@@ -79,6 +83,7 @@ public class Goblin : Character
 		}    
 	}
 	private Area2D reviveDetect;
+	private Vector2 spawnPos;
 
 	public GameManager gm;
 	public int PlayerIndex;
@@ -95,7 +100,8 @@ public class Goblin : Character
 	
 	private Node2D nameTag;
 	private Label name;
-	
+	public ProgressBar ReviveBar;
+
 	public override void _Ready()
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
@@ -132,6 +138,8 @@ public class Goblin : Character
 		FaceDirection = -1;
 
 		normalGravity = Gravity;
+
+		spawnPos = Position;
 
 		screenSize = GetViewport().GetVisibleRect().Size;
 
@@ -259,13 +267,20 @@ public class Goblin : Character
 	}
 
 	public void RemoveSelf() {
-		FreeCamera();				
-		gm.RemovePlayer(PlayerIndex);
-		if (gm.NumPlayers == 0) GameOver();			
-		else {
-			AttachCamera();			
-			QueueFree();
-		} 
+		Lives -= 1;
+
+		if (Lives == 0) {
+			FreeCamera();				
+			gm.RemovePlayer(PlayerIndex);
+			if (gm.NumPlayers == 0) GameOver();			
+			else {
+				AttachCamera();			
+				QueueFree();
+			} 
+		} else {
+			IsRevived = true;
+			Position = spawnPos;
+		}
 	}
 	
 	public void FreeCamera() {
@@ -399,6 +414,11 @@ public class Goblin : Character
 	public void SetColor(Color color) 
 	{
 		sprite.Modulate = color;
+	}
+
+	public void SetSpawnLocation(Vector2 loc) 
+	{
+		spawnPos = loc;
 	}
 
 	public int AttackEnemy() 
