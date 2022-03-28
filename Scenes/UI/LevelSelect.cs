@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 public class LevelSelect : Control
 {
+	private bool levelSelected;
+
 	private AnimationPlayer toggle;
 	private AnimationPlayer fader;
 	
@@ -21,6 +23,7 @@ public class LevelSelect : Control
 
 	public override void _Input(InputEvent inputEvent)
 	{
+		if (levelSelected) return;
 		if (inputEvent.IsActionPressed("ui_left")) {
 			toggle.Play("GrowLeft");
 			if (Globals.LevelSelected == 1) Globals.LevelSelected = Globals.NumLevels;
@@ -40,12 +43,14 @@ public class LevelSelect : Control
 	
 	async Task FadeIntoLevel()
 	{
+		levelSelected = true;
 		fader.Play("Fade");
 		await Task.Delay(700);
 		if (Globals.SinglePlayer) 
 			GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LevelSelected.ToString()));
 		else
 			GetTree().ChangeScene(Globals.PathToNetwork);
+		levelSelected = false;
 	}
 	
 	private void FindAllLevels()
