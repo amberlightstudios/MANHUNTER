@@ -6,7 +6,6 @@ public class JoinGame : Node
 	private LineEdit NameBox;
 	private LineEdit AddressTextBox;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		NameBox = (LineEdit) GetNode("MarginContainer/VBoxContainer/MarginContainer2/Name");
@@ -22,7 +21,6 @@ public class JoinGame : Node
 		if (Globals.JoinAddress != "") {
 			AddressTextBox.Text = Globals.JoinAddress;
 		}
-		
 	}
 	
 	private void _on_Name_text_changed(String new_text)
@@ -69,19 +67,11 @@ public class JoinGame : Node
 
 	private bool ValidateIPv4(string ipString)
 	{
-		if (String.IsNullOrWhiteSpace(ipString))
-		{
-			return false;
-		}
+		if (String.IsNullOrWhiteSpace(ipString)) return false;
 
 		string[] splitValues = ipString.Split('.');
-		if (splitValues.Length != 4)
-		{
-			return false;
-		}
-
-		byte tempForParsing;
-		GD.Print(splitValues);
+		if (splitValues.Length != 4) return false;
+//		GD.Print(splitValues);
 
 		return true;
 	}

@@ -15,10 +15,17 @@ public class Menu : Control
 		HostButton.Connect("pressed", this, nameof(HostGame));
 		JoinButton.Connect("pressed", this, nameof(JoinGame));
 		QuitButton.Connect("pressed", this, nameof(QuitGame));
+		
+		AnimationPlayer blink = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/MarginContainer/AnimationPlayer");
+		blink.Play("Logo");
 	}
 	
 	public void PlayGame() {
-		// TODO: this shouldn't be false, but need a solid way to seamlessly go from single to multi
+		if (GetTree().NetworkPeer != null) {
+			((NetworkedMultiplayerENet)GetTree().NetworkPeer).CloseConnection();
+			GetTree().NetworkPeer = null;
+		}
+
 		Globals.SinglePlayer = true;
 		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 	}
@@ -31,7 +38,6 @@ public class Menu : Control
 		} else {
 			GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 		}
-		
 	}
 	
 	public void JoinGame() {
