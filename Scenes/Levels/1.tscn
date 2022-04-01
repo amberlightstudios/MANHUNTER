@@ -34,13 +34,15 @@ tile_data = PoolIntArray( 196720, 1, 0, 196721, 1, 1, 196722, 1, 2, 196723, 1, 2
 
 [node name="GameManager" parent="." instance=ExtResource( 6 )]
 
-[node name="StaticShooter" parent="." instance=ExtResource( 8 )]
+[node name="Enemies" type="Node" parent="."]
+
+[node name="StaticShooter" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 7043, 348 )
 noticeTime = 10000.0
 shootFrequency = 10000.0
 bulletSpeed = 5.0
 
-[node name="StaticShooter2" parent="." instance=ExtResource( 8 )]
+[node name="StaticShooter2" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 6889, 346 )
 noticeTime = 10000.0
 shootFrequency = 10000.0
