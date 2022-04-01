@@ -1,0 +1,20 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/Z-Key.png-9e69150e75002b74a3b63acafcb819a4.stex"
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = SubResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = SubResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[resource]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
