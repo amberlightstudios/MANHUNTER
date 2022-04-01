@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sprites/Environment/Totem.png" type="Texture" id=1]
+
+[node name="Totem" type="Area2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 361, 498 )
+scale = Vector2( 3.5, 3.5 )
+z_index = -1
+texture = ExtResource( 1 )
