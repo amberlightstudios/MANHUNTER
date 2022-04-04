@@ -18,13 +18,21 @@ public class GoblinSound : AudioStreamPlayer2D
 
 	public void PlaySound(string name) 
 	{
-		if (name == "BasicIdle" || name == "BasicIdle2" || name == "BasicMoving" || name == "BasicMoving2") {
-			Stream = StreamAttack;
-			Play();
-		} 
-//		else if (name == "Jump") {
-//			Stream = StreamJump;
-//			Play();
-//		}
+		switch (name) {
+			case "BasicIdle":
+			case "BasicIdle2":
+			case "BasicMoving":
+			case "BasicMoving2":
+				Stream = StreamAttack;
+				Play();
+				break;
+			case "Jump":
+//				Stream = StreamJump;
+//				Play();
+//				break;
+			default:
+//				GD.Print(name + " does not have audio associated with it!");
+				break;
+		}
 	}
 }

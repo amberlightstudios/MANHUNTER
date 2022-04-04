@@ -1,12 +1,44 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/GrenadeEnemy.cs" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=12]
-load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
+[sub_resource type="StreamTexture" id=15]
+load_path = "res://.import/HumanBomber.png-9cc8a8959760de6c9b541df0ca9dda52.stex"
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 7.5 )
+
+[sub_resource type="Animation" id=16]
+length = 0.855
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.025, 0.145, 0.22, 0.27, 0.305, 0.33, 0.355 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 14.0, 15.0, 16.0, 17.0, 18.0, 15.0, 14.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.415
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.115 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 19.0, 20.0, 21.0 ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 0.1
@@ -24,8 +56,8 @@ tracks/0/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=13]
-length = 0.075
+[sub_resource type="Animation" id=18]
+length = 0.1
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -37,26 +69,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 7.0 ]
-}
-
-[sub_resource type="Animation" id=6]
-length = 0.135
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.085, 0.11 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8.0, 9.0, 10.0, 0.0 ]
+"values": [ 1.0 ]
 }
 
 [sub_resource type="Animation" id=7]
-length = 0.6
+length = 0.4
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -65,10 +82,26 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525 ),
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 5.0, 4.0 ]
+"values": [ 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 6.0, 5.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 12.0, 11.0 ]
 }
 
 [sub_resource type="RectangleShape2D" id=14]
@@ -81,11 +114,12 @@ collision_mask = 8
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 12 )
-hframes = 4
-vframes = 3
+texture = SubResource( 15 )
+hframes = 5
+vframes = 5
+frame = 14
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hblNob290ZXIxLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbmVtaWVzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9RmFsc2UKb19leF9wfD0K"
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW5lbWllcy9IdW1hbkJvbWJlci5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9RmFsc2UKb19mb2xkZXJ8PXJlczovL1Nwcml0ZXMvRW5lbWllcwpvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
 }
 
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
@@ -101,10 +135,12 @@ position = Vector2( 0.5, 1.5 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 16 )
+anims/Death = SubResource( 17 )
 anims/Idle = SubResource( 5 )
-anims/Jump = SubResource( 13 )
-anims/Shoot = SubResource( 6 )
+anims/IdleAlert = SubResource( 18 )
 anims/Walk = SubResource( 7 )
+anims/WalkAlert = SubResource( 19 )
 
 [node name="GroundDetect" type="RayCast2D" parent="."]
 enabled = true

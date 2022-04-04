@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Space-Key.png-be25329b43d862a468e5ac5d697c60a3.stex"
+path="res://.import/HumanBomber.png-9cc8a8959760de6c9b541df0ca9dda52.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Levels/Space-Key.png"
-dest_files=[ "res://.import/Space-Key.png-be25329b43d862a468e5ac5d697c60a3.stex" ]
+source_file="res://Sprites/Enemies/HumanBomber.png"
+dest_files=[ "res://.import/HumanBomber.png-9cc8a8959760de6c9b541df0ca9dda52.stex" ]
 
 [params]
 
