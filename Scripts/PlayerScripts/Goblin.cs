@@ -83,7 +83,7 @@ public class Goblin : Character
 		}    
 	}
 	private Area2D reviveDetect;
-	private Vector2 spawnPos;
+	public Vector2 SpawnPos;
 
 	public GameManager gm;
 	public int PlayerIndex;
@@ -139,7 +139,7 @@ public class Goblin : Character
 
 		normalGravity = Gravity;
 
-		spawnPos = Position;
+		SpawnPos = Position;
 
 		screenSize = GetViewport().GetVisibleRect().Size;
 
@@ -279,7 +279,7 @@ public class Goblin : Character
 			} 
 		} else {
 			IsRevived = true;
-			Position = spawnPos;
+			Position = SpawnPos;
 		}
 	}
 	
@@ -298,8 +298,15 @@ public class Goblin : Character
 	{   
 		if (Killed || Invincible) return;
 		base.TakeDamage(dmg);
-		if (health <= 0)
-			State = new DeadState(this);
+		if (health <= 0) {
+			Lives -= 1;
+			if (Lives <= 0) {
+				State = new DeadState(this);
+			} else {
+				Position = SpawnPos;
+				health = 1;
+			}
+		}
 	}
 
 	public Goblin FindReviveTarget() 
@@ -414,11 +421,6 @@ public class Goblin : Character
 	public void SetColor(Color color) 
 	{
 		sprite.Modulate = color;
-	}
-
-	public void SetSpawnLocation(Vector2 loc) 
-	{
-		spawnPos = loc;
 	}
 
 	public int AttackEnemy() 

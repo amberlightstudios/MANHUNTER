@@ -219,6 +219,7 @@ SpeedBoost = 1.2
 JumpSpeed = 90.0
 WallClimbSpeed = 300.0
 DashSpeed = 600.0
+Lives = 2
 AttakDeceleration = 0.0
 knockBackSpeed = 200.0
 ladderClimbSpeed = 300.0

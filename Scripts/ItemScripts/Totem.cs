@@ -17,7 +17,7 @@ public class Totem : Area2D
 	{
 		Godot.Collections.Array hitPlayerList = GetOverlappingBodies();
 		foreach (Goblin g in hitPlayerList) {
-			g.SetSpawnLocation(Position);
+			g.SpawnPos = Position;
 		}
 	}
 }

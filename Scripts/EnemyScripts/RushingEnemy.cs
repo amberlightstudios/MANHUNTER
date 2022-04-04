@@ -110,7 +110,7 @@ public class RushingEnemy : Enemy
 		foreach (Area2D g in meleeArea.GetOverlappingAreas()) {
 			Goblin player = g.GetParent<Goblin>();
 			if (!player.IsAttacking) {
-				player.TakeDamage(5);
+				player.TakeDamage(1);
 			} else {
 				return -1;
 			}
