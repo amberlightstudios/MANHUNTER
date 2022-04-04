@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Sprites/Effects/Dust.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerScripts/EnemyHitBox.cs" type="Script" id=3]
 [ext_resource path="res://Prefabs/Sounds/GoblinSound.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprites/UI/Fonts/SourceSansPro-Light.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Prefabs/Revive.tscn" type="PackedScene" id=6]
 
 [sub_resource type="StreamTexture" id=51]
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
@@ -406,6 +407,8 @@ scale_amount_random = 0.5
 color_ramp = SubResource( 41 )
 
 [node name="SoundEffects" parent="." instance=ExtResource( 4 )]
+
+[node name="Revive" parent="." instance=ExtResource( 6 )]
 
 [node name="NameTag" type="Node2D" parent="."]
 position = Vector2( -10, -20 )
