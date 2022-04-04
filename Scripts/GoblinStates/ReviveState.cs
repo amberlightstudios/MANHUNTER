@@ -14,6 +14,7 @@ namespace GoblinStates
 			target = deadTeammate;
 			player.Velocity = Vector2.Zero;
 			player.SetZeroGravity();
+			target.SetBeingRevivedPuppet(true);
 		}
 
 		public override void _Process(float delta)
@@ -21,6 +22,7 @@ namespace GoblinStates
 			if (Input.IsActionJustReleased("Revive")) {
 				player.ReturnNormalGravity();
 				ExitState(new MoveState(player));
+				target.SetBeingRevivedPuppet(false);
 				return;
 			}
 		}
