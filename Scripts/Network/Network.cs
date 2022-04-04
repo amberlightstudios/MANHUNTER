@@ -127,7 +127,7 @@ public class Network : Node
 			Players.Remove(id);
 		}
 		NumPlayers -= 1;
-		if (LobbyRoom != null) {
+		if (IsInstanceValid(LobbyRoom)) {
 			LobbyRoom.RemovePlayer(id);		
 			LobbyRoom.NumPlayers -= 1;
 		}

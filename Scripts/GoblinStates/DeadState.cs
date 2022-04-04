@@ -13,15 +13,7 @@ namespace GoblinStates
 			this.player = player;
 			player.Velocity = Vector2.Zero;
 			player.ReturnNormalGravity();
-			
-			player.Killed = true;
-
-			if (!Globals.SinglePlayer) {
-				player.SynchronizeState();
-				player.SetDead();				
-			} else {
-				player.PlayAnimation("Death");
-			}
+			player.SetIsKilled();				
 		}
 
 		public override void _Process(float delta)
@@ -60,6 +52,8 @@ namespace GoblinStates
 				player.State = new MoveState(this.player);
 				player.Killed = false;
 				player.IsRevived = false;
+				player.BeingRevived = false;			
+				player.ReviveBar.Value = 0;	
 			}
 			return;
 		}
