@@ -1,13 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/ParallaxBackground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/GameManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Prefabs/Environment/Autotiles.tres" type="TileSet" id=6]
 [ext_resource path="res://Prefabs/Environment/Ladders.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Enemy/RushingEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree3.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree4.tscn" type="PackedScene" id=12]
 
 [node name="Main" type="Node2D"]
 position = Vector2( 0, -1 )
@@ -20,6 +24,90 @@ position = Vector2( 196, 342 )
 layer = -10
 
 [node name="GameManager" parent="." instance=ExtResource( 5 )]
+
+[node name="Trees" type="Node" parent="."]
+
+[node name="Tree1" parent="Trees" instance=ExtResource( 2 )]
+position = Vector2( 829.674, 279.142 )
+
+[node name="Tree2" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 2064.88, 231.629 )
+
+[node name="Tree3" parent="Trees" instance=ExtResource( 10 )]
+position = Vector2( 2038.14, 232.156 )
+
+[node name="Tree9" parent="Trees" instance=ExtResource( 10 )]
+position = Vector2( 3565.82, 232.442 )
+
+[node name="Tree4" parent="Trees" instance=ExtResource( 12 )]
+position = Vector2( 5892.71, 232.034 )
+
+[node name="Tree5" parent="Trees" instance=ExtResource( 12 )]
+position = Vector2( 3182.1, 230.263 )
+
+[node name="Tree6" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 3213.02, 231.836 )
+
+[node name="Tree8" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 3593.91, 220.222 )
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree7" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 3993.42, 233.19 )
+scale = Vector2( -1, 1 )
+
+[node name="Tree10" parent="Trees" instance=ExtResource( 2 )]
+position = Vector2( 3508.47, 236.295 )
+
+[node name="Tree11" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 5300.19, 279.597 )
+
+[node name="Tree12" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 5549.07, 307.958 )
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree13" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 5520.51, 327.89 )
+scale = Vector2( -1, 1 )
+
+[node name="Tree14" parent="Trees" instance=ExtResource( 2 )]
+position = Vector2( 5234.64, 280.292 )
+
+[node name="Tree23" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 4737.03, 87.7455 )
+
+[node name="Tree24" parent="Trees" instance=ExtResource( 2 )]
+position = Vector2( 4601.93, 41.8115 )
+
+[node name="Tree15" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 7017.38, 186.631 )
+
+[node name="Tree16" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 7634.82, 404.67 )
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree17" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 7888.4, 119.202 )
+rotation = -0.101229
+scale = Vector2( -1, 1.2 )
+
+[node name="Tree18" parent="Trees" instance=ExtResource( 2 )]
+position = Vector2( 7608.6, 424.049 )
+
+[node name="Tree19" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 6484.23, 185.175 )
+
+[node name="Tree20" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 6550.17, 166.516 )
+rotation = 0.174533
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree21" parent="Trees" instance=ExtResource( 4 )]
+position = Vector2( 6960.07, 185.968 )
+scale = Vector2( -1, 1 )
+
+[node name="Tree22" parent="Trees" instance=ExtResource( 2 )]
+position = Vector2( 6422.54, 186.492 )
 
 [node name="Enemies" type="Node2D" parent="."]
 

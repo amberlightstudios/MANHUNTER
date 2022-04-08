@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Prefabs/ParallaxBackground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Environment/Ladders.tscn" type="PackedScene" id=2]
@@ -14,6 +14,10 @@
 [ext_resource path="res://Prefabs/Environment/Autotiles.tres" type="TileSet" id=12]
 [ext_resource path="res://Sprites/UI/d.tres" type="SpriteFrames" id=13]
 [ext_resource path="res://Sprites/UI/dd.tres" type="SpriteFrames" id=14]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree1.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree2.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree3.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Prefabs/Environment/Trees/Tree4.tscn" type="PackedScene" id=18]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 5 )
@@ -35,6 +39,90 @@ tile_data = PoolIntArray( 196720, 1, 0, 196721, 1, 1, 196722, 1, 2, 196723, 1, 2
 [node name="ParallaxBackground" parent="." instance=ExtResource( 1 )]
 
 [node name="GameManager" parent="." instance=ExtResource( 6 )]
+
+[node name="Trees" type="Node" parent="."]
+
+[node name="Tree1" parent="Trees" instance=ExtResource( 15 )]
+position = Vector2( 1113.26, 384.749 )
+
+[node name="Tree2" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 1927.34, 528.668 )
+
+[node name="Tree3" parent="Trees" instance=ExtResource( 17 )]
+position = Vector2( 1900.59, 529.195 )
+
+[node name="Tree9" parent="Trees" instance=ExtResource( 17 )]
+position = Vector2( 3584.46, 430.912 )
+
+[node name="Tree4" parent="Trees" instance=ExtResource( 18 )]
+position = Vector2( 2699.18, 528.299 )
+
+[node name="Tree5" parent="Trees" instance=ExtResource( 18 )]
+position = Vector2( 3383.52, 480.321 )
+
+[node name="Tree6" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 3414.44, 481.893 )
+
+[node name="Tree8" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 3612.22, 417.064 )
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree7" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 3949.2, 528.982 )
+scale = Vector2( -1, 1 )
+
+[node name="Tree10" parent="Trees" instance=ExtResource( 15 )]
+position = Vector2( 3526.78, 433.137 )
+
+[node name="Tree11" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 5494.42, 3.18398 )
+
+[node name="Tree12" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 5714.25, -19.6815 )
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree13" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 5679.13, 1.18698 )
+scale = Vector2( -1, 1 )
+
+[node name="Tree14" parent="Trees" instance=ExtResource( 15 )]
+position = Vector2( 5431.05, 1.06829 )
+
+[node name="Tree23" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 4734.42, 95.8147 )
+
+[node name="Tree24" parent="Trees" instance=ExtResource( 15 )]
+position = Vector2( 4531.89, 143.915 )
+
+[node name="Tree15" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 7117.11, 286.361 )
+
+[node name="Tree16" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 7712.82, 75.1255 )
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree17" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 7539.48, 30.3006 )
+rotation = -0.101229
+scale = Vector2( -1, 1.2 )
+
+[node name="Tree18" parent="Trees" instance=ExtResource( 15 )]
+position = Vector2( 7409.44, 239.499 )
+
+[node name="Tree19" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 6609.11, 194.882 )
+
+[node name="Tree20" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 6675.77, 173.49 )
+rotation = 0.174533
+scale = Vector2( 1, 1.2 )
+
+[node name="Tree21" parent="Trees" instance=ExtResource( 16 )]
+position = Vector2( 7255.06, 243.643 )
+scale = Vector2( -1, 1 )
+
+[node name="Tree22" parent="Trees" instance=ExtResource( 15 )]
+position = Vector2( 6549.14, 189.293 )
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -123,7 +211,6 @@ texture = ExtResource( 10 )
 position = Vector2( 6832, 464.001 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 13 )
-frame = 1
 playing = true
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL1Nwcml0ZXMvVUkvU3BhY2UtS2V5LmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9VSQpvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
@@ -133,6 +220,7 @@ __meta__ = {
 position = Vector2( 7061.01, 464 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL1Nwcml0ZXMvVUkvWi1LZXkuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PVRydWUKb19mb2xkZXJ8PXJlczovL1Nwcml0ZXMvVUkKb19uYW1lfD0Kb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
