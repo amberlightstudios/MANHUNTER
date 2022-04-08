@@ -513,11 +513,11 @@ public class Goblin : Character
 	{
 		if (IsNetworkMaster()) {
 			isRevived = true;
-			SetColor(new Color(1, 1, 1, 1));		
-			SetReviveBarVisible(false);				
-			State.ExitState(new MoveState(this));				
+			SetColor(new Color(1, 1, 1, 1));
+			SetReviveBarVisible(false);	
+			State.ExitState(new MoveState(this));
 		}
-		gm.SetNewPlayer(this, PlayerIndex);		
+		gm.SetNewPlayer(this, PlayerIndex);	
 		SetCollisionLayerBit(1, true);
 		SetCollisionLayerBit(7, false);
 		enemyHitBox.SetCollisionLayerBit(1, true);
@@ -553,6 +553,6 @@ public class Goblin : Character
 	public void SetReviveBarVisible(bool visible)
 	{
 		NameTag.Visible = !visible;
-		ReviveBar.Visible = visible;			
+		ReviveBar.Visible = visible;
 	}
 }

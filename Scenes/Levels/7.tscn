@@ -102,16 +102,16 @@ position = Vector2( 1565, 66 )
 position = Vector2( 1652, 62 )
 
 [node name="StaticShooter10" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 3695, 540 )
+position = Vector2( 3668, 560 )
 
 [node name="StaticShooter13" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 3336, 586 )
 
 [node name="StaticShooter11" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 3140, 535 )
+position = Vector2( 3149, 578 )
 
 [node name="StaticShooter12" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 3059, 539 )
+position = Vector2( 3041, 570 )
 
 [node name="StaticShooter14" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 3874, 482 )

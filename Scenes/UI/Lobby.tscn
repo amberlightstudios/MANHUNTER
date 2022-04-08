@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Network/Lobby.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=2]
-[ext_resource path="res://Sprites/UI/dd.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://Sprites/UI/z.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://Sprites/UI/Esc.png" type="Texture" id=4]
 
 [node name="Lobby" type="Control"]
@@ -66,6 +66,8 @@ __meta__ = {
 [node name="Sprite" type="AnimatedSprite" parent="Instructions/HBoxContainer/Tip/MarginContainer"]
 position = Vector2( 55, 30 )
 frames = ExtResource( 3 )
+frame = 1
+playing = true
 
 [node name="Tip2" type="HBoxContainer" parent="Instructions/HBoxContainer"]
 margin_left = 467.0
