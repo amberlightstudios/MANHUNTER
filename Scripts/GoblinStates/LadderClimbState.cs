@@ -17,8 +17,10 @@ namespace GoblinStates
 			// player.PlayAnimation("Ladder");
 			if (Input.IsActionPressed("move_up")) {
 				player.Velocity = new Vector2(0, -player.LadderClimbSpeed);
+				player.PlayAnimation("Walk");
 			} else if (Input.IsActionPressed("move_down")) {
 				player.Velocity = new Vector2(0, player.LadderClimbSpeed);
+				player.PlayAnimation("Walk");
 			} else {
 				player.Velocity = Vector2.Zero;
 				player.PlayAnimation("Idle");
