@@ -283,7 +283,7 @@ public class Goblin : Character
 		}
 		gm.RemovePlayer(PlayerIndex);
 		if (gm.NumPlayers == 0) {
-			if (gm.TeamLives > 0) {
+			if (!Globals.SinglePlayer && gm.TeamLives > 0) {
 				gm.TeamLives--;
 				// Spawn every player back to last checkpoint
 				gm.TeamReset();
