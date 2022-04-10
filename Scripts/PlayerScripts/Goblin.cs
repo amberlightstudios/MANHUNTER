@@ -117,6 +117,7 @@ public class Goblin : Character
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
 		PlayerIndex = gm.AddNewPlayer(this);
+		gm.StaticPlayerList[PlayerIndex] = this;
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
 		enemyHitBox = GetNode<Area2D>("EnemyHitBox");
@@ -150,6 +151,9 @@ public class Goblin : Character
 		normalGravity = Gravity;
 		
 		SpawnPos = Position;
+		if (IsNetworkMaster()) {
+			gm.TeamSpawnLoc = Position;
+		}
 
 		screenSize = GetViewport().GetVisibleRect().Size;
 
@@ -274,9 +278,19 @@ public class Goblin : Character
 	{
 		if (Killed) return;
 		Killed = true;		
-		if (!Globals.SinglePlayer && IsNetworkMaster())	SynchronizeState();
+		if (!Globals.SinglePlayer && IsNetworkMaster())	{
+			SynchronizeState();
+		}
 		gm.RemovePlayer(PlayerIndex);
-		if (gm.NumPlayers == 0) GameOver();
+		if (gm.NumPlayers == 0) {
+			if (gm.TeamLives > 0) {
+				gm.TeamLives--;
+				// Spawn every player back to last checkpoint
+				gm.TeamReset();
+			} else {
+				GameOver();
+			}
+		}
 
 		SetCollisionLayerBit(1, false);
 		SetCollisionLayerBit(7, true);
@@ -292,7 +306,7 @@ public class Goblin : Character
 		}
 		FreeCamera();			
 		if (!Killed) gm.RemovePlayer(PlayerIndex);
-		if (gm.NumPlayers == 0) GameOver();			
+		if (gm.NumPlayers == 0 && gm.TeamLives == 0) GameOver();			
 		else {
 			AttachCamera();			
 			QueueFree();
@@ -323,18 +337,18 @@ public class Goblin : Character
 	public override void TakeDamage(int dmg) 
 	{   
 		if (Killed || IsDead || Invincible) return;		
-		if (Globals.SinglePlayer || IsNetworkMaster()) {
+		if (Globals.SinglePlayer) {
 			base.TakeDamage(dmg);
 			Lives -= 1;
-			GD.Print($"{PlayerName} Taken Damge with {Lives} lives remaining");			
 			if (Lives <= 0)
 				State = new DeadState(this);
 			else
 				Position = SpawnPos;
+		} else if (IsNetworkMaster()) {
+			base.TakeDamage(dmg);
+			GD.Print($"{PlayerName} Taken Damge with {Lives} lives remaining");			
+			State = new DeadState(this);
 		} 
-//		if (!Globals.SinglePlayer && !IsNetworkMaster()) {
-//			RpcId(Int32.Parse(Name), nameof(TakeDamageMaster), dmg);
-//		}
 	}
 
 	public Goblin FindReviveTarget() 

@@ -4,8 +4,14 @@ using System;
 public class GameManager : Node2D
 {
 	public Goblin[] PlayerList = new Goblin[4] { null, null, null, null};
+	public Goblin[] StaticPlayerList = new Goblin[4] { null, null, null, null };
 	public int NumPlayers = 0;
 	private int newPlayerIndex = 0;
+
+	[Export]
+	public int TeamLives = 2;
+	public Vector2 TeamSpawnLoc;
+
 	public Goblin Player { get; private set; }
 	public int NumEnemies = 0;
 	private Vector2 screenSize;
@@ -79,5 +85,18 @@ public class GameManager : Node2D
 			if (player != null) return player;
 		}	
 		return null;
+	}
+
+	public void TeamReset() 
+	{
+		int count = 0;
+		foreach (Goblin g in StaticPlayerList) {
+			if (g != null) {
+				g.Position = TeamSpawnLoc;
+				count++;
+			}
+		}
+		PlayerList = StaticPlayerList;
+		NumPlayers = count;
 	}
 }
