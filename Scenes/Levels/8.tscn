@@ -170,7 +170,7 @@ position = Vector2( 48, -1255 )
 tile_data = PoolIntArray( 1900572, 2, 0, 1966108, 2, 65536, 2031644, 2, 65536, 2097180, 2, 131072, 2162725, 2, 0, 2228261, 2, 131072, 2293797, 2, 65536, 2359333, 2, 65536, 2424869, 2, 65536, 2490405, 2, 131072 )
 
 [node name="GroundTiles" type="TileMap" parent="Tiles"]
-position = Vector2( 48, -1254 )
+position = Vector2( 48, -1255 )
 scale = Vector2( 3, 3 )
 tile_set = ExtResource( 7 )
 cell_size = Vector2( 16, 16 )
