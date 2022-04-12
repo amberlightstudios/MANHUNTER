@@ -7,17 +7,26 @@ namespace GoblinStates
 	{
 		private float timer = 0;
 		private float ghostTimeBeforeDeath = 1f;
-
+		private bool hasSetDead = false;
+		
 		public DeadState(Goblin player) 
 		{
 			this.player = player;
 			player.Velocity = Vector2.Zero;
 			player.ReturnNormalGravity();
-			player.SetIsKilled();				
+			hasSetDead = false;
 		}
 
 		public override void _Process(float delta)
 		{
+			if (!hasSetDead) {
+				if (player.gm.LivePlayers == 1) {
+					player.RemoveSelf(); // cannot revive
+				} else {
+					player.SetIsDeadRevivable(); // can revive
+				}	
+				hasSetDead =true;
+			}	
 			timer += delta;
 
 			if (!player.AnimPlayer.IsPlaying()) {
@@ -48,9 +57,11 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
+			GD.Print($"Starting to Exiting to MoveState for ${player.PlayerName}");			
 			if (player.IsRevived) {
 				player.State = new MoveState(this.player);
-				player.Killed = false;
+				player.IsDeadRevivable = false;
+				player.IsDead = false;
 				player.IsRevived = false;
 				player.BeingRevived = false;			
 				player.ReviveBar.Value = 0;	

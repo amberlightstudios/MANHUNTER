@@ -6,12 +6,15 @@ public class GameManager : Node2D
 	public Goblin[] PlayerList = new Goblin[4] { null, null, null, null};
 	public Goblin[] StaticPlayerList = new Goblin[4] { null, null, null, null };
 	public int NumPlayers = 0;
+	public int LivePlayers = 0;	
 	private int newPlayerIndex = 0;
 
 	[Export]
 	public int TeamLives = 2;
 	public Vector2 TeamSpawnLoc;
-
+	
+	[Puppet] public Vector2 PuppetTeamSpawnLoc { get; set; }	
+	
 	public Goblin Player { get; private set; }
 	public int NumEnemies = 0;
 	private Vector2 screenSize;
@@ -41,10 +44,35 @@ public class GameManager : Node2D
 			OS.WindowMaximized = !OS.WindowMaximized;
 			OS.WindowFullscreen = !OS.WindowFullscreen;
 		}
+		
+		if (!Globals.SinglePlayer) {
+			SynchronizeState();
+		}
+	}
+
+	public void SynchronizeState()
+	{
+		if (GetTree().IsNetworkServer()) {
+			RpcUnreliable(nameof(UpdateState), TeamSpawnLoc);		
+		} else {
+			ReceiveState();
+		}
+	}
+
+	[Remote]
+	public void UpdateState(Vector2 loc)
+	{
+		PuppetTeamSpawnLoc = loc;
+	}
+
+	public void ReceiveState()
+	{
+		TeamSpawnLoc = PuppetTeamSpawnLoc;
 	}
 
 	public int AddNewPlayer(Goblin player) 
 	{
+		GD.Print($"Adding Player {player.PlayerName}");
 		int oldIndex = newPlayerIndex;
 		while (PlayerList[newPlayerIndex] != null) {
 			++newPlayerIndex;
@@ -56,7 +84,7 @@ public class GameManager : Node2D
 		PlayerList[newPlayerIndex] = player;
 		newPlayerIndex += 1;
 		NumPlayers += 1;
-		// newPlayerIndex %= 4;
+		LivePlayers += 1;
 		return newPlayerIndex - 1;
 	}
 	
@@ -89,14 +117,16 @@ public class GameManager : Node2D
 
 	public void TeamReset() 
 	{
-		int count = 0;
+		GD.Print($"Team Resetting with {TeamLives} lives left");
+		TeamLives -= 1;
+		int index = 0;
 		foreach (Goblin g in StaticPlayerList) {
 			if (g != null) {
-				g.Position = TeamSpawnLoc;
-				count++;
+				GD.Print($"Respawning {g.PlayerName}");
+				SetNewPlayer(g, index);				
+				g.Respawn();
+				index++;
 			}
 		}
-		PlayerList = StaticPlayerList;
-		NumPlayers = count;
 	}
 }

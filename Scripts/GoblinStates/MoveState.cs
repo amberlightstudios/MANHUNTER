@@ -35,7 +35,6 @@ namespace GoblinStates {
 				player.Velocity.x = -1 * player.Speed * SpeedBoost;
 				player.TurnLeft();
 				player.PlayAnimation("Walk");
-
 			} 
 			if (Input.IsActionPressed("move_right")) {
 				player.Velocity.x = player.Speed * SpeedBoost;
