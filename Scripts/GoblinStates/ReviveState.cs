@@ -10,6 +10,7 @@ namespace GoblinStates
 
 		public ReviveState(Goblin player, Goblin deadTeammate) 
 		{
+			GD.Print($"Reviving {deadTeammate.PlayerName}");
 			this.player = player;
 			target = deadTeammate;
 			player.Velocity = Vector2.Zero;

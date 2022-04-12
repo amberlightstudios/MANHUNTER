@@ -299,11 +299,16 @@ public class Goblin : Character
 		GD.Print($"Removing {PlayerName} from {gm.LivePlayers} alive players");			
 		gm.LivePlayers -= 1;				
 		IsDeadRevivable = true;		
-		SetCollisionLayerBit(1, false);
-		SetCollisionLayerBit(7, true);
-		enemyHitBox.SetCollisionLayerBit(1, false);
-		enemyHitBox.SetCollisionLayerBit(7, true);
+		SetCollidable(false);
 		SetColor(new Color( 1, 0, 0, 1 ));
+	}
+	
+	public void SetCollidable(bool c)
+	{
+		SetCollisionLayerBit(1, c);
+		SetCollisionLayerBit(7, !c);
+		enemyHitBox.SetCollisionLayerBit(1, c);
+		enemyHitBox.SetCollisionLayerBit(7, !c);
 	}
 
 	public void RemoveSelf() 
@@ -546,10 +551,7 @@ public class Goblin : Character
 		}
 		GD.Print($"Reviving Player {PlayerName}");
 		gm.LivePlayers += 1;
-		SetCollisionLayerBit(1, true);
-		SetCollisionLayerBit(7, false);
-		enemyHitBox.SetCollisionLayerBit(1, true);
-		enemyHitBox.SetCollisionLayerBit(7, false);
+		SetCollidable(true);
 		return;
 	}
 	
