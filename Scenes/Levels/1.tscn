@@ -241,6 +241,7 @@ __meta__ = {
 }
 
 [node name="WinZone" parent="." instance=ExtResource( 20 )]
+position = Vector2( 7655, 77 )
 
 [node name="Totem" parent="." instance=ExtResource( 19 )]
-position = Vector2( 7624, 88 )
+position = Vector2( 7603, 90 )

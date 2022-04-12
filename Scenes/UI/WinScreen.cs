@@ -17,6 +17,8 @@ public class WinScreen : Control
 		if (Globals.LevelSelected == Globals.NumLevels) {
 			Next.Visible = false;
 		}
+		
+		((MenuSound) GetNode("../MenuSound")).PlaySound("Win");
 	}
 
 	private void RestartLevel()

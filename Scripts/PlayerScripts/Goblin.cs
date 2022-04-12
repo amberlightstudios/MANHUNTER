@@ -481,24 +481,24 @@ public class Goblin : Character
 	public int AttackEnemy() 
 	{
 		RandomNumberGenerator rand = new RandomNumberGenerator();
-		rand.Randomize();
-		float stunNotKillProbability = 0.1f;
+		// rand.Randomize();
+		// float stunNotKillProbability = 0.1f;
 
 		Godot.Collections.Array enemiesInRange = meleeArea.GetOverlappingBodies();
 		int enemyCount = enemiesInRange.Count;
-		if (enemyCount > 1) {
-			stunNotKillProbability = 0.25f;
-		}
+		// if (enemyCount > 1) {
+		// 	stunNotKillProbability = 0.25f;
+		// }
 
 		foreach (Enemy enemy in enemiesInRange) {
 			Vector2 enemyPosition = enemy.Position;
-			if (enemy.FaceDirection != FaceDirection) {
-				float temp = rand.Randf();
-				if (enemy.IsAttacking || temp < stunNotKillProbability) {
-					enemy.KnockBack();
-					continue;
-				} 
-			}
+			// if (enemy.FaceDirection != FaceDirection) {
+			// 	float temp = rand.Randf();
+			// 	if (enemy.IsAttacking) {
+			// 		enemy.KnockBack();
+			// 		continue;
+			// 	} 
+			// }
 			enemy.TakeDamage(meleeDamage, new Vector2(FaceDirection * 30f, 0));
 		}
 		return enemyCount;

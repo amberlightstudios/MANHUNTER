@@ -13,6 +13,8 @@ public class LevelSelect : Control
 
 	public override void _Ready()
 	{
+		levelSelected = false;
+
 		toggle = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/Buttons/Level/AnimationPlayer");
 		fader = (AnimationPlayer) GetNode("Fader/AnimationPlayer");
 		levelSelector = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Level/Number");
@@ -25,12 +27,14 @@ public class LevelSelect : Control
 	{
 		if (levelSelected) return;
 		if (inputEvent.IsActionPressed("ui_left")) {
+			((MenuSound) GetNode("../MenuSound")).PlaySound("Select");
 			toggle.Play("GrowLeft");
 			if (Globals.LevelSelected == 1) Globals.LevelSelected = Globals.NumLevels;
 			else Globals.LevelSelected--;
 			levelSelector.Text = "LEVEL " + Globals.LevelSelected;
 		}
 		else if (inputEvent.IsActionPressed("ui_right")) {
+			((MenuSound) GetNode("../MenuSound")).PlaySound("Select");
 			toggle.Play("GrowRight");
 			if (Globals.LevelSelected == Globals.NumLevels) Globals.LevelSelected = 1;
 			else Globals.LevelSelected++;
@@ -44,13 +48,13 @@ public class LevelSelect : Control
 	async Task FadeIntoLevel()
 	{
 		levelSelected = true;
+		((MenuSound) GetNode("../MenuSound")).PlaySound("Confirm");
 		fader.Play("Fade");
 		await Task.Delay(700);
 		if (Globals.SinglePlayer) 
 			GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LevelSelected.ToString()));
 		else
 			GetTree().ChangeScene(Globals.PathToNetwork);
-		levelSelected = false;
 	}
 	
 	private void FindAllLevels()
