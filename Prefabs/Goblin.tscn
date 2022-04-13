@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Sprites/Effects/Dust.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScripts/Goblin.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Prefabs/Sounds/GoblinSound.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprites/UI/Fonts/SourceSansPro-Light.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Prefabs/Revive.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sounds/UI/Theme.wav" type="AudioStream" id=7]
 
 [sub_resource type="StreamTexture" id=51]
 load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
@@ -407,6 +408,12 @@ scale_amount_random = 0.5
 color_ramp = SubResource( 41 )
 
 [node name="SoundEffects" parent="." instance=ExtResource( 4 )]
+
+[node name="ThemeSong" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = -5.0
+autoplay = true
+bus = "BGM"
 
 [node name="Revive" parent="." instance=ExtResource( 6 )]
 

@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.png"
 
 Pause="*res://Scenes/UI/Pause.tscn"
 MenuSound="*res://Scenes/UI/MenuSound.tscn"
+SoundToggle="*res://Scenes/UI/SoundToggle.tscn"
 
 [display]
 

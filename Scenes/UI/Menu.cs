@@ -3,21 +3,55 @@ using System;
 
 public class Menu : Control
 {
+	private bool isMulti = false;
+	private Button PlayButton;
+	private Button MPButton;
+	private Button HostButton;
+	private Button JoinButton;
+	private Button QuitButton;
+	private Button BackButton;
 
 	public override void _Ready()
 	{
-		Button PlayButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer1/Play");
-		Button HostButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer2/Host");
-		Button JoinButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer3/Join");
-		Button QuitButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MarginContainer4/Quit");
+		PlayButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/SP/SP");
+		MPButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/MP/MP");
+		HostButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/Host/Host");
+		JoinButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/Join/Join");
+		QuitButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/Quit/Quit");
+		BackButton = (Button)GetNode("MarginContainer/VBoxContainer/Buttons/Back/Back");
 		PlayButton.GrabFocus();
 		PlayButton.Connect("pressed", this, nameof(PlayGame));
+		MPButton.Connect("pressed", this, nameof(MPGame));
 		HostButton.Connect("pressed", this, nameof(HostGame));
 		JoinButton.Connect("pressed", this, nameof(JoinGame));
 		QuitButton.Connect("pressed", this, nameof(QuitGame));
-		
+		BackButton.Connect("pressed", this, nameof(SPGame));
 		AnimationPlayer blink = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/MarginContainer/AnimationPlayer");
 		blink.Play("Logo");
+	}
+	
+	public override void _Process(float delta) {
+		MarginContainer p = (MarginContainer) PlayButton.GetParent();
+		MarginContainer m = (MarginContainer) MPButton.GetParent();
+		MarginContainer h = (MarginContainer) HostButton.GetParent();
+		MarginContainer j = (MarginContainer) JoinButton.GetParent();
+		MarginContainer q = (MarginContainer) QuitButton.GetParent();
+		MarginContainer b = (MarginContainer) BackButton.GetParent();
+		if (!isMulti) {
+			p.Visible = true;
+			m.Visible = true;
+			h.Visible = false;
+			j.Visible = false;
+			q.Visible = true;
+			b.Visible = false;
+		} else {
+			p.Visible = false;
+			m.Visible = false;
+			h.Visible = true;
+			j.Visible = true;
+			q.Visible = false;
+			b.Visible = true;
+		}
 	}
 	
 	public void PlayGame() {
@@ -28,6 +62,16 @@ public class Menu : Control
 
 		Globals.SinglePlayer = true;
 		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
+	}
+	
+	public void MPGame() {
+		isMulti = true;
+		HostButton.GrabFocus();
+	}
+	
+	public void SPGame() {
+		isMulti = false;
+		PlayButton.GrabFocus();
 	}
 
 	public void HostGame() {
