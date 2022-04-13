@@ -35,8 +35,8 @@ public class Network : Node
 		var peer = new NetworkedMultiplayerENet();
 		peer.CreateServer(default_port, 32);
 		GetTree().NetworkPeer = peer;
-		PlayerId = GetTree().GetNetworkUniqueId();				
-		GD.Print("You are now hosting.");	
+		PlayerId = GetTree().GetNetworkUniqueId();
+		GD.Print("You are now hosting.");
 		JoinLobby();
 	}
 
@@ -48,7 +48,7 @@ public class Network : Node
 		var result = clientPeer.CreateClient(address, default_port);
 
 		GetTree().NetworkPeer = clientPeer;
-		PlayerId = GetTree().GetNetworkUniqueId();				
+		PlayerId = GetTree().GetNetworkUniqueId();
 	}
 
 	public void LeaveGame()
@@ -82,7 +82,7 @@ public class Network : Node
 	private void ConnectedToServer()
 	{
 		GD.Print("Successfully connected to the server");
-		JoinLobby();	
+		JoinLobby();
 	}
 
 	private void ConnectionFailed()
@@ -106,8 +106,8 @@ public class Network : Node
 		var id = GetTree().GetRpcSenderId();
 		Players.Add(id, playerName);
 		GD.Print($"{playerName} added with ID {id}");
-		LobbyRoom.AddPlayer(id, playerName);	
-		NumPlayers += 1;	
+		LobbyRoom.AddPlayer(id, playerName);
+		NumPlayers += 1;
 		LobbyRoom.NumPlayers += 1;
 	}
 	
@@ -121,14 +121,13 @@ public class Network : Node
 	[Remote]
 	private void RemovePlayer(int id)
 	{
-
 		if (Players.ContainsKey(id))
 		{
 			Players.Remove(id);
 		}
 		NumPlayers -= 1;
 		if (IsInstanceValid(LobbyRoom)) {
-			LobbyRoom.RemovePlayer(id);		
+			LobbyRoom.RemovePlayer(id);
 			LobbyRoom.NumPlayers -= 1;
 		}
 

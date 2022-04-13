@@ -9,7 +9,7 @@
 [ext_resource path="res://Sounds/UI/Theme.wav" type="AudioStream" id=7]
 
 [sub_resource type="StreamTexture" id=51]
-load_path = "res://.import/Goblin.png-f7d77defabaaa9566675704bd23a1847.stex"
+load_path = "res://.import/Goblin.png-78aebd51c5ec03633e364892ab9c3ac7.stex"
 
 [sub_resource type="RectangleShape2D" id=30]
 extents = Vector2( 8.01684, 10.668 )
@@ -227,13 +227,12 @@ knockBackSpeed = 200.0
 ladderClimbSpeed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.333344, -0.333328 )
 texture = SubResource( 51 )
 hframes = 7
 vframes = 7
-frame = 37
+frame = 7
 __meta__ = {
-"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvR29ibGluU2tpbnMvR29ibGluLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9Hb2JsaW5Ta2lucwpvX25hbWV8PUdvYmxpbi5wbmcKb25seV92aXNpYmxlfD1UcnVlCm9fZXhfcHw9Cg=="
 }
 
 [node name="ThrowPoint" type="Node2D" parent="Sprite"]
