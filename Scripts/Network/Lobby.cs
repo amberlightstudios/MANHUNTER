@@ -22,10 +22,10 @@ public class Lobby : Network
 		if (Globals.IsHost) {
 			ReadyLabel.Text = "Start";
 		} else {
-			ReadyLabel.Text = "Ready";	 
+			ReadyLabel.Text = "Ready";
 		}
 		PlayerId = GetTree().GetNetworkUniqueId();
-		PlayerName = Globals.PlayerName;	
+		PlayerName = Globals.PlayerName;
 		AddPlayer(PlayerId, PlayerName);
 	}
 	
@@ -57,7 +57,7 @@ public class Lobby : Network
 	public void StartGame()
 	{
 		if (CanStart) {
-			CanStart = false;						
+			CanStart = false;
 			Rpc(nameof(LoadGame));
 			LoadLevel();
 			QueueFree();
@@ -69,7 +69,7 @@ public class Lobby : Network
 		if (!IsReady) {
 			IsReady = true;
 			ChangePlayerStatus(PlayerId, "Ready");
-			Rpc(nameof(ReadyPlayer), PlayerId);			
+			Rpc(nameof(ReadyPlayer), PlayerId);
 		} 
 	}
 	
@@ -83,7 +83,7 @@ public class Lobby : Network
 	[Remote]
 	public void LoadGame()
 	{
-		LoadLevel();		
+		LoadLevel();
 		QueueFree();
 	}
 	
@@ -92,7 +92,7 @@ public class Lobby : Network
 		// TODO
 		GridContainer container = (GridContainer) GetNode("Players");
 		Node user = ProfileScene.Instance();
-		user.Name = id.ToString();		
+		user.Name = id.ToString();
 		Label userName = (Label) user.GetNode("Sprite/VBoxContainer/Name");
 		userName.Text = name;
 		container.AddChild(user);

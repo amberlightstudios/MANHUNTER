@@ -113,6 +113,11 @@ public class Goblin : Character
 	private Label NameTagLabel;
 	public ProgressBar ReviveBar;
 	
+	// Skins
+	public Texture Kanye = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinK.png") as Texture;
+	public Texture Ukraine = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinU.png") as Texture;
+	public Texture USA = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinUSA.png") as Texture;
+	public int Id;
 	
 	public override void _Ready()
 	{
@@ -154,6 +159,24 @@ public class Goblin : Character
 		if (!Globals.SinglePlayer && GetTree().IsNetworkServer()) {
 			gm.TeamSpawnLoc = Position;
 		}
+		
+		// TODO: needs sync and work
+		if (!Globals.SinglePlayer) { 
+			if (GetTree().GetNetworkUniqueId() != 1) {
+				var rand = new Random();
+				var rNum = rand.Next(2, 5);
+				if (rNum == 2) {
+					GD.Print("knaye");
+					sprite.SetTexture(Kanye);
+				} else if (rNum == 3) {
+					GD.Print("kraine");
+					sprite.SetTexture(Ukraine);
+				} else if (rNum == 4) {
+					GD.Print("usa");
+					sprite.SetTexture(USA);
+				} 
+			}
+		}
 
 		screenSize = GetViewport().GetVisibleRect().Size;
 
@@ -162,14 +185,14 @@ public class Goblin : Character
 			NetworkNode = GetNode<Network>("/root/Network");		
 			Lives = 1;
 		} else {
-			NameTag.Visible = false;			
+			NameTag.Visible = false;
 		}
 	}
 
 	public override void _Process(float delta)
 	{
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
-			State._Process(delta);			
+			State._Process(delta);
 		}
 		SynchronizeState();
 		if (!Globals.SinglePlayer && !IsNetworkMaster())
@@ -218,7 +241,7 @@ public class Goblin : Character
 		PuppetAnimation = anim;
 		PuppetColor = color;
 		PuppetIsRevived = ir;
-		PuppetBeingRevived = br;		
+		PuppetBeingRevived = br;
 		PuppetReviveBarValue = rbv;
 		PuppetIsDeadRevivable = IsDeadRevivable;		
 		PuppetIsDead = dead;	
@@ -258,8 +281,8 @@ public class Goblin : Character
 			SetReviveBarVisible(false);
 		}
 		BeingRevived = PuppetBeingRevived;
-		ReviveBar.Value = PuppetReviveBarValue;	
-		isRevived = PuppetIsRevived;		
+		ReviveBar.Value = PuppetReviveBarValue;
+		isRevived = PuppetIsRevived;
 	}
 	
 	public void Interpolate() 
@@ -319,9 +342,9 @@ public class Goblin : Character
 			RevivePlayer();
 			Cam cam = (Cam) GetParent().GetNode("Cam");
 			cam.Player = this;
-		}	
+		}
 		Visible = true;
-		IsTeamResetting = false;				
+		IsTeamResetting = false;
 	}
 	
 	public void FreeCamera() {
@@ -337,13 +360,13 @@ public class Goblin : Character
 
 	public override void TakeDamage(int dmg) 
 	{   
-		if (IsDeadRevivable || IsDead || Invincible) return;		
+		if (IsDeadRevivable || IsDead || Invincible) return;
 		if (Globals.SinglePlayer || IsNetworkMaster()) {
 			base.TakeDamage(dmg);
 			Lives -= 1;
 			if (Lives <= 0) {
 				GD.Print($"Player {PlayerName} entering deadstate");
-				State = new DeadState(this);				
+				State = new DeadState(this);
 			}
 			else
 				Position = SpawnPos;
@@ -540,14 +563,14 @@ public class Goblin : Character
 	
 	public void RevivePlayerPuppet()
 	{
-		GD.Print($"REVIVE PUPPET {PlayerName}");		
+		GD.Print($"REVIVE PUPPET {PlayerName}");
 		RpcId(Int32.Parse(Name), nameof(RevivePlayerMaster));
 	}
 	
 	[Remote]
 	public void RevivePlayerMaster()
 	{
-		GD.Print($"REVIVE MASTER {PlayerName}");		
+		GD.Print($"REVIVE MASTER {PlayerName}");
 		if (IsNetworkMaster()) RevivePlayer();
 	}
 	
@@ -569,5 +592,10 @@ public class Goblin : Character
 	{
 		NameTag.Visible = !visible;
 		ReviveBar.Visible = visible;
+	}
+	
+	public void SetId(int id)
+	{
+		Id = id;
 	}
 }
