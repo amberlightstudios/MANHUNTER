@@ -7,6 +7,7 @@ namespace RushEnemyStates
 		private float animLength = float.MaxValue;
 		private float timer = 0f;
 		private bool startAttack = false;
+		private bool haveAttacked = false;
 
 		public AttackState(RushingEnemy enemy) 
 		{
@@ -25,12 +26,14 @@ namespace RushEnemyStates
 				timer = 0f;
 			}
 
-			if (timer > 0.049f && timer > animLength * 0.7f) {
+			if (timer > 0.049f && timer > animLength * 0.7f && !haveAttacked) {
 				enemy.IsAttacking = true;
 				enemy.Melee += 1;
 				int attackStaus = enemy.Attack();
 				if (attackStaus == -1) {
 					return;
+				} else if (attackStaus == 1) {
+					haveAttacked = true;
 				}
 			}
 

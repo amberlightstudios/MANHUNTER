@@ -111,6 +111,7 @@ public class RushingEnemy : Enemy
 			Goblin player = g.GetParent<Goblin>();
 			if (!player.IsAttacking) {
 				player.TakeDamage(1);
+				return 1;
 			} else {
 				return -1;
 			}
