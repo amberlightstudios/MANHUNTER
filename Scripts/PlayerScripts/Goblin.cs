@@ -117,7 +117,6 @@ public class Goblin : Character
 	public Texture Kanye = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinK.png") as Texture;
 	public Texture Ukraine = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinU.png") as Texture;
 	public Texture USA = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinUSA.png") as Texture;
-	public int Id;
 	
 	public override void _Ready()
 	{
@@ -390,7 +389,7 @@ public class Goblin : Character
 	public void GameOver()
 	{
 		GD.Print($"Gameover called by {PlayerName}");
-		HandleDeathAnim();
+		if (!deathPlaying) HandleDeathAnim();
 		if (!Globals.SinglePlayer) {
 			((Network) GetParent()).LeaveGame();
 			QueueFree();
@@ -401,6 +400,7 @@ public class Goblin : Character
 
 	async Task HandleDeathAnim() 
 	{
+		deathPlaying = true;
 		animPlayer.Play("Death");
 		await Task.Delay(885);
 		animPlayer.Play("Ghost");
@@ -592,10 +592,5 @@ public class Goblin : Character
 	{
 		NameTag.Visible = !visible;
 		ReviveBar.Visible = visible;
-	}
-	
-	public void SetId(int id)
-	{
-		Id = id;
 	}
 }

@@ -1,20 +1,74 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Sprites/Environment/Totem.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Environment/pillar.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/ItemScripts/Totem.cs" type="Script" id=2]
 
+[sub_resource type="StreamTexture" id=6]
+load_path = "res://.import/Silver.png-5df37a4ce49ddd42d10878c324bdd32c.stex"
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Coin:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 1.0, 2.0, 3.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Fade"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/path = NodePath("Coin:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 24 )
+extents = Vector2( 11, 25 )
 
 [node name="Totem" type="Area2D"]
-scale = Vector2( 2.5, 2.5 )
+scale = Vector2( 3, 3 )
 collision_layer = 32
 collision_mask = 2
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Coin" type="Sprite" parent="."]
+position = Vector2( 0, -21 )
+texture = SubResource( 6 )
+hframes = 2
+vframes = 2
+__meta__ = {
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW52aXJvbm1lbnQvU2lsdmVyLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9FbnZpcm9ubWVudApvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
+}
+
+[node name="Pillar" type="Sprite" parent="."]
+position = Vector2( 0, 9 )
 z_index = -1
 texture = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvRW52aXJvbm1lbnQvQ29pbi5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9RmFsc2UKb19mb2xkZXJ8PXJlczovL1Nwcml0ZXMvRW52aXJvbm1lbnQKb19uYW1lfD0Kb25seV92aXNpYmxlfD1GYWxzZQpvX2V4X3B8PQo="
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Coin = SubResource( 3 )
+anims/Fade = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.999999 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
