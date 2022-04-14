@@ -118,7 +118,6 @@ public class Goblin : Character
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
 		PlayerIndex = gm.AddNewPlayer(this);
-		gm.StaticPlayerList[PlayerIndex] = this;
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
 		enemyHitBox = GetNode<Area2D>("EnemyHitBox");
@@ -161,6 +160,7 @@ public class Goblin : Character
 		State = new MoveState(this);
 		if (!Globals.SinglePlayer) {
 			NetworkNode = GetNode<Network>("/root/Network");		
+			Lives = 1;
 		} else {
 			NameTag.Visible = false;			
 		}
@@ -174,11 +174,6 @@ public class Goblin : Character
 		SynchronizeState();
 		if (!Globals.SinglePlayer && !IsNetworkMaster())
 			PuppetPosition = Position;
-			
-		if (gm.NumPlayers == 0 && !IsTeamResetting) {
-			if (gm.TeamLives == 0) GameOver();
-			else ReviveTeam();		
-		} 
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -215,7 +210,7 @@ public class Goblin : Character
 	[Remote]
 	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim, 
 							Color color, bool ir, bool br, 
-							int rbv)
+							int rbv, bool IsDeadRevivable, bool dead)
 	{
 		PuppetPosition = pos;
 		PuppetVelocity = vel;
@@ -225,29 +220,15 @@ public class Goblin : Character
 		PuppetIsRevived = ir;
 		PuppetBeingRevived = br;		
 		PuppetReviveBarValue = rbv;
-	}
-	
-	[Remote]
-	public void UpdateStateImportant(bool IsDeadRevivable, bool dead)
-	{
 		PuppetIsDeadRevivable = IsDeadRevivable;		
-		PuppetIsDead = dead;		
-		if (PuppetIsDeadRevivable && !IsDeadRevivable) 
-			SetIsDeadRevivable();
-		else if ( (!PuppetIsDeadRevivable && IsDeadRevivable) || (!PuppetIsDead && IsDead) ) 
-			RevivePlayer();
-		if (PuppetIsDead && !IsDead) 
-			RemoveSelf();
-		IsDeadRevivable = PuppetIsDeadRevivable;				
-		IsDead = PuppetIsDead;
+		PuppetIsDead = dead;	
 	}
 	
 	public void BroadcastState() 
 	{
-		Rpc(nameof(UpdateStateImportant), IsDeadRevivable, IsDead);		
 		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
 		animPlayer.CurrentAnimation, sprite.Modulate, isRevived, 
-		BeingRevived, ReviveBar.Value);
+		BeingRevived, ReviveBar.Value, IsDeadRevivable, IsDead);
 	}
 	
 	public void ReceiveState() 
@@ -263,6 +244,14 @@ public class Goblin : Character
 		}  
 		if (PuppetAnimation != null) 
 			animPlayer.Play(PuppetAnimation);	
+		if (PuppetIsDeadRevivable && !IsDeadRevivable) 
+			SetIsDeadRevivable();
+		else if ( (!PuppetIsDeadRevivable && IsDeadRevivable) || (!PuppetIsDead && IsDead) ) 
+			RevivePlayer();
+		if (PuppetIsDead && !IsDead) 
+			RemoveSelf();
+		IsDeadRevivable = PuppetIsDeadRevivable;				
+		IsDead = PuppetIsDead;
 		if (PuppetBeingRevived && !BeingRevived) {
 			SetReviveBarVisible(true);
 		} else if (!PuppetBeingRevived && BeingRevived) {
@@ -296,8 +285,7 @@ public class Goblin : Character
 	{
 		if (IsDeadRevivable || IsTeamResetting) return;
 		GD.Print($"Set IsDeadRevivable {PlayerName}");	
-		GD.Print($"Removing {PlayerName} from {gm.LivePlayers} alive players");			
-		gm.LivePlayers -= 1;				
+		gm.RemoveLivePlayer(PlayerIndex);			
 		IsDeadRevivable = true;		
 		SetCollidable(false);
 		SetColor(new Color( 1, 0, 0, 1 ));
@@ -314,19 +302,14 @@ public class Goblin : Character
 	public void RemoveSelf() 
 	{
 		if (IsDead || IsTeamResetting) return;
-		GD.Print($"Removing Self {PlayerName} in {State.GetType().Name}");
-		if (!IsDeadRevivable) {
-			GD.Print($"Removing {PlayerName} from {gm.LivePlayers} alive players");
-			gm.LivePlayers -= 1; // Not already deducted			
-		}
 		IsDead = true;		
 		Visible = false;
 		Position = new Vector2(0, 0);
-		if (!Globals.SinglePlayer && IsNetworkMaster()) 
-			Rpc(nameof(UpdateStateImportant), IsDeadRevivable, IsDead);			
-		FreeCamera();			
+		FreeCamera();				
 		if (gm.LivePlayers > 0) AttachCamera();	
-		gm.RemovePlayer(PlayerIndex);		
+		GD.Print($"Removing Self {PlayerName} in {State.GetType().Name}");		
+		gm.RemovePlayer(PlayerIndex);				
+		gm.RemoveLivePlayer(PlayerIndex);
 	}
 
 	public void Respawn()
@@ -550,7 +533,7 @@ public class Goblin : Character
 			State.ExitState(new MoveState(this));
 		}
 		GD.Print($"Reviving Player {PlayerName}");
-		gm.LivePlayers += 1;
+		gm.AddLivePlayer(this, PlayerIndex);
 		SetCollidable(true);
 		return;
 	}

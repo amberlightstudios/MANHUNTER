@@ -5,6 +5,8 @@ public class GameManager : Node2D
 {
 	public Goblin[] PlayerList = new Goblin[4] { null, null, null, null};
 	public Goblin[] StaticPlayerList = new Goblin[4] { null, null, null, null };
+	public Goblin[] LivePlayerList = new Goblin[4] { null, null, null, null };
+	
 	public int NumPlayers = 0;
 	public int LivePlayers = 0;	
 	private int newPlayerIndex = 0;
@@ -14,6 +16,7 @@ public class GameManager : Node2D
 	public Vector2 TeamSpawnLoc;
 	
 	[Puppet] public Vector2 PuppetTeamSpawnLoc { get; set; }	
+	[Puppet] public int PuppetTeamLives = 2;
 	
 	public Goblin Player { get; private set; }
 	public int NumEnemies = 0;
@@ -53,21 +56,26 @@ public class GameManager : Node2D
 	public void SynchronizeState()
 	{
 		if (GetTree().IsNetworkServer()) {
-			RpcUnreliable(nameof(UpdateState), TeamSpawnLoc);		
+			RpcUnreliable(nameof(UpdateState), TeamSpawnLoc, TeamLives);		
 		} else {
 			ReceiveState();
 		}
 	}
 
 	[Remote]
-	public void UpdateState(Vector2 loc)
+	public void UpdateState(Vector2 loc, int lives)
 	{
 		PuppetTeamSpawnLoc = loc;
+		PuppetTeamLives = lives;
 	}
 
 	public void ReceiveState()
 	{
 		TeamSpawnLoc = PuppetTeamSpawnLoc;
+		if (PuppetTeamLives < TeamLives) {
+			TeamReset();
+		}		
+		TeamLives = PuppetTeamLives;
 	}
 
 	public int AddNewPlayer(Goblin player) 
@@ -82,6 +90,8 @@ public class GameManager : Node2D
 			}
 		}
 		PlayerList[newPlayerIndex] = player;
+		StaticPlayerList[newPlayerIndex] = player;
+		LivePlayerList[newPlayerIndex] = player;
 		newPlayerIndex += 1;
 		NumPlayers += 1;
 		LivePlayers += 1;
@@ -123,10 +133,36 @@ public class GameManager : Node2D
 		foreach (Goblin g in StaticPlayerList) {
 			if (g != null) {
 				GD.Print($"Respawning {g.PlayerName}");
-				SetNewPlayer(g, index);				
+				SetNewPlayer(g, index);		
+				AddLivePlayer(g, index);		
 				g.Respawn();
 				index++;
 			}
 		}
+	}
+	
+	public void RemoveLivePlayer(int index)
+	{
+		if (LivePlayerList[index] == null) return;
+		LivePlayers -= 1;
+		LivePlayerList[index] = null;
+		if (GetTree().IsNetworkServer() && LivePlayers == 0) {
+			if (TeamLives > 0) TeamReset();
+			else GameOver();
+		}
+	}
+	
+	public void AddLivePlayer(Goblin goblin, int index)
+	{
+		if (LivePlayerList[index] != null) return;
+		LivePlayerList[index] = goblin;
+		LivePlayers += 1;
+	}
+	
+	public void GameOver()
+	{
+		GD.Print("Game Over called in GM");
+		Network network = GetNode<Network>("/root/Network");	
+		network.LeaveGame();
 	}
 }
