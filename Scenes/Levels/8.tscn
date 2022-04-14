@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Prefabs/Cam.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Environment/Ladders.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Prefabs/Environment/Autotiles.tres" type="TileSet" id=7]
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=8]
+[ext_resource path="res://Prefabs/Environment/WinZone.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Environment/Totem.tscn" type="PackedScene" id=10]
 
 [node name="Main" type="Node2D"]
 position = Vector2( 0, -1 )
@@ -75,13 +77,13 @@ position = Vector2( 5601, 283 )
 position = Vector2( 5900, 293 )
 
 [node name="Rusher17" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 5987, 599 )
+position = Vector2( 6122, 248 )
 
 [node name="Rusher18" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 6239, 525 )
 
 [node name="Rusher19" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 6464, 527 )
+position = Vector2( 6732, 489 )
 
 [node name="Rusher10" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 6349, 586 )
@@ -150,7 +152,7 @@ position = Vector2( 6625, 579 )
 position = Vector2( 5670, 550 )
 
 [node name="StaticShooter21" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 6117, 555 )
+position = Vector2( 6211, 242 )
 
 [node name="StaticShooter22" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 5073, 619 )
@@ -162,6 +164,12 @@ position = Vector2( 5238, 321 )
 position = Vector2( 5542, 559 )
 
 [node name="EnvItems" type="Node2D" parent="."]
+
+[node name="WinZone" parent="." instance=ExtResource( 9 )]
+position = Vector2( 7249, 492 )
+
+[node name="Totem" parent="." instance=ExtResource( 10 )]
+position = Vector2( 4215, 443 )
 
 [node name="Tiles" type="Node2D" parent="."]
 

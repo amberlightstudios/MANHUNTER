@@ -11,14 +11,29 @@ public class SoundToggle : CanvasLayer
 	{
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 	}
-
- 	private void _on_Button_pressed()
+	
+	public override void _Process(float delta)
 	{
 		if (isOn) animPlayer.Play("On");
 		else animPlayer.Play("Off");
+		
+		if (GetTree().Paused == true && isOn) {
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), isOn);
+		}
+	}
+	
+	public override void _Input(InputEvent input)
+	{
+		if (input.IsActionPressed("Mute")) {
+			isOn = !isOn;
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), !isOn);
+		}
+	}
 
-		AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), !isOn);
+ 	private void _on_Button_pressed()
+	{
 		isOn = !isOn;
+		AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), !isOn);
 	}
 }
 

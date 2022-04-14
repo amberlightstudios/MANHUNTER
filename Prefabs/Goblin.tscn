@@ -409,8 +409,10 @@ color_ramp = SubResource( 41 )
 [node name="SoundEffects" parent="." instance=ExtResource( 4 )]
 
 [node name="ThemeSong" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+process_priority = 100
 stream = ExtResource( 7 )
-volume_db = -5.0
+volume_db = -6.0
 autoplay = true
 bus = "BGM"
 

@@ -1,9 +1,62 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/UI/Pause.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/black_texture.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=3]
-[ext_resource path="res://Sprites/UI/Esc.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/Esc-Key.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/Q-Key.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/M-Key.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "New Anim"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "New Anim"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "New Anim"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
 
 [node name="CanvasLayer" type="CanvasLayer"]
 pause_mode = 2
@@ -27,6 +80,8 @@ __meta__ = {
 }
 
 [node name="Buttons" type="VBoxContainer" parent="Control"]
+pause_mode = 2
+process_priority = 100
 margin_top = 180.0
 margin_right = 1280.0
 margin_bottom = 529.0
@@ -41,29 +96,63 @@ __meta__ = {
 
 [node name="MarginContainer3" type="MarginContainer" parent="Control/Buttons"]
 margin_right = 1280.0
-margin_bottom = 249.0
+margin_bottom = 213.0
 
 [node name="Label" type="Label" parent="Control/Buttons/MarginContainer3"]
 margin_right = 1280.0
-margin_bottom = 249.0
+margin_bottom = 213.0
 text = "Game Paused
 ______
 
 
 
-
-	            to resume or \"Q\" to Quit"
+	            to resume or       to Quit"
 align = 1
 
-[node name="Esc" type="Sprite" parent="Control/Buttons/MarginContainer3/Label"]
-position = Vector2( 319, 229 )
-scale = Vector2( 1.5, 1.5 )
+[node name="Sprite" type="Sprite" parent="Control/Buttons/MarginContainer3/Label"]
+position = Vector2( 342, 192 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
+hframes = 2
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/MarginContainer3/Label/Sprite"]
+"anims/New Anim" = SubResource( 1 )
+
+[node name="Sprite2" type="Sprite" parent="Control/Buttons/MarginContainer3/Label"]
+position = Vector2( 802, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/MarginContainer3/Label/Sprite2"]
+"anims/New Anim" = SubResource( 2 )
+
+[node name="MarginContainer4" type="MarginContainer" parent="Control/Buttons"]
+margin_top = 263.0
+margin_right = 1280.0
+margin_bottom = 296.0
+
+[node name="Label" type="Label" parent="Control/Buttons/MarginContainer4"]
+margin_right = 1280.0
+margin_bottom = 33.0
+text = "       to mute bgm"
+align = 1
+
+[node name="Sprite2" type="Sprite" parent="Control/Buttons/MarginContainer4/Label"]
+pause_mode = 2
+position = Vector2( 465, 10 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/MarginContainer4/Label/Sprite2"]
+"anims/New Anim" = SubResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/Buttons"]
-margin_top = 299.0
+margin_top = 346.0
 margin_right = 1280.0
-margin_bottom = 299.0
+margin_bottom = 346.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -78,9 +167,9 @@ __meta__ = {
 }
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control/Buttons"]
-margin_top = 349.0
+margin_top = 396.0
 margin_right = 1280.0
-margin_bottom = 349.0
+margin_bottom = 396.0
 
 [node name="Quit" type="Button" parent="Control/Buttons/MarginContainer2"]
 visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Level.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Environment/Trees/Tree1.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Prefabs/Environment/Trees/Tree3.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Prefabs/Enemy/StaticShooter.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Prefabs/Environment/Trees/Tree4.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Prefabs/Environment/Totem.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Prefabs/Environment/WinZone.tscn" type="PackedScene" id=14]
 
 [node name="Main" type="Node2D"]
 position = Vector2( 0, -1 )
@@ -77,7 +79,7 @@ position = Vector2( 5234.64, 280.292 )
 position = Vector2( 4737.03, 87.7455 )
 
 [node name="Tree24" parent="Trees" instance=ExtResource( 2 )]
-position = Vector2( 4601.93, 41.8115 )
+position = Vector2( 4409, 148 )
 
 [node name="Tree15" parent="Trees" instance=ExtResource( 4 )]
 position = Vector2( 7017.38, 186.631 )
@@ -236,6 +238,9 @@ position = Vector2( 6152, 574 )
 
 [node name="EnvItems" type="Node2D" parent="."]
 
+[node name="WinZone" parent="." instance=ExtResource( 14 )]
+position = Vector2( 8031, 158 )
+
 [node name="Tiles" type="Node2D" parent="."]
 
 [node name="Ladders2" parent="Tiles" instance=ExtResource( 7 )]
@@ -266,3 +271,6 @@ tile_data = PoolIntArray( 1769533, 1, 196609, 1835039, 1, 0, 1835040, 1, 1, 1835
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Totem" parent="." instance=ExtResource( 13 )]
+position = Vector2( 4608, 65 )

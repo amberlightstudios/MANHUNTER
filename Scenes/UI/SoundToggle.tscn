@@ -48,6 +48,8 @@ tracks/0/keys = {
 load_path = "res://.import/Volume.png-5a900ae3e2424bab4739f8ac1c43c418.stex"
 
 [node name="SoundToggle" type="CanvasLayer"]
+pause_mode = 2
+process_priority = 100
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -69,18 +71,21 @@ __meta__ = {
 [node name="Button" type="Button" parent="MarginContainer"]
 margin_right = 80.0
 margin_bottom = 80.0
+focus_mode = 0
 theme = SubResource( 1 )
 custom_styles/hover = SubResource( 2 )
 custom_styles/pressed = SubResource( 3 )
 custom_styles/focus = SubResource( 4 )
 custom_styles/disabled = SubResource( 5 )
 custom_styles/normal = SubResource( 6 )
+enabled_focus_mode = 0
 
 [node name="Sprite" type="Sprite" parent="MarginContainer/Button"]
 position = Vector2( 40, 40 )
 scale = Vector2( 4, 4 )
 texture = SubResource( 9 )
 hframes = 2
+frame = 1
 __meta__ = {
 "_editor_description_": "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL1Nwcml0ZXMvVUkvVm9sdW1lLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD1GYWxzZQpvX2ZvbGRlcnw9cmVzOi8vU3ByaXRlcy9VSQpvX25hbWV8PQpvbmx5X3Zpc2libGV8PUZhbHNlCm9fZXhfcHw9Cg=="
 }
