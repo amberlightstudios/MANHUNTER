@@ -113,10 +113,6 @@ public class Goblin : Character
 	private Label NameTagLabel;
 	public ProgressBar ReviveBar;
 	
-	// Skins
-	public Texture Kanye = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinK.png") as Texture;
-	public Texture Ukraine = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinU.png") as Texture;
-	public Texture USA = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinUSA.png") as Texture;
 	
 	public override void _Ready()
 	{
@@ -157,24 +153,6 @@ public class Goblin : Character
 		SpawnPos = Position;
 		if (!Globals.SinglePlayer && GetTree().IsNetworkServer()) {
 			gm.TeamSpawnLoc = Position;
-		}
-		
-		// TODO: needs sync and work
-		if (!Globals.SinglePlayer) { 
-			if (GetTree().GetNetworkUniqueId() != 1) {
-				var rand = new Random();
-				var rNum = rand.Next(2, 5);
-				if (rNum == 2) {
-					GD.Print("knaye");
-					sprite.SetTexture(Kanye);
-				} else if (rNum == 3) {
-					GD.Print("kraine");
-					sprite.SetTexture(Ukraine);
-				} else if (rNum == 4) {
-					GD.Print("usa");
-					sprite.SetTexture(USA);
-				} 
-			}
 		}
 
 		screenSize = GetViewport().GetVisibleRect().Size;
