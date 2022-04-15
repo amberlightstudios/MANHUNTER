@@ -9,7 +9,7 @@ public class MenuSound : AudioStreamPlayer2D
 	private AudioStream Select;
 	private AudioStream Confirm;
 	private AudioStream Win;
-	private AudioStream Cp;
+	private AudioStream Checkpoint;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,7 +17,7 @@ public class MenuSound : AudioStreamPlayer2D
 		Select = (AudioStream) ResourceLoader.Load("res://Sounds/UI/Select.wav");
 		Confirm = (AudioStream) ResourceLoader.Load("res://Sounds/UI/Confirm.wav");
 		Win = (AudioStream) ResourceLoader.Load("res://Sounds/UI/LevelComplete.wav");
-		Cp = (AudioStream) ResourceLoader.Load("res://Sounds/UI/Checkpoint.wav");
+		Checkpoint = (AudioStream) ResourceLoader.Load("res://Sounds/UI/Checkpoint.wav");
 	}
 	
 	public void PlaySound(string name) 
@@ -31,7 +31,7 @@ public class MenuSound : AudioStreamPlayer2D
 			Stream = Confirm;
 			break;
 		case "Checkpoint":
-			Stream = Cp;
+			Stream = Checkpoint;
 			break;
 		case "Win":
 			Stream = Win;
