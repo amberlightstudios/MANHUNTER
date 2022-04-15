@@ -518,6 +518,8 @@ public class Goblin : Character
 		}
 		if (name == "Walk") {
 			walk.Emitting = true;
+		} else {
+			walk.Emitting = false;
 		}
 		animPlayer.Play(name);
 	}
