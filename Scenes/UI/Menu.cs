@@ -53,7 +53,7 @@ public class Menu : Control
 			b.Visible = true;
 		}
 	}
-	
+
 	public void PlayGame() {
 		if (GetTree().NetworkPeer != null) {
 			((NetworkedMultiplayerENet)GetTree().NetworkPeer).CloseConnection();
@@ -63,7 +63,7 @@ public class Menu : Control
 		Globals.SinglePlayer = true;
 		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 	}
-	
+
 	public void MPGame() {
 		isMulti = true;
 		HostButton.GrabFocus();
@@ -83,13 +83,13 @@ public class Menu : Control
 			GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 		}
 	}
-	
+
 	public void JoinGame() {
 		Globals.SinglePlayer = false;
 		Globals.IsHost = false;
 		GetTree().ChangeScene("res://Scenes/UI/JoinGame.tscn");
 	}
-	
+
 	public void QuitGame() {
 		GetTree().Quit();
 	}

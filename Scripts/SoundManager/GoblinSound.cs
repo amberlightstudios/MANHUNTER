@@ -22,10 +22,7 @@ public class GoblinSound : AudioStreamPlayer2D
 	{
 		switch (name) 
 		{
-		case "BasicIdle":
-		case "BasicIdle2":
-		case "BasicMoving":
-		case "BasicMoving2":
+		case "Attack":
 			Stream = StreamAttack;
 			break;
 		case "AttackHit":
