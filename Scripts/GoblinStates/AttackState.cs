@@ -83,10 +83,11 @@ namespace GoblinStates
                         soundPlayed = true;
                     }
 				} else if (status == 0) {
-                    if (!soundPlayed && count > 3) {
+                    if (!soundPlayed && count > 7) {
                         player.PlaySound("Attack");
                         soundPlayed = true; 
-                    } 
+                    }
+                    count++;
                 } else if (status == -1) {
 					return;
 				} 
@@ -99,7 +100,11 @@ namespace GoblinStates
 			timer += delta;
 
 			if (timer >= 0.03f && timer <= 0.15f) {
-				player.DeflectBullet();
+				int status = player.DeflectBullet();
+                if (status > 0) {
+                    player.PlaySound("Attack");
+                    soundPlayed = true;
+                }
 			}
 
 			if (player.IsRunningIntoLadder()) {

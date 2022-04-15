@@ -502,12 +502,13 @@ public class Goblin : Character
 		State.ExitState(new KnockBackState(this));
 	}
 
-	public void DeflectBullet() 
+	public int DeflectBullet() 
 	{
 		Godot.Collections.Array bulletsHit = meleeArea.GetOverlappingAreas();
 		foreach (Bullet bullet in bulletsHit) {
 			bullet.Deflect();
 		}
+		return bulletsHit.Count;
 	}
 
 	public void PlayAnimation(String name) 
