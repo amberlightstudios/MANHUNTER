@@ -345,8 +345,9 @@ public class Goblin : Character
 				GD.Print($"Player {PlayerName} entering deadstate");
 				State = new DeadState(this);
 			}
-			else
-				Position = SpawnPos;
+			else {
+				State = new LimboState(this);
+			}
 		}
 	}
 

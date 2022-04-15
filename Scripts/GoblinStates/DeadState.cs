@@ -5,21 +5,23 @@ namespace GoblinStates
 {
 	public class DeadState : GoblinState 
 	{
-		private float timer = 0;
-		private float ghostTimeBeforeDeath = 1f;
+		private float timer = 0, animTimer = 0;
+		private float ghostTimeBeforeDeath = 2.8f;
 		private bool hasSetDead = false;
 		
 		public DeadState(Goblin player) 
 		{
 			this.player = player;
 			player.Velocity = Vector2.Zero;
+			player.Invincible = true;
 			player.ReturnNormalGravity();
+			player.PlayAnimation("Death");
 			hasSetDead = false;
 		}
 
 		public override void _Process(float delta)
 		{
-			if (!hasSetDead) {
+			if (!hasSetDead && !Globals.SinglePlayer) {
 				if (player.gm.LivePlayers == 1) {
 					player.RemoveSelf(); // cannot revive
 				} else {
@@ -27,14 +29,14 @@ namespace GoblinStates
 				}	
 				hasSetDead =true;
 			}	
-			timer += delta;
+			animTimer += delta;
 
 			if (!player.AnimPlayer.IsPlaying()) {
 				player.PlayAnimation("Ghost");
-				timer = 0;
+				animTimer = 0;
 			}
 
-			if (Globals.SinglePlayer && timer > ghostTimeBeforeDeath) {
+			if (Globals.SinglePlayer && animTimer > ghostTimeBeforeDeath) {
 				player.GameOver();
 			}
 		}
@@ -57,6 +59,7 @@ namespace GoblinStates
 
 		public override void ExitState(GoblinState newState)
 		{
+			player.Invincible = false;
 			GD.Print($"Starting to Exiting to MoveState for ${player.PlayerName}");			
 			if (player.IsRevived) {
 				player.State = new MoveState(this.player);
