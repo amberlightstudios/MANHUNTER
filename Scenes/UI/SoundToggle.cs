@@ -25,15 +25,17 @@ public class SoundToggle : CanvasLayer
 	public override void _Input(InputEvent input)
 	{
 		if (input.IsActionPressed("Mute")) {
-			isOn = !isOn;
-			AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), !isOn);
+			if (isOn) isOn = false;
+			else isOn = true;
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), isOn);
 		}
 	}
 
  	private void _on_Button_pressed()
 	{
-		isOn = !isOn;
-		AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), !isOn);
+		if (isOn) isOn = false;
+		else isOn = true;
+		AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), isOn);
 	}
 }
 
