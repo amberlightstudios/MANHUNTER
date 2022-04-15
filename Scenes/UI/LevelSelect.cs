@@ -18,7 +18,7 @@ public class LevelSelect : Control
 		toggle = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/Buttons/Level/AnimationPlayer");
 		fader = (AnimationPlayer) GetNode("Fader/AnimationPlayer");
 		levelSelector = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Level/Number");
-		levelSelector.Text = "LEVEL " + (Globals.LevelSelected - 1);
+		levelSelector.Text = "LEVEL " + Globals.LevelSelected;
 
 		FindAllLevels();
 	}
@@ -29,16 +29,16 @@ public class LevelSelect : Control
 		if (inputEvent.IsActionPressed("ui_left")) {
 			((MenuSound) GetNode("../MenuSound")).PlaySound("Select");
 			toggle.Play("GrowLeft");
-			if (Globals.LevelSelected == 1) Globals.LevelSelected = Globals.NumLevels;
+			if (Globals.LevelSelected == 0) Globals.LevelSelected = Globals.NumLevels - 1;
 			else Globals.LevelSelected--;
-			levelSelector.Text = "LEVEL " + (Globals.LevelSelected - 1);
+			levelSelector.Text = "LEVEL " + Globals.LevelSelected;
 		}
 		else if (inputEvent.IsActionPressed("ui_right")) {
 			((MenuSound) GetNode("../MenuSound")).PlaySound("Select");
 			toggle.Play("GrowRight");
-			if (Globals.LevelSelected == Globals.NumLevels) Globals.LevelSelected = 1;
+			if (Globals.LevelSelected == Globals.NumLevels - 1) Globals.LevelSelected = 0;
 			else Globals.LevelSelected++;
-			levelSelector.Text = "LEVEL " + (Globals.LevelSelected - 1);
+			levelSelector.Text = "LEVEL " + Globals.LevelSelected;
 		}
 		else if (inputEvent.IsActionPressed("ui_accept")) {
 			FadeIntoLevel();

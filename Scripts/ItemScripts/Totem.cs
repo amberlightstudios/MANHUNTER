@@ -31,7 +31,11 @@ public class Totem : Area2D
 
 		if (hitPlayerList.Count > 0 && !faded) {
 			animPlayer.Play("Fade");
-			((MenuSound) GetNode("../../MenuSound")).PlaySound("Checkpoint");
+			if (Globals.SinglePlayer) {
+				((MenuSound) GetNode("../../MenuSound")).PlaySound("Checkpoint");
+			} else {
+				((MenuSound) GetNode("../../../MenuSound")).PlaySound("Checkpoint");
+			}	
 			faded = true;
 		}
 	}
