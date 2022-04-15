@@ -113,12 +113,14 @@ public class Goblin : Character
 	private Label NameTagLabel;
 	public ProgressBar ReviveBar;
 	
+	private GoblinSound goblinSound;
 	
 	public override void _Ready()
 	{
 		gm =  GetParent().GetNode<GameManager>("GameManager");
 		PlayerIndex = gm.AddNewPlayer(this);
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		goblinSound = GetNode<GoblinSound>("SoundEffects");
 		walkCollisionBox = GetNode<CollisionShape2D>("WalkCollsionBox");
 		enemyHitBox = GetNode<Area2D>("EnemyHitBox");
 		sprite = GetNode<Sprite>("Sprite");
@@ -517,7 +519,11 @@ public class Goblin : Character
 			walk.Emitting = true;
 		}
 		animPlayer.Play(name);
-		((GoblinSound)GetNode("SoundEffects")).PlaySound(name);
+	}
+
+	public void PlaySound(String name) 
+	{
+		goblinSound.PlaySound(name);        
 	}
 	
 	public void SetName(String name)
