@@ -12,8 +12,8 @@ namespace GoblinStates
 		private float speed;
 		private string[] idleAnimationNames = new string[] { "BasicIdle", "BasicIdle2" };
 		private string[] movingAnimationNames = new string[] { "BasicMoving", "BasicMoving2" };
-        private bool soundPlayed = false;
-        private int count = 0;
+		private bool soundPlayed = false;
+		private int count = 0;
 
 		public AttackState(Goblin player, GoblinState previousState) 
 		{
@@ -78,20 +78,20 @@ namespace GoblinStates
 				int status = player.AttackEnemy();
 				if (status > 0) {
 					haveAttacked = true;
-                    if (!soundPlayed) {
-                        player.PlaySound("AttackHit");
-                        soundPlayed = true;
-                    }
+					if (!soundPlayed) {
+						player.PlaySound("AttackHit");
+						soundPlayed = true;
+					}
 				} else if (status == 0) {
-                    if (!soundPlayed && count > 7) {
-                        player.PlaySound("Attack");
-                        soundPlayed = true; 
-                    }
-                    count++;
-                } else if (status == -1) {
+					if (!soundPlayed && count > 7) {
+						player.PlaySound("Attack");
+						soundPlayed = true; 
+					}
+					count++;
+				} else if (status == -1) {
 					return;
 				} 
-                
+				
 			}
 		}
 
@@ -101,10 +101,10 @@ namespace GoblinStates
 
 			if (timer >= 0.03f && timer <= 0.15f) {
 				int status = player.DeflectBullet();
-                if (status > 0) {
-                    player.PlaySound("Attack");
-                    soundPlayed = true;
-                }
+				if (status > 0) {
+					player.PlaySound("Attack");
+					soundPlayed = true;
+				}
 			}
 
 			if (player.IsRunningIntoLadder()) {

@@ -9,10 +9,10 @@ public class Level : Network
 	
 	public override void _Ready()
 	{
+		AddChild(livesUI);
 		if (Globals.SinglePlayer) {
 			Goblin player = generator.GeneratePlayer("Single Player", this);;
 			AttachCamera(player);
-			AddChild(livesUI);
 		} else {
 			// Skins
 			Texture Kanye = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinK.png") as Texture;
