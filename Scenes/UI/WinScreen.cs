@@ -14,7 +14,7 @@ public class WinScreen : Control
 		MainMenu.Connect("pressed", this, nameof(MainMenu));
 		Next.Connect("pressed", this, nameof(NextLevel));
 		
-		if (Globals.LevelSelected == Globals.NumLevels) {
+		if (Globals.LevelSelected == Globals.NumLevels - 1) {
 			Next.Visible = false;
 		}
 		
