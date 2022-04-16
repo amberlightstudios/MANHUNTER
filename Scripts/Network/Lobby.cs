@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Text;
 using Godot.Collections;
 
 public class Lobby : Network
@@ -12,6 +13,7 @@ public class Lobby : Network
 	private Label ReadyLabel;
 	private string PlayerName;
 	private int PlayerId;
+	private Label IPBox;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -20,7 +22,11 @@ public class Lobby : Network
 		ReadyLabel = (Label) GetNode("Instructions/HBoxContainer/Tip/Label");
 
 		if (Globals.IsHost) {
+			IPBox = (Label) GetNode("IPBox/Label");
 			ReadyLabel.Text = "Start";
+			HTTPRequest httpRequest = GetNode<HTTPRequest>("HTTPRequest");
+			httpRequest.Connect("request_completed", this, "OnRequestCompleted");
+			httpRequest.Request("https://api.ipify.org");
 		} else {
 			ReadyLabel.Text = "Ready";
 		}
@@ -33,6 +39,11 @@ public class Lobby : Network
 	{
 		CheckCanStart();
 		ListenToInput();
+	}
+
+	public void OnRequestCompleted(int result, int response_code, string[] headers, byte[] body)
+	{
+		IPBox.Text += "your public ip: " + System.Text.Encoding.UTF8.GetString(body, 0, body.Length);
 	}
 	
 	public void ListenToInput()

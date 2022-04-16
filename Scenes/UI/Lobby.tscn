@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Network/Lobby.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/Theme.tres" type="Theme" id=2]
 [ext_resource path="res://Sprites/UI/Z-Key.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/UI/Esc-Key.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/Fonts/upheaval.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Sprites/CharacterUI.tres" type="Theme" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "New Anim"
@@ -141,11 +143,27 @@ frame = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Instructions/HBoxContainer/Tip2/MarginContainer/Sprite3"]
 "anims/New Anim" = SubResource( 2 )
 
+[node name="IPBox" type="MarginContainer" parent="."]
+margin_left = 313.0
+margin_top = 148.0
+margin_right = 993.0
+margin_bottom = 208.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="IPBox"]
+margin_top = 13.0
+margin_right = 680.0
+margin_bottom = 46.0
+theme = ExtResource( 6 )
+custom_fonts/font = ExtResource( 5 )
+
 [node name="Players" type="GridContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 100.0
-margin_top = 190.0
+margin_top = 238.0
 margin_right = -60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -155,3 +173,5 @@ columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
