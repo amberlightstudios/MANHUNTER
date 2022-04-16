@@ -17,7 +17,7 @@ public class GoblinSound : AudioStreamPlayer2D
 		StreamAttack = (AudioStream) ResourceLoader.Load("res://Sounds/Swipe.wav");
 		StreamAttackHit = (AudioStream) ResourceLoader.Load("res://Sounds/Melee.wav");
 		StreamJump = (AudioStream) ResourceLoader.Load("res://Sounds/Jump.wav");
-		StreamDeath = (AudioStream) ResourceLoader.Load("resL//Sounds/Death.wav");
+		StreamDeath = (AudioStream) ResourceLoader.Load("res://Sounds/Death.wav");
 	}
 
 	public void PlaySound(string name) 
