@@ -5,12 +5,14 @@ using System.Collections.Generic;
 public class Level : Network
 {
 	private Generator generator = Generator.Instance;
+	Node livesUI = (Node) ((PackedScene) ResourceLoader.Load("res://Scenes/UI/LivesUI.tscn")).Instance();
 	
 	public override void _Ready()
 	{
 		if (Globals.SinglePlayer) {
 			Goblin player = generator.GeneratePlayer("Single Player", this);;
 			AttachCamera(player);
+			AddChild(livesUI);
 		} else {
 			// Skins
 			Texture Kanye = ResourceLoader.Load("res://Sprites/GoblinSkins/GoblinK.png") as Texture;
