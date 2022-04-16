@@ -8,14 +8,15 @@ public class WinScreen : Control
 		Button Restart = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Restart/Restart");
 		Button Next = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/Next/Next");
 		Button MainMenu = (Button) GetNode("MarginContainer/VBoxContainer/Buttons/MainMenu/MainMenu");
-
-		Restart.GrabFocus();
+		Next.GrabFocus();
+		
 		Restart.Connect("pressed", this, nameof(RestartLevel));
 		MainMenu.Connect("pressed", this, nameof(MainMenu));
 		Next.Connect("pressed", this, nameof(NextLevel));
 		
 		if (Globals.LevelSelected == Globals.NumLevels - 1) {
 			Next.Visible = false;
+			Restart.GrabFocus();
 		}
 		
 		((MenuSound) GetNode("../MenuSound")).PlaySound("Win");
