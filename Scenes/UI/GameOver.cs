@@ -11,7 +11,9 @@ public class GameOver : Control
 		Restart.GrabFocus();
 		Restart.Connect("pressed", this, nameof(RestartLevel));
 		MainMenu.Connect("pressed", this, nameof(MainMenu));
-		Quit.Connect("pressed", this, nameof(QuitGame));	
+		Quit.Connect("pressed", this, nameof(QuitGame));
+		
+		((MenuSound) GetNode("../MenuSound")).PlaySound("GameOver");
 	}
 
 	private void RestartLevel()
