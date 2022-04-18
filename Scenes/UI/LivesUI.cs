@@ -40,11 +40,11 @@ public class LivesUI : CanvasLayer
 				ap.Play("dead");
 			}
 		} else {
-			if (player.gm.TeamLives == 2) {
+			if (player.gm.TeamLives + 1 == 2) {
 				ap2.Play("dead");
-			} else if (player.gm.TeamLives == 1) {
+			} else if (player.gm.TeamLives + 1 == 1) {
 				ap1.Play("dead");
-			} else if (player.gm.TeamLives == 0) {
+			} else if (player.gm.TeamLives + 1== 0) {
 				ap.Play("dead");
 			}
 		}
