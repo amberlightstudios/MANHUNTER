@@ -22,7 +22,7 @@ namespace GoblinStates
 		public override void _Process(float delta)
 		{
 			if (!hasSetDead && !Globals.SinglePlayer) {
-				if (player.gm.LivePlayers == 1) {
+				if (player.gm.LivePlayers == 1 || player.DropDead) {
 					player.RemoveSelf(); // cannot revive
 				} else {
 					player.SetIsDeadRevivable(); // can revive
@@ -66,6 +66,7 @@ namespace GoblinStates
 				player.IsDeadRevivable = false;
 				player.IsDead = false;
 				player.IsRevived = false;
+				player.DropDead = false;
 				player.BeingRevived = false;			
 				player.ReviveBar.Value = 0;	
 			}
