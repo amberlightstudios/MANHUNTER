@@ -26,6 +26,7 @@ public class SoundToggle : CanvasLayer
 	{
 		if (input.IsActionPressed("Mute")) {
 			AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), isOn);
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("SFX"), isOn);
 			if (isOn) isOn = false;
 			else isOn = true;
 		}
@@ -34,6 +35,7 @@ public class SoundToggle : CanvasLayer
  	private void _on_Button_pressed()
 	{
 		AudioServer.SetBusMute(AudioServer.GetBusIndex("BGM"), isOn);
+		AudioServer.SetBusMute(AudioServer.GetBusIndex("SFX"), isOn);
 		if (isOn) isOn = false;
 		else isOn = true;
 	}

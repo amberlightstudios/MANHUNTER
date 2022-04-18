@@ -1,8 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Sounds/UI/MenuSound.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/UI/MenuSound.cs" type="Script" id=1]
 [ext_resource path="res://Sounds/UI/Confirm.wav" type="AudioStream" id=2]
 
 [node name="MenuSound" type="AudioStreamPlayer2D"]
 stream = ExtResource( 2 )
+bus = "SFX"
 script = ExtResource( 1 )
