@@ -274,7 +274,8 @@ public class Goblin : Character
 	
 	public void HandleDropDead()
 	{
-		if (!IsDead) RemoveSelf();
+		if (Globals.SinglePlayer) TakeDamage(1);
+		else RemoveSelf();
 	}
 	
 	public void ReviveTeam()
