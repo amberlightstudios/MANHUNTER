@@ -18,6 +18,8 @@ public class RushingEnemy : Enemy
 	private RayCast2D edgeDetectLeft, edgeDetectRight, wallDetect, groundDetect, ladderDetectSide;
 	private Area2D meleeArea;
 	public RushEnemyState State;
+	
+	private EnemySound sound;
 
 	public override void _Ready()
 	{
@@ -33,15 +35,16 @@ public class RushingEnemy : Enemy
 		sprite = GetNode<Sprite>("Sprite");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		State = new NormalState(this);
+		sound = GetNode<EnemySound>("EnemySound");
 	}
 
 	private float attackTimer = 0f;
 	public override void _Process(float delta)
 	{
 		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
-			State._Process(delta);		
+			State._Process(delta);
 		} 
-		SynchronizeState();	
+		SynchronizeState();
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -107,6 +110,10 @@ public class RushingEnemy : Enemy
 
 	public override int Attack() 
 	{
+		if (meleeArea.GetOverlappingAreas().Count > 0) {
+			sound.PlaySound("Smash");
+		} else sound.PlaySound("Slash");
+
 		foreach (Area2D g in meleeArea.GetOverlappingAreas()) {
 			Goblin player = g.GetParent<Goblin>();
 			if (!player.IsAttacking) {

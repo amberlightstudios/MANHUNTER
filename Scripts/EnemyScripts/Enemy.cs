@@ -6,7 +6,7 @@ using Effect;
 public class Enemy : Character
 {
 	protected GameManager gm;
-	public BloodGenerator BloodGenerator;	
+	public BloodGenerator BloodGenerator;
 	protected Vector2 velocity = new Vector2(0, 0.1f);
 	public Vector2 Velocity { get => velocity; set => velocity = value; }
 	public int FaceDirection;
@@ -85,7 +85,7 @@ public class Enemy : Character
 		if (FaceDirection != PuppetFaceDirection) {
 			FaceDirection = PuppetFaceDirection;
 			if (PuppetFaceDirection == -1) TurnLeft();
-			else TurnRight();				
+			else TurnRight();
 		}
 		if (PuppetAnimation != animPlayer.CurrentAnimation && PuppetAnimation != "") {
 			animPlayer.Play(PuppetAnimation);
@@ -106,14 +106,14 @@ public class Enemy : Character
 
 	public virtual void TurnLeft() 
 	{
-		FaceDirection = -1;		
+		FaceDirection = -1;
 		sprite.Position = new Vector2(1, 0);
 		sprite.Scale = new Vector2(-1, 1);
 	}
 
 	public virtual void TurnRight() 
 	{
-		FaceDirection = 1;		
+		FaceDirection = 1;
 		sprite.Position = Vector2.Zero;
 		sprite.Scale = Vector2.One;
 	}

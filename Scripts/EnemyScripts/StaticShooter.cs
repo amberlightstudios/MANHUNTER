@@ -35,6 +35,8 @@ public class StaticShooter : Enemy
 
 	public ShooterState State;
 
+	private EnemySound sound;
+
 	public override void _Ready() 
 	{
 		InitEnemy();
@@ -55,14 +57,16 @@ public class StaticShooter : Enemy
 			bulletSpeed = hardBulletSpeed;
 			shootFrequency = hardShootFrequency;
 		}
+		
+		sound = GetNode<EnemySound>("EnemySound");
 	}
 
 	public override void _Process(float delta)
 	{
 		if (GetTree().NetworkPeer == null || GetTree().IsNetworkServer()) {
-			State._Process(delta);		
+			State._Process(delta);
 		} 
-		SynchronizeState();		
+		SynchronizeState();
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -120,6 +124,7 @@ public class StaticShooter : Enemy
 		bullet.Position = shootPoint.GlobalPosition;
 		bullet.Range = bulletRange;
 		GetParent().AddChild(bullet);
+		sound.PlaySound("Shoot");
 	}
 
 	public void EdgeDetect() 

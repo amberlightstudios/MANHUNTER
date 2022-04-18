@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/EnemyScripts/StaticShooter.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/BloodGenerator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Sounds/EnemySound.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StreamTexture" id=19]
 load_path = "res://.import/HumanShooter1.png-ae58eeedaa56a02ce68dbb66cacb0fce.stex"
@@ -230,3 +231,5 @@ collision_mask = 72
 
 [node name="BloodGenerator" parent="." instance=ExtResource( 2 )]
 scale = Vector2( 0.33, 0.33 )
+
+[node name="EnemySound" parent="." instance=ExtResource( 3 )]

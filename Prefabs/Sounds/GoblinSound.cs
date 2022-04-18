@@ -35,7 +35,6 @@ public class GoblinSound : AudioStreamPlayer2D
 //				break;
 		case "Death":
 			Stream = StreamDeath;
-			GD.Print("asdfsdfs");
 			break;
 		default:
 //				GD.Print(name + " does not have audio associated with it!");
