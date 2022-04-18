@@ -147,8 +147,8 @@ script = ExtResource( 1 )
 Gravity = 2.0
 health = 1
 noticeTime = 0.2
-shootFrequency = 1.5
-bulletSpeed = 11.0
+easyBulletSpeed = 11.0
+hardBulletSpeed = 15.0
 bulletRange = 600.0
 knockBackSpeed = 300.0
 

@@ -9,9 +9,15 @@ public class StaticShooter : Enemy
 	private float noticeTime = 1f;
 	public float NoticeTime { get => noticeTime; }
 	[Export]
-	private float shootFrequency = 2f;  // The enemy shoots every shootFrequency seconds
+	private float easyShootFrequency = 1.5f;
+	[Export]
+	private float hardShootFrequency = 1f;
+	private float shootFrequency = 1.5f;  // The enemy shoots every shootFrequency seconds
 	public float ShootFrequency { get => shootFrequency; }
 	[Export]
+	private float easyBulletSpeed;
+	[Export]
+	float hardBulletSpeed;
 	private float bulletSpeed;
 	[Export]
 	private float bulletRange = 300f;
@@ -42,6 +48,13 @@ public class StaticShooter : Enemy
 		edgeDetectRight = GetNode<RayCast2D>("Detections/EdgeDetectRight");
 		wallDetect = GetNode<RayCast2D>("Sprite/WallDetect");
 		State = new NormalState(this);
+		if (Globals.SinglePlayer) {
+			bulletSpeed = easyBulletSpeed;
+			shootFrequency = easyShootFrequency;
+		} else {
+			bulletSpeed = hardBulletSpeed;
+			shootFrequency = hardShootFrequency;
+		}
 	}
 
 	public override void _Process(float delta)
