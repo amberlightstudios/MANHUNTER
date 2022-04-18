@@ -24,6 +24,7 @@ public class WinScreen : Control
 
 	private void RestartLevel()
 	{
+		((MenuSound) GetNode("../MenuSound")).Stop();
 		GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LevelSelected.ToString()));
 	}
 
@@ -34,6 +35,7 @@ public class WinScreen : Control
 
 	private void NextLevel()
 	{
+		((MenuSound) GetNode("../MenuSound")).Stop();
 		Globals.LevelSelected++;
 		GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LevelSelected.ToString()));
 	}

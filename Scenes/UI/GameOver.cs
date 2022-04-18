@@ -18,6 +18,7 @@ public class GameOver : Control
 
 	private void RestartLevel()
 	{
+		((MenuSound) GetNode("../MenuSound")).Stop();
 		GetTree().ChangeScene(Globals.GetPathToLevel(Globals.LevelSelected.ToString()));
 	}
 
