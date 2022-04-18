@@ -33,6 +33,7 @@ public class Goblin : Character
 	[Puppet] public bool PuppetIsRevived { get; set; }
 	[Puppet] public bool PuppetBeingRevived { get; set; }	
 	[Puppet] public int PuppetReviveBarValue { get; set; }	
+	[Puppet] public bool PuppetInvincible { get; set; }	
 
 	[Export]
 	public float JumpSpeed { get; private set; }
@@ -212,7 +213,7 @@ public class Goblin : Character
 	[Remote]
 	public void UpdateState(Vector2 pos, Vector2 vel, int fd, string anim, 
 							Color color, bool ir, bool br, 
-							int rbv, bool IsDeadRevivable, bool dead)
+							int rbv, bool IsDeadRevivable, bool dead, bool pi)
 	{
 		PuppetPosition = pos;
 		PuppetVelocity = vel;
@@ -224,19 +225,21 @@ public class Goblin : Character
 		PuppetReviveBarValue = rbv;
 		PuppetIsDeadRevivable = IsDeadRevivable;		
 		PuppetIsDead = dead;	
+		PuppetInvincible = pi;
 	}
 	
 	public void BroadcastState() 
 	{
 		RpcUnreliable(nameof(UpdateState), Position, Velocity, FaceDirection, 
 		animPlayer.CurrentAnimation, sprite.Modulate, isRevived, 
-		BeingRevived, ReviveBar.Value, IsDeadRevivable, IsDead);
+		BeingRevived, ReviveBar.Value, IsDeadRevivable, IsDead, Invincible);
 	}
 	
 	public void ReceiveState() 
 	{
 		Position = PuppetPosition;
 		Velocity = PuppetVelocity;
+		Invincible = PuppetInvincible;		
 		if (sprite.Modulate != PuppetColor)
 			SetColor(PuppetColor);
 		if (FaceDirection == -1 && PuppetFaceDirection == 1) {
