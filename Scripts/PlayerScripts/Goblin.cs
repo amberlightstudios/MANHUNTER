@@ -22,6 +22,7 @@ public class Goblin : Character
 	public bool IsDead = false; // cannot revive
 	public bool IsTeamResetting = false;
 	bool deathPlaying = false;
+	public bool DropDead = false;
 
 	[Puppet] public Vector2 PuppetPosition { get; set; }
 	[Puppet] public Vector2 PuppetVelocity { get; set; }
@@ -277,6 +278,7 @@ public class Goblin : Character
 	
 	public void HandleDropDead()
 	{
+		DropDead = true;
 		if (Globals.SinglePlayer) TakeDamage(1);
 		else RemoveSelf();
 	}

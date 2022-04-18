@@ -20,6 +20,13 @@ namespace GoblinStates
 		public override void _Process(float delta)
 		{
 			if (player.AnimPlayer.IsPlaying() == false) {
+				if (player.DropDead) {
+					player.DropDead = false;
+					player.Position = player.SpawnPos;
+					player.Invincible = false;
+					ExitState(new MoveState(player));
+					return;
+				}
 				startGhost = true;
 				player.PlayAnimation("Ghost");
 			}       
