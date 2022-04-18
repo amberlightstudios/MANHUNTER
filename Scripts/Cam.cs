@@ -8,7 +8,7 @@ public class Cam : Camera2D
 	public override void _Process(float delta)
 	{
 		if (Player != null) {
-			Position = Player.Position;
+			Position = new Vector2(Player.Position.x + 300, Player.Position.y);
 		}
 	}
 }
