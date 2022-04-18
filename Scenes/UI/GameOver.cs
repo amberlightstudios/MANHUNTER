@@ -14,6 +14,10 @@ public class GameOver : Control
 		Quit.Connect("pressed", this, nameof(QuitGame));
 		
 		((MenuSound) GetNode("../MenuSound")).PlaySound("GameOver");
+		
+		Label msg = (Label) GetNode("MarginContainer/VBoxContainer/MarginContainer/Label");
+		if (Globals.SinglePlayer) msg.Text = "u died bro. try again?";
+		else  msg.Text = "u all died bro. better luck next time?";
 	}
 
 	private void RestartLevel()
