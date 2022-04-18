@@ -46,22 +46,16 @@ position = Vector2( 1245, 640 )
 [node name="Shooter" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 1408, 535 )
 noticeTime = 0.4
-shootFrequency = 1.0
-bulletSpeed = 14.0
 
 [node name="Shooter3" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 1370, 535 )
 noticeTime = 0.1
-shootFrequency = 1.0
-bulletSpeed = 14.0
 
 [node name="Shooter2" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 1489, 144 )
-bulletSpeed = 14.0
 
 [node name="Shooter7" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 1400, 144 )
-bulletSpeed = 14.0
 
 [node name="Rusher3" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 1091, 249 )
@@ -71,13 +65,9 @@ position = Vector2( 879, 540 )
 
 [node name="Shooter4" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 2438, 343 )
-shootFrequency = 1.2
-bulletSpeed = 14.0
 
 [node name="Shooter5" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 2256, 343 )
-shootFrequency = 1.2
-bulletSpeed = 14.0
 
 [node name="Rusher7" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 1882, 352 )
@@ -90,8 +80,6 @@ position = Vector2( 1797, 348 )
 
 [node name="Shooter6" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 2555, 348 )
-shootFrequency = 1.2
-bulletSpeed = 14.0
 
 [node name="Rusher10" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 3123, 293 )
