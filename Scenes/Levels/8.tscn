@@ -23,6 +23,7 @@ scale = Vector2( 3, 3 )
 z_index = -10
 
 [node name="Ladders" parent="." instance=ExtResource( 2 )]
+tile_data = PoolIntArray( 393236, 2, 0, 458772, 2, 65536, 524308, 2, 65536, 589844, 2, 65536, 655380, 2, 131072 )
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
 

@@ -5,6 +5,7 @@ public class Totem : Area2D
 {
 	GameManager gm;
 	AnimationPlayer animPlayer;
+	AudioStreamPlayer2D soundEffect;
 	Sprite coin;
 	float time = 0f;
 	bool faded = false;
@@ -15,6 +16,7 @@ public class Totem : Area2D
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		animPlayer.Play("Coin");
 		coin = GetNode<Sprite>("Coin");
+		soundEffect = GetNode<AudioStreamPlayer2D>("SoundEffect");
 	}
 
 	public override void _PhysicsProcess(float delta) 
@@ -31,11 +33,7 @@ public class Totem : Area2D
 
 		if (hitPlayerList.Count > 0 && !faded) {
 			animPlayer.Play("Fade");
-			if (Globals.SinglePlayer) {
-				((MenuSound) GetNode("../../MenuSound")).PlaySound("Checkpoint");
-			} else {
-				((MenuSound) GetNode("../../../MenuSound")).PlaySound("Checkpoint");
-			}	
+			soundEffect.Play();	
 			faded = true;
 		}
 	}
