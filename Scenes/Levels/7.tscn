@@ -82,9 +82,6 @@ position = Vector2( 7922, 203 )
 [node name="Rusher18" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 7980, 199 )
 
-[node name="Rusher19" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 7858, 206 )
-
 [node name="Rusher10" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 6349, 586 )
 
@@ -159,6 +156,9 @@ position = Vector2( 6878, 567 )
 
 [node name="StaticShooter22" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 7005, 570 )
+
+[node name="StaticShooter31" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 7922, 199 )
 
 [node name="StaticShooter23" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 6093, 572 )

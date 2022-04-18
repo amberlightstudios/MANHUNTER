@@ -62,25 +62,25 @@ namespace GoblinStates {
 			}
 
 			if ((player.OnLadder() && Input.IsActionPressed("move_up")) 
-			|| (player.OnGround() && Input.IsActionPressed("move_down"))) {
+			|| (player.OnLadder() && Input.IsActionPressed("move_down"))) {
 				ExitState(new LadderClimbState(player));
 				return;
 			}
 			
 			if (!Globals.SinglePlayer && Input.IsActionJustPressed("Revive")) {
 				Goblin target = player.FindReviveTarget();
-				GD.Print("Revive pressed");				
+				GD.Print("Revive pressed");
 				if (target != null) {
-					GD.Print($"Revive pressed and found {target.PlayerName}");								
+					GD.Print($"Revive pressed and found {target.PlayerName}");
 					ExitState(new ReviveState(player, target));
 					return;
 				}
 			}
 
-			if (Input.IsActionJustPressed("Dash")) {
-				ExitState(new DashState(player));
-				return;
-			}
+			// if (Input.IsActionJustPressed("Dash")) {
+			// 	ExitState(new DashState(player));
+			// 	return;
+			// }
 		}
 
 		public override void _PhysicsProcess(float delta)

@@ -9,12 +9,10 @@ namespace GoblinStates
 			this.player = player;
 			player.SetZeroGravity();
 			player.SetLadderCollision(false);
-			// player.PlayAnimation("Ladder");
 		}
 
 		public override void _Process(float delta)
 		{   
-			// player.PlayAnimation("Ladder");
 			if (Input.IsActionPressed("move_up")) {
 				player.Velocity = new Vector2(0, -player.LadderClimbSpeed);
 				player.PlayAnimation("Walk");
