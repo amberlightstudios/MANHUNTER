@@ -12,11 +12,11 @@ public class GameManager : Node2D
 	private int newPlayerIndex = 0;
 
 	[Export]
-	public int TeamLives = 3;
+	public int TeamLives = 2;
 	public Vector2 TeamSpawnLoc;
 	
-	[Puppet] public Vector2 PuppetTeamSpawnLoc { get; set; }	
-	[Puppet] public int PuppetTeamLives = 3;
+	[Puppet] public Vector2 PuppetTeamSpawnLoc { get; set; }
+	[Puppet] public int PuppetTeamLives = 2;
 	
 	public Goblin Player { get; private set; }
 	public int NumEnemies = 0;
