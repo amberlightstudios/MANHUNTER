@@ -307,11 +307,11 @@ public class Goblin : Character
 		IsDead = true;		
 		Visible = false;
 		Position = new Vector2(0, 0);
-		FreeCamera();				
-		if (gm.LivePlayers > 0) AttachCamera();	
 		GD.Print($"Removing Self {PlayerName} in {State.GetType().Name}");		
 		gm.RemovePlayer(PlayerIndex);				
 		gm.RemoveLivePlayer(PlayerIndex);
+		FreeCamera();				
+		if (gm.LivePlayers > 0) AttachCamera();	
 	}
 
 	public void Respawn()
