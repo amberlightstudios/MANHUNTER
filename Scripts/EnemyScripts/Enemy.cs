@@ -101,7 +101,7 @@ public class Enemy : Character
 		if (PuppetGenerateBlood > GenerateBlood) {
 			BloodGenerator.GenerateBlood(PuppetGenerateBlood);
 		}
-		PuppetGenerateBlood = GenerateBlood;
+		GenerateBlood = PuppetGenerateBlood;
 	}
 
 	public virtual void TurnLeft() 
