@@ -96,26 +96,26 @@ tile_data = PoolIntArray( 196720, 1, 0, 196721, 1, 1, 196722, 1, 2, 196723, 1, 2
 [node name="Trees" type="Node" parent="."]
 
 [node name="Tree1" parent="Trees" instance=ExtResource( 15 )]
-position = Vector2( 1113.26, 384.749 )
+position = Vector2( 1749.76, 433.856 )
 
 [node name="Tree2" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 1927.34, 528.668 )
+position = Vector2( 1815.87, 433.421 )
 
 [node name="Tree3" parent="Trees" instance=ExtResource( 17 )]
-position = Vector2( 1900.59, 529.195 )
+position = Vector2( 1781.88, 433.948 )
 
 [node name="Tree9" parent="Trees" instance=ExtResource( 17 )]
 visible = false
 position = Vector2( 3584.46, 430.912 )
 
 [node name="Tree4" parent="Trees" instance=ExtResource( 18 )]
-position = Vector2( 2699.18, 528.299 )
+position = Vector2( 3618.57, 429.299 )
 
 [node name="Tree5" parent="Trees" instance=ExtResource( 18 )]
-position = Vector2( 3383.52, 480.321 )
+position = Vector2( 3653.99, 428.673 )
 
 [node name="Tree6" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 3414.44, 481.893 )
+position = Vector2( 3677.78, 433.303 )
 
 [node name="Tree8" parent="Trees" instance=ExtResource( 16 )]
 visible = false
@@ -123,7 +123,7 @@ position = Vector2( 3612.22, 417.064 )
 scale = Vector2( 1, 1.2 )
 
 [node name="Tree7" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 3949.2, 528.982 )
+position = Vector2( 4584, 96.8407 )
 scale = Vector2( -1, 1 )
 
 [node name="Tree10" parent="Trees" instance=ExtResource( 15 )]
@@ -151,22 +151,22 @@ position = Vector2( 4734.42, 95.8147 )
 position = Vector2( 4531.89, 143.915 )
 
 [node name="Tree15" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 7117.11, 286.361 )
+position = Vector2( 5530.86, 6.15763 )
 
 [node name="Tree16" parent="Trees" instance=ExtResource( 16 )]
 position = Vector2( 7712.82, 75.1255 )
 scale = Vector2( 1, 1.2 )
 
 [node name="Tree17" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 7539.48, 30.3006 )
+position = Vector2( 7555.95, 34.4178 )
 rotation = -0.101229
 scale = Vector2( -1, 1.2 )
 
 [node name="Tree18" parent="Trees" instance=ExtResource( 15 )]
-position = Vector2( 7409.44, 239.499 )
+position = Vector2( 7691.4, 97.2387 )
 
 [node name="Tree19" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 6609.11, 194.882 )
+position = Vector2( 6596.64, 196.664 )
 
 [node name="Tree20" parent="Trees" instance=ExtResource( 16 )]
 position = Vector2( 6675.77, 173.49 )
@@ -174,25 +174,21 @@ rotation = 0.174533
 scale = Vector2( 1, 1.2 )
 
 [node name="Tree21" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 7255.06, 243.643 )
+position = Vector2( 5541.6, 21.9923 )
 scale = Vector2( -1, 1 )
 
 [node name="Tree22" parent="Trees" instance=ExtResource( 15 )]
-position = Vector2( 6549.14, 189.293 )
+position = Vector2( 6569.6, 195.802 )
 
 [node name="Enemies" type="Node" parent="."]
 
 [node name="StaticShooter" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 7043, 348 )
 noticeTime = 10000.0
-shootFrequency = 10000.0
-bulletSpeed = 5.0
 
 [node name="StaticShooter2" parent="Enemies" instance=ExtResource( 8 )]
 position = Vector2( 6889, 346 )
 noticeTime = 10000.0
-shootFrequency = 10000.0
-bulletSpeed = 5.0
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="."]
 margin_left = 2744.0
