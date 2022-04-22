@@ -15,8 +15,10 @@ public class WinScreen : Control
 		Next.Connect("pressed", this, nameof(NextLevel));
 		
 		if (Globals.CurrentLevelMulti) {
-			Next.Visible = false;
-			Restart.Visible = false;
+			MarginContainer n = (MarginContainer) Next.GetParent();
+			MarginContainer r = (MarginContainer) Restart.GetParent();
+			n.Visible = false;
+			r.Visible = false;
 			MainMenu.GrabFocus();
 		}
 		
