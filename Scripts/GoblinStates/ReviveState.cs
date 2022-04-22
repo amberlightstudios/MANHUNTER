@@ -30,7 +30,7 @@ namespace GoblinStates
 
 		public override void _PhysicsProcess(float delta)
 		{
-			timer += delta;
+			timer += delta * 1.3f;
 			if (timer > player.ReviveTime) {
 				target.IsRevived = true;
 				ExitState(new MoveState(player));
