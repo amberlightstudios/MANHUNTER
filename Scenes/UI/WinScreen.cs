@@ -14,9 +14,10 @@ public class WinScreen : Control
 		MainMenu.Connect("pressed", this, nameof(MainMenu));
 		Next.Connect("pressed", this, nameof(NextLevel));
 		
-		if (Globals.LevelSelected == Globals.NumLevels - 1) {
+		if (Globals.CurrentLevelMulti) {
 			Next.Visible = false;
-			Restart.GrabFocus();
+			Restart.Visible = false;
+			MainMenu.GrabFocus();
 		}
 		
 		((MenuSound) GetNode("../MenuSound")).PlaySound("Win");
