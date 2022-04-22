@@ -60,7 +60,6 @@ size_flags_vertical = 3
 margin_top = 161.0
 margin_right = 1280.0
 margin_bottom = 194.0
-text = "u died bro. try again?"
 align = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]

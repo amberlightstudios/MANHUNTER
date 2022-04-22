@@ -62,6 +62,7 @@ public class Menu : Control
 		}
 
 		Globals.SinglePlayer = true;
+		Globals.CurrentLevelMulti = false;
 		GetTree().ChangeScene("res://Scenes/UI/LevelSelect.tscn");
 	}
 
@@ -78,6 +79,7 @@ public class Menu : Control
 	public void HostGame() {
 		Globals.SinglePlayer = false;
 		Globals.IsHost = true;
+		Globals.CurrentLevelMulti = true;
 		if (Globals.PlayerName == "Host" || Globals.PlayerName == "") {
 			GetTree().ChangeScene("res://Scenes/UI/CreateUser.tscn");
 		} else {
@@ -88,6 +90,7 @@ public class Menu : Control
 	public void JoinGame() {
 		Globals.SinglePlayer = false;
 		Globals.IsHost = false;
+		Globals.CurrentLevelMulti = true;
 		GetTree().ChangeScene("res://Scenes/UI/JoinGame.tscn");
 	}
 
