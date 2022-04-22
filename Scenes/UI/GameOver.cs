@@ -16,7 +16,7 @@ public class GameOver : Control
 		((MenuSound) GetNode("../MenuSound")).PlaySound("GameOver");
 		
 		Label msg = (Label) GetNode("MarginContainer/VBoxContainer/MarginContainer/Label");
-		if (Globals.SinglePlayer) msg.Text = "u died bro. try again?";
+		if (!Globals.CurrentLevelMulti) msg.Text = "u died bro. try again?";
 		else  msg.Text = "u all died bro. better luck next time?";
 	}
 
