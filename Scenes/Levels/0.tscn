@@ -130,28 +130,11 @@ scale = Vector2( -1, 1 )
 visible = false
 position = Vector2( 3526.78, 433.137 )
 
-[node name="Tree11" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 5494.42, 3.18398 )
-
-[node name="Tree12" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 5714.25, -19.6815 )
-scale = Vector2( 1, 1.2 )
-
-[node name="Tree13" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 5679.13, 1.18698 )
-scale = Vector2( -1, 1 )
-
-[node name="Tree14" parent="Trees" instance=ExtResource( 15 )]
-position = Vector2( 5431.05, 1.06829 )
-
 [node name="Tree23" parent="Trees" instance=ExtResource( 16 )]
 position = Vector2( 4734.42, 95.8147 )
 
 [node name="Tree24" parent="Trees" instance=ExtResource( 15 )]
 position = Vector2( 4531.89, 143.915 )
-
-[node name="Tree15" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 5530.86, 6.15763 )
 
 [node name="Tree16" parent="Trees" instance=ExtResource( 16 )]
 position = Vector2( 7712.82, 75.1255 )
@@ -172,10 +155,6 @@ position = Vector2( 6596.64, 196.664 )
 position = Vector2( 6675.77, 173.49 )
 rotation = 0.174533
 scale = Vector2( 1, 1.2 )
-
-[node name="Tree21" parent="Trees" instance=ExtResource( 16 )]
-position = Vector2( 5541.6, 21.9923 )
-scale = Vector2( -1, 1 )
 
 [node name="Tree22" parent="Trees" instance=ExtResource( 15 )]
 position = Vector2( 6569.6, 195.802 )
