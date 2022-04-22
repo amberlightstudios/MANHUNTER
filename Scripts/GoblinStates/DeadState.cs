@@ -36,7 +36,7 @@ namespace GoblinStates
 			if (Globals.SinglePlayer && animTimer > ghostTimeBeforeDeath) {
 				player.GameOver();
 			} else if (animTimer > ghostTimeBeforeDeath) {
-				if (player.gm.LivePlayers == 0 || player.DropDead) {
+				if (player.gm.LivePlayers == 1 || player.DropDead) {
 					player.RemoveSelf(); // cannot revive
 				}
 			}
