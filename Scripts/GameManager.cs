@@ -164,13 +164,13 @@ public class GameManager : Node2D
 	async public void GameOver()
 	{
 		GD.Print("Game Over called in GM");
-		int wait = 1;
-		Timer t = new Timer();
-		t.SetWaitTime(3);
-		t.SetOneShot(true);
-		AddChild(t);
-		t.Start();
-		await ToSignal(t, "timeout");
+//		int wait = 1;
+//		Timer t = new Timer();
+//		t.SetWaitTime(3);
+//		t.SetOneShot(true);
+//		AddChild(t);
+//		t.Start();
+//		await ToSignal(t, "timeout");
 		Network network = GetNode<Network>("/root/Network");	
 		network.LeaveGame();
 	}
