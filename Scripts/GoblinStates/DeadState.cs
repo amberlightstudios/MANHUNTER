@@ -7,6 +7,7 @@ namespace GoblinStates
 	{
 		private float timer = 0, animTimer = 0;
 		private float ghostTimeBeforeDeath = 2.8f;
+		private float ghostTimeBeforeTeamReset = 1.5f;
 		private bool hasSetDead = false;
 		
 		public DeadState(Goblin player) 
@@ -36,9 +37,19 @@ namespace GoblinStates
 			if (Globals.SinglePlayer && animTimer > ghostTimeBeforeDeath) {
 				player.GameOver();
 			} else if (animTimer > ghostTimeBeforeDeath) {
+				
+			}
+			
+			if (animTimer > ghostTimeBeforeTeamReset) {
+				// Goblin is the last one to die
 				if (player.gm.LivePlayers == 1 || player.DropDead) {
-					player.RemoveSelf(); // cannot revive
+					if (!player.IsDeadRevivable) player.RemoveSelf();
 				}
+			}
+			
+			// Another last goblin died
+			if (player.gm.LivePlayers == 0) {
+				player.RemoveSelf(); // Trigger Team reset or gameover
 			}
 		}
 
