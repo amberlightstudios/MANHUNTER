@@ -17,7 +17,7 @@ config/icon="res://Sprites/icon.png"
 [autoload]
 
 Pause="*res://Scenes/UI/Pause.tscn"
-MenuSound="*res://Scenes/UI/MenuSound.tscn"
+MenuSound="*res://Prefabs/Sounds/MenuSound.tscn"
 SoundToggle="*res://Scenes/UI/SoundToggle.tscn"
 
 [display]

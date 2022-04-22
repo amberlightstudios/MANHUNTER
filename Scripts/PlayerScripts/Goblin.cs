@@ -163,11 +163,13 @@ public class Goblin : Character
 
 		State = new MoveState(this);
 		if (!Globals.SinglePlayer) {
-			NetworkNode = GetNode<Network>("/root/Network");		
+			NetworkNode = GetNode<Network>("/root/Network");
 			Lives = 1;
 		} else {
 			NameTag.Visible = false;
 		}
+		
+		AudioServer.SetBusMute(AudioServer.GetBusIndex("Menu"), true);
 	}
 
 	public override void _Process(float delta)
