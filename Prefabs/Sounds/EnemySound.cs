@@ -27,7 +27,7 @@ public class EnemySound : AudioStreamPlayer2D
 			Stream = Smash;
 			break;
 		case "Shoot":
-//			Stream = Shoot;
+			Stream = Shoot;
 			break;
 		default:
 //				GD.Print(name + " does not have audio associated with it!");

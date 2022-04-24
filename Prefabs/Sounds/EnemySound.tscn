@@ -3,4 +3,6 @@
 [ext_resource path="res://Prefabs/Sounds/EnemySound.cs" type="Script" id=1]
 
 [node name="EnemySound" type="AudioStreamPlayer2D"]
+volume_db = -4.0
+bus = "SFX"
 script = ExtResource( 1 )
