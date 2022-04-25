@@ -314,6 +314,7 @@ public class Goblin : Character
 		IsDead = true;		
 		Visible = false;
 		Position = new Vector2(0, 0);
+		SynchronizeState();
 		GD.Print($"Removing Self {PlayerName} in {State.GetType().Name}");		
 		gm.RemovePlayer(PlayerIndex);				
 		gm.RemoveLivePlayer(PlayerIndex);
