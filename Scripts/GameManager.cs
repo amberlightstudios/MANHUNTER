@@ -146,10 +146,10 @@ public class GameManager : Node2D
 		if (LivePlayerList[index] == null) return;
 		LivePlayers -= 1;
 		LivePlayerList[index] = null;
-		if (LivePlayers == 0) {
+		if (LivePlayers == 0 && GetTree().IsNetworkServer()) {
 			if (TeamLives == 0) 
 				GameOver();
-			else if (GetTree().IsNetworkServer())
+			else
 				TeamReset();
 		}
 	}
@@ -161,17 +161,18 @@ public class GameManager : Node2D
 		LivePlayers += 1;
 	}
 	
-	async public void GameOver()
+	public void GameOver()
 	{
+		if (GetTree().IsNetworkServer())
+			Rpc(nameof(GameoverRemote));
 		GD.Print("Game Over called in GM");
-//		int wait = 1;
-//		Timer t = new Timer();
-//		t.SetWaitTime(3);
-//		t.SetOneShot(true);
-//		AddChild(t);
-//		t.Start();
-//		await ToSignal(t, "timeout");
 		Network network = GetNode<Network>("/root/Network");	
 		network.LeaveGame();
+	}
+	
+	[Remote]
+	public void GameoverRemote()
+	{
+		GameOver();
 	}
 }
