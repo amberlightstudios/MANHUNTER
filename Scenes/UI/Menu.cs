@@ -28,7 +28,10 @@ public class Menu : Control
 		BackButton.Connect("pressed", this, nameof(SPGame));
 		AnimationPlayer blink = (AnimationPlayer) GetNode("MarginContainer/VBoxContainer/MarginContainer/AnimationPlayer");
 		blink.Play("Logo");
-		AudioServer.SetBusMute(AudioServer.GetBusIndex("Menu"), false);
+		
+		SoundToggle toggle = (SoundToggle)GetNode("../SoundToggle");
+		if (toggle.isOn)
+			AudioServer.SetBusMute(AudioServer.GetBusIndex("Menu"), false);
 	}
 	
 	public override void _Process(float delta) {

@@ -22,6 +22,11 @@ public class WinScreen : Control
 			MainMenu.GrabFocus();
 		}
 		
+		if (Globals.LevelSelected == 8) {
+			MarginContainer n = (MarginContainer) Next.GetParent();
+			n.Visible = false;
+		}
+		
 		((MenuSound) GetNode("../MenuSound")).PlaySound("Win");
 	}
 

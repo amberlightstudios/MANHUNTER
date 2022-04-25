@@ -5,7 +5,7 @@ public class SoundToggle : CanvasLayer
 {
 	private bool BGMMuted = false;
 	private AnimationPlayer animPlayer;
-	private bool isOn = true;
+	public bool isOn = true;
 	
 	public override void _Ready()
 	{
